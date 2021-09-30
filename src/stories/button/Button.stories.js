@@ -57,14 +57,11 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { TwButton },
   template: 
-    `
-    <tw-button v-bind="$props" />
-    `,
+    `<tw-button v-bind="$props" />`,
 });
 
 export const Primary = Template.bind({});
 Primary.args = {
-  primary: true,
   rounded: true,
   shadow: true,
   padding: 0,
@@ -74,10 +71,9 @@ Primary.args = {
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  primary: true,
   rounded: true,
   shadow: false,
   padding: 2,
   outlined: true,
-  label: 'Secondary Button',
+  label: 'Secondary Button'
 };
