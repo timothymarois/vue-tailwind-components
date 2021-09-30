@@ -1,0 +1,187 @@
+<template>
+    <div class="relative">
+        <Btn 
+            @click="btnClick" 
+            :iconRight="menuIcon"
+            :loading="loading"
+            :disabled="disabled"
+            :shadow="shadow"
+            :rounded="rounded"
+            :text="text"
+            :outlined="outlined"
+            :size="size"
+            :color="color"
+            :icon="icon"
+            :iconSize="iconSize"
+        ><slot></slot></Btn>
+
+        <ul
+            :class="dropdownClasses"
+            v-show="menu && !loading && !disabled"
+            @click.stop
+        >
+            <li 
+                v-for="(item,index) in items"
+                :key="index"
+                class="p-2 flex items-center rounded m-2 transition duration-150"
+                :class="{
+                    'cursor-pointer text-gray-500 hover:bg-indigo-100 hover:text-indigo-900' : (!item.disabled),
+                    'cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300' : (item.disabled)
+                }"
+                :disabled="item.disabled"
+                @click="!item.disabled && selectItem(item)"
+            >
+                <Icon v-if="item.icon" :icon="item.icon" size="6" class="mr-2" />
+                <span class="font-medium">{{ item.label }}</span>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script>
+import { BaseIcon, Btn, Icon } from "@/components/Elements";
+export default { 
+    name: 'Dropdown',
+    components: {
+        BaseIcon,
+        Btn,
+        Icon
+    },
+    props: {
+        items: {
+            type: [Array, Object],
+            default: null
+        },
+        value: {
+            type: [String, Number],
+            default: null
+        },
+        displayValue: {
+            type: Boolean,
+            default: false
+        },
+        closeOnClick: {
+            type: Boolean,
+            default: true
+        },
+        rounded: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        shadow: {
+            type: Boolean,
+            default: false
+        },
+        text: {
+            type: Boolean,
+            default: false
+        },
+        outlined: {
+            type: Boolean,
+            default: false
+        },
+        size: {
+            type: String,
+            default: 'md'
+        },
+        iconSize: {
+            type: [Number, String],
+            default: null
+        },
+        color: {
+            type: String,
+            default: 'indigo'
+        },
+        icon: {
+            type: [Boolean, String],
+            default: false
+        },
+        direction: {
+            type: String,
+            default: 'bottom'
+        },
+    },
+    computed: {
+        iconOnly() {
+            if ((typeof this.icon==='string' && !this.$slots.default) || this.icon===true) {
+                return true;
+            }
+            return false;
+        },
+        menuIcon() {
+            if (!this.iconOnly) {
+                if (this.menu) return 'chevron-up'
+                return 'chevron-down'
+            }
+            return null;
+        },
+        dropdownClasses() {
+            let c = [
+                'z-10',
+                'absolute',
+                'right-0',
+                'rounded',
+                'shadow',
+                'bg-white',
+                'text-sm',
+                'ring-1',
+                'ring-black',
+                'ring-opacity-5',
+                'focus:outline-none',
+                // 'w-36',
+                'w-52',
+                'border border-gray-200'
+            ];
+
+            if (this.direction=='top') {
+                c = c.concat(['bottom-12']);
+            }
+            else {
+                c = c.concat(['top-12']);
+            }
+
+            return c;
+        }
+    },
+    data: () => {
+        return {
+            menu: false,
+            // selected: null
+        }
+    },
+    methods: {
+        getItemByValue(value) {
+            let vm = this;
+            return vm.items.find(a => { return a.value === value; });
+        },
+        btnClick() {
+            this.menu = !this.menu;
+        },
+        selectItem(item) {
+            this.$emit('change',item.value)
+            // this.selected = item;
+            if (this.closeOnClick) this.menu = false;
+        },
+        close(e) {
+            if (!this.$el.contains(e.target)) {
+                this.menu = false
+            }
+        }
+    },
+    mounted() {
+        // if (this.value) this.selected = this.getItemByValue(this.value);
+        document.addEventListener('click', this.close)
+    },
+    beforeDestroy() {
+        document.removeEventListener('click',this.close)
+    }
+};
+</script> 
