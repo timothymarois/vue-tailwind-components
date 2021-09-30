@@ -1,6 +1,6 @@
 <script>
-import BaseLoader from '../base/BaseLoader.vue';
-import BaseIcon from '../base/BaseIcon.vue';
+import BaseLoader from './Base/BaseLoader.vue';
+import BaseIcon from './Base/BaseLoader.vue';
 
 export default {
   name: 'TwButton',

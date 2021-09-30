@@ -1,4 +1,4 @@
-import TwButton from './Button.vue';
+import TwButton from '../components/Elements/Button.vue';
 
 export default {
   title: 'Tailwind/Button',

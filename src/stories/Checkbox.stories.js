@@ -1,4 +1,4 @@
-import TwCheckbox from './Checkbox.vue';
+import TwCheckbox from '../components/Elements/Checkbox.vue';
 
 export default {
   title: 'Tailwind/Checkbox',
