@@ -141,39 +141,49 @@ export default {
 
 				switch(this.size) {
 					case 'xs':
-							sz = 4;
-							break;
+						sz = 4;
+						break;
 					case 'sm':
-							sz = 5;
-							break;
+						sz = 5;
+						break;
 					case 'lg':
-							sz = 6; 
-							break;
+						sz = 6; 
+						break;
 					case 'xl':
-							sz = 6; 
-							break;
+						sz = 6; 
+						break;
 					default:
-							sz = 5;
+						sz = 5;
 				}
 
 				if (this.iconSize) {
-						sz = this.iconSize;
+					sz = this.iconSize;
 				}
 
 				return this.$createElement(BaseIcon, {
 					props: {
-							size: sz,
-							icon: icon
+						size: sz,
+						icon: icon
 					},
 				});
 			}
 			return false;
 		},
 		genBaseLoader() {
+			let color = 'white';
+			if(this.disabled) {
+				color = 'gray-500'
+			} else {
+				if(this.outlined) {
+					color = this.borderColor;
+				} else {
+					color = 'white';
+				}
+			}
 			return this.$createElement(BaseLoader, {
 				props: {
 					size: this.iconSize,
-					color: this.outlined ? this.color : 'white'
+					color: color
 				},
 			});
 		},
