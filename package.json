@@ -1,6 +1,6 @@
 {
-  "name": "vite-project",
-  "version": "0.0.0",
+  "name": "vue-tailwind-components",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -8,6 +8,11 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "repository": {
+    "typ": "git",
+    "url": "https://github.com/timothymarois/vue-tailwind-components.git"
+  },
+  "homepage": "https://github.com/timothymarois/vue-tailwind-components",
   "dependencies": {
     "vue": "^2.6.14"
   },
