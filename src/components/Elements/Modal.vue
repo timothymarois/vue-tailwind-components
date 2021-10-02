@@ -1,11 +1,11 @@
 <template>
-	<div v-show="open" :class="containerClasses">
+	<div v-show="value" :class="containerClasses">
 		<div class="relative px-4 py-4 min-h-full flex items-center justify-center">
 			<div :class="containerInnerClasses">
 				<div :class="containerContentClasses" :style="(type=='center') ? 'min-width:400px' : ''">
 					
 					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-4">
-						<Btn icon="close" text @click="close" />
+						<Btn icon="close" text @click="$emit('input',false)" />
 					</div>
 
 					<div class="relative lg:h-full lg:overflow-y-auto maxHeight">
@@ -17,9 +17,9 @@
 		</div>
 
 		<BaseOverlay 
-			:show="open" 
+			:show="value" 
 			:allowOverlayClose="allowOverlayClose"
-			@click="close"
+			@click="$emit('input',false)"
 		/>
 
 	</div>
@@ -40,7 +40,7 @@ export default {
 		BaseOverlay
 	},
 	props: {
-		show: {
+		value: {
 			type: Boolean,
 			default: false
 		},
@@ -55,13 +55,6 @@ export default {
 		allowOverlayClose: {
 			type: Boolean,
 			default: true
-		}
-	},
-	watch: {
-		show: {
-			handler: function (value) { 
-				this.open = value;
-			}
 		}
 	},
 	computed: {
@@ -143,20 +136,6 @@ export default {
 
 			return c;
 		}
-	},
-	data: () => {
-		return {
-			open : false
-		}
-	},
-	methods: {
-		close() {
-			this.open = false;
-			this.$emit('close',true)
-		}
-	},
-	created() {
-		this.open = this.show;
 	}
 };
 </script> 

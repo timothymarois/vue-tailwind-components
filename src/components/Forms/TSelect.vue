@@ -83,10 +83,8 @@
 
 <script>
 import { BaseLabel, Icon } from "@/components/Elements";
-// import vSelect from "vue-select";
-// import "vue-select/dist/vue-select.css";
 export default { 
-    name: 'SelectField',
+    name: 'TSelect',
     components: {
         BaseLabel,
         Icon
@@ -200,7 +198,7 @@ export default {
             this.menu = false;
             this.localSearch = item[this.itemLabel];
             this.selected = item;
-            this.$emit('update:value', item[this.itemValue]);
+            this.$emit('input', item[this.itemValue]);
         },
         menuToggle() {
             if (!this.disabled) {
@@ -218,25 +216,6 @@ export default {
         reFocus() {
             this.$refs.dropdownsearch.focus();
         },
-        // handleDropdownPosition() {
-        //     const screenPadding = 16;
-
-        //     const placeholderRect = this.placeholder.getBoundingClientRect();
-        //     const dropdownRect = this.dropdown.getBoundingClientRect();
-
-        //     const dropdownRightX = dropdownRect.x + dropdownRect.width;
-        //     const placeholderRightX = placeholderRect.x + placeholderRect.width;
-
-        //     if (dropdownRect.x < 0) {
-        //         this.dropdown.style.left = '0';
-        //         this.dropdown.style.right = 'auto';
-        //         this.dropdown.style.transform = `translateX(${-placeholderRect.x + screenPadding}px)`;
-        //     } else if (dropdownRightX > window.outerWidth) {
-        //         this.dropdown.style.left = 'auto';
-        //         this.dropdown.style.right = '0';
-        //         this.dropdown.style.transform = `translateX(${(window.outerWidth - placeholderRightX) - screenPadding}px)`;
-        //     }
-        // },
     },
     mounted() {
 

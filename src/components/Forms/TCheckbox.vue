@@ -23,7 +23,7 @@
 
 <script>
 export default { 
-	name: 'Checkbox',
+	name: 'TCheckbox',
 	props: {
 		value: {
 			type: [Boolean, String],
@@ -44,12 +44,12 @@ export default {
 	},
 	methods: {
 		update(e) {
-				this.$emit('update:value', !this.value);
+				this.$emit('input', !this.value);
 		}
 	},
 	computed: {
 		id() {
-			return (Math.random() + 1).toString(36).substring(7);
+			return (Math.random()+1).toString(36).substring(7);
 		}
 	}
 };
