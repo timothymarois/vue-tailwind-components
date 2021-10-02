@@ -172,7 +172,8 @@ export default {
 		genBaseLoader() {
 			return this.$createElement(BaseLoader, {
 				props: {
-					size: this.iconSize
+					size: this.iconSize,
+					color: this.outlined ? this.color : 'white'
 				},
 			});
 		},

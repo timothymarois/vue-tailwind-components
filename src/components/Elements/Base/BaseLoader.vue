@@ -1,20 +1,25 @@
 <template>
-	<svg :class="`loader animate-spin -ml-1 mr-3 h-${size} w-${size} text-white-600`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-		<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-		<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-	</svg>
+	<div :class="`relative inline-flex align-middle justifty-center items-center m-4 p-0 h-${size} w-${size}`" id="loader-wrapper">
+		<svg 
+			xmlns="http://www.w3.org/2000/svg" 
+			viewBox="21.73913043478261 21.73913043478261 43.47826086956522 43.47826086956522" 
+			:class="`w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0 z-10 transition-all duration-200 ease-in-out text-${color}-800`"
+			id="loader-svg"
+		>
+			<circle 
+				fill="transparent" 
+				cx="43.47826086956522" 
+				cy="43.47826086956522" 
+				r="20" 
+				stroke-width="3.4782608695652177" 
+				stroke-dasharray="125.664" 
+				stroke-dashoffset="125.66370614359172px" 
+				class="stroke-current z-10 transition-all duration-500 ease-in-out"
+				id="loader-spinner"
+			/>
+		</svg>
+	</div>
 </template>
-
-<style scoped>
-.loader {
-	position: relative;
-	display: inline-flex;
-	vertical-align: middle;
-	justify-content: center;
-	align-items: center;
-	margin: 0 auto;
-}
-</style>
 
 <script>
 export default { 
@@ -24,7 +29,46 @@ export default {
 			type: Number,
 			required: false,
 			default: 4
+		},
+		color: {
+			type: String,
+			required: false,
+			default: 'indigo'
 		}
 	}
 };
-</script> 
+</script>
+
+<style scoped>
+#loader-spinner {
+	animation: loader-spinner 1.4s ease-in-out infinite;
+	stroke-linecap: round;
+	stroke-dasharray: 80,200;
+	stroke-dashoffset: 0px;
+}
+
+#loader-svg {
+	animation: loader-svg 1.4s linear infinite;
+	transform-origin: center center;
+	transform: rotate(0deg)
+}
+
+@keyframes loader-spinner {
+	0% {
+    stroke-dasharray: 1,200;
+    stroke-dashoffset: 0px;
+	} 50% {
+		stroke-dasharray: 100,200;
+		stroke-dashoffset: -15px;
+	} 100% {
+		stroke-dasharray: 100,200;
+		stroke-dashoffset: -124px;
+	}
+}
+
+@keyframes loader-svg {
+	100% {
+    transform: rotate(1turn);
+	}
+}
+</style>
