@@ -1,5 +1,5 @@
 <template>
-	<div :class="`relative inline-flex align-middle justifty-center items-center m-4 p-0 h-${size} w-${size}`" id="loader-wrapper">
+	<div :class="`relative inline-flex align-middle justifty-center items-center p-0 h-${size} w-${size}`" id="loader-wrapper">
 		<svg 
 			xmlns="http://www.w3.org/2000/svg" 
 			viewBox="21.73913043478261 21.73913043478261 43.47826086956522 43.47826086956522" 
