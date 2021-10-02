@@ -31,7 +31,7 @@
 <script>
 import { BaseLabel, Icon } from "@/components/Elements";
 export default { 
-    name: 'TextField',
+    name: 'TTextField',
     components: {
         BaseLabel,
         Icon
