@@ -40,7 +40,9 @@ export default {
     },
     target: {
       name: 'target',
-      description: 'Set target of `<a>` link'
+      description: 'Set target of `<a>` link',
+      options: ['_blank',null],
+      control: { type: 'select' }
     },
     text: {
       name: 'text',
@@ -62,18 +64,12 @@ const Template = (args, { argTypes }) => ({
 
 export const Primary = Template.bind({});
 Primary.args = {
-  rounded: true,
-  shadow: true,
-  padding: 0,
   label: 'Primary Button',
   size: 'lg'
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  rounded: true,
-  shadow: false,
-  padding: 2,
   outlined: true,
-  label: 'Secondary Button'
+  label: 'Outlined Button'
 };
