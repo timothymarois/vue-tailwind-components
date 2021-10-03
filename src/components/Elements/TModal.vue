@@ -5,7 +5,7 @@
 				<div :class="containerContentClasses" :style="(type=='center') ? 'min-width:400px' : ''">
 					
 					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-4">
-						<Btn icon="close" text @click="$emit('input',false)" />
+						<t-button icon="close" text @click="$emit('input',false)" />
 					</div>
 
 					<div class="relative lg:h-full lg:overflow-y-auto maxHeight">
@@ -16,8 +16,8 @@
 			</div>
 		</div>
 
-		<BaseOverlay 
-			:show="value" 
+		<t-overlay 
+			:value="value" 
 			:allowOverlayClose="allowOverlayClose"
 			@click="$emit('input',false)"
 		/>
@@ -32,12 +32,13 @@
 </style>
 
 <script>
-import { Btn, BaseOverlay } from "@/components/Elements";
+import TButton from "./TButton";
+import TOverlay from "./TOverlay";
 export default { 
 	name: 'Modal',
 	components: {
-		Btn,
-		BaseOverlay
+		TButton,
+		TOverlay
 	},
 	props: {
 		value: {

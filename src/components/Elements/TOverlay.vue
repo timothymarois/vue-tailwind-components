@@ -1,6 +1,6 @@
 <template>
 	<div 
-        v-show="show" 
+        v-show="value" 
         @click="close"
         class="fixed top-0 left-0 lg:left-64 bottom-0 right-0 bg-gray-500 bg-opacity-75 z-30"
         :class="{ 'cursor-pointer' : allowOverlayClose }"
@@ -11,14 +11,14 @@
 export default { 
     name: 'BaseOverlay',
     props: {
-       show: {
+        value: {
            type: Boolean,
            default: false
-       },
-       allowOverlayClose: {
-			type: Boolean,
-			default: true
-		}
+        },
+        allowOverlayClose: {
+            type: Boolean,
+            default: true
+        }
     },
     methods: {
         close() {

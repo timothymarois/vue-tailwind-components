@@ -1,10 +1,9 @@
 <template>
-	<div :class="`relative inline-flex align-middle justifty-center items-center p-0 h-${size} w-${size}`" id="loader-wrapper">
+	<div :class="`_loader-wrapper relative inline-flex align-middle justifty-center items-center p-0 h-${size} w-${size}`">
 		<svg 
 			xmlns="http://www.w3.org/2000/svg" 
 			viewBox="21.73913043478261 21.73913043478261 43.47826086956522 43.47826086956522" 
-			:class="`w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0 z-10 transition-all duration-200 ease-in-out text-${color}-900`"
-			id="loader-svg"
+			:class="`_loader-svg w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0 z-10 transition-all duration-200 ease-in-out text-${color}-900`"
 		>
 			<circle 
 				fill="transparent" 
@@ -14,8 +13,7 @@
 				stroke-width="3.4782608695652177" 
 				stroke-dasharray="125.664" 
 				stroke-dashoffset="125.66370614359172px" 
-				class="stroke-current z-10 transition-opacity transition-transform duration-500 ease-in-out"
-				id="loader-spinner"
+				class="_loader-spinner stroke-current z-10 transition-opacity transition-transform duration-500 ease-in-out"
 			/>
 		</svg>
 	</div>
@@ -27,12 +25,10 @@ export default {
 	props: {
 		size: {
 			type: Number,
-			required: false,
-			default: 4
+			default: 5
 		},
 		color: {
 			type: String,
-			required: false,
 			default: 'indigo'
 		}
 	}
@@ -40,20 +36,20 @@ export default {
 </script>
 
 <style scoped>
-#loader-spinner {
-	animation: loader-spinner 1.4s ease-in-out infinite;
+._loader-spinner {
+	animation: _loader-spinner 1.4s ease-in-out infinite;
 	stroke-linecap: round;
 	stroke-dasharray: 80,200;
 	stroke-dashoffset: 0px;
 }
 
-#loader-svg {
-	animation: loader-svg 1.4s linear infinite;
+._loader-svg {
+	animation: _loader-svg 1.4s linear infinite;
 	transform-origin: center center;
 	transform: rotate(0deg)
 }
 
-@keyframes loader-spinner {
+@keyframes _loader-spinner {
 	0% {
     stroke-dasharray: 1,200;
     stroke-dashoffset: 0px;
@@ -66,9 +62,9 @@ export default {
 	}
 }
 
-@keyframes loader-svg {
+@keyframes _loader-svg {
 	100% {
-    transform: rotate(1turn);
+		transform: rotate(1turn);
 	}
 }
 </style>

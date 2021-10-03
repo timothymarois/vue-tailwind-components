@@ -5,6 +5,8 @@ import TIcon from './Elements/TIcon'
 import TLoader from './Elements/TLoader'
 import TButton from './Elements/TButton'
 import TMenu from './Elements/TMenu'
+import TModal from './Elements/TModal'
+import TOverlay from './Elements/TOverlay'
 
 /**
  * Forms
@@ -29,6 +31,8 @@ export {
     TLoader,
     TButton,
     TMenu,
+    TModal,
+    TOverlay,
 
     TTextField,
     TSelect,

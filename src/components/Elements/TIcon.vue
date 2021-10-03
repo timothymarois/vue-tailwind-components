@@ -1,8 +1,7 @@
 <template>
-    <BaseIcon 
-        :value="value"
-        :size="size"
-    />
+    <div :class="`relative inline-flex align-middle justifty-center items-center p-0 h-${size} w-${size}`">
+        <BaseIcon :value="value" />
+    </div>
 </template>
 
 <script>

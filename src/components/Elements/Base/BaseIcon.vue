@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" :class="'h-'+size+' w-'+size" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <svg xmlns="http://www.w3.org/2000/svg" :class="'w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 
     <path v-if="value=='check'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
 
@@ -71,10 +71,6 @@ export default {
         value: {
             type: String,
             default: 'check'
-        },
-        size: {
-            type: [String, Number],
-            default: 5
         }
     }
 };
