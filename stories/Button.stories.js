@@ -75,6 +75,12 @@ Outlined.args = {
 	label: 'Outlined Button'
 };
 
+export const Text = Template.bind({});
+Text.args = {
+	text: true,
+	label: 'Text Button'
+};
+
 
 export const MultipleStates = () => ({
 	// props: Object.keys(argTypes),
@@ -83,16 +89,60 @@ export const MultipleStates = () => ({
 	`
 		<div>
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-button label="Standard"/>
-				<t-button label="Standard" loading />
-				<t-button label="Standard" disabled />
-				<t-button label="Standard" icon="check" />
+				<t-button label="Button" />
+				<t-button label="Button" loading />
+				<t-button label="Button" icon="check" />
+				<t-button label="Button" icon="check" loading />
+				<t-button label="Button" iconRight="arrow-right" />
+				<t-button label="Button" iconRight="arrow-right" loading />
 			</div>
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-button label="Standard"/>
-				<t-button outlined label="Outlined">
+				<t-button label="Button" disabled/>
+				<t-button label="Button" loading disabled />
+				<t-button label="Button" icon="check" disabled />
+				<t-button label="Button" icon="check" loading disabled />
+				<t-button label="Button" iconRight="arrow-right" disabled />
+				<t-button label="Button" iconRight="arrow-right" loading disabled />
 			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button outlined label="Button" />
+				<t-button outlined label="Button" loading  />
+				<t-button outlined label="Button" icon="check"  />
+				<t-button outlined label="Button" icon="check" loading  />
+				<t-button outlined label="Button" iconRight="arrow-right"  />
+				<t-button outlined label="Button" iconRight="arrow-right" loading  />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button outlined label="Button" disabled/>
+				<t-button outlined label="Button" loading disabled />
+				<t-button outlined label="Button" icon="check" disabled />
+				<t-button outlined label="Button" icon="check" loading disabled />
+				<t-button outlined label="Button" iconRight="arrow-right" disabled />
+				<t-button outlined label="Button" iconRight="arrow-right" loading disabled />
+			</div>
+
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button text label="Button" />
+				<t-button text label="Button" loading  />
+				<t-button text label="Button" icon="check"  />
+				<t-button text label="Button" icon="check" loading  />
+				<t-button text label="Button" iconRight="arrow-right"  />
+				<t-button text label="Button" iconRight="arrow-right" loading  />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button text label="Button" disabled/>
+				<t-button text label="Button" loading disabled />
+				<t-button text label="Button" icon="check" disabled />
+				<t-button text label="Button" icon="check" loading disabled />
+				<t-button text label="Button" iconRight="arrow-right" disabled />
+				<t-button text label="Button" iconRight="arrow-right" loading disabled />
+			</div>
+
 		</div>
 	`,
 });

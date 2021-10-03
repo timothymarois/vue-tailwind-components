@@ -8,132 +8,132 @@ export default {
 		BaseLoader
 	},
   props: {
-    label: {
-      type: String,
-      required: true
-    },
-    loading: {
+	label: {
+	  type: String,
+	  required: true
+	},
+	loading: {
 			type: Boolean,
 			default: false
-    },
-    block: {
+	},
+	block: {
 			type: Boolean,
 			default: false
-    },
-    disabled: {
+	},
+	disabled: {
 			type: Boolean,
 			default: false
-    },
-    rounded: {
+	},
+	rounded: {
 			type: Boolean,
 			default: false
-    },
-    shadow: {
+	},
+	shadow: {
 			type: Boolean,
 			default: false
-    },
-    text: {
+	},
+	text: {
 			type: Boolean,
 			default: false
-    },
-    outlined: {
+	},
+	outlined: {
 			type: Boolean,
 			default: false
-    },
-    padding: {
+	},
+	padding: {
 			type: [Number, String],
 			default: 0
-    },
-    size: {
+	},
+	size: {
 			type: String,
 			default: 'md'
-    },
-    iconSize: {
+	},
+	iconSize: {
 			type: [Number, String],
 			default: 4
-    },
-    color: {
+	},
+	color: {
 			type: String,
 			default: 'indigo'
-    },
-    borderColor: {
+	},
+	borderColor: {
 			type: String,
 			default: 'indigo'
-    },
-    tag: {
+	},
+	tag: {
 			type: String,
 			default: 'button'
-    },
-    target: {
+	},
+	target: {
 			type: String,
 			default: null
-    },
-    to: {
+	},
+	to: {
 			type: String,
 			default: null
-    },
-    href: {
+	},
+	href: {
 			type: String,
 			default: null
-    },
-    icon: {
+	},
+	icon: {
 			type: String,
 			required: false
-    },
-    'icon-right': {
+	},
+	'icon-right': {
 			type: String,
 			default: null
-    }
+	}
   },
   computed: {
-    classes() {
-      let c = [
-        'relative',
-        'whitespace-nowrap',
-        'justify-center',
-        'font-semibold',
-				'flex',
-        'items-center'
-      ];
+	classes() {
+	  let c = [
+		'relative',
+		'whitespace-nowrap',
+		'justify-center',
+		'font-semibold',
+		'flex',
+		'items-center'
+	  ];
 
-      c = this.bIcon(c);
-      c = this.bTheme(c);
-      c = this.bBlock(c);
-      c = this.bSize(c);
-      c = this.bDisabled(c);
-      c = this.bShadow(c);
-      c = this.bLoading(c);
+	  c = this.bIcon(c);
+	  c = this.bTheme(c);
+	  c = this.bBlock(c);
+	  c = this.bSize(c);
+	  c = this.bDisabled(c);
+	  c = this.bShadow(c);
+	  c = this.bLoading(c);
 
-      return c;
-    }
+	  return c;
+	}
   },
   methods: {
-    generateRouteLink() {
-      let tag = '';
+	generateRouteLink() {
+		let tag = '';
 
-      const data = {
-				attrs: {},
-				props: {},
-				[this.to ? 'nativeOn' : 'on']: {
-					...this.$listeners,
-					click: this.click,
-				},
-				ref: 'link'
-      };
+		const data = {
+			attrs: {},
+			props: {},
+			[this.to ? 'nativeOn' : 'on']: {
+				...this.$listeners,
+				click: this.click,
+			},
+			ref: 'link'
+		};
 
-      if (this.to) {
+		if (this.to) {
 				tag = this.$nuxt ? 'nuxt-link' : 'router-link';
 				Object.assign(data.props, {
 					to: this.to
 				});
-      } else {
+		} else {
 				tag = (this.href && 'a') || this.tag || 'div';
 				if (tag === 'a' && this.href) { data.attrs.href = this.href; }
-      }
+		}
 
-      if (this.target) { data.attrs.target = this.target }
+		if (this.target) { data.attrs.target = this.target }
 
-      return { tag, data };
+		return { tag, data };
 		},
 		buildIcon(icon) {
 			if (icon) {
@@ -210,7 +210,7 @@ export default {
 			}, this.label);
 		},
 		genLoader() {
-			if (!this.$slots.icon && !this.$slots['icon-right'] && !this.iconText && !this.iconRight) {
+			if (!this.$slots.icon && !this.$slots['icon-right'] && !this.iconText && !this.iconRight && !this.icon) {
 				return this.$createElement('span', {
 					class: 'btn__loader',
 				}, this.$slots.loader || [
@@ -272,7 +272,11 @@ export default {
 		},
 		bLoading(c) {
 			if (this.loading) {
-				c = c.concat(['btn__loading']);
+
+				if (!this.$slots.icon && !this.$slots['icon-right'] && !this.iconText && !this.iconRight && !this.icon) {
+					c = c.concat(['btn__loading']);
+				}
+				
 				this.$createElement('span', {
 						class: 'btn__loader',
 					}, [this.genBaseLoader()]);
@@ -366,7 +370,7 @@ export default {
 
 <style scoped>
 .btn__loading .btn__content {
-    opacity: 0;
+	opacity: 0;
 }
 
 .btn__loader {
