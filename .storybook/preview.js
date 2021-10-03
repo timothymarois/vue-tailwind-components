@@ -1,4 +1,4 @@
-import '../src/index.css' // Import TailwindCSS
+import '../index.css' // Import TailwindCSS
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
