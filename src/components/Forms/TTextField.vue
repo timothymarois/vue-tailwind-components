@@ -9,7 +9,7 @@
         <div :class="{'mt-1':label}">
             <div class="relative text-gray-500">
                 <div v-if="icon" class="pointer-events-none absolute inset-y-0 left-0 p-2 flex items-center">
-                    <Icon :icon="icon" size="4" />
+                    <t-icon :value="icon" size="4" />
                 </div>
                 <input 
                     :id="id"
@@ -29,12 +29,13 @@
 </template>
 
 <script>
-import { BaseLabel, Icon } from "@/components/Elements";
+import TIcon from "../Elements/TIcon";
+import BaseLabel from "../Elements/Base/BaseLabel";
 export default { 
     name: 'TTextField',
     components: {
         BaseLabel,
-        Icon
+        TIcon
     },
     props: {
         required: {
@@ -80,10 +81,10 @@ export default {
     },
     computed: {
         id() {
-            return this.$helpers.generateRandomString(8).toLowerCase()
+            return (Math.random()+1).toString(36).substring(7);
         },
         fieldClasses() {
-            let c = ['shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-md border-gray-300 rounded-md'];
+            let c = ['shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-md border-gray-300 rounded-md '];
 
             if (this.icon) {
                 c = c.concat(['pl-8']);

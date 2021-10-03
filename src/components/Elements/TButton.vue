@@ -160,7 +160,7 @@ export default {
 				return this.$createElement(BaseIcon, {
 					props: {
 						size: sz,
-						icon: icon
+						value: icon
 					},
 				});
 			}

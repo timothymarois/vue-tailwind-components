@@ -1,19 +1,19 @@
 <template>
     <BaseIcon 
-        :icon="icon"
+        :value="icon"
         :size="size"
     />
 </template>
 
 <script>
-import { BaseIcon } from "./Base/BaseIcon";
+import BaseIcon from "./Base/BaseIcon";
 export default { 
-    name: 'Icon',
+    name: 'TIcon',
     components: {
         BaseIcon
     },
     props: {
-        icon: {
+        value: {
             type: String,
             default: 'check'
         },

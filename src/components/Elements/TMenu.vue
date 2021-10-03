@@ -35,7 +35,7 @@
                 :disabled="item.disabled"
                 @click="!item.disabled && selectItem(item)"
             >
-                <Icon v-if="item.icon" :icon="item.icon" size="6" class="mr-2" />
+                <t-icon v-if="item.icon" :icon ="item.icon" size="6" class="mr-2" />
                 <span class="font-medium">{{ item.label }}</span>
             </li>
         </ul>
@@ -43,13 +43,13 @@
 </template>
 
 <script>
-import Icon from "./Icon";
+import TIcon from "./TIcon";
 import TButton from "./TButton";
 export default { 
     name: 'TMenu',
     components: {
         TButton,
-        Icon
+        TIcon
     },
     props: {
         items: {

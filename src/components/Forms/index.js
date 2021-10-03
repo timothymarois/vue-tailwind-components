@@ -1,6 +1,6 @@
-import TTextField from '@/components/Forms/TTextField'
-import TSelect from '@/components/Forms/TSelect'
-import TCheckbox from '@/components/Forms/TCheckbox'
+import TTextField from './TTextField'
+import TSelect from './TSelect'
+import TCheckbox from './TCheckbox'
 
 export {
     TCheckbox,

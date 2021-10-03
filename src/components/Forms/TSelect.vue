@@ -41,9 +41,9 @@
                     :class="{ 'text-gray-500' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon }"
                 />
 
-                <Icon 
+                <t-icon 
                     v-if="!hideicon" 
-                    :icon="menuIcon" 
+                    :value="menuIcon" 
                     size="5" 
                     class="mr-2" 
                 />
@@ -87,13 +87,13 @@
 </style>
 
 <script>
-import Icon from "../Elements/Icon";
+import TIcon from "../Elements/TIcon";
 import BaseLabel from "../Elements/Base/BaseLabel";
 export default { 
     name: 't-select',
     components: {
         BaseLabel,
-        Icon
+        TIcon
     }, 
     props: {
         required: {
