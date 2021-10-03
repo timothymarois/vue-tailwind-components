@@ -16,6 +16,9 @@
   "dependencies": {
     "vue": "^2.6.14"
   },
+  "files": [
+    "src/"
+  ],
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@storybook/addon-actions": "^6.3.9",
