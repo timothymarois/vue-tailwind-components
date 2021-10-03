@@ -74,3 +74,14 @@ Outlined.args = {
 	outlined: true,
 	label: 'Outlined Button'
 };
+
+
+export const MultipleStates = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TButton },
+	template: 
+	`
+		<t-button>Standard</t-button>
+		<t-button outlined>Outlined</t-button>
+	`,
+});
