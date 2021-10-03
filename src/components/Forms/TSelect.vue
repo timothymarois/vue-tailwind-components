@@ -70,11 +70,6 @@
                 </div>
                 <li v-else-if="!loading && !options.length && searchable && localSearch" class="flex items-center rounded m-4 font-medium">No Results Found</li>
             </ul>
-
-            <!-- <v-select 
-                :value="value" 
-                @input="update($event)"
-            /> -->
         </div>
     </div>
 </template>
@@ -236,26 +231,7 @@ export default {
         },
         reFocus() {
             this.$refs.dropdownsearch.focus();
-        },
-        // handleDropdownPosition() {
-        //     const screenPadding = 16;
-
-        //     const placeholderRect = this.placeholder.getBoundingClientRect();
-        //     const dropdownRect = this.dropdown.getBoundingClientRect();
-
-        //     const dropdownRightX = dropdownRect.x + dropdownRect.width;
-        //     const placeholderRightX = placeholderRect.x + placeholderRect.width;
-
-        //     if (dropdownRect.x < 0) {
-        //         this.dropdown.style.left = '0';
-        //         this.dropdown.style.right = 'auto';
-        //         this.dropdown.style.transform = `translateX(${-placeholderRect.x + screenPadding}px)`;
-        //     } else if (dropdownRightX > window.outerWidth) {
-        //         this.dropdown.style.left = 'auto';
-        //         this.dropdown.style.right = '0';
-        //         this.dropdown.style.transform = `translateX(${(window.outerWidth - placeholderRightX) - screenPadding}px)`;
-        //     }
-        // },
+        }
     },
     mounted() {
 
