@@ -81,7 +81,9 @@ export const MultipleStates = (args, { argTypes }) => ({
 	components: { TButton },
 	template: 
 	`
-		<t-button>Standard</t-button>
-		<t-button outlined>Outlined</t-button>
+		<div>
+			<t-button>Standard</t-button>
+			<t-button outlined>Outlined</t-button>
+		</div>
 	`,
 });
