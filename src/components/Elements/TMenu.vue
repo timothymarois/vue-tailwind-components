@@ -15,9 +15,7 @@
             :color="color"
             :icon="icon"
             :iconSize="iconSize"
-        >
-            <slot></slot>
-        </t-button>
+        ><slot></slot></t-button>
 
         <ul
             :class="dropdownClasses"
@@ -39,6 +37,7 @@
                 <span class="font-medium">{{ item.label }}</span>
             </li>
         </ul>
+        
     </div>
 </template>
 
@@ -98,7 +97,7 @@ export default {
         },
         size: {
             type: String,
-            default: 'md'
+            default: null
         },
         iconSize: {
             type: [Number, String],
@@ -110,7 +109,7 @@ export default {
         },
         icon: {
             type: [Boolean, String],
-            default: false
+            default: null
         },
         direction: {
             type: String,
@@ -148,7 +147,6 @@ export default {
                 'ring-black',
                 'ring-opacity-5',
                 'focus:outline-none',
-                // 'w-36',
                 'w-52',
                 'border border-gray-200'
             ];

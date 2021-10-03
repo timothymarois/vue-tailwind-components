@@ -1,4 +1,5 @@
 import TMenu from '../src/components/Elements/TMenu';
+import TButton from '../src/components/Elements/TButton';
 
 export default {
 	title: 'ELEMENTS/TMenu',
@@ -10,12 +11,6 @@ export default {
 			description: 'Tailwind classname for outline and fill color',
 			control: { type: 'text' }
 		},
-		value: {
-			name: 'value',
-			description: 'Value of checkbox',
-			control: { type: 'boolean'  },
-			defaultValue: false,
-		},
 		label: {
 			name: 'label',
 			description: 'Toggle text-only button'
@@ -25,9 +20,13 @@ export default {
 
 const Template = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TMenu },
+	components: { TMenu, TButton },
 	template: 
-	`<t-menu v-bind="$props" label="Menu" />`,
+	`
+		<div class="max-w-xl">
+			<t-menu v-bind="$props" label="Menu" />
+		</div>
+	`,
 });
 
 export const Standard = Template.bind({});

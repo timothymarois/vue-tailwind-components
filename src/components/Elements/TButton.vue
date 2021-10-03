@@ -47,7 +47,7 @@ export default {
 		},
 		iconSize: {
 			type: [Number, String],
-			default: 4
+			default: null
 		},
 		color: {
 			type: String,
@@ -142,7 +142,7 @@ export default {
 		},
 		buildIcon(icon) {
 			if (icon) {
-				let sz = 5;
+				let sz = 4;
 
 				switch(this.size) {
 					case 'xs':
@@ -158,7 +158,7 @@ export default {
 						sz = 6; 
 						break;
 					default:
-						sz = 5;
+						sz = 4;
 				}
 
 				if (this.iconSize) {

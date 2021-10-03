@@ -34,7 +34,7 @@ export default {
 			description: 'Set size of button',
 			options: ['xs', 'sm', 'md', 'lg', 'xl'],
 			control: { type: 'select' },
-			defaultValue: 'md',
+			defaultValue: null,
 		},
 		padding: {
 			name: 'padding',

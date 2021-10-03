@@ -23,7 +23,7 @@ export const Standard = (argTypes) => ({
 	template: 
 		`
         <div>
-            <t-button @click="value=true">Show Modal</t-button>
+            <t-button @click="value=true" label="Show Modal" />
             <t-modal v-model="value">
                 <div style="height:200px">This is my modal</div>
             </t-modal>
