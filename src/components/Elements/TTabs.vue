@@ -10,9 +10,9 @@
                     'm-1 px-2' : dense
                 }"
                 @click="update(item.id)"
-                v-for="(item, index) of items"
+                v-for="item of items"
                 :key="item.id"
-                :id="item.id"
+                :id="item.id" 
             >
                 <span>{{ item.name }}</span>
             </button>
@@ -27,10 +27,7 @@
 
 <script>
 export default { 
-    name: 'Tabs',
-    components: {
-
-    },
+    name: 'TTabs',
     props: {
         value: {
             type: [String, Number],
@@ -47,7 +44,7 @@ export default {
     },
     methods:{
         update(v) {
-            this.$emit('update:value',v)
+            this.$emit('input',v)
         }
     }
 };
