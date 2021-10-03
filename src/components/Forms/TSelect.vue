@@ -87,8 +87,8 @@
 </style>
 
 <script>
-import { BaseLabel } from "@/components/Elements";
-import Icon from "@/components/Elements/Icon";
+import Icon from "../Elements/Icon";
+import BaseLabel from "../Elements/Base/BaseLabel";
 export default { 
     name: 't-select',
     components: {

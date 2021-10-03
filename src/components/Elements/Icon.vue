@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { BaseIcon } from "@/components/Elements/Base";
+import { BaseIcon } from "./Base/BaseIcon";
 export default { 
     name: 'Icon',
     components: {
