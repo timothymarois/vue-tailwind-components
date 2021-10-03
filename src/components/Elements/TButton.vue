@@ -3,7 +3,7 @@ import BaseLoader from './Base/BaseLoader.vue';
 import BaseIcon from './Base/BaseIcon.vue';
 
 export default {
-  name: 'TwButton',
+  name: 'TButton',
 	components: {
 		BaseLoader
 	},
@@ -276,7 +276,7 @@ export default {
 				if (!this.$slots.icon && !this.$slots['icon-right'] && !this.iconText && !this.iconRight && !this.icon) {
 					c = c.concat(['btn__loading']);
 				}
-				
+
 				this.$createElement('span', {
 						class: 'btn__loader',
 					}, [this.genBaseLoader()]);

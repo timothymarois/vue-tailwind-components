@@ -1,4 +1,4 @@
-import TButton from '../src/components/Elements/Button.vue';
+import TButton from '../src/components/Elements/TButton';
 
 export default {
 	title: 'ELEMENTS/TButton',
