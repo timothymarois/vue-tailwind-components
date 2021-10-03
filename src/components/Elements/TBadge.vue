@@ -1,7 +1,7 @@
 <template>
     <span :class="contentClasses">
         <slot>Badge</slot>
-        <Btn 
+        <TButton 
             v-if="removeable" 
             class="ml-1" 
             text
@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import { Btn } from "@/components/Elements";
+import TButton from "./TButton";
 export default { 
-    name: 'Badge',
+    name: 'TBadge',
     components: {
-        Btn
+        TButton
     },
     props: {
         color: {

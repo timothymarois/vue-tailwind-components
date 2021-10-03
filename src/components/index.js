@@ -8,6 +8,7 @@ import TMenu from './Elements/TMenu'
 import TModal from './Elements/TModal'
 import TOverlay from './Elements/TOverlay'
 import TCard from './Elements/TCard'
+import TBadge from './Elements/TBadge'
 import TTabs from './Elements/TTabs'
 
 /**
@@ -37,6 +38,7 @@ export {
     TOverlay,
     TCard,
     TTabs,
+    TBadge,
 
     TTextField,
     TSelect,

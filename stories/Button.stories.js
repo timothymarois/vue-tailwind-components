@@ -57,12 +57,12 @@ export default {
 	},
 };
 
-const Template = (args, { argTypes }) => ({
-	props: Object.keys(argTypes),
-	components: { TButton },
-	template: 
-		`<t-button v-bind="$props" />`,
-});
+// const Template = (args, { argTypes }) => ({
+// 	props: Object.keys(argTypes),
+// 	components: { TButton },
+// 	template: 
+// 		`<t-button v-bind="$props" />`,
+// });
 
 // export const Standard = Template.bind({});
 // Standard.args = {
