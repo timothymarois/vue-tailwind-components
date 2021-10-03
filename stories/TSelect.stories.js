@@ -27,7 +27,7 @@ const Template = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect },
 	template: 
-		`<t-select v-bind="$props" />`,
+		`<t-select label="Select an option" required v-bind="$props" />`,
 });
 
 export const Standard = Template.bind({});
