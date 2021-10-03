@@ -1,6 +1,6 @@
 <template>
     <BaseIcon 
-        :value="icon"
+        :value="value"
         :size="size"
     />
 </template>

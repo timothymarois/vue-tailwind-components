@@ -36,7 +36,7 @@ Standard.args = {
     label: 'Menu',
 	items: [
         {
-            icon: null,
+            icon: 'arrow-right',
             label: 'Home',
             value: 'home',
             disabled: false
