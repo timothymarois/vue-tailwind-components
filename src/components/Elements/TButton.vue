@@ -6,8 +6,8 @@ export default {
   name: 'TButton',
   props: {
 	label: {
-	  type: String,
-	  required: true
+		type: String,
+		default: null
 	},
 	loading: {
 			type: Boolean,
@@ -204,7 +204,7 @@ export default {
 		genContent() {
 			return this.$createElement('span', {
 					staticClass: 'btn__content',
-			}, this.label);
+			}, (this.$slots.default ? this.$slots.default : this.label));
 		},
 		genLoader() {
 			if (!this.$slots.icon && !this.$slots['icon-right'] && !this.iconText && !this.iconRight && !this.icon) {

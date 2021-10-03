@@ -1,19 +1,23 @@
 <template>
     <div class="relative">
-        <Btn 
+        <t-button 
             @click="btnClick" 
             :iconRight="menuIcon"
             :loading="loading"
             :disabled="disabled"
+            :label="label"
             :shadow="shadow"
             :rounded="rounded"
             :text="text"
             :outlined="outlined"
+            :block="block"
             :size="size"
             :color="color"
             :icon="icon"
             :iconSize="iconSize"
-        ><slot></slot></Btn>
+        >
+            <slot></slot>
+        </t-button>
 
         <ul
             :class="dropdownClasses"
@@ -39,12 +43,12 @@
 </template>
 
 <script>
-import { BaseIcon, Btn, Icon } from "@/components/Elements";
+import Icon from "./Icon";
+import TButton from "./TButton";
 export default { 
-    name: 'Dropdown',
+    name: 'TMenu',
     components: {
-        BaseIcon,
-        Btn,
+        TButton,
         Icon
     },
     props: {
@@ -80,6 +84,10 @@ export default {
             type: Boolean,
             default: false
         },
+        block: {
+            type: Boolean,
+            default: false
+        },
         text: {
             type: Boolean,
             default: false
@@ -107,6 +115,10 @@ export default {
         direction: {
             type: String,
             default: 'bottom'
+        },
+        label: {
+            type: String,
+            default: null
         },
     },
     computed: {
@@ -153,8 +165,7 @@ export default {
     },
     data: () => {
         return {
-            menu: false,
-            // selected: null
+            menu: false
         }
     },
     methods: {
