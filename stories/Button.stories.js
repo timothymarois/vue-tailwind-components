@@ -143,6 +143,24 @@ export const MultipleStates = () => ({
 				<t-button text label="Button" iconRight="arrow-right" loading disabled />
 			</div>
 
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button label="Large" size="xl" />
+				<t-button label="Large" size="xl" loading />
+				<t-button label="Large" size="xl" icon="check" />
+				<t-button label="Large" size="xl" icon="check" loading />
+				<t-button label="Large" size="xl" iconRight="arrow-right" />
+				<t-button label="Large" size="xl" iconRight="arrow-right" loading />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button label="Small" size="xs" />
+				<t-button label="Small" size="xs" loading />
+				<t-button label="Small" size="xs" icon="check" />
+				<t-button label="Small" size="xs" icon="check" loading />
+				<t-button label="Small" size="xs" iconRight="arrow-right" />
+				<t-button label="Small" size="xs" iconRight="arrow-right" loading />
+			</div>
+
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
 				<t-button icon="check" />
