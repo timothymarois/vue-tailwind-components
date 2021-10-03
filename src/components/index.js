@@ -14,6 +14,7 @@ import TTabs from './Elements/TTabs'
 /**
  * Forms
  */
+import TLabel from './Forms/TLabel'
 import TTextField from './Forms/TTextField'
 import TSelect from './Forms/TSelect'
 import TCheckbox from './Forms/TCheckbox'
@@ -40,14 +41,11 @@ export {
     TTabs,
     TBadge,
 
+    TLabel,
     TTextField,
     TSelect,
     TCheckbox,
     
-
-
-
-
     // BaseButton,
     // BaseInput,
     // BaseLabel,

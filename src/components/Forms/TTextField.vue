@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <BaseLabel 
+        <t-label 
             v-if="label"
             :id="id"
             :label="label"
@@ -30,11 +30,11 @@
 
 <script>
 import TIcon from "../Elements/TIcon";
-import BaseLabel from "../Elements/Base/BaseLabel";
+import TLabel from "./TLabel";
 export default { 
     name: 'TTextField',
     components: {
-        BaseLabel,
+        TLabel,
         TIcon
     },
     props: {

@@ -13,17 +13,18 @@
 			</div>
 		</div>
 		<div class="ml-3 text-sm">
-			<label 
-				:for="id" 
-				class="cursor-pointer font-medium text-gray-700"
-			>{{ label }}</label>
+			<t-label :id="id" >{{ label }}</t-label>
 		</div>
 	</div>
 </template>
 
 <script>
+import TLabel from "./TLabel";
 export default { 
 	name: 'TCheckbox',
+	components: {
+		TLabel
+	},
 	props: {
 		value: {
 			type: [Boolean, String],
