@@ -64,22 +64,22 @@ const Template = (args, { argTypes }) => ({
 		`<t-button v-bind="$props" />`,
 });
 
-export const Standard = Template.bind({});
-Standard.args = {
-	label: 'Standard Button'
-};
+// export const Standard = Template.bind({});
+// Standard.args = {
+// 	label: 'Standard Button'
+// };
 
-export const Outlined = Template.bind({});
-Outlined.args = {
-	outlined: true,
-	label: 'Outlined Button'
-};
+// export const Outlined = Template.bind({});
+// Outlined.args = {
+// 	outlined: true,
+// 	label: 'Outlined Button'
+// };
 
-export const Text = Template.bind({});
-Text.args = {
-	text: true,
-	label: 'Text Button'
-};
+// export const Text = Template.bind({});
+// Text.args = {
+// 	text: true,
+// 	label: 'Text Button'
+// };
 
 
 export const MultipleStates = () => ({

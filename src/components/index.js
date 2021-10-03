@@ -7,6 +7,7 @@ import TButton from './Elements/TButton'
 import TMenu from './Elements/TMenu'
 import TModal from './Elements/TModal'
 import TOverlay from './Elements/TOverlay'
+import TCard from './Elements/TCard'
 
 /**
  * Forms
@@ -33,6 +34,7 @@ export {
     TMenu,
     TModal,
     TOverlay,
+    TCard,
 
     TTextField,
     TSelect,
