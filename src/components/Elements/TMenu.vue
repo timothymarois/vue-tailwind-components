@@ -35,7 +35,7 @@
                 :disabled="item.disabled"
                 @click="!item.disabled && selectItem(item)"
             >
-                <t-icon v-if="item.icon" :icon ="item.icon" size="6" class="mr-2" />
+                <t-icon v-if="item.icon" :value="item.icon" size="6" class="mr-2" />
                 <span class="font-medium">{{ item.label }}</span>
             </li>
         </ul>
