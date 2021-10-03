@@ -37,11 +37,16 @@
                     type="text"
                     autocomplete="off"
                     :placeholder="placeholder"
-                    class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto mr-2 focus:outline-none truncate border-0"
-                    :class="{ 'text-gray-500' : disabled, 'text-indigo-800' : !disabled }"
+                    class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto focus:outline-none truncate border-0"
+                    :class="{ 'text-gray-500' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon }"
                 />
 
-                <Icon :icon="menuIcon" size="5" class="mr-2" />
+                <Icon 
+                    v-if="!hideicon" 
+                    :icon="menuIcon" 
+                    size="5" 
+                    class="mr-2" 
+                />
 
             </button>
 
@@ -63,7 +68,7 @@
                         <span class="font-medium m-2">{{ item[itemLabel] }}</span>          
                     </li>
                 </div>
-                <li v-else-if="!loading && !options.length" class="flex items-center rounded m-4 font-medium">No Results Found</li>
+                <li v-else-if="!loading && !options.length && searchable && localSearch" class="flex items-center rounded m-4 font-medium">No Results Found</li>
             </ul>
 
             <!-- <v-select 
@@ -82,13 +87,14 @@
 </style>
 
 <script>
-import { BaseLabel, Icon } from "@/components/Elements";
+import { BaseLabel } from "@/components/Elements";
+import Icon from "@/components/Elements/Icon";
 export default { 
-    name: 'TSelect',
+    name: 't-select',
     components: {
         BaseLabel,
         Icon
-    },
+    }, 
     props: {
         required: {
             type: Boolean,
@@ -123,7 +129,7 @@ export default {
             default: null
         },
         value: {
-            type: String,
+            type: [String, Object],
             default: null
         },
         options: {
@@ -133,6 +139,14 @@ export default {
         direction: {
             type: String,
             default: 'bottom'
+        },
+        hideicon : {
+            type: Boolean,
+            default: false
+        },
+        returnObject : {
+            type: Boolean,
+            default: false
         },
         itemValue: {
             type: String,
@@ -154,20 +168,22 @@ export default {
 		value: {
 			handler: function (value) { 
                 if (value) {
-                    if (!this.external) {
-                        let item = this.getItemByValue(value);
-                        if (item) {
-                            this.selected = item;
-                            this.localSearch = item[this.itemLabel];
-                        }
+                    let item = this.getItemByValue(value);
+                    if (item) {
+                        this.selected = item;
+                        this.localSearch = item[this.itemLabel];
                     }
+                }
+                else {
+                    this.selected=null
+                    this.localSearch=null;
                 }
 			}
 		}
 	},
     computed: {
         id() {
-            return this.$helpers.generateRandomString(8).toLowerCase()
+           return (Math.random()+1).toString(36).substring(7);
         },
         menuIcon() {
             if (this.menu) return 'chevron-up'
@@ -198,7 +214,12 @@ export default {
             this.menu = false;
             this.localSearch = item[this.itemLabel];
             this.selected = item;
-            this.$emit('input', item[this.itemValue]);
+            if (this.returnObject) {
+                this.$emit('input', item);
+            }
+            else {
+                this.$emit('input', item[this.itemValue]);
+            }
         },
         menuToggle() {
             if (!this.disabled) {
@@ -216,6 +237,25 @@ export default {
         reFocus() {
             this.$refs.dropdownsearch.focus();
         },
+        // handleDropdownPosition() {
+        //     const screenPadding = 16;
+
+        //     const placeholderRect = this.placeholder.getBoundingClientRect();
+        //     const dropdownRect = this.dropdown.getBoundingClientRect();
+
+        //     const dropdownRightX = dropdownRect.x + dropdownRect.width;
+        //     const placeholderRightX = placeholderRect.x + placeholderRect.width;
+
+        //     if (dropdownRect.x < 0) {
+        //         this.dropdown.style.left = '0';
+        //         this.dropdown.style.right = 'auto';
+        //         this.dropdown.style.transform = `translateX(${-placeholderRect.x + screenPadding}px)`;
+        //     } else if (dropdownRightX > window.outerWidth) {
+        //         this.dropdown.style.left = 'auto';
+        //         this.dropdown.style.right = '0';
+        //         this.dropdown.style.transform = `translateX(${(window.outerWidth - placeholderRightX) - screenPadding}px)`;
+        //     }
+        // },
     },
     mounted() {
 
