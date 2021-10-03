@@ -76,14 +76,23 @@ Outlined.args = {
 };
 
 
-export const MultipleStates = (args, { argTypes }) => ({
-	props: Object.keys(argTypes),
+export const MultipleStates = () => ({
+	// props: Object.keys(argTypes),
 	components: { TButton },
 	template: 
 	`
 		<div>
-			<t-button>Standard</t-button>
-			<t-button outlined>Outlined</t-button>
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button label="Standard"/>
+				<t-button label="Standard" loading />
+				<t-button label="Standard" disabled />
+				<t-button label="Standard" icon="check" />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button label="Standard"/>
+				<t-button outlined label="Outlined">
+			</div>
 		</div>
 	`,
 });
