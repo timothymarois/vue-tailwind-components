@@ -1,12 +1,9 @@
 <script>
-import BaseLoader from './Base/BaseLoader.vue';
+import TLoader from './TLoader';
 import BaseIcon from './Base/BaseIcon.vue';
 
 export default {
   name: 'TButton',
-	components: {
-		BaseLoader
-	},
   props: {
 	label: {
 	  type: String,
@@ -180,7 +177,7 @@ export default {
 					color = 'white';
 				}
 			}
-			return this.$createElement(BaseLoader, {
+			return this.$createElement(TLoader, {
 				props: {
 					size: this.iconSize,
 					color: color

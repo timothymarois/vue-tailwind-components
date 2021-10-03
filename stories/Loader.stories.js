@@ -1,8 +1,8 @@
-import BaseLoader from '../src/components/Elements/Base/BaseLoader.vue';
+import TLoader from '../src/components/Elements/TLoader';
 
 export default {
-	title: 'ELEMENTS/Loader',
-	component: BaseLoader,
+	title: 'ELEMENTS/TLoader',
+	component: TLoader,
 	argTypes: { 
 		color: {
 			name: 'color',
@@ -20,10 +20,10 @@ export default {
 
 const Template = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { BaseLoader },
+	components: { TLoader },
 	template: 
 		`
-		<base-loader v-bind="$props" />
+		<t-loader v-bind="$props" />
 		`,
 });
 

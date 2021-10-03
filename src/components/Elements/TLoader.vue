@@ -23,7 +23,7 @@
 
 <script>
 export default { 
-	name: 'TwBaseLoader',
+	name: 'TLoader',
 	props: {
 		size: {
 			type: Number,
