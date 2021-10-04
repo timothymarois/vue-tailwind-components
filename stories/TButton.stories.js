@@ -1,7 +1,7 @@
 import TButton from '../src/components/Elements/TButton';
 
 export default {
-	title: 'ELEMENTS/TButton',
+	title: 'Elements/TButton',
 	component: TButton,
 	argTypes: {
 		color: {
@@ -34,7 +34,7 @@ export default {
 			description: 'Set size of button',
 			options: ['xs', 'sm', 'md', 'lg', 'xl'],
 			control: { type: 'select' },
-			defaultValue: null,
+			defaultValue: undefined,
 		},
 		padding: {
 			name: 'padding',
@@ -64,23 +64,16 @@ export default {
 // 		`<t-button v-bind="$props" />`,
 // });
 
-// export const Standard = Template.bind({});
-// Standard.args = {
-// 	label: 'Standard Button'
-// };
 
-// export const Outlined = Template.bind({});
-// Outlined.args = {
-// 	outlined: true,
-// 	label: 'Outlined Button'
-// };
-
-// export const Text = Template.bind({});
-// Text.args = {
-// 	text: true,
-// 	label: 'Text Button'
-// };
-
+export const Primary = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TButton },
+	template:
+		`<t-button v-bind="$props" />`
+});
+Primary.args = {
+	label: 'Primary Button'
+};
 
 export const MultipleStates = () => ({
 	// props: Object.keys(argTypes),
@@ -185,7 +178,6 @@ export const MultipleStates = () => ({
 				<t-button icon="check" text disabled />
 				<t-button icon="check" text loading disabled />
 			</div>
-
 		</div>
 	`,
 });

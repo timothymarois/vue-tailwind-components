@@ -13,12 +13,12 @@
     "url": "https://github.com/timothymarois/vue-tailwind-components.git"
   },
   "homepage": "https://github.com/timothymarois/vue-tailwind-components",
-  "dependencies": {
-    "vue": "^2.6.14"
-  },
   "files": [
     "src/"
   ],
+  "dependencies": {
+    "vue": "^2.6.14"
+  },
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@storybook/addon-actions": "^6.3.9",
@@ -31,7 +31,6 @@
     "autoprefixer": "^10.3.6",
     "babel-loader": "^8.2.2",
     "postcss": "^8.3.8",
-    "sass-loader": "^10.2.0",
     "tailwindcss": "^2.2.16",
     "vite": "^2.6.2",
     "vite-plugin-vue2": "^1.8.2",
