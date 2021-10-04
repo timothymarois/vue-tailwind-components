@@ -131,7 +131,7 @@
 
 <script>
 export default {
-    name: "Pagination",
+    name: "TPagination",
     props: {
         total: Number,
         per_page: Number,
