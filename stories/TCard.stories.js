@@ -45,9 +45,9 @@ export const MultipleStates = () => ({
 	components: { TCard, TButton },
 	template: 
 	`
-		<div>
+		<div class="p-6 bg-gray-100">
 
-            <div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+            <div class="max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
 				<t-card flat>Card (Flat)</t-card>
 			</div>
 
