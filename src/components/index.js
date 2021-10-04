@@ -19,6 +19,7 @@ import TLabel from './Forms/TLabel.vue'
 import TTextField from './Forms/TTextField.vue'
 import TSelect from './Forms/TSelect.vue'
 import TCheckbox from './Forms/TCheckbox.vue'
+import TSwitch from './Forms/TSwitch.vue'
 
 
 // these need updating
@@ -46,6 +47,7 @@ export {
     TTextField,
     TSelect,
     TCheckbox,
+    TSwitch,
     
     // BaseButton,
     // BaseInput,
