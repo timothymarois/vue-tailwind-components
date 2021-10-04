@@ -12,11 +12,11 @@
 				class="sr-only" 
 			/>
 			<div 
-				:class="[`w-${inset ? '14' : '10'} h-${inset ? '8' : '4'} bg-gray-400 rounded-full shadow-inner`, bgChecked]"
+				:class="`w-${inset ? '14' : '10'} h-${inset ? '8' : '4'} bg-${color}-300 rounded-full shadow-inner`"
 				id="background" 
 			/>
 			<div 
-				:class="[`absolute w-6 h-6 bg-white rounded-full shadow ${inset ? 'left-1 top-1' : '-left-1 -top-1'} transition shadow`, dotChecked]"
+				:class="`absolute w-6 h-6 bg-${color}-700 rounded-full shadow ${inset ? 'left-1 top-1' : '-left-1 -top-1'} transition shadow`"
 				id="dot"
 			/>
 		</div>
@@ -64,24 +64,22 @@ export default {
 	computed: {
 		id() {
 			return (Math.random()+1).toString(36).substring(7);
-		},
-		dotChecked() {
-			if(this.checked) {
-				return `bg-${this.color}-600`
-			}
-		},
-		bgChecked() {
-			if(this.checked) {
-				return `bg-${this.color}-300`
-			}
 		}
 	}
 };
 </script> 
 
 <style scoped>
-input:checked ~ #dot {
+#dot {
 	transform: translateX(100%);
 }
 
+input:not(:checked) ~ #dot {
+	@apply bg-white;
+	transform: translateX(0%);
+}
+
+input:not(:checked) ~ #background {
+	@apply bg-gray-400;
+}
 </style>
