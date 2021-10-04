@@ -24,8 +24,8 @@ import TSwitch from './Forms/TSwitch.vue'
 /**
  * Tables
  */
-import TTableSimple from './Tables/TableSimple'
-import TPagination from './Tables/Pagination'
+import TTableSimple from './Tables/TTableSimple.vue'
+import TPagination from './Tables/TPagination.vue'
 
 export {
     TIcon,
