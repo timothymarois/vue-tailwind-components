@@ -1,8 +1,8 @@
-import TCheckbox from '../src/components/Forms/TCheckbox';
+import TSwitch from '../src/components/Forms/TSwitch.vue';
 
 export default {
-	title: 'Forms/TCheckbox',
-	component: TCheckbox,
+	title: 'Forms/TSwitch',
+	component: TSwitch,
 	argTypes: { 
 		color: {
 			name: 'color',
@@ -10,15 +10,15 @@ export default {
 			description: 'Tailwind classname for outline and fill color',
 			control: { type: 'text' }
 		},
-		size: {
-			name: 'size',
-			description: 'Set size of checkbox',
-			control: { type: 'number', min: 3 }
+		inset: {
+			name: 'inset',
+			description: 'Toogle inset of switch',
+			control: { type: 'boolean' },
 		},
 		value: {
 			name: 'value',
-			description: 'Value of checkbox',
-			control: { type: 'boolean'  },
+			description: 'Value of switch',
+			control: { type: 'boolean' },
 			defaultValue: false,
 		},
 		label: {
@@ -30,15 +30,23 @@ export default {
 
 const Template = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TCheckbox },
+	components: { TSwitch },
 	template: 
-		`<t-checkbox v-bind="$props" />`,
+		`<t-switch v-bind="$props" />`,
 });
 
 export const Standard = Template.bind({});
 Standard.args = {
 	color: 'indigo',
-	size: 6,
+	inset: false,
 	value: false,
-	label: 'Checkbox',
+	label: 'Switch',
+};
+
+export const Inset = Template.bind({});
+Inset.args = {
+	color: 'indigo',
+	inset: true,
+	value: false,
+	label: 'Switch',
 };
