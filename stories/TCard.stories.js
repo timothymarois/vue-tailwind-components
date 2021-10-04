@@ -2,18 +2,18 @@ import TCard from '../src/components/Elements/TCard';
 import TButton from '../src/components/Elements/TButton';
 
 export default {
-	title: 'ELEMENTS/TCard',
+	title: 'Elements/TCard',
 	component: TCard,
 	argTypes: { 
 		title: {
 			name: 'title',
 			description: 'Header title text',
-			defaultValue: null,
+			defaultValue: undefined,
 		},
 		subtitle: {
 			name: 'subtitle',
 			description: 'Header subtitle text',
-			defaultValue: null,
+			defaultValue: undefined,
 		},
         contentPadding: {
 			name: 'contentPadding',
@@ -34,11 +34,11 @@ export default {
 //         `,
 // });
 
-// export const Standard = Template.bind({});
-// Standard.args = {
-
-// };
-
+export const Primary = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TCard },
+	template: `<t-card v-bind="$props">This is the content of the card</t-card>`
+});
 
 export const MultipleStates = () => ({
 	// props: Object.keys(argTypes),

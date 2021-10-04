@@ -1,18 +1,18 @@
 import TBadge from '../src/components/Elements/TBadge';
 
 export default {
-	title: 'ELEMENTS/TBadge',
+	title: 'Elements/TBadge',
 	component: TBadge,
 	argTypes: { 
 		title: {
 			name: 'title',
 			description: 'Header title text',
-			defaultValue: null,
+			defaultValue: undefined,
 		},
 		subtitle: {
 			name: 'subtitle',
 			description: 'Header subtitle text',
-			defaultValue: null,
+			defaultValue: undefined,
 		},
         contentPadding: {
 			name: 'contentPadding',
@@ -37,6 +37,12 @@ export default {
 // Standard.args = {
 
 // };
+
+export const Primary = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TBadge },
+	template: `<t-badge v-bind="$props">Primary Badge</t-badge>`
+});
 
 
 export const MultipleStates = () => ({

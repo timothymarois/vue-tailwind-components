@@ -1,23 +1,24 @@
 /**
  * Elements
  */
-import TIcon from './Elements/TIcon'
-import TLoader from './Elements/TLoader'
-import TButton from './Elements/TButton'
-import TMenu from './Elements/TMenu'
-import TModal from './Elements/TModal'
-import TOverlay from './Elements/TOverlay'
-import TCard from './Elements/TCard'
-import TBadge from './Elements/TBadge'
-import TTabs from './Elements/TTabs'
+import TIcon from './Elements/TIcon.vue'
+import TLoader from './Elements/TLoader.vue'
+import TButton from './Elements/TButton.vue'
+import TMenu from './Elements/TMenu.vue'
+import TModal from './Elements/TModal.vue'
+import TOverlay from './Elements/TOverlay.vue'
+import TCard from './Elements/TCard.vue'
+import TBadge from './Elements/TBadge.vue'
+import TTabs from './Elements/TTabs.vue'
+import TTooltip from './Elements/TTooltip.vue'
 
 /**
  * Forms
  */
-import TLabel from './Forms/TLabel'
-import TTextField from './Forms/TTextField'
-import TSelect from './Forms/TSelect'
-import TCheckbox from './Forms/TCheckbox'
+import TLabel from './Forms/TLabel.vue'
+import TTextField from './Forms/TTextField.vue'
+import TSelect from './Forms/TSelect.vue'
+import TCheckbox from './Forms/TCheckbox.vue'
 
 
 // these need updating
@@ -30,7 +31,6 @@ import TCheckbox from './Forms/TCheckbox'
 // import Badge from '@/components/Elements/Badge'
 
 export {
-
     TIcon,
     TLoader,
     TButton,
@@ -40,6 +40,7 @@ export {
     TCard,
     TTabs,
     TBadge,
+    TTooltip,
 
     TLabel,
     TTextField,

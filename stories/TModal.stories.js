@@ -2,7 +2,7 @@ import TModal from '../src/components/Elements/TModal';
 import TButton from '../src/components/Elements/TButton';
 
 export default {
-	title: 'ELEMENTS/TModal',
+	title: 'Elements/TModal',
 	component: TModal,
 	argTypes: { 
 		type: {
