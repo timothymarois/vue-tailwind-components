@@ -218,9 +218,9 @@ export default {
 		genIcon() {
             if (this.$slots.icon || this.icon) {
                 return this.$createElement('span',{
-                    staticClass:'btn__icon',
+                    staticClass:'btn__icon flex align-center',
                     class: {
-                        'mr-2' : !this.iconOnly
+                        'mr-2': !this.iconOnly
                     }
                 }, [(this.loading ? this.genBaseLoader() : (this.$slots.icon ? this.$slots.icon : this.buildIcon(this.icon)) )])
             }
