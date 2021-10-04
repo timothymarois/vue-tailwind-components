@@ -138,7 +138,7 @@ export default {
             let c = [
                 'z-10',
                 'absolute',
-                'left-0',
+                'right-0',
                 'rounded',
                 'shadow',
                 'bg-white',
