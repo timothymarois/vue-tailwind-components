@@ -77,7 +77,7 @@ export default {
 			type: String,
 			default: null
 		},
-		'icon-right': {
+		iconRight: {
 			type: String,
 			default: null
 		}
@@ -228,7 +228,10 @@ export default {
 		genIconAfter() {
             if (this.$slots['icon-right'] || this.iconRight) {
                 return this.$createElement('span',{
-                    staticClass:'btn__icon btn__after ml-2'
+                    staticClass:'btn__icon flex align-center',
+					class: {
+						'ml-2': !this.iconOnly
+					}
                 }, [(this.loading ? this.genBaseLoader() : (this.$slots['icon-right'] ? this.$slots['icon-right'] : this.buildIcon(this.iconRight)))])
             }
         },
