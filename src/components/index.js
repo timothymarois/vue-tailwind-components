@@ -9,8 +9,9 @@ import TModal from './Elements/TModal.vue'
 import TOverlay from './Elements/TOverlay.vue'
 import TCard from './Elements/TCard.vue'
 import TBadge from './Elements/TBadge.vue'
-import TTabs from './Elements/TTabs.vue'
 import TTooltip from './Elements/TTooltip.vue'
+import TTabs from './Elements/TTabs.vue'
+import TTabContent from './Elements/TTabContent.vue'
 
 /**
  * Forms
@@ -35,9 +36,10 @@ export {
     TModal,
     TOverlay,
     TCard,
-    TTabs,
     TBadge,
     TTooltip,
+    TTabs,
+    TTabContent,
 
     TLabel,
     TTextField,

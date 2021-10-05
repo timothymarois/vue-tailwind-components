@@ -1,4 +1,5 @@
 import TTabs from '../src/components/Elements/TTabs';
+import TTabContent from '../src/components/Elements/TTabContent';
 import TCard from '../src/components/Elements/TCard';
 
 export default {
@@ -42,42 +43,71 @@ export default {
 
 export const MultipleStates = () => ({
 	// props: Object.keys(argTypes),
-	components: { TTabs, TCard },
+	components: { TTabs, TTabContent, TCard },
     data: () => ({
+        tabs0: 'tab1',
         tabs1: 'tab1',
-        tabs2: 'tab1'
+        tabs2: 'tab1',
+        tabs3: 'tab1',
+        tabs4: 'tab1'
     }),
 	template: 
 	`
-        <div>
+        <div class="p-6 bg-gray-100">
+
             <div class="w-full">
-                <t-tabs
-                    v-model="tabs1"
-                    :items="[
-                        {
-                            name: 'Tab 1',
-                            id: 'tab1'
-                        },
-                        {
-                            name: 'Tab 2',
-                            id: 'tab2'
-                        },
-                        {
-                            name: 'Tab 3',
-                            id: 'tab3'
-                        }
-                    ]"
-                >
-                    <template slot="tab1">
-                        This is tab 1 content
-                    </template>
-                    <template slot="tab2">
-                        This is tab 2 content
-                    </template>
-                    <template slot="tab3">
-                        This is tab 3 content
-                    </template>
-                </t-tabs>
+                <t-card>
+                    <t-tabs
+                        v-model="tabs0"
+                        :items="[
+                            {
+                                name: 'Tab 1',
+                                id: 'tab1'
+                            },
+                            {
+                                name: 'Tab 2',
+                                id: 'tab2'
+                            },
+                            {
+                                name: 'Tab 3',
+                                id: 'tab3'
+                            }
+                        ]"
+                    ></t-tabs>
+                    <div>Tabs with no content</div>
+                </t-card>
+            </div>
+
+            <div class="w-full mt-5">
+                <t-card>
+                    <t-tabs
+                        v-model="tabs1"
+                        :items="[
+                            {
+                                name: 'Tab 1',
+                                id: 'tab1'
+                            },
+                            {
+                                name: 'Tab 2',
+                                id: 'tab2'
+                            },
+                            {
+                                name: 'Tab 3',
+                                id: 'tab3'
+                            }
+                        ]"
+                    >
+                        <template slot="tab1">
+                            This is tab 1 content
+                        </template>
+                        <template slot="tab2">
+                            This is tab 2 content
+                        </template>
+                        <template slot="tab3">
+                            This is tab 3 content
+                        </template>
+                    </t-tabs>
+                </t-card>
             </div>
 
             <div class="w-full mt-10">
@@ -109,6 +139,71 @@ export const MultipleStates = () => ({
                     </template>
                 </t-tabs>
             </div>
+
+            <div class="w-full mt-10">
+                <t-tabs
+                    dense
+                    v-model="tabs3"
+                    :items="[
+                        {
+                            name: 'Tab 1',
+                            id: 'tab1'
+                        },
+                        {
+                            name: 'Tab 2',
+                            id: 'tab2'
+                        },
+                        {
+                            name: 'Tab 3',
+                            id: 'tab3'
+                        }
+                    ]"
+                >
+                    <template slot="tab1">
+                        <t-card>This is tab 1 (dense tabs)</t-card>
+                    </template>
+                    <template slot="tab2">
+                        <t-card>This is tab 2 (dense tabs)</t-card>
+                    </template>
+                    <template slot="tab3">
+                        <t-card>This is tab 3 (dense tabs)</t-card>
+                    </template>
+                </t-tabs>
+            </div>
+
+
+            <div class="w-full mt-10">
+                <t-tabs
+                    v-model="tabs4"
+                    :items="[
+                        {
+                            name: 'Tab 1',
+                            id: 'tab1'
+                        },
+                        {
+                            name: 'Tab 2',
+                            id: 'tab2'
+                        },
+                        {
+                            name: 'Tab 3',
+                            id: 'tab3'
+                        }
+                    ]"
+                />
+
+                <t-tab-content v-model="tabs4">
+                    <template slot="tab1">
+                        <t-card>This is tab 1 (with external content)</t-card>
+                    </template>
+                    <template slot="tab2">
+                        <t-card>This is tab 2 (with external content)</t-card>
+                    </template>
+                    <template slot="tab3">
+                        <t-card>This is tab 3 (with external content)</t-card>
+                    </template>
+                </t-tab-content>
+            </div>
+
         </div>
 	`,
 });
