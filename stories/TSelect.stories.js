@@ -79,15 +79,15 @@ export const MultipleStates = (argTypes) => ({
 
                 <t-card title="Standard">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select v-model="value" label="Standard" :options="options" />
-						<t-select searchable v-model="value" label="Searchable" :options="options" />
+						<t-select v-model="value" label="Standard" :options="options" placeholder="Select One" />
+						<t-select searchable v-model="value" label="Searchable" :options="options" placeholder="Select One" />
 					</div>
 				</t-card>
 
 				<t-card title="Disabled" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select disabled v-model="value" label="Standard Disabled" :options="options" />
-						<t-select disabled searchable v-model="value" label="Disabled Searchable" :options="options" />
+						<t-select disabled v-model="value" label="Standard Disabled" :options="options" placeholder="Select One" />
+						<t-select disabled searchable v-model="value" label="Disabled Searchable" :options="options" placeholder="Select One" />
 					</div>
 				</t-card>
 
