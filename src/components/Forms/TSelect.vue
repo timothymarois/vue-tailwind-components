@@ -18,7 +18,7 @@
                     v-if="!searchable && selected" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium "
-                    :class="{ 'text-gray-500' : disabled, 'text-indigo-800' : !disabled }"
+                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
                 >{{ selected.label }}</span>
 
                 <span 
@@ -38,8 +38,18 @@
                     autocomplete="off"
                     :placeholder="placeholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto focus:outline-none truncate border-0"
-                    :class="{ 'text-gray-500' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon }"
+                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon }"
                 />
+
+                <!-- <t-button
+                    v-if="!hideicon" 
+                    :icon="menuIcon" 
+                    iconSize="5" 
+                    class="mr-2" 
+                    @click="menuToggle"
+                    padding="0"
+                    text
+                /> -->
 
                 <t-icon 
                     v-if="!hideicon" 
@@ -82,13 +92,15 @@
 </style>
 
 <script>
+import TButton from "../Elements/TButton";
 import TIcon from "../Elements/TIcon";
 import TLabel from "./TLabel";
 export default { 
     name: 't-select',
     components: {
         TLabel,
-        TIcon
+        TIcon,
+        TButton
     }, 
     props: {
         required: {
@@ -160,13 +172,20 @@ export default {
         }
     },
     watch: {
+        localSearch: {
+            handler: function (value) { 
+                if (value) {
+                    this.menu=true;
+                }
+            }
+        },
 		value: {
 			handler: function (value) { 
                 if (value) {
                     let item = this.getItemByValue(value);
                     if (item) {
                         this.selected = item;
-                        this.localSearch = item[this.itemLabel];
+                        this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
                     }
                 }
                 else {
@@ -207,7 +226,7 @@ export default {
         },
         selectItem(item) {
             this.menu = false;
-            this.localSearch = item[this.itemLabel];
+            this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             this.selected = item;
             if (this.returnObject) {
                 this.$emit('input', item);
@@ -218,7 +237,12 @@ export default {
         },
         menuToggle() {
             if (!this.disabled) {
-                this.menu = !this.menu
+                this.menu = !this.menu;
+            }
+        },
+        menuOn() {
+            if (!this.disabled) {
+                this.menu = true;
             }
         },
         searchLocal(value) {
@@ -239,7 +263,7 @@ export default {
             let item = this.getItemByValue(this.value);
             if (item) {
                 this.selected = item;
-                this.localSearch = item[this.itemLabel];
+                this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             }
         }
 
