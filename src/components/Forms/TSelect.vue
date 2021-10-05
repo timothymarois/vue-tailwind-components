@@ -22,7 +22,7 @@
                 >{{ selected.label }}</span>
 
                 <span 
-                    v-else-if="!searchable && !selected" 
+                    v-else-if="(!searchable && !selected) || (searchable && disabled && !selected)" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
                 >{{ placeholder || 'Select an option' }}</span>
