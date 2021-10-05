@@ -69,13 +69,12 @@
                     <li
                         class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
                         :class="{ 'text-white bg-indigo-800': (item[itemValue]==value) }"
-                        v-for="(item, index) of options"
+                        v-for="(item, index) of searchableOptions"
                         :key="index"
                         @click="selectItem(item)"
                         v-on:keyup.enter="selectItem(item)"
                     >
-                        <!-- <span v-if="autocompleteAddress" class="font-medium m-2">{{item?.name?.value || item?.name}}, {{item?.city?.value}}, {{item?.state?.value}}, {{item?.zipcode?.value}}</span> -->
-                        <span class="font-medium m-2">{{ item[itemLabel] }}</span>          
+                        <span class="font-medium m-2" v-html="item[itemLabel]"></span>          
                     </li>
                 </div>
                 <li v-else-if="!loading && !options.length && searchable && localSearch" class="flex items-center rounded m-4 font-medium">No Results Found</li>
@@ -168,29 +167,24 @@ export default {
         return {
             menu: false,
             selected: null,
-            localSearch: null
+            localSearch: null,
+            isSearching: false
         }
     },
     watch: {
-        // localSearch: {
-        //     handler: function (value) { 
-        //         if (value) {
-        //             this.menu=true;
-        //         }
-        //     }
-        // },
 		value: {
 			handler: function (value) { 
                 if (value) {
                     let item = this.getItemByValue(value);
                     if (item) {
+                        this.isSearching = false;
                         this.selected = item;
                         this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
                     }
                 }
                 else {
                     this.selected=null
-                    this.localSearch=null;
+                    // this.localSearch=null;
                 }
 			}
 		}
@@ -217,6 +211,24 @@ export default {
             }
 
             return c;
+        },
+        searchableOptions() {
+            let vm = this;
+
+            if (vm.localSearch && vm.searchable && vm.isSearching) {
+                return JSON.parse(JSON.stringify(vm.options)).filter(option => {
+                    let o = option.label.toLowerCase().match(vm.localSearch.toLowerCase());
+                    if (o) {
+                        option.label = option.label.toString().replace((new RegExp(vm.localSearch,"ig")),function(matchedText,a,b){
+                            return ('<u>'+matchedText+'</u>');
+                        });
+                        return o;
+                    }
+                });
+            }
+            else {
+                return vm.options;
+            }
         }
     },
     methods: {
@@ -226,6 +238,7 @@ export default {
         },
         selectItem(item) {
             this.menu = false;
+            this.isSearching = false;
             this.selected = item;
             this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             if (this.returnObject) {
@@ -237,8 +250,12 @@ export default {
         },
         menuToggle() {
             if (!this.disabled) {
-                console.log('change menu');
-                this.menu = !this.menu;
+                if (this.searchable) {
+                    this.menu = true;
+                }
+                else {
+                    this.menu = !this.menu;
+                }
             }
         },
         menuOn() {
@@ -248,6 +265,9 @@ export default {
         },
         searchLocal(value) {
             this.menu = true;
+            this.isSearching = true;
+            this.selected = null;
+            this.$emit('input', null);
             this.$emit('search',value);
         },
         close(e) {
