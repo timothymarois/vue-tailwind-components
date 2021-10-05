@@ -172,13 +172,13 @@ export default {
         }
     },
     watch: {
-        localSearch: {
-            handler: function (value) { 
-                if (value) {
-                    this.menu=true;
-                }
-            }
-        },
+        // localSearch: {
+        //     handler: function (value) { 
+        //         if (value) {
+        //             this.menu=true;
+        //         }
+        //     }
+        // },
 		value: {
 			handler: function (value) { 
                 if (value) {
@@ -226,8 +226,8 @@ export default {
         },
         selectItem(item) {
             this.menu = false;
-            this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             this.selected = item;
+            this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             if (this.returnObject) {
                 this.$emit('input', item);
             }
@@ -237,6 +237,7 @@ export default {
         },
         menuToggle() {
             if (!this.disabled) {
+                console.log('change menu');
                 this.menu = !this.menu;
             }
         },
@@ -246,6 +247,7 @@ export default {
             }
         },
         searchLocal(value) {
+            this.menu = true;
             this.$emit('search',value);
         },
         close(e) {
