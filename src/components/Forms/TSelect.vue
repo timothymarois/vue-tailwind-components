@@ -272,7 +272,10 @@ export default {
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
-                this.menu = false
+                this.menu = false;
+                if (this.searchable && !this.selected) {
+                    this.localSearch = null;
+                }
             }
         },
         reFocus() {
