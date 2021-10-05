@@ -215,7 +215,7 @@ export default {
         searchableOptions() {
             let vm = this;
 
-            if (vm.localSearch && vm.searchable && vm.isSearching) {
+            if (vm.localSearch && vm.searchable && vm.isSearching && !vm.external) {
                 return JSON.parse(JSON.stringify(vm.options)).filter(option => {
                     let o = option.label.toLowerCase().match(vm.localSearch.toLowerCase());
                     if (o) {
