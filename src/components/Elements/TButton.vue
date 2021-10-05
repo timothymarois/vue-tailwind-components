@@ -347,23 +347,27 @@ export default {
 			switch(this.size) {
 				case 'xs': 
 					c = c.concat(['text-xs']);
-					if (!this.padding) c = c.concat(['px-2.5','py-1.5']);
+					if (!this.padding && !this.padding) c = c.concat(['px-2.5','py-1.5']);
 					break;
 				case 'sm': 
 					c = c.concat(['text-sm','leading-4']);
-					if (!this.padding) c = c.concat(['px-3','py-2']);
+					if (!this.padding && !this.padding) c = c.concat(['px-3','py-2']);
+					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
 					break;
 				case 'lg': 
 					c = c.concat(['text-base']);
-					if (!this.padding) c = c.concat(['px-4','py-2']);
+					if (!this.padding && !this.padding) c = c.concat(['px-4','py-2']);
+					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
 					break;
 				case 'xl': 
 					c = c.concat(['text-base']);
-					if (!this.padding) c = c.concat(['px-6','py-3']);
+					if (!this.padding && !this.padding) c = c.concat(['px-6','py-3']);
+					if (this.iconOnly && !this.padding) c = c.concat(['px-3','py-3']);
 					break;
 				default: 
 					c = c.concat(['text-sm']);
-					if (!this.padding) c = c.concat(['px-4','py-2']);
+					if (!this.padding && !this.iconOnly) c = c.concat(['px-4','py-2']);
+					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
 			}
 
 
