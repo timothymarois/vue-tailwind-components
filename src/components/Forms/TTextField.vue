@@ -75,8 +75,8 @@ export default {
             default : null
         },
         icon: {
-            type: [String,Boolean],
-            default: false
+            type: String,
+            default: null
         }
     },
     computed: {
