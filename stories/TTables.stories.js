@@ -107,6 +107,16 @@ export const BasicTables = () => ({
                 </t-card>
             </div>
 
+            <div class="w-full mt-4">
+                <t-card title="Loading State (prop: loading)" contentPadding="0">
+                    <t-table-simple 
+                        :loading="true"
+                        :headers="headers"
+                        :items="[]"
+                    />
+                </t-card>
+            </div>
+
         </div>
 	`,
 });

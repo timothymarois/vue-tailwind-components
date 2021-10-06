@@ -30,7 +30,7 @@
         </tbody>
         <tbody v-else >
             <tr>
-                <td :colspan="headers.length" class="text-center">{{ nodata }}</td>
+                <td :colspan="headers.length" class="text-center">{{ messageText }}</td>
             </tr>
         </tbody>
     </table>
@@ -48,6 +48,10 @@ export default {
             type: Array,
             default: []
         },
+        loading : {
+            type: Boolean,
+            default: false
+        },
         hideHeader : {
             type: Boolean,
             default: false
@@ -55,6 +59,16 @@ export default {
         nodata: {
             type: String,
             default: 'No results found.'
+        },
+        loadingText: {
+            type: String,
+            default: 'Loading... Please wait'
+        },
+    },
+    computed: {
+        messageText() {
+            if (this.loading) return this.loadingText
+            return this.nodata
         }
     }
 }
