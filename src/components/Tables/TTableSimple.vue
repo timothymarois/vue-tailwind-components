@@ -6,7 +6,11 @@
                 <th v-if="select" style="width:30px;">
                     <slot name="hselect">
                         <div class="flex justify-center w-full">
-                            <TCheckbox v-model="selectedAll" :value="false" />
+                            <TCheckbox 
+                                @click.native="toggleAll"
+                                @isChecked="checkedAll"
+                                :value="selectedAll"
+                            />
                         </div>
                     </slot>
                 </th>
@@ -23,7 +27,7 @@
         </thead>
         <tbody v-if="items && items.length > 0" class="tbody bg-white overflow-scroll">
             <tr 
-                v-for="(item,rindex) in items" :key="rindex" 
+                v-for="(item, i) in items" :key="i" 
                 class="hover:bg-indigo-100 transition duration-150 text-gray-800 hover:text-indigo-900"
                 :class="(item.class ? item.class+' trow' : 'trow')"
             >
@@ -33,7 +37,7 @@
                 >
                     <slot name="column.select">
                         <div class="flex justify-center w-full">
-                            <TCheckbox :value="false" />
+                            <TCheckbox :value="selection.includes(i)" @click.native="toggleRow(i)" />
                             <!-- <input type="checkbox" v-model="value" :value="item.id" /> -->
                         </div>
                     </slot>
@@ -45,7 +49,7 @@
                     class="p-4 border-0 relative font-normal"
                     :class="(h.class) ? h.class : 'text-left'"
                 >
-                    <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="rindex">{{ item[h.value] }}</slot>
+                    <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
             </tr>
         </tbody>
@@ -58,9 +62,15 @@
 </template>
 
 <script>
-import TCheckbox from "../Forms/TCheckbox";
+import TCheckbox from "../Forms/TCheckbox.vue";
 export default {
     name: 'TTableSimple',
+    data () {
+        return {
+            selection: [],
+            selectedAll: false
+        }
+    },
     components: {
         TCheckbox
     },
@@ -90,39 +100,43 @@ export default {
             default: 'No results found.'
         }
     },
-    data () {
-        return {
-            selectedAll : false,
-            selection: this.value
+    methods: {
+        toggleAll() {
+            if (!this.selectedAll) {
+                this.selection = [];
+            } else {
+                this.selection = [...Array(this.items.length).keys()];
+            }
+        },
+        toggleRow(i) {
+            if (!this.selection.includes(i)) {
+                this.selection.push(i);
+            } else {
+                const index = this.selection.indexOf(i);
+                if (index > -1) {
+                    this.selection.splice(index, 1);
+                }
+            }
+        },
+        checkedAll(e) {
+            this.selectedAll = e;
         }
-    },
-    computed: {
-        internalSelection: {
-			get: function() {
-				return this.selection; 
-			},
-			set: function(val) { 
-				this.selection = val
-				this.$emit('input',val);
-			}
-		},
     },
     watch: {
-        selectedAll(v) {
-            let selection = [];
+        selection() {
+            let selectedItems = [];
 
-            if (!v) {
-                this.items.forEach((item,index) => {
-                    selection.push(this.items[index])
-                });
+            if(!this.selectedAll) {
+                for(let i = 0; i < this.items.length; i++) {
+                    if(this.selection.includes(i)) {
+                        selectedItems.push(this.items[i]);
+                    }
+                }
+            } else {
+                selectedItems.push(this.items);
             }
 
-            this.internalSelection = selection
-        }
-    },
-    methods: {
-        updateValue(v) {
-            this.$emit('input',v)
+            this.$emit('change-selection', selectedItems);
         }
     }
 }

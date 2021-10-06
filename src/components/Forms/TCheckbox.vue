@@ -12,9 +12,8 @@
 			:id="id" 
 			type="checkbox" 
 			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
-			:value="value"
-			:checked="isActive"
-			@change="onChange"
+			:checked="value"
+			@click="emitCheck"
 		/>
 		<div :class="`bg-white border-2 rounded relative border-${color}-700 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
 			<div :class="`hidden bg-${color}-700 w-${size} h-${size} flex justifty-center items-center rounded`" v-if="check">
@@ -43,16 +42,7 @@ export default {
 		TIcon
 	},
 	props: {
-		value: [String, Boolean, Object, Array],
-		trueValue: {
-			type: [String, Boolean, Object, Array],
-			default: null
-		},
-		falseValue: {
-			type: [String, Boolean, Object, Array],
-			default: null
-		},
-		multiple: {
+		value: {
 			type: Boolean,
 			default: false
 		},
@@ -77,81 +67,20 @@ export default {
 			default: false
 		}
 	},
-	data () {
+	data() {
 		return {
-			lazyValue: this.value
+			checked: this.value
 		}
 	},
-	watch: {
-		value(val) {
-			this.lazyValue = val
-		},
-	},
 	methods: {
-		valueComparator: (a, b) => Math.round(a) === Math.round(b),
-		onChange() {
-			// const value = this.value
-			let input = this.internalValue
-
-			if (this.isMultiple) 
-			{
-				if (!Array.isArray(input)) {
-					input = []
-				}
-
-				const length = input.length
-				input = input.filter((item) => !this.valueComparator(item,value))
-
-				if (input.length === length) {
-					input.push(value)
-				}
-			} 
-			else if (this.trueValue !== undefined && this.falseValue !== undefined) {
-				input = this.valueComparator(input, this.trueValue) ? this.falseValue : this.trueValue
-			} 
-			else if (value) {
-				input = this.valueComparator(input, value) ? null : value
-			} 
-			else {
-				input = !input
-			}
-
-			this.internalValue = input
+		emitCheck() {
+			this.checked = !this.checked;
+			this.$emit('isChecked', this.checked);
 		}
 	},
 	computed: {
 		id() {
-			return (Math.random()+1).toString(36).substring(7);
-		},
-		isMultiple () {
-			return this.multiple === true || (this.multiple === null && Array.isArray(this.internalValue))
-		},
-		internalValue: {
-			get: function() {
-				return this.lazyValue; 
-			},
-			set: function(val) { 
-				this.lazyValue = val
-				this.$emit('input',val);
-			}
-		},
-		isActive() {
-
-			const value = this.value
-			const input = this.internalValue
-
-			if (this.isMultiple) {
-				if (!Array.isArray(input)) return false
-				return input.some(item => this.valueComparator(item, value))
-			}
-
-			if (this.trueValue === undefined || this.falseValue === undefined) {
-				return value
-				? this.valueComparator(value, input)
-				: Boolean(input)
-			}
-
-			return this.valueComparator(input, this.trueValue)
+			return (Math.random() + 1).toString(36).substring(7);
 		}
 	}
 };

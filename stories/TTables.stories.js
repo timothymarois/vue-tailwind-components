@@ -116,7 +116,7 @@ export const AdvancedTables = () => ({
 	// props: Object.keys(argTypes),
 	components: { TTableSimple, TCard },
     data: () => ({
-        selected: null,
+        selected: [],
         headers: [
             {
                 title: 'Property Address',
@@ -152,12 +152,10 @@ export const AdvancedTables = () => ({
             }
         ]
     }),
-    watch: {
-        selected: {
-			handler: function (value) { 
-				console.log(value);
-			}
-		},
+    methods: {
+        changedSelection(e) {
+            this.selected = e;
+        }
     },
 	template: 
 	`
@@ -170,8 +168,15 @@ export const AdvancedTables = () => ({
                         :headers="headers"
                         :items="items"
                         select
+                        @change-selection="changedSelection"
                     />
                 </t-card>
+            </div>
+
+            <div class="mt-8">
+                <p v-for="(item, i) in selected" :key="i">
+                    {{JSON.stringify(item)}} <br />
+                </p>
             </div>
 
         </div>
