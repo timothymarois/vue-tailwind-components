@@ -126,14 +126,10 @@ export default {
         selection() {
             let selectedItems = [];
 
-            if(!this.selectedAll) {
-                for(let i = 0; i < this.items.length; i++) {
-                    if(this.selection.includes(i)) {
-                        selectedItems.push(this.items[i]);
-                    }
+            for(let i = 0; i < this.items.length; i++) {
+                if(this.selection.includes(i)) {
+                    selectedItems.push(this.items[i]);
                 }
-            } else {
-                selectedItems.push(this.items);
             }
 
             this.$emit('change-selection', selectedItems);
