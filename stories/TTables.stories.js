@@ -167,11 +167,6 @@ export const AdvancedTables = () => ({
             }
         ]
     }),
-    methods: {
-        changedSelection(e) {
-            this.selected = e;
-        }
-    },
 	template: 
 	`
         <div class="p-6 bg-gray-100">
@@ -184,7 +179,6 @@ export const AdvancedTables = () => ({
                         :items="items"
                         select
                         selectFromRow
-                        @change-selection="changedSelection"
                     />
                 </t-card>
             </div>

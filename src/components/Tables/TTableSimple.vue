@@ -170,7 +170,7 @@ export default {
                 }
             }
 
-            this.$emit('change-selection', selectedItems);
+            this.$emit('input', selectedItems);
         }
     }
 }
