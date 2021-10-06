@@ -2,6 +2,15 @@
     <table class="min-w-full divide-y divide-gray-200 bg-gray-50">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800">
             <tr>
+
+                <th v-if="select" style="width:30px;">
+                    <slot name="hselect">
+                        <div class="flex justify-center w-full">
+                            <TCheckbox v-model="selectedAll" :value="false" />
+                        </div>
+                    </slot>
+                </th>
+
                 <th v-for="(h,hindex) in headers"
                     class="p-4 text-sm font-normal text-left"
                     :key="hindex"
@@ -18,6 +27,18 @@
                 class="hover:bg-indigo-100 transition duration-150 text-gray-800 hover:text-indigo-900"
                 :class="(item.class ? item.class+' trow' : 'trow')"
             >
+                <td 
+                    v-if="select"
+                    class="p-4 border-0 relative font-normal text-center"
+                >
+                    <slot name="column.select">
+                        <div class="flex justify-center w-full">
+                            <TCheckbox :value="false" />
+                            <!-- <input type="checkbox" v-model="value" :value="item.id" /> -->
+                        </div>
+                    </slot>
+                </td>
+
                 <td 
                     v-for="(h) in headers" 
                     :key="h.value" 
@@ -37,16 +58,28 @@
 </template>
 
 <script>
+import TCheckbox from "../Forms/TCheckbox";
 export default {
     name: 'TTableSimple',
+    components: {
+        TCheckbox
+    },
     props: {
+        value: {
+            type: Array,
+            default: null
+        },
         headers: {
             type: Array,
-            default: []
+            default: () => []
         },
         items: {
             type: Array,
-            default: []
+            default: () => []
+        },
+        select : {
+            type: Boolean,
+            default: false
         },
         hideHeader : {
             type: Boolean,
@@ -55,6 +88,41 @@ export default {
         nodata: {
             type: String,
             default: 'No results found.'
+        }
+    },
+    data () {
+        return {
+            selectedAll : false,
+            selection: this.value
+        }
+    },
+    computed: {
+        internalSelection: {
+			get: function() {
+				return this.selection; 
+			},
+			set: function(val) { 
+				this.selection = val
+				this.$emit('input',val);
+			}
+		},
+    },
+    watch: {
+        selectedAll(v) {
+            let selection = [];
+
+            if (!v) {
+                this.items.forEach((item,index) => {
+                    selection.push(this.items[index])
+                });
+            }
+
+            this.internalSelection = selection
+        }
+    },
+    methods: {
+        updateValue(v) {
+            this.$emit('input',v)
         }
     }
 }
