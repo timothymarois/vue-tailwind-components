@@ -253,6 +253,15 @@ export default {
             }
         },
         menuToggle() {
+
+            // if our options are external
+            // and there are no options and we have not searched yet
+            // then we dont want to show it until the user actually does a search
+            if (this.external && this.searchable && !this.localSearch && !this.options.length) {
+                this.menu = false;
+                return;
+            }
+
             if (!this.disabled) {
                 if (this.searchable) {
                     this.menu = true;
