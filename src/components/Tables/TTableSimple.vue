@@ -2,6 +2,19 @@
     <table class="min-w-full divide-y divide-gray-200 bg-gray-50">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800">
             <tr>
+
+                <th v-if="select" style="width:30px;">
+                    <slot name="hselect">
+                        <div class="flex justify-center w-full">
+                            <TCheckbox 
+                                @click.native="toggleAll"
+                                @isChecked="checkedAll"
+                                :value="selectedAll"
+                            />
+                        </div>
+                    </slot>
+                </th>
+
                 <th v-for="(h,hindex) in headers"
                     class="p-4 text-sm font-normal text-left"
                     :key="hindex"
@@ -14,17 +27,29 @@
         </thead>
         <tbody v-if="items && items.length > 0" class="tbody bg-white overflow-scroll">
             <tr 
-                v-for="(item,rindex) in items" :key="rindex" 
-                class="hover:bg-indigo-100 transition duration-150 text-gray-800 hover:text-indigo-900"
-                :class="(item.class ? item.class+' trow' : 'trow')"
+                v-for="(item, i) in items" :key="i" 
+                :class="[`hover:bg-${selectedColor}-100 transition duration-150 text-gray-800 hover:text-indigo-900`, (item.class ? item.class+' trow' : 'trow'), (selection.includes(i) ? `bg-${selectedColor}-100` : '')]"
+                @click="selectRow(i)"
             >
+                <td 
+                    v-if="select"
+                    class="p-4 border-0 relative font-normal text-center"
+                >
+                    <slot name="column.select">
+                        <div class="flex justify-center w-full">
+                            <TCheckbox :value="selection.includes(i)" @click.native="toggleRow(i)" />
+                            <!-- <input type="checkbox" v-model="value" :value="item.id" /> -->
+                        </div>
+                    </slot>
+                </td>
+
                 <td 
                     v-for="(h) in headers" 
                     :key="h.value" 
                     class="p-4 border-0 relative font-normal"
                     :class="(h.class) ? h.class : 'text-left'"
                 >
-                    <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="rindex">{{ item[h.value] }}</slot>
+                    <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
             </tr>
         </tbody>
@@ -37,16 +62,34 @@
 </template>
 
 <script>
+import TCheckbox from "../Forms/TCheckbox.vue";
 export default {
     name: 'TTableSimple',
+    data () {
+        return {
+            selection: [],
+            selectedAll: false
+        }
+    },
+    components: {
+        TCheckbox
+    },
     props: {
+        value: {
+            type: Array,
+            default: null
+        },
         headers: {
             type: Array,
-            default: []
+            default: () => []
         },
         items: {
             type: Array,
-            default: []
+            default: () => []
+        },
+        select : {
+            type: Boolean,
+            default: false
         },
         loading : {
             type: Boolean,
@@ -69,6 +112,54 @@ export default {
         messageText() {
             if (this.loading) return this.loadingText
             return this.nodata
+        },
+        selectedColor: {
+            type: String,
+            default: 'indigo'
+        },
+        selectFromRow: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        toggleAll() {
+            if (!this.selectedAll) {
+                this.selection = [];
+            } else {
+                this.selection = [...Array(this.items.length).keys()];
+            }
+        },
+        toggleRow(i) {
+            if (!this.selection.includes(i)) {
+                this.selection.push(i);
+            } else {
+                const index = this.selection.indexOf(i);
+                if (index > -1) {
+                    this.selection.splice(index, 1);
+                }
+            }
+        },
+        selectRow(i) {
+            if(this.selectFromRow) {
+                this.toggleRow(i);
+            }
+        },
+        checkedAll(e) {
+            this.selectedAll = e;
+        }
+    },
+    watch: {
+        selection() {
+            let selectedItems = [];
+
+            for(let i = 0; i < this.items.length; i++) {
+                if(this.selection.includes(i)) {
+                    selectedItems.push(this.items[i]);
+                }
+            }
+
+            this.$emit('change-selection', selectedItems);
         }
     }
 }

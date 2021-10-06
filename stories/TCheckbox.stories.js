@@ -1,4 +1,4 @@
-import TCheckbox from '../src/components/Forms/TCheckbox';
+import TCheckbox from '../src/components/Forms/TCheckbox.vue';
 
 export default {
 	title: 'Forms/TCheckbox',
@@ -18,12 +18,17 @@ export default {
 		value: {
 			name: 'value',
 			description: 'Value of checkbox',
-			control: { type: 'boolean'  },
+			control: { type: 'boolean' },
 			defaultValue: false,
 		},
 		label: {
 			name: 'label',
 			description: 'Toggle text-only button'
+		},
+		check: {
+			name: 'check',
+			description: 'Toggles checkmark in middle of checkbox',
+			control: { type: 'boolean' },
 		}
 	},
 };
@@ -42,3 +47,12 @@ Standard.args = {
 	value: false,
 	label: 'Checkbox',
 };
+
+export const Check = Template.bind({});
+Check.args = {
+	color: 'indigo',
+	size: 5,
+	value: false,
+	label: 'Checkbox with check',
+	check: true
+}

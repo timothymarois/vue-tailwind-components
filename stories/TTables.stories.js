@@ -20,6 +20,11 @@ export default {
 			description: 'Change the content padding (default 4)',
             control: { type: 'number', min: 0 }
 		},
+        selectedColor: {
+            name: 'selectedColor',
+            description: 'Background color of selected and hovered rows',
+            control: { type: 'string' }
+        }
 	},
 };
 
@@ -126,7 +131,7 @@ export const AdvancedTables = () => ({
 	// props: Object.keys(argTypes),
 	components: { TTableSimple, TCard },
     data: () => ({
-        selected: null,
+        selected: [],
         headers: [
             {
                 title: 'Property Address',
@@ -162,12 +167,10 @@ export const AdvancedTables = () => ({
             }
         ]
     }),
-    watch: {
-        selected: {
-			handler: function (value) { 
-				console.log(value);
-			}
-		},
+    methods: {
+        changedSelection(e) {
+            this.selected = e;
+        }
     },
 	template: 
 	`
@@ -180,8 +183,16 @@ export const AdvancedTables = () => ({
                         :headers="headers"
                         :items="items"
                         select
+                        selectFromRow
+                        @change-selection="changedSelection"
                     />
                 </t-card>
+            </div>
+
+            <div class="mt-8">
+                <p v-for="(item, i) in selected" :key="i">
+                    {{JSON.stringify(item)}} <br />
+                </p>
             </div>
 
         </div>
