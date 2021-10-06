@@ -18,7 +18,7 @@
 				</div>
 				<div :class="`hidden bg-${color}-700 w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-sm pointer-events-none`" v-else />
 			</div>
-			<div class="ml-3 text-sm">
+			<div class="ml-3 text-sm" v-if="label">
 				<t-label :id="id" >{{ label }}</t-label>
 			</div>
 		</div>
