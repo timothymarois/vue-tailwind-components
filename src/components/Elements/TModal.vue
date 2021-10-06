@@ -1,28 +1,31 @@
 <template>
-	<div v-show="value" :class="containerClasses">
-		<div class="relative px-4 py-4 min-h-full flex items-center justify-center">
-			<div :class="containerInnerClasses">
-				<div :class="containerContentClasses" :style="(type=='center') ? 'min-width:400px' : ''">
-					
-					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-4">
-						<t-button icon="close" text @click="$emit('input',false)" />
-					</div>
+		<div :class="containerClasses">
+			<transition name="pop" appear>
+				<div class="relative px-4 py-4 min-h-full flex items-center justify-center" v-show="value">
+					<div :class="containerInnerClasses">
+						<div :class="containerContentClasses" :style="(type=='center') ? 'min-width:400px' : ''">
+							
+							<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-4">
+								<t-button icon="close" text @click="$emit('input',false)" />
+							</div>
 
-					<div class="relative lg:h-full lg:overflow-y-auto maxHeight">
-						<slot></slot>
+							<div class="relative lg:h-full lg:overflow-y-auto maxHeight">
+								<slot></slot>
+							</div>
+							
+						</div>
 					</div>
-					
 				</div>
-			</div>
+			</transition>
+			<transition name="fade" appear>
+				<t-overlay 
+					v-show="value"
+					:value="value" 
+					:allowOverlayClose="allowOverlayClose"
+					@click="$emit('input',false)"
+				/>
+			</transition>
 		</div>
-
-		<t-overlay 
-			:value="value" 
-			:allowOverlayClose="allowOverlayClose"
-			@click="$emit('input',false)"
-		/>
-
-	</div>
 </template>
 
 <style scoped>
@@ -139,4 +142,22 @@ export default {
 		}
 	}
 };
-</script> 
+</script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+	transition: .2s linear opacity;
+}
+
+.pop-enter-active, .pop-leave-active {
+	transition: .15s ease-out transform;
+}
+
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+.pop-enter, .pop-leave-to {
+	transform: scale(0.20);
+}
+</style>
