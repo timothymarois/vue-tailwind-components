@@ -142,7 +142,7 @@ export default {
 		},
 		buildIcon(icon) {
 			if (icon) {
-				let sz = 4;
+				let sz = 5;
 
 				switch(this.size) {
 					case 'xs':
@@ -158,7 +158,7 @@ export default {
 						sz = 6; 
 						break;
 					default:
-						sz = 4;
+						sz = 5;
 				}
 
 				if (this.iconSize) {
