@@ -24,7 +24,7 @@ export default {
 	name: 'TLoader',
 	props: {
 		size: {
-			type: Number,
+			type: [String, Number],
 			default: 5
 		},
 		color: {
