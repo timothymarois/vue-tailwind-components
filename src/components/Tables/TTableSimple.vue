@@ -29,7 +29,7 @@
             <tr 
                 v-for="(item, i) in items" :key="i" 
                 :class="[
-                    `hover:bg-${hoverColor}-100 transition duration-150 text-gray-800 hover:text-indigo-900`, 
+                    `hover:bg-${hoverColor}-100 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`, 
                     (item.class ? item.class+' trow' : 'trow'), 
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
                     (selectFromRow) ? 'cursor-pointer' : ''
