@@ -57,8 +57,37 @@ export const Standard = (args, { argTypes }) => ({
 		`
 });
 
+export const CloseButton = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TNotify, TButton },
+	data() {
+		return {
+			show: false
+		}
+	},
+	methods: {
+		toggleNotification() {
+			this.show = !this.show
+		}
+	},
+	template:
+		`
+		<div class="w-full">
+			<t-button @click.native="toggleNotification">Show notification</t-button>
+			<t-notify v-bind="$props" v-if="show" @close-notification="toggleNotification">
+				A notification component
+			</t-notify>
+		</div>
+		`
+});
+
 Standard.args = {
 	iconSize: 6,
-	icon: 'check',
-	color: 'black'
+	color: 'black',
+	duration: 5000
 };
+
+CloseButton.args = {
+	iconSize: 4,
+	color: 'black'
+}

@@ -8,8 +8,9 @@
 				<t-loader :color="textColor" :size="iconSize" v-if="loading" />
 			</div>
 			<slot>Notification component</slot>
-			<div class="float-right ml-2" v-if="iconRight">
-				<t-icon :value="iconRight" :size="iconSize" />
+			<div class="float-right ml-2" v-if="iconRight || !duration">
+				<t-icon :value="iconRight" :size="iconSize" v-if="iconRight" />
+				<t-icon value="close" :size="iconSize" class="cursor-pointer" @click.native="closeNotification" />
 			</div>	
 		</div>
 	</transition>
@@ -54,7 +55,7 @@ export default {
 		duration: {
 			type: [String, Number],
 			required: false,
-			default: 5000
+			default: null
 		},
 		location: {
 			type: String,
