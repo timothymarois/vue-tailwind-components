@@ -20,6 +20,11 @@ export default {
 			description: 'Change the content padding (default 4)',
             control: { type: 'number', min: 0 }
 		},
+        selectedColor: {
+            name: 'selectedColor',
+            description: 'Background color of selected and hovered rows',
+            control: { type: 'string' }
+        }
 	},
 };
 
@@ -168,6 +173,7 @@ export const AdvancedTables = () => ({
                         :headers="headers"
                         :items="items"
                         select
+                        selectFromRow
                         @change-selection="changedSelection"
                     />
                 </t-card>

@@ -28,8 +28,8 @@
         <tbody v-if="items && items.length > 0" class="tbody bg-white overflow-scroll">
             <tr 
                 v-for="(item, i) in items" :key="i" 
-                class="hover:bg-indigo-100 transition duration-150 text-gray-800 hover:text-indigo-900"
-                :class="(item.class ? item.class+' trow' : 'trow')"
+                :class="[`hover:bg-${selectedColor}-100 transition duration-150 text-gray-800 hover:text-indigo-900`, (item.class ? item.class+' trow' : 'trow'), (selection.includes(i) ? `bg-${selectedColor}-100` : '')]"
+                @click="selectRow(i)"
             >
                 <td 
                     v-if="select"
@@ -98,6 +98,14 @@ export default {
         nodata: {
             type: String,
             default: 'No results found.'
+        },
+        selectedColor: {
+            type: String,
+            default: 'indigo'
+        },
+        selectFromRow: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -116,6 +124,11 @@ export default {
                 if (index > -1) {
                     this.selection.splice(index, 1);
                 }
+            }
+        },
+        selectRow(i) {
+            if(this.selectFromRow) {
+                this.toggleRow(i);
             }
         },
         checkedAll(e) {
