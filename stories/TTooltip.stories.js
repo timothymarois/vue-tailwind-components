@@ -1,5 +1,7 @@
 import TTooltip from '../src/components/Elements/TTooltip.vue';
 import TButton from '../src/components/Elements/TButton.vue';
+import TIcon from '../src/components/Elements/TIcon.vue';
+
 
 export default {
 	title: 'Elements/TTooltip',
@@ -47,6 +49,18 @@ export const Text = (args, { argTypes }) => ({
 		<div class="ml-64 mt-20">
 			<t-tooltip v-bind="$props">
 				Some text
+			</t-tooltip>
+		</div>
+	`
+})
+
+export const Icon = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TTooltip, TButton, TIcon },
+	template: `
+		<div class="ml-64 mt-20">
+			<t-tooltip v-bind="$props">
+				<t-icon value="question-mark-circle"></t-icon>
 			</t-tooltip>
 		</div>
 	`
