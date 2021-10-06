@@ -7,13 +7,34 @@ export default {
 	argTypes: {
 		iconSize: {
 			name: 'iconSize',
-			description: 'Set size of icons (including spinner)'
+			description: 'Set size of icons (including spinner)',
+			control: { type: 'text' }
+		},
+		color: {
+			name: 'color',
+			description: 'Background color of notification',
+			control: { type: 'text' }
+		},
+		textColor: {
+			name: 'color',
+			description: 'Background color of notification',
+			control: { type: 'text' }
+		},
+		duration: {
+			name: 'duration',
+			description: 'Duration in ms that notification will stay visible. Setting `null` will add a close button.',
+			control: { type: 'text' }
+		},
+		loading: {
+			name: 'loading',
+			description: 'Toggle loading spinner in notification component',
+			control: { type: 'boolean' }
 		}
 	}
 }
 
 export const Standard = (args, { argTypes }) => ({
-	props: Object.keys(args),
+	props: Object.keys(argTypes),
 	components: { TNotify, TButton },
 	data() {
 		return {
@@ -27,7 +48,7 @@ export const Standard = (args, { argTypes }) => ({
 	},
 	template:
 		`
-		<div>
+		<div class="w-full">
 			<t-button @click.native="toggleNotification">Show notification</t-button>
 			<t-notify v-bind="$props" v-if="show" @close-notification="toggleNotification">
 				A notification component
@@ -35,3 +56,9 @@ export const Standard = (args, { argTypes }) => ({
 		</div>
 		`
 });
+
+Standard.args = {
+	iconSize: 6,
+	icon: 'check',
+	color: 'black'
+};
