@@ -1,7 +1,7 @@
 <template>
 		<div :class="containerClasses">
 			<transition name="pop" appear>
-				<div class="relative px-4 py-4 min-h-full flex items-center justify-center" v-show="value">
+				<div class="relative bg-white opacity-100 px-4 py-4 min-h-full flex items-center justify-center" v-show="value">
 					<div :class="containerInnerClasses">
 						<div :class="containerContentClasses" :style="(type=='center') ? 'min-width:400px' : ''">
 							
@@ -17,7 +17,7 @@
 					</div>
 				</div>
 			</transition>
-			<transition name="fade" appear>
+			<transition name="fade">
 				<t-overlay 
 					v-show="value"
 					:value="value" 
@@ -111,6 +111,7 @@ export default {
 				'mx-auto',
 				'w-full',
 				'bg-white',
+				'opacity-100',
 				'shadow-lg',
 				'rounded',
 				'overflow-hidden',
@@ -146,11 +147,11 @@ export default {
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-	transition: .2s linear opacity;
+	transition: .3s cubic-bezier(.25,.8,.5,1),z-index 1ms;
 }
 
 .pop-enter-active, .pop-leave-active {
-	transition: .15s ease-out transform;
+	transition: .3s cubic-bezier(.25,.8,.25,1) transform;
 }
 
 .fade-enter, .fade-leave-to {
