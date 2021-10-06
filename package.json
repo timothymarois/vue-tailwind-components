@@ -30,9 +30,9 @@
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.3.6",
     "babel-loader": "^8.2.2",
-    "postcss": "^8.3.8",
+    "postcss": "^8.3.9",
     "tailwindcss": "^2.2.16",
-    "vite": "^2.6.2",
+    "vite": "^2.6.3",
     "vite-plugin-vue2": "^1.8.2",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14"
