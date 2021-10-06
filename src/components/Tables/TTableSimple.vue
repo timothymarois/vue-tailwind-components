@@ -107,12 +107,6 @@ export default {
             type: String,
             default: 'Loading... Please wait'
         },
-    },
-    computed: {
-        messageText() {
-            if (this.loading) return this.loadingText
-            return this.nodata
-        },
         selectedColor: {
             type: String,
             default: 'indigo'
@@ -120,6 +114,12 @@ export default {
         selectFromRow: {
             type: Boolean,
             default: false
+        }
+    },
+    computed: {
+        messageText() {
+            if (this.loading) return this.loadingText
+            return this.nodata
         }
     },
     methods: {
