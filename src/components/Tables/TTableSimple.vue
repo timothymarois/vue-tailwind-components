@@ -130,19 +130,21 @@ export default {
                 this.selection = [...Array(this.items.length).keys()];
             }
         },
-        toggleRow(i) {
-            if (!this.selection.includes(i)) {
-                this.selection.push(i);
-            } else {
-                const index = this.selection.indexOf(i);
-                if (index > -1) {
-                    this.selection.splice(index, 1);
+        toggleRow(i, origin) {
+            if(!this.selectFromRow || origin === 'selectRow') {
+                if (!this.selection.includes(i)) {
+                    this.selection.push(i);
+                } else {
+                    const index = this.selection.indexOf(i);
+                    if (index > -1) {
+                        this.selection.splice(index, 1);
+                    }
                 }
             }
         },
         selectRow(i) {
             if(this.selectFromRow) {
-                this.toggleRow(i);
+                this.toggleRow(i, 'selectRow');
             }
         },
         checkedAll(e) {
