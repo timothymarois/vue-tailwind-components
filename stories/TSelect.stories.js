@@ -75,12 +75,19 @@ export const MultipleStates = (argTypes) => ({
 	template: 
 		`
         <div class="p-6 bg-gray-100">
-            <div class="max-w-xl">
+            <div class="max-w-2xl">
 
                 <t-card title="Standard">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="value" label="Standard" :options="options" placeholder="Select One" />
 						<t-select searchable v-model="value" label="Searchable" :options="options" placeholder="Select One" />
+					</div>
+				</t-card>
+
+				<t-card title="Empty Options" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select v-model="value" label="Standard"  placeholder="Select One" />
+						<t-select searchable v-model="value" label="Searchable" placeholder="Select One" />
 					</div>
 				</t-card>
 

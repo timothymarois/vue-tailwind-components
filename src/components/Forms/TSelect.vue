@@ -77,7 +77,7 @@
                         <span class="font-medium m-2" v-html="item[itemLabel]"></span>          
                     </li>
                 </div>
-                <li v-else-if="!loading && !options.length && searchable && localSearch" class="flex items-center rounded m-4 font-medium">No Results Found</li>
+                <li v-else-if="!loading && !options.length" class="flex items-center rounded m-4 font-medium">{{ nodata }}</li>
             </ul>
         </div>
     </div>
@@ -149,6 +149,10 @@ export default {
         hideicon : {
             type: Boolean,
             default: false
+        },
+        nodata: {
+            type: String,
+            default: 'No Results Found'
         },
         returnObject : {
             type: Boolean,
