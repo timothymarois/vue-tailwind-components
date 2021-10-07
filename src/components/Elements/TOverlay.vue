@@ -1,20 +1,16 @@
 <template>
-	<div 
-        v-show="value" 
-        @click="close"
-        class="fixed top-0 left-0 lg:left-64 bottom-0 right-0 bg-gray-500 bg-opacity-75 z-30"
-        :class="{ 'cursor-pointer' : allowOverlayClose }"
-    ></div>
+    <transition name="fade" appear>
+        <div 
+            @click="close"
+            class="fixed top-0 left-0 bottom-0 right-0 bg-gray-400 bg-opacity-40 z-20"
+        ></div>
+    </transition>
 </template>
 
 <script>
 export default { 
     name: 'BaseOverlay',
     props: {
-        value: {
-           type: Boolean,
-           default: false
-        },
         allowOverlayClose: {
             type: Boolean,
             default: true
@@ -23,9 +19,19 @@ export default {
     methods: {
         close() {
             if (this.allowOverlayClose) {
-                this.$emit('click',true)
+                this.$emit('close-modal')
             }
         }
     }
 };
 </script> 
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+	transition: 1.5s cubic-bezier(.25,.8,.5,1) opacity;
+}
+
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+</style>

@@ -1,39 +1,26 @@
 <template>
-	<div v-show="value" :class="containerClasses">
-		<div class="relative px-4 py-4 min-h-full flex items-center justify-center">
-			<div :class="containerInnerClasses">
-				<div :class="containerContentClasses" :style="(type=='center') ? 'min-width:400px' : ''">
-					
-					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-4">
-						<t-button icon="close" text @click="$emit('input',false)" />
-					</div>
-
-					<div class="relative lg:h-full lg:overflow-y-auto maxHeight">
-						<slot></slot>
-					</div>
-					
+	<div>
+		<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
+		
+		<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
+			<div
+				class="bg-white fixed z-50 shadow-lg rounded p-12 overflow-hidden"
+				:class="containerClasses"
+				style="min-width: 300px; max-height: calc(100vh - 2em)"
+			>
+				<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
+					<t-button icon="close" @click="closeModal" text />
 				</div>
+				<slot></slot>
 			</div>
-		</div>
-
-		<t-overlay 
-			:value="value" 
-			:allowOverlayClose="allowOverlayClose"
-			@click="$emit('input',false)"
-		/>
-
+		</transition>
 	</div>
 </template>
 
-<style scoped>
-.maxHeight { 
-	max-height: calc(100vh - 103px);
-}
-</style>
-
 <script>
-import TButton from "./TButton";
-import TOverlay from "./TOverlay";
+import TButton from "./TButton.vue";
+import TOverlay from "./TOverlay.vue";
+
 export default { 
 	name: 'Modal',
 	components: {
@@ -41,10 +28,6 @@ export default {
 		TOverlay
 	},
 	props: {
-		value: {
-			type: Boolean,
-			default: false
-		},
 		type: {
 			type: String,
 			default: 'center'
@@ -58,85 +41,60 @@ export default {
 			default: true
 		}
 	},
+	methods: {
+		closeModal() {
+			return this.$emit('close-modal');
+		}
+	},
 	computed: {
 		containerClasses() {
-			return [
-                'z-20',
-                'fixed',
-				'left-0',
-				'sm:top-12',
-				'sm:mt-1',
-				'lg:left-64',
-				'bottom-0',
-				'right-0',
-				'overflow-y-hidden'
-            ];
-		},
-		containerInnerClasses() {
-
-			let c = [
-				'z-50',
-                'mx-auto',
-            ];
+			let c = [];
 			
 			switch(this.type) {
-				case 'right' : 
-					c = c.concat([
-						'max-w-screen-md'
-					]);
-				break;
-				case 'center' : 
-					c = c.concat([
-						'max-w-screen-md'
-					]);
-				break;
-				case 'full' : 
-					c = c.concat([
-						'w-full'
-					]);
-				break;
-				default : 
-			}
-
-			return c;
-		},
-		containerContentClasses() {
-
-			let c = [
-                'relative',
-				'z-50',
-				'mx-auto',
-				'w-full',
-				'bg-white',
-				'shadow-lg',
-				'rounded',
-				'overflow-hidden',
-            ];
-			
-			switch(this.type) {
-				case 'right' : 
+				case 'right': 
 					c = c.concat([
 						'max-w-xl',
-						'lg:top-4',
-						'lg:right-4',
-						'lg:bottom-4',
-						'lg:absolute'
-					]);
-				break;
-				case 'center' : 
-					c = c.concat([
 						'p-4',
-						'max-w-md'
+						'bottom-4',
+						'right-4',
+						'h-full'
 					]);
-				break;
-				case 'full' : 
-					
-				break;
-				default : 
+					break;
+				case 'center': 
+					c = c.concat([
+						'max-w-xl',
+						'mx-auto',
+						'relative'
+					]);
+					break;
+				case 'full':
+					c = c.concat([
+						'w-11/12',
+						'mx-auto',
+						'relative'
+					]);
+					break; 
 			}
 
 			return c;
 		}
 	}
 };
-</script> 
+</script>
+
+<style scoped>
+.pop-enter-active, .pop-leave-active, .slide-enter-active, .slide-leave-active {
+	transition: all .3s cubic-bezier(.25,.8,.25,1);
+}
+
+
+.pop-enter, .pop-leave-to {
+	transform: scale(0.30);
+	opacity: 0.80;
+	transform-origin: center center;
+}
+
+.slide-enter, .slide-leave-to {
+	transform: translateX(400%);
+}
+</style>
