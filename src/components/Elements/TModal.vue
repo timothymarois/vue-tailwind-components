@@ -4,7 +4,7 @@
 		
 		<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 			<div
-				class="bg-white fixed z-50 shadow-lg rounded inline-block px-6 pt-12 pb-6 overflow-hidden"
+				class="bg-white fixed z-50 shadow-lg rounded p-12 overflow-hidden"
 				:class="containerClasses"
 				style="min-width: 300px; max-height: calc(100vh - 103px);"
 			>
@@ -68,8 +68,10 @@ export default {
 					break;
 				case 'full':
 					c = c.concat([
+						'block',
 						'w-11/12',
-						'mx-auto'
+						'mx-auto',
+						'relative'
 					]);
 					break; 
 			}
@@ -82,12 +84,14 @@ export default {
 
 <style scoped>
 .pop-enter-active, .pop-leave-active, .slide-enter-active, .slide-leave-active {
-	transition: transform .3s cubic-bezier(.25,.8,.25,1);
+	transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
 
 
 .pop-enter, .pop-leave-to {
-	transform: scale(0.30) translateX(-50%);
+	transform: scale(0.30);
+	opacity: 0.80;
+	transform-origin: center center;
 }
 
 .slide-enter, .slide-leave-to {
