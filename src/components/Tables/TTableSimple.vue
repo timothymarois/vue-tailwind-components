@@ -43,7 +43,6 @@
                     <slot name="column.select">
                         <div class="flex justify-center w-full">
                             <TCheckbox :value="selection.includes(i)" @click.native="toggleRow(i)" />
-                            <!-- <input type="checkbox" v-model="value" :value="item.id" /> -->
                         </div>
                     </slot>
                 </td>
@@ -60,7 +59,7 @@
         </tbody>
         <tbody v-else >
             <tr>
-                <td :colspan="headers.length" class="text-center">{{ messageText }}</td>
+                <td :colspan="((select && headers.length) ? headers.length+1 : headers.length)" class="text-center">{{ messageText }}</td>
             </tr>
         </tbody>
     </table>
