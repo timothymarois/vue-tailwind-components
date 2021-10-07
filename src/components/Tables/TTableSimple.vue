@@ -29,7 +29,7 @@
             <tr class="v-data-table__progress">
                 <th colspan="100%" class="border-none p-0 relative">
                     <t-progress-bar 
-                        :color="color" 
+                        :color="selectedColor" 
                         :rounded="false" 
                         class="absolute" 
                     />
