@@ -4,7 +4,7 @@
 		
 		<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 			<div
-				class="bg-white fixed z-50 shadow-lg rounded p-12 overflow-hidden"
+				class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-hidden"
 				:class="containerClasses"
 				style="min-width: 300px; max-height: calc(100vh - 2em)"
 			>
