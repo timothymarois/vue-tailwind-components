@@ -6,7 +6,7 @@
 			<div
 				class="bg-white fixed z-50 shadow-lg rounded p-12 overflow-hidden"
 				:class="containerClasses"
-				style="min-width: 300px; max-height: calc(100vh - 103px);"
+				style="min-width: 300px; max-height: calc(100vh - 2em)"
 			>
 				<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
 					<t-button icon="close" @click="closeModal" text />
@@ -54,8 +54,10 @@ export default {
 				case 'right': 
 					c = c.concat([
 						'max-w-xl',
-						'lg:right-4',
-						'lg:bottom-4'
+						'p-4',
+						'bottom-4',
+						'right-4',
+						'h-full'
 					]);
 					break;
 				case 'center': 
