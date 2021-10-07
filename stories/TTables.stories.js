@@ -193,3 +193,69 @@ export const AdvancedTables = () => ({
 	`,
 });
 
+export const LoadingState = () => ({
+	// props: Object.keys(argTypes),
+	components: { TTableSimple, TCard },
+    data: () => ({
+        selected: [],
+        headers: [
+            {
+                title: 'Property Address',
+                value: 'property_address'
+            },
+            {
+                title: 'Full Name',
+                value: 'full_name'
+            },
+            {
+                title: 'Mailing Address',
+                value: 'mail_address'
+            }
+        ],
+        items: [
+            {
+                id: 123,
+                property_address: '845 NY Ave',
+                mail_address: '845 NY Ave',
+                full_name: 'Timothy Marois'
+            },
+            {
+                id: 214,
+                property_address: '210 W Trade st',
+                mail_address: '210 W Trade st',
+                full_name: 'Jason Gordon'
+            },
+            {
+                id: 788,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane'
+            }
+        ]
+    }),
+	template: 
+	`
+        <div class="p-6 bg-gray-100">
+
+            <div class="w-full">
+                <t-card title="Selection (prop: select)" contentPadding="0">
+                    <t-table-simple 
+                        v-model="selected"
+                        :headers="headers"
+                        :items="items"
+                        select
+                        selectFromRow
+                        loading
+                    />
+                </t-card>
+            </div>
+
+            <div class="mt-8">
+                <p v-for="(item, i) in selected" :key="i">
+                    {{JSON.stringify(item)}} <br />
+                </p>
+            </div>
+
+        </div>
+	`,
+});

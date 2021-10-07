@@ -25,6 +25,17 @@
                 </th>
             </tr>
         </thead>
+        <thead v-if="loading">
+            <tr class="v-data-table__progress">
+                <th colspan="100%" class="border-none p-0 relative">
+                    <t-progress-bar 
+                        :color="color" 
+                        :rounded="false" 
+                        class="absolute" 
+                    />
+                </th>
+            </tr>
+        </thead>
         <tbody v-if="items && items.length > 0" class="tbody bg-white overflow-scroll">
             <tr 
                 v-for="(item, i) in items" :key="i" 
@@ -59,7 +70,7 @@
         </tbody>
         <tbody v-else >
             <tr>
-                <td :colspan="((select && headers.length) ? headers.length+1 : headers.length)" class="text-center">{{ messageText }}</td>
+                <td colspan="100%" class="text-center">{{ messageText }}</td>
             </tr>
         </tbody>
     </table>
@@ -67,6 +78,8 @@
 
 <script>
 import TCheckbox from "../Forms/TCheckbox.vue";
+import TProgressBar from "../Elements/TProgressBar.vue";
+
 export default {
     name: 'TTableSimple',
     data () {
@@ -76,7 +89,8 @@ export default {
         }
     },
     components: {
-        TCheckbox
+        TCheckbox,
+        TProgressBar
     },
     props: {
         value: {
@@ -91,15 +105,15 @@ export default {
             type: Array,
             default: () => []
         },
-        select : {
+        select: {
             type: Boolean,
             default: false
         },
-        loading : {
+        loading: {
             type: Boolean,
             default: false
         },
-        hideHeader : {
+        hideHeader: {
             type: Boolean,
             default: false
         },
