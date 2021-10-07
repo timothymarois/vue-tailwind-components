@@ -135,7 +135,7 @@ export default {
             default: null
         },
         value: {
-            type: [String, Object],
+            type: [String, Object, Number],
             default: null
         },
         options: {
