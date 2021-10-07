@@ -2,7 +2,8 @@
     <transition name="fade" appear>
         <div 
             @click="close"
-            class="fixed top-0 left-0 bottom-0 right-0 bg-gray-400 bg-opacity-40 z-20"
+            class="fixed top-0 left-0 bottom-0 right-0 bg-gray-400 bg-opacity-60 z-20"
+            :class="{'cursor-pointer':allowOverlayClose}"
         ></div>
     </transition>
 </template>
