@@ -60,15 +60,13 @@ export default {
 					break;
 				case 'center': 
 					c = c.concat([
-						'p-4',
-						'left-1/2',
-						'transform',
-						'-translate-x-1/2'
+						'max-w-xl',
+						'mx-auto',
+						'relative'
 					]);
 					break;
 				case 'full':
 					c = c.concat([
-						'block',
 						'w-11/12',
 						'mx-auto',
 						'relative'
