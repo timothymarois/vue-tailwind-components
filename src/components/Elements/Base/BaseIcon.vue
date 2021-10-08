@@ -83,6 +83,8 @@
     <path v-else-if="value=='arrow-sm-up'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
     <path v-else-if="value=='arrow-sm-down'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
 
+    <path v-else-if="value=='menu'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+
 
   </svg>
 </template>
