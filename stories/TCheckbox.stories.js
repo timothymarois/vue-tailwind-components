@@ -1,4 +1,5 @@
 import TCheckbox from '../src/components/Forms/TCheckbox.vue';
+import TCard from '../src/components/Elements/TCard.vue';
 
 export default {
 	title: 'Forms/TCheckbox',
@@ -56,3 +57,42 @@ Check.args = {
 	label: 'Checkbox with check',
 	check: true
 }
+
+export const MultipleValues = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TCheckbox, TCard },
+    data: () => ({
+        value: false,
+		valueTwo: false,
+		valueThree: 'Inactive'
+    }),
+	computed: {
+		firstValue() {
+			return this.value.toString(); 
+		}
+	},
+	methods: {
+
+	},
+	template: 
+		`
+        <div>
+
+            <t-card title="Default State (checked = true)">
+				<t-checkbox v-model="value" label="Boolean True/false" />
+				value: {{ firstValue }}
+			</t-card>
+
+			<t-card title="Reverse (checked = false)" subtitle="You can reverse the true/false state values" class="mt-2">
+				<t-checkbox v-model="valueTwo" label="Boolean True/false" :trueValue="false" :falseValue="true" />
+				value: {{ valueTwo.toString() }}
+			</t-card>
+
+			<t-card title="String (checked = 'Active')" subtitle="You can use a string for true/false state values" class="mt-2">
+				<t-checkbox v-model="valueThree" label="String Active/Inactive" :trueValue="'Active'" :falseValue="'Inactive'" />
+				value: {{ valueThree.toString() }}
+			</t-card>
+
+        </div>
+		`,
+});

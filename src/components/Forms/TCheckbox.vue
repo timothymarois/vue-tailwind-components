@@ -1,19 +1,12 @@
 <template>
 	<div class="flex items-center">
-		<!-- <input 
-			:id="id" 
-			:value="value"
-			@input="update($event)"
-			@click="$emit('click',value)"
-			type="checkbox" 
-			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
-		/> -->
 		<input 
 			:id="id" 
 			type="checkbox" 
 			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
-			:checked="value"
-			@click="emitCheck"
+			:checked="isChecked"
+			@change="onChange($event)"
+			@click="$emit('click',value)"
 		/>
 		<div :class="`bg-white border-2 rounded relative border-${color}-700 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
 			<div :class="`hidden bg-${color}-700 w-${size} h-${size} flex justifty-center items-center rounded`" v-if="check">
@@ -43,7 +36,7 @@ export default {
 	},
 	props: {
 		value: {
-			type: Boolean,
+			type: [String, Boolean],
 			default: false
 		},
 		color: {
@@ -65,22 +58,65 @@ export default {
 		check: {
 			type: Boolean,
 			default: false
-		}
+		},
+		trueValue: {
+			type: [String, Boolean],
+			default: true
+		},
+		falseValue: {
+			type: [String, Boolean],
+			default: false
+		},
 	},
 	data() {
 		return {
-			checked: this.value
+			lazyValue: this.value
 		}
 	},
 	methods: {
-		emitCheck() {
-			this.checked = !this.checked;
-			this.$emit('isChecked', this.checked);
+		valueComparator: (a, b) => a === b,
+		onChange(e) {
+
+			// const value = e.target.checked;
+			const val = this.value;
+			let input = this.internalValue
+
+			if (this.trueValue !== undefined && this.falseValue !== undefined) {
+				input = this.valueComparator(input, this.trueValue) ? this.falseValue : this.trueValue
+			} 
+			else if (val) {
+				input = this.valueComparator(input, val) ? null : val
+			} 
+			else {
+				input = !input
+			}
+
+			this.internalValue = input
+			this.$emit('input', input); 
 		}
 	},
 	computed: {
 		id() {
 			return (Math.random() + 1).toString(36).substring(7);
+		},
+		internalValue: {
+			get: function() {
+				return this.lazyValue; 
+			},
+			set: function(val) { 
+				this.lazyValue = val
+				this.$emit('input',val);
+			}
+		},
+		isChecked() {
+			const value = this.value
+			const input = this.internalValue
+
+			if (this.trueValue === undefined || this.falseValue === undefined) {
+				return value ? this.valueComparator(value,input) : Boolean(input)
+			}
+
+			return this.valueComparator(input,this.trueValue)
 		}
 	}
 };
