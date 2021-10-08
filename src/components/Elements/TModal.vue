@@ -1,6 +1,6 @@
 <template>
-	<div class="absolute w-screen">
-		<div :class="`relative ${type !== 'right' ? 'flex items-center min-h-screen' : ''}`">
+	<div class="absolute w-full h-full">
+		<div :class="`relative ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
 			<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
 			
 			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
