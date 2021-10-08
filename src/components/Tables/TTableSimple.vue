@@ -74,7 +74,11 @@
                     v-for="(h) in headers" 
                     :key="h.value" 
                     class="p-4 border-0 relative font-normal"
-                    :class="(h.class) ? h.class : 'text-left'"
+                    :class="{
+                        'text-left' : !h.align,
+                        'text-right' : (h.align=='right'),
+                        'text-center' : (h.align=='center')
+                    }"
                 >
                     <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
