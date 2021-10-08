@@ -55,9 +55,14 @@ export default {
 				case 'right': 
 					c = c.concat([
 						'max-w-xl',
-						'bottom-4',
-						'right-4',
-						'h-full'
+						'block',
+						'h-auto',
+						'bottom-0',
+						'top-0',
+						'right-0',
+						'mb-4',
+						'mt-4',
+						'mr-4'
 					]);
 					break;
 				case 'center': 
