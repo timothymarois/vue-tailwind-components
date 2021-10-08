@@ -1,19 +1,21 @@
 <template>
-	<div>
-		<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
-		
-		<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
-			<div
-				class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-hidden"
-				:class="containerClasses"
-				style="min-width: 300px; max-height: calc(100vh - 2em)"
-			>
-				<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
-					<t-button icon="close" @click="closeModal" text />
+	<div class="absolute w-full">
+		<div class="relative">
+			<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
+			
+			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
+				<div
+					class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-hidden"
+					:class="containerClasses"
+					style="min-width: 300px; max-height: calc(100vh - 2em)"
+				>
+					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
+						<t-button icon="close" @click="closeModal" text />
+					</div>
+					<slot></slot>
 				</div>
-				<slot></slot>
-			</div>
-		</transition>
+			</transition>
+		</div>
 	</div>
 </template>
 
