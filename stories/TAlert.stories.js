@@ -43,6 +43,21 @@ export default {
 		iconSize: {
 			name: 'iconSize',
 			description: 'Set size of icon'
+		},
+		borderColor: {
+			name: 'borderColor',
+			description: 'Set color of border',
+			control: { type: 'text' }
+		},
+		borderPosition: {
+			name: 'borderPosition',
+			description: 'Set position of border',
+			options: ['top', 'right', 'bottom', 'left'],
+			control: { type: 'select' }
+		},
+		borderWidth: {
+			name: 'borderWidth',
+			description: 'Set width of border',
 		}
 	}
 };
@@ -63,6 +78,9 @@ Error.args = {
 	icon: 'bell',
 	iconSize: 5,
 	rounded: true,
+	borderPosition: 'bottom',
+	borderColor: 'red-300',
+	borderWidth: 8
 }
 
 export const Warning = (args, { argTypes }) => ({
