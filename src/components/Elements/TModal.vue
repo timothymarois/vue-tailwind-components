@@ -22,7 +22,6 @@
 <script>
 import TButton from "./TButton.vue";
 import TOverlay from "./TOverlay.vue";
-
 export default { 
 	name: 'Modal',
 	components: {
@@ -56,7 +55,6 @@ export default {
 				case 'right': 
 					c = c.concat([
 						'max-w-xl',
-						'p-4',
 						'bottom-4',
 						'right-4',
 						'h-full'
@@ -88,14 +86,11 @@ export default {
 .pop-enter-active, .pop-leave-active, .slide-enter-active, .slide-leave-active {
 	transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
-
-
 .pop-enter, .pop-leave-to {
 	transform: scale(0.30);
 	opacity: 0.80;
 	transform-origin: center center;
 }
-
 .slide-enter, .slide-leave-to {
 	transform: translateX(400%);
 }
