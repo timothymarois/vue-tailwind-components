@@ -1,5 +1,5 @@
 <template>
-	<div :class="`h-${size} w-${size} bg-${color} text-${textColor} font-semibold text-lg flex justify-center items-center ${round ? 'rounded-full' : ''}`">
+	<div :class="`h-${size} w-${size} bg-${color} text-${textColor} font-semibold text-${textSize} flex justify-center items-center ${round ? 'rounded-full' : ''}`">
 		<slot></slot>
 	</div>
 </template>
@@ -27,6 +27,11 @@ export default {
 			type: Boolean,
 			required: false,
 			default: true
+		},
+		textSize: {
+			type: [String],
+			required: false,
+			default: 'lg'
 		}
 	}
 };

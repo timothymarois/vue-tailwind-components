@@ -13,6 +13,12 @@ export default {
 			name: 'round',
 			description: 'Switch between round and square avatar',
 			control: { type: 'boolean' }
+		},
+		textSize: {
+			name: 'textSize',
+			description: 'Set size of text',
+			options: ['xs', 'sm', 'md', 'lg', 'xl'],
+			control: { type: 'select' }
 		}
 	}
 };
