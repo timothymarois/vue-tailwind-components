@@ -1,5 +1,5 @@
 <template>
-    <table class="min-w-full divide-y divide-gray-200 bg-gray-50">
+    <table class="t-table min-w-full divide-y divide-gray-200 bg-gray-50">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800">
             <tr>
 
@@ -16,12 +16,24 @@
                 </th>
 
                 <th v-for="(h,hindex) in headers"
-                    class="p-4 text-sm font-normal text-left"
+                    class="my-auto px-4 py-2 text-sm font-normal"
                     :key="hindex"
-                    :class="(h.class) ? h.class : 'text-left'"
+                    :class="{
+                        'text-left' : !h.align,
+                        'text-right' : (h.align=='right'),
+                        'text-center' : (h.align=='center'),
+                        'sortable cursor-pointer' : h.sorting,
+                        'sorted' : h.sorted
+                    }"
                     :style="(h.width) ? 'width:'+h.width+';' : ''"
+                    @click="sortClicked(h,hindex)"
                 >
-                    <slot :name="'header.'+h.value" v-bind:header="h"><span class="font-bold my-auto">{{ h.title }}</span></slot>
+                    <slot :name="'header.'+h.value" v-bind:header="h">
+                        <div class="my-auto">
+                            <span class="font-bold">{{ h.title }}</span>
+                            <span v-if="h.sorting" class="sort-icon"><t-icon size="4" :value="sortIcon(h.sorted)" /></span>
+                        </div>
+                    </slot>
                 </th>
             </tr>
         </thead>
@@ -76,9 +88,28 @@
     </table>
 </template>
 
+<style scoped>
+table.t-table>thead>tr:last-child>th {
+    border-right: 1px solid #e5e5e5;
+}
+table.t-table>thead>tr:last-child>th:last-child {
+    border-right: 0;
+}
+table.t-table>thead>tr>th.sortable:hover {
+    background: #eaeaea70!important;
+}
+table.t-table>thead>tr>th.sortable:not(.sorted) span.sort-icon {
+    visibility: hidden;
+}
+table.t-table>thead>tr>th.sortable:hover span.sort-icon {
+    visibility:visible
+}
+</style>
+
 <script>
 import TCheckbox from "../Forms/TCheckbox.vue";
 import TProgressBar from "../Elements/TProgressBar.vue";
+import TIcon from "../Elements/TIcon.vue";
 
 export default {
     name: 'TTableSimple',
@@ -90,7 +121,8 @@ export default {
     },
     components: {
         TCheckbox,
-        TProgressBar
+        TProgressBar,
+        TIcon
     },
     props: {
         value: {
@@ -145,6 +177,14 @@ export default {
         }
     },
     methods: {
+        sortClicked(h,i) {
+            this.$emit('change-sort',h,i)
+        },
+        sortIcon(dir) {
+            if (dir=='ASC') return 'arrow-sm-up';
+            if (dir=='DESC') return 'arrow-sm-down';
+            return 'switch-vertical';
+        },
         toggleAll() {
             if (!this.selectedAll) {
                 this.selection = [];

@@ -135,15 +135,22 @@ export const AdvancedTables = () => ({
         headers: [
             {
                 title: 'Property Address',
-                value: 'property_address'
+                value: 'property_address',
+                sorting: true,
+                sort: 'DESC',
+                sorted: 'DESC'
             },
             {
                 title: 'Full Name',
-                value: 'full_name'
+                value: 'full_name',
+                sorting: true,
+                sorted: null
             },
             {
                 title: 'Mailing Address',
-                value: 'mail_address'
+                value: 'mail_address',
+                sorting: true,
+                sorted: null
             }
         ],
         items: [
