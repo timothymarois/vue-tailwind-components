@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
-		
 		<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 			<div
 				class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-hidden"
@@ -20,7 +19,6 @@
 <script>
 import TButton from "./TButton.vue";
 import TOverlay from "./TOverlay.vue";
-
 export default { 
 	name: 'Modal',
 	components: {
@@ -85,14 +83,11 @@ export default {
 .pop-enter-active, .pop-leave-active, .slide-enter-active, .slide-leave-active {
 	transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
-
-
 .pop-enter, .pop-leave-to {
 	transform: scale(0.30);
 	opacity: 0.80;
 	transform-origin: center center;
 }
-
 .slide-enter, .slide-leave-to {
 	transform: translateX(400%);
 }
