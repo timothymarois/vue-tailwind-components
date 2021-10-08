@@ -15,7 +15,7 @@
                     </slot>
                 </th>
 
-                <th v-for="(h,hindex) in headers"
+                <th v-for="(h,hindex) in headerItems"
                     class="my-auto px-4 py-2 text-sm font-normal"
                     :key="hindex"
                     :class="{
@@ -71,7 +71,7 @@
                 </td>
 
                 <td 
-                    v-for="(h) in headers" 
+                    v-for="(h) in headerItems" 
                     :key="h.value" 
                     class="p-4 border-0 relative font-normal"
                     :class="{
@@ -178,6 +178,9 @@ export default {
         messageText() {
             if (this.loading) return this.loadingText
             return this.nodata
+        },
+        headerItems() {
+            return this.headers.filter(item => !item.hide)
         }
     },
     methods: {
