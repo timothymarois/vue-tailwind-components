@@ -60,15 +60,13 @@ export default {
 				case 'center': 
 					c = c.concat([
 						'max-w-xl',
-						'mx-auto',
-						'relative'
+						'mx-auto'
 					]);
 					break;
 				case 'full':
 					c = c.concat([
 						'w-11/12',
-						'mx-auto',
-						'relative'
+						'mx-auto'
 					]);
 					break; 
 			}
