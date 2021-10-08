@@ -1,6 +1,6 @@
 <template>
-	<div class="absolute w-full">
-		<div class="relative">
+	<div class="absolute w-screen">
+		<div :class="`relative ${type !== 'right' ? 'flex items-center min-h-screen' : ''}`">
 			<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
 			
 			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
@@ -64,14 +64,16 @@ export default {
 					c = c.concat([
 						'max-w-xl',
 						'mx-auto',
-						'relative'
+						'relative',
+						'top-1/2'
 					]);
 					break;
 				case 'full':
 					c = c.concat([
 						'w-11/12',
 						'mx-auto',
-						'relative'
+						'relative',
+						'top-1/2'
 					]);
 					break; 
 			}
