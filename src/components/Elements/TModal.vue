@@ -54,7 +54,6 @@ export default {
 				case 'right': 
 					c = c.concat([
 						'max-w-xl',
-						'p-4',
 						'bottom-4',
 						'right-4',
 						'h-full'
