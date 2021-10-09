@@ -150,7 +150,8 @@ export const AdvancedTables = () => ({
                 title: 'Mailing Address',
                 value: 'mail_address',
                 sorting: true,
-                sorted: null
+                sorted: null,
+                hide: true
             }
         ],
         items: [
@@ -168,6 +169,12 @@ export const AdvancedTables = () => ({
             },
             {
                 id: 788,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane'
+            },
+            {
+                id: 888,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane'
