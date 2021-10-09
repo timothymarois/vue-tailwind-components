@@ -1,11 +1,11 @@
 <template>
-	<div class="absolute w-full h-full">
+	<div class="absolute w-full h-full top-0 bottom-0 left-0 right-0">
 		<div :class="`relative ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
 			<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
 			
 			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 				<div
-					class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-hidden"
+					class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-y-auto"
 					:class="containerClasses"
 					style="min-width: 300px; max-height: calc(100vh - 2em)"
 				>
