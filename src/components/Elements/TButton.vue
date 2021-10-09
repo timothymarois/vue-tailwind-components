@@ -80,6 +80,10 @@ export default {
 		iconRight: {
 			type: String,
 			default: null
+		},
+		colorLevel: {
+			type: [String,Number],
+			default: 800
 		}
 	},
 	computed: {
@@ -178,9 +182,10 @@ export default {
 			let color = 'white';
 			if(this.disabled) {
 				color = 'gray-500'
-			} else {
+			}
+			else {
 				if(this.outlined) {
-					color = this.borderColor;
+					color = this.color;
 				} else {
 					color = 'white';
 				}
@@ -255,6 +260,9 @@ export default {
 			}
 		},
 		bTheme(c) {
+
+			let colorLevelSecondary = parseInt(this.colorLevel)+100;
+			
 			c = c.concat(['border-2', 'border-transparent', 'focus:outline-none']);
 
 			if (this.text) {
@@ -269,21 +277,26 @@ export default {
 				if (this.outlined) {
 					if (this.disabled) {
 						c = c.concat(['text-gray-400','border-gray-300']);
-					} else {
+					}
+					else {
 						if (this.color=='white') {
-							c = c.concat([`border-${this.borderColor} text-${this.color} hover:bg-${this.color} hover:text-indigo-800`]);
-						} else {
-							c = c.concat([`border-${this.borderColor}-800 hover:border-${this.color}-900 text-${this.color}-800 hover:bg-${this.color}-100`]);
+							c = c.concat([`border-${this.color} text-${this.color} hover:bg-${this.color} hover:text-indigo-${this.colorLevel}`]);
+						}
+						else {
+							c = c.concat([`border-${this.color}-${this.colorLevel} hover:border-${this.color}-${colorLevelSecondary} text-${this.color}-${this.colorLevel} hover:bg-${this.color}-100`]);
 						}
 					}
-				} else {
+				}
+				else {
 					if (this.disabled) {
 						c = c.concat(['text-gray-400','bg-gray-200']);
-					} else {
+					} 
+					else {
 						if (this.color=='white') {
-							c = c.concat(['bg-white','text-indigo-800','hover:bg-indigo-100']);
-						} else {
-							c = c.concat([`bg-${this.color}-800 hover:bg-${this.color}-900`]);
+							c = c.concat([`bg-white text-indigo-${this.colorLevel} hover:bg-indigo-100`]);
+						} 
+						else {
+							c = c.concat([`bg-${this.color}-${this.colorLevel} hover:bg-${this.color}-${colorLevelSecondary}`]);
 						}
 					}
 				}

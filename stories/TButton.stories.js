@@ -181,11 +181,40 @@ export const MultipleStates = () => ({
 
 
 
-			<div class="mt-10 max-w-md mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-button label="Button" />
-				<t-button label="Button" />
-				<t-button icon="check" />
-				<t-button icon="check" rounded />
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button outlined label="Button" color="red" />
+				<t-button outlined label="Button" color="red" loading  />
+				<t-button outlined label="Button" color="red" icon="check"  />
+				<t-button outlined label="Button" color="red" icon="check" loading  />
+				<t-button outlined label="Button" color="red" iconRight="arrow-right"  />
+				<t-button outlined label="Button" color="red" iconRight="arrow-right" loading  />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button outlined label="Button" color="red" color-level="600" />
+				<t-button outlined label="Button" color="red" color-level="600" loading  />
+				<t-button outlined label="Button" color="red" color-level="600" icon="check"  />
+				<t-button outlined label="Button" color="red" color-level="600" icon="check" loading  />
+				<t-button outlined label="Button" color="red" color-level="600" iconRight="arrow-right"  />
+				<t-button outlined label="Button" color="red" color-level="600" iconRight="arrow-right" loading  />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button label="Button" color="red" />
+				<t-button label="Button" color="red" loading  />
+				<t-button label="Button" color="red" icon="check"  />
+				<t-button label="Button" color="red" icon="check" loading  />
+				<t-button label="Button" color="red" iconRight="arrow-right"  />
+				<t-button label="Button" color="red" iconRight="arrow-right" loading  />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button label="Button" color="red" color-level="600" />
+				<t-button label="Button" color="red" color-level="600" loading  />
+				<t-button label="Button" color="red" color-level="600" icon="check"  />
+				<t-button label="Button" color="red" color-level="600" icon="check" loading  />
+				<t-button label="Button" color="red" color-level="600" iconRight="arrow-right"  />
+				<t-button label="Button" color="red" color-level="600" iconRight="arrow-right" loading  />
 			</div>
 
 
