@@ -26,11 +26,11 @@
                 v-for="(item,index) in items"
                 :key="index"
                 class="p-2 flex items-center rounded m-2 transition duration-150"
-                :class="{
-                    'cursor-pointer text-gray-500 hover:bg-indigo-100 hover:text-indigo-900' : (!item.disabled),
-                    'cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300' : (item.disabled)
-                }"
-                :disabled="item.disabled"
+                :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-50 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
+
+                :disabled="item.disabled
+                
+                "
                 @click="!item.disabled && selectItem(item)"
             >
                 <t-icon v-if="item.icon" :value="item.icon" size="6" class="mr-2" />

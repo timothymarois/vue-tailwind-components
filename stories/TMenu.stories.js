@@ -18,39 +18,45 @@ export default {
 	},
 };
 
-const Template = (args, { argTypes }) => ({
+export const Standard = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TMenu, TButton },
+	components: { TMenu },
+    data: () => ({
+        color: 'indigo',
+		label: 'Menu',
+		items: [
+			{
+				icon: 'arrow-right',
+				label: 'Home',
+				value: 'home',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'About',
+				value: 'about',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'About',
+				value: 'about',
+				color: 'red',
+				hover: 'red',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'Disabled',
+				value: 'disabled',
+				disabled: true
+			}
+		],
+    }),
 	template: 
-	`
-		<div class="max-w-xl">
-			<t-menu v-bind="$props" label="Menu" />
+		`
+        <div class="max-w-xl">
+			<t-menu :items="items" label="Menu" />
 		</div>
-	`,
+		`,
 });
-
-export const Standard = Template.bind({});
-Standard.args = {
-	color: 'indigo',
-    label: 'Menu',
-	items: [
-        {
-            icon: 'arrow-right',
-            label: 'Home',
-            value: 'home',
-            disabled: false
-        },
-        {
-            icon: null,
-            label: 'About',
-            value: 'about',
-            disabled: false
-        },
-        {
-            icon: null,
-            label: 'Contact',
-            value: 'contact',
-            disabled: false
-        }
-    ],
-};
