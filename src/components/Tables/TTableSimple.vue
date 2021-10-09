@@ -54,7 +54,7 @@
                     `hover:bg-${hoverColor}-100 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`, 
                     (item.class ? item.class+' trow' : 'trow'), 
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
-                    (selectFromRow) ? 'cursor-pointer' : ''
+                    (selectFromRow || rowCursor) ? 'cursor-pointer' : ''
                 ]"
                 @click="selectRow(i,item,$event)"
             >
@@ -173,6 +173,10 @@ export default {
             default: 'indigo'
         },
         selectFromRow: {
+            type: Boolean,
+            default: false
+        },
+        rowCursor: {
             type: Boolean,
             default: false
         }
