@@ -56,7 +56,7 @@
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
                     (selectFromRow) ? 'cursor-pointer' : ''
                 ]"
-                @click="selectRow(i)"
+                @click="selectRow(i,item)"
             >
                 <td 
                     v-if="select"
@@ -213,10 +213,11 @@ export default {
                 }
             }
         },
-        selectRow(i) {
-            if(this.selectFromRow) {
-                this.toggleRow(i, 'selectRow');
+        selectRow(i,item) {
+            if (this.selectFromRow) {
+                this.toggleRow(i,'selectRow');
             }
+            this.$emit('click-row',item)
         },
         checkedAll(e) {
             this.selectedAll = e;
