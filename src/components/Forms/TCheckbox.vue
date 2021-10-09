@@ -19,7 +19,7 @@
 			<div :class="`hidden bg-${color}-700 w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-sm pointer-events-none`" v-else />
 		</div>
 		<div class="ml-3 text-sm" v-if="label">
-			<t-label :id="id" >{{ value }}</t-label>
+			<t-label :id="id" >{{ label }}</t-label>
 		</div>
 	</div>
 </template>
@@ -80,16 +80,7 @@ export default {
 			// const value = e.target.checked;
 			const value = this.value;
 			let input = this.internalValue
-
-			if (this.trueValue !== undefined && this.falseValue !== undefined) {
-				input = this.valueComparator(input, this.trueValue) ? this.falseValue : this.trueValue
-			} 
-			else if (value) {
-				input = this.valueComparator(input, value) ? false : value
-			} 
-			else {
-				input = !input
-			}
+			input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
 
 			// console.log('----------------')
 			// console.log('isChecked: '+this.isChecked.toString())
@@ -112,17 +103,7 @@ export default {
 			}
 		},
 		isChecked() {
-			const value = this.value
-			const input = this.internalValue
-
-			if (this.trueValue === undefined || this.falseValue === undefined) {
-				return value ? this.valueComparator(value,input) : Boolean(input)
-			}
-			else if (value) {
-				return Boolean(value)
-			} 
-
-			return this.valueComparator(input,this.trueValue)
+			return this.valueComparator(this.value, this.trueValue) ? true : false
 		}
 	}
 };
