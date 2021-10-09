@@ -7,9 +7,8 @@
                     <slot name="hselect">
                         <div class="flex justify-center w-full">
                             <TCheckbox 
-                                @click.native="toggleAll"
-                                @isChecked="checkedAll"
-                                :value="selectedAll"
+                                v-model="selectedAll"
+                                @input="toggleAll"
                             />
                         </div>
                     </slot>
@@ -65,7 +64,10 @@
                 >
                     <slot name="column.select">
                         <div class="flex justify-center w-full">
-                            <TCheckbox :value="selection.includes(i)" @click.native="toggleRow(i)" />
+                            <TCheckbox 
+                                :value="selection.includes(i)" 
+                                @input="toggleRow(i)"
+                            />
                         </div>
                     </slot>
                 </td>
@@ -192,7 +194,7 @@ export default {
             if (dir=='DESC') return 'arrow-sm-down';
             return 'switch-vertical';
         },
-        toggleAll() {
+        toggleAll(v) {
             if (!this.selectedAll) {
                 this.selection = [];
             } else {

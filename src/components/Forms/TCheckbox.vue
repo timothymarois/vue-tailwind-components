@@ -5,8 +5,8 @@
 			type="checkbox" 
 			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
 			:checked="isChecked"
+			:value="value"
 			@change="onChange($event)"
-			@click="$emit('click',value)"
 		/>
 		<div :class="`bg-white border-2 rounded relative border-${color}-700 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
 			<div :class="`hidden bg-${color}-700 w-${size} h-${size} flex justifty-center items-center rounded`" v-if="check">
@@ -19,7 +19,7 @@
 			<div :class="`hidden bg-${color}-700 w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-sm pointer-events-none`" v-else />
 		</div>
 		<div class="ml-3 text-sm" v-if="label">
-			<t-label :id="id" >{{ label }}</t-label>
+			<t-label :id="id" >{{ value }}</t-label>
 		</div>
 	</div>
 </template>
@@ -70,7 +70,7 @@ export default {
 	},
 	data() {
 		return {
-			lazyValue: this.value
+			// lazyValue: this.value
 		}
 	},
 	methods: {
@@ -78,21 +78,25 @@ export default {
 		onChange(e) {
 
 			// const value = e.target.checked;
-			const val = this.value;
+			const value = this.value;
 			let input = this.internalValue
 
 			if (this.trueValue !== undefined && this.falseValue !== undefined) {
 				input = this.valueComparator(input, this.trueValue) ? this.falseValue : this.trueValue
 			} 
-			else if (val) {
-				input = this.valueComparator(input, val) ? null : val
+			else if (value) {
+				input = this.valueComparator(input, value) ? false : value
 			} 
 			else {
 				input = !input
 			}
 
+			// console.log('----------------')
+			// console.log('isChecked: '+this.isChecked.toString())
+			// console.log('value: '+value.toString())
+			// console.log('input: '+input.toString())
+
 			this.internalValue = input
-			this.$emit('input', input); 
 		}
 	},
 	computed: {
@@ -101,10 +105,9 @@ export default {
 		},
 		internalValue: {
 			get: function() {
-				return this.lazyValue; 
+				return this.value; 
 			},
 			set: function(val) { 
-				this.lazyValue = val
 				this.$emit('input',val);
 			}
 		},
@@ -115,6 +118,9 @@ export default {
 			if (this.trueValue === undefined || this.falseValue === undefined) {
 				return value ? this.valueComparator(value,input) : Boolean(input)
 			}
+			else if (value) {
+				return Boolean(value)
+			} 
 
 			return this.valueComparator(input,this.trueValue)
 		}
