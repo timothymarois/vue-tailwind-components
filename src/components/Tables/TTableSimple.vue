@@ -56,7 +56,7 @@
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
                     (selectFromRow) ? 'cursor-pointer' : ''
                 ]"
-                @click="selectRow(i,item)"
+                @click="selectRow(i,item,$event)"
             >
                 <td 
                     v-if="select"
@@ -67,6 +67,7 @@
                             <TCheckbox 
                                 :value="selection.includes(i)" 
                                 @input="toggleRow(i)"
+                                @click.prevent=""
                             />
                         </div>
                     </slot>
@@ -213,11 +214,25 @@ export default {
                 }
             }
         },
-        selectRow(i,item) {
+        selectRow(i,item,$event) {
+
+            // let $event.target.cellIndex
             if (this.selectFromRow) {
                 this.toggleRow(i,'selectRow');
             }
-            this.$emit('click-row',item)
+            
+            // we do not want to send this event
+            // if we are also checking the box
+            if (this.select) {
+                // prevent input clicks
+                // prevent first cell checkbox clicks
+                if ($event.target.nodeName==='INPUT') return;
+                if ($event.target.nodeName=='TD' && $event.target.cellIndex===0) return
+                this.$emit('click-row',item)
+            }
+            else {
+                this.$emit('click-row',item)
+            }
         },
         checkedAll(e) {
             this.selectedAll = e;

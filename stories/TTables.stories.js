@@ -130,8 +130,14 @@ export const BasicTables = () => ({
 export const AdvancedTables = () => ({
 	// props: Object.keys(argTypes),
 	components: { TTableSimple, TCard },
+    methods: {
+        rowClicked(item) {
+            this.clickedRow = item;
+        }
+    },
     data: () => ({
         selected: [],
+        clickedRow: {},
         headers: [
             {
                 title: 'Property Address',
@@ -191,6 +197,7 @@ export const AdvancedTables = () => ({
                         v-model="selected"
                         :headers="headers"
                         :items="items"
+                        @click-row="rowClicked"
                         select
                         selectFromRow
                     />
@@ -198,8 +205,16 @@ export const AdvancedTables = () => ({
             </div>
 
             <div class="mt-8">
+                SELECTED:
                 <p v-for="(item, i) in selected" :key="i">
                     {{JSON.stringify(item)}} <br />
+                </p>
+            </div>
+
+            <div class="mt-8">
+                ROW:
+                <p>
+                    {{JSON.stringify(clickedRow)}}
                 </p>
             </div>
 
