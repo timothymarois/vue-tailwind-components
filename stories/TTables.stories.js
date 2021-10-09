@@ -73,7 +73,6 @@ export const BasicTables = () => ({
             <div class="w-full">
                 <t-card title="Basic Table" contentPadding="0">
                     <t-table-simple 
-                        v-model="selected"
                         :headers="headers"
                         :items="items"
                     />
@@ -83,7 +82,6 @@ export const BasicTables = () => ({
             <div class="w-full mt-4">
                 <t-card title="Basic Table without Headers (prop: hideHeader)" contentPadding="0">
                     <t-table-simple 
-                        v-model="selected"
                         :headers="headers"
                         :items="items"
                         hideHeader
@@ -94,7 +92,6 @@ export const BasicTables = () => ({
             <div class="w-full mt-4">
                 <t-card title="Default No Content" contentPadding="0">
                     <t-table-simple 
-                        v-model="selected"
                         :headers="headers"
                         :items="[]"
                     />
@@ -104,7 +101,6 @@ export const BasicTables = () => ({
             <div class="w-full mt-4">
                 <t-card title="Custom No Content (prop: nodata)" contentPadding="0">
                     <t-table-simple 
-                        v-model="selected"
                         :headers="headers"
                         :items="[]"
                         nodata="There was no items found"
@@ -133,7 +129,10 @@ export const AdvancedTables = () => ({
     methods: {
         rowClicked(item) {
             this.clickedRow = item;
-        }
+        },
+        updateSelection(val) {
+            this.selected = val;
+        } 
     },
     data: () => ({
         selected: [],
@@ -194,10 +193,10 @@ export const AdvancedTables = () => ({
             <div class="w-full">
                 <t-card title="Selection (prop: select)" contentPadding="0">
                     <t-table-simple 
-                        v-model="selected"
                         :headers="headers"
                         :items="items"
                         @click-row="rowClicked"
+                        @change-selected="updateSelection"
                         select
                         selectFromRow
                     />
@@ -269,20 +268,11 @@ export const LoadingState = () => ({
             <div class="w-full">
                 <t-card title="Selection (prop: select)" contentPadding="0">
                     <t-table-simple 
-                        v-model="selected"
                         :headers="headers"
                         :items="items"
-                        select
-                        selectFromRow
                         loading
                     />
                 </t-card>
-            </div>
-
-            <div class="mt-8">
-                <p v-for="(item, i) in selected" :key="i">
-                    {{JSON.stringify(item)}} <br />
-                </p>
             </div>
 
         </div>

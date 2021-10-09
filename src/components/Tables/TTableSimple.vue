@@ -132,10 +132,6 @@ export default {
         TIcon
     },
     props: {
-        value: {
-            type: Array,
-            default: null
-        },
         headers: {
             type: Array,
             default: () => []
@@ -252,7 +248,7 @@ export default {
                 }
             }
 
-            this.$emit('input', selectedItems);
+            this.$emit('change-selected', selectedItems);
         }
     }
 }
