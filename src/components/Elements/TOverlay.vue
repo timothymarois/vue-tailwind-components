@@ -3,7 +3,7 @@
         <div 
             @click="close"
             class="fixed top-0 left-0 bottom-0 right-0 bg-gray-400 bg-opacity-60 z-50"
-            :class="{'cursor-pointer':allowOverlayClose}"
+            :class="{'cursor-pointer':!freeze}"
         ></div>
     </transition>
 </template>
@@ -12,14 +12,14 @@
 export default { 
     name: 'BaseOverlay',
     props: {
-        allowOverlayClose: {
+        freeze: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
     methods: {
         close() {
-            if (this.allowOverlayClose) {
+            if (this.freeze===false) {
                 this.$emit('close-modal')
             }
         }
@@ -31,7 +31,6 @@ export default {
 .fade-enter-active, .fade-leave-active {
 	transition: 1.5s cubic-bezier(.25,.8,.5,1) opacity;
 }
-
 .fade-enter, .fade-leave-to {
 	opacity: 0;
 }

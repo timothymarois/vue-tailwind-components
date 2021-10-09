@@ -1,7 +1,7 @@
 <template>
 	<div class="absolute w-full h-full top-0 bottom-0 left-0 right-0">
 		<div :class="`relative ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
-			<t-overlay :allowOverlayClose="allowOverlayClose" @close-modal="closeModal" />
+			<t-overlay :freeze="freeze" @close-modal="closeModal" />
 			
 			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 				<div
@@ -37,9 +37,9 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		allowOverlayClose: {
+		freeze: {
 			type: Boolean,
-			default: true
+			default: false
 		}
 	},
 	methods: {
