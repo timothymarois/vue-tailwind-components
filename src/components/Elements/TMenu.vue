@@ -27,10 +27,7 @@
                 :key="index"
                 class="p-2 flex items-center rounded m-2 transition duration-150"
                 :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-50 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
-
-                :disabled="item.disabled
-                
-                "
+                :disabled="item.disabled"
                 @click="!item.disabled && selectItem(item)"
             >
                 <t-icon v-if="item.icon" :value="item.icon" size="6" class="mr-2" />
@@ -119,6 +116,10 @@ export default {
             type: String,
             default: null
         },
+        side: {
+            type: String,
+            default: 'right'
+        },
     },
     computed: {
         iconOnly() {
@@ -138,7 +139,6 @@ export default {
             let c = [
                 'z-10',
                 'absolute',
-                'right-0',
                 'rounded',
                 'shadow',
                 'bg-white',
@@ -156,6 +156,13 @@ export default {
             }
             else {
                 c = c.concat(['top-12']);
+            }
+
+            if (this.side=='left') {
+                c = c.concat(['left-0']);
+            }
+            else {
+                c = c.concat(['right-0']);
             }
 
             return c;

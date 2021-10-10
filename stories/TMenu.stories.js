@@ -55,8 +55,14 @@ export const Standard = (argTypes) => ({
     }),
 	template: 
 		`
-        <div class="max-w-xl">
-			<t-menu :items="items" label="Menu" />
+		<div>
+			<div class="ml-10 mt-5" style="width:100px">
+				<t-menu :items="items" label="Menu" />
+			</div>
+
+			<div class="ml-10 mt-5" style="width:100px">
+				<t-menu :items="items" label="Menu" side="left"/>
+			</div>
 		</div>
 		`,
 });
