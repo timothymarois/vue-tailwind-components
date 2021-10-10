@@ -249,6 +249,9 @@ export default {
             }
 
             this.$emit('change-selected', selectedItems);
+        },
+        items() {
+            this.selectedItems = [];
         }
     }
 }
