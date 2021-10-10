@@ -242,16 +242,18 @@ export default {
         selection() {
             let selectedItems = [];
 
-            for(let i = 0; i < this.items.length; i++) {
-                if(this.selection.includes(i)) {
-                    selectedItems.push(this.items[i]);
+            if (this.selection.length) {
+                for(let i = 0; i < this.items.length; i++) {
+                    if(this.selection.includes(i)) {
+                        selectedItems.push(this.items[i]);
+                    }
                 }
             }
 
             this.$emit('change-selected', selectedItems);
         },
         items() {
-            this.selectedItems = [];
+            this.selection = [];
         }
     }
 }
