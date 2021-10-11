@@ -204,6 +204,43 @@ export const MultipleStates = () => ({
                 </t-tab-content>
             </div>
 
+
+
+            <div class="w-full mt-5" style="width:400px;">
+                <t-card title="Tabs with grow">
+                    <t-tabs
+                        grow
+                        v-model="tabs1"
+                        :items="[
+                            {
+                                name: 'Tab 1',
+                                id: 'tab1'
+                            },
+                            {
+                                name: 'Tab 2',
+                                id: 'tab2'
+                            },
+                            {
+                                name: 'Tab 3',
+                                id: 'tab3'
+                            }
+                        ]"
+                    >
+                        <template slot="tab1">
+                            This is tab 1 content
+                        </template>
+                        <template slot="tab2">
+                            This is tab 2 content
+                        </template>
+                        <template slot="tab3">
+                            This is tab 3 content
+                        </template>
+                    </t-tabs>
+                </t-card>
+            </div>
+
+
+
         </div>
 	`,
 });
