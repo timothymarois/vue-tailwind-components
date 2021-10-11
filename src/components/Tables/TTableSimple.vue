@@ -15,7 +15,7 @@
                 </th>
 
                 <th v-for="(h,hindex) in headerItems"
-                    class="my-auto px-4 py-2 text-sm font-normal"
+                    class="my-auto px-4 py-2 text-sm font-normal whitespace-nowrap capitalize"
                     :key="hindex"
                     :class="{
                         'text-left' : !h.align,
