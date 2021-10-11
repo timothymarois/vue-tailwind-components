@@ -37,7 +37,8 @@ export const BasicTables = () => ({
         headers: [
             {
                 title: 'Property Address',
-                value: 'property_address'
+                value: 'property_address',
+                class: 'uppercase'
             },
             {
                 title: 'Full Name',

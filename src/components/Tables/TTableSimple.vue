@@ -77,11 +77,12 @@
                     v-for="(h) in headerItems" 
                     :key="h.value" 
                     class="p-4 border-0 relative font-normal"
-                    :class="{
-                        'text-left' : !h.align,
-                        'text-right' : (h.align=='right'),
-                        'text-center' : (h.align=='center')
-                    }"
+                    :class="[
+                        (!h.align) ? 'text-left' : '',
+                        (h.align=='right') ? 'text-right' : '',
+                        (h.align=='center') ? 'text-center' : '',
+                        (h.class) ? h.class : ''
+                    ]"
                 >
                     <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
