@@ -1,7 +1,11 @@
 <template>
-    <div class="relative">
-        <div class="flex flex-wrap -mx-2 -mt-2 mb-2 text-gray-500"
-            :class="{'justify-between' : grow}"
+    <div class="w-full">
+        <div class="flex flex-wrap -mt-2 mb-2 text-gray-500"
+            :class="{
+                'justify-between' : grow,
+                '-mx-2' : !dense,
+                '-mx-1' : dense,
+            }"
         >
             <button
                 class="relative flex items-center justify-center rounded bg-gray-100 focus:outline-none text-sm"
@@ -9,7 +13,7 @@
                     'bg-indigo-800 text-white hover:bg-indigo-900 hover:text-white': value == item.id,
                     'hover:bg-indigo-100 hover:text-indigo-900 ': value != item.id,
                     'm-2 px-4 py-2 font-semibold' : !dense,
-                    'm-1 ml-2 px-2 py-1 font-medium' : dense,
+                    'm-1 px-2 py-1 font-medium' : dense,
                     'flex-grow' : grow
                 }"
                 @click="update(item.id)"
