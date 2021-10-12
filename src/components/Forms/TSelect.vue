@@ -75,7 +75,7 @@
                         v-for="(item, i) of searchableOptions"
                         :key="i"
                         class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="{ 'text-white bg-indigo-800': (item[itemValue] == value) }"
+                        :class="{ 'text-white bg-indigo-800' : selected.includes(item) }"
                         @click="selectItem(item)"
                         @keyup.enter="selectItem(item)"
                     >  
@@ -85,6 +85,7 @@
                             :value="isChecked(item)"
                             :check="true"
                             size="4"
+                            class="ml-2"
                         />
                         <span 
                             class="font-medium m-2" 
@@ -261,10 +262,8 @@ export default {
             }
         },
         selectPlaceholder() {
-            if(this.multiple && this.selected.length > 0) {
+            if(this.selected.length > 0) {
                 return `${this.selected[0].label}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            } else if(!this.multiple) {
-                return this.selected.label;
             }
 
             return this.placeholder;
@@ -281,11 +280,10 @@ export default {
             if(!this.multiple) {
                 this.menu = false;
                 this.isSearching = false;
-                this.selected = item;
+                this.selected = [item];
                 this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             } else {
                 if(!this.selected.some(obj => obj.value === item.value)) {
-                    console.log(item);
                     this.selected.push(item);
                 } else {
                     let i = this.selected.indexOf(item);
