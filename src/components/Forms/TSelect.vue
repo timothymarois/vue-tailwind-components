@@ -75,7 +75,7 @@
                         v-for="(item, i) of searchableOptions"
                         :key="i"
                         class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="{ 'text-white bg-indigo-800' : selected.includes(item) }"
+                        :class="{ 'text-white bg-indigo-800' : selected.some(obj => obj.value === item.value) }"
                         @click="selectItem(item)"
                         @keyup.enter="selectItem(item)"
                     >  
