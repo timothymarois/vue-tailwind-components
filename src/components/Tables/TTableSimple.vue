@@ -90,7 +90,7 @@
         </tbody>
         <tbody v-else >
             <tr>
-                <td colspan="100%" class="text-center p-3">{{ messageText }}</td>
+                <td colspan="100%" class="text-center p-3"><slot name="noresults">{{ messageText }}</slot></td>
             </tr>
         </tbody>
     </table>
