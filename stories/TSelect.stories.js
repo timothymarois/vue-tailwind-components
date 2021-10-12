@@ -8,19 +8,13 @@ export default {
 	argTypes: { 
 		color: {
 			name: 'color',
-			defaultValue: 'indigo',
-			description: 'Tailwind classname for outline and fill color',
+			description: 'Tailwind classname for fill color of checkbox',
 			control: { type: 'text' }
 		},
-		value: {
-			name: 'value',
-			description: 'Value of checkbox',
-			control: { type: 'text' },
-			defaultValue: null,
-		},
-		label: {
-			name: 'label',
-			description: 'Toggle text-only button'
+		multiple: {
+			name: 'multiple',
+			description: 'Allow selection of multiple options',
+			control: { type: 'boolean' }
 		}
 	},
 };
@@ -51,8 +45,43 @@ Standard.args = {
     ],
 };
 
+export const MultipleSelect = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TSelect },
+	data: () => ({
+		value: null
+	}),
+	template: `
+		<div>
+			<t-select label="Select an option" v-model="value" required v-bind="$props" />
+			<div class="mt-8">
+				Selected: <br>
+				{{ value }}
+			</div>
+		</div>
+	`,
+});
 
-export const MultipleStates = (argTypes) => ({
+MultipleSelect.args = {
+	color: 'indigo',
+	multiple: true,
+	options: [
+		{
+			label: 'option 1',
+			value: 'option_1'
+		},
+		{
+			label: 'option 2',
+			value: 'option_2'
+		},
+		{
+			label: 'option 3',
+			value: 'option_3'
+		}
+	],
+};
+
+export const DifferentStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
     data: () => ({

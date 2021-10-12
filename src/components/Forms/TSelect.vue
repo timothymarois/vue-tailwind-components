@@ -19,7 +19,7 @@
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium "
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
-                >{{ selected.label }}</span>
+                >{{ selectPlaceholder }}</span>
 
                 <span 
                     v-else-if="(!searchable && !selected) || (searchable && disabled && !selected)" 
@@ -31,8 +31,8 @@
                     ref="dropdownsearch"
                     v-else
                     v-model="localSearch"
-                    v-on:keyup="searchLocal(localSearch);"
-                    v-on:keyup.enter="reFocus()"
+                    @keyup="searchLocal(localSearch);"
+                    @keyup.enter="reFocus()"
                     :disabled="disabled"
                     type="text"
                     autocomplete="off"
@@ -64,42 +64,57 @@
                 :class="dropdownClasses"
                 v-show="menu"
             >
-                <li v-if="loading" class="flex items-center rounded m-4 font-medium">Searching...</li>
+                <li 
+                    v-if="loading" 
+                    class="flex items-center rounded m-4 font-medium"
+                >
+                    Searching...
+                </li>
                 <div v-else-if="!loading && options.length > 0">
                     <li
+                        v-for="(item, i) of searchableOptions"
+                        :key="i"
                         class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="{ 'text-white bg-indigo-800': (item[itemValue]==value) }"
-                        v-for="(item, index) of searchableOptions"
-                        :key="index"
+                        :class="{ 'text-white bg-indigo-800': (item[itemValue] == value) }"
                         @click="selectItem(item)"
-                        v-on:keyup.enter="selectItem(item)"
-                    >
-                        <span class="font-medium m-2" v-html="item[itemLabel]"></span>          
+                        @keyup.enter="selectItem(item)"
+                    >  
+                        <t-checkbox 
+                            v-if="multiple"
+                            :color="color"
+                            :value="isChecked(item)"
+                            :check="true"
+                        />
+                        <span 
+                            class="font-medium m-2" 
+                            v-html="item[itemLabel]"
+                        />    
                     </li>
                 </div>
-                <li v-else-if="!loading && !options.length" class="flex items-center rounded m-4 font-medium">{{ nodata }}</li>
+                <li 
+                    v-else-if="!loading && !options.length" 
+                    class="flex items-center rounded m-4 font-medium"
+                >
+                    {{ nodata }}
+                </li>
             </ul>
         </div>
     </div>
 </template>
 
-<style scoped>
-.truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-</style>
-
 <script>
-import TButton from "../Elements/TButton";
-import TIcon from "../Elements/TIcon";
-import TLabel from "./TLabel";
+import TButton from "../Elements/TButton.vue";
+import TIcon from "../Elements/TIcon.vue";
+import TLabel from "./TLabel.vue";
+import TCheckbox from "./TCheckbox.vue";
+
 export default { 
     name: 't-select',
     components: {
         TLabel,
         TIcon,
-        TButton
+        TButton,
+        TCheckbox
     }, 
     props: {
         required: {
@@ -135,7 +150,7 @@ export default {
             default: null
         },
         value: {
-            type: [String, Object, Number],
+            type: [String, Object, Number, Array],
             default: null
         },
         options: {
@@ -166,11 +181,21 @@ export default {
             type: String,
             default: 'label'
         },
+        multiple: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        color: {
+            type: String,
+            required: false,
+            default: 'indigo'
+        }
     },
-    data: () => {
+    data() {
         return {
             menu: false,
-            selected: null,
+            selected: [],
             localSearch: null,
             isSearching: false
         }
@@ -187,8 +212,8 @@ export default {
                     }
                 }
                 else {
-                    this.selected=null
-                    // this.localSearch=null;
+                    this.selected = []
+                    // this.localSearch = null;
                 }
 			}
 		}
@@ -223,8 +248,8 @@ export default {
                 return JSON.parse(JSON.stringify(vm.options)).filter(option => {
                     let o = option.label.toLowerCase().match(vm.localSearch.toLowerCase());
                     if (o) {
-                        option.label = option.label.toString().replace((new RegExp(vm.localSearch,"ig")),function(matchedText,a,b){
-                            return ('<u>'+matchedText+'</u>');
+                        option.label = option.label.toString().replace((new RegExp(vm.localSearch, "ig")), function(matchedText, a, b){
+                            return (`<u>${matchedText}</u>`);
                         });
                         return o;
                     }
@@ -233,6 +258,13 @@ export default {
             else {
                 return vm.options;
             }
+        },
+        selectPlaceholder() {
+            if(this.selected.length > 0) {
+                return `${this.selected[0].label}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+            }
+
+            return "Select an option";
         }
     },
     methods: {
@@ -241,25 +273,28 @@ export default {
             return vm.options.find(a => { return a[vm.itemValue] === value; });
         },
         selectItem(item) {
-            this.menu = false;
-            this.isSearching = false;
-            this.selected = item;
-            this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
-            if (this.returnObject) {
-                this.$emit('input', item);
+            if(!this.multiple) {
+                this.menu = false;
+                this.isSearching = false;
+                this.selected = item;
+                this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
+            } else {
+                if(!this.selected.includes(item)) {
+                    this.selected = this.selected.concat([item]);
+                } else {
+                    let i = this.selected.indexOf(item);
+                    this.selected.splice(i, 1);
+                }
             }
-            else {
-                this.$emit('input', item[this.itemValue]);
-            }
+
+            this.$emit('input', this.selected);
         },
         menuToggle() {
-
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
             if (this.external && this.searchable && !this.localSearch && !this.options.length) {
-                this.menu = false;
-                return;
+                return this.menu = false;
             }
 
             if (!this.disabled) {
@@ -281,7 +316,7 @@ export default {
             this.isSearching = true;
             this.selected = null;
             this.$emit('input', null);
-            this.$emit('search',value);
+            this.$emit('search', value);
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
@@ -293,10 +328,16 @@ export default {
         },
         reFocus() {
             this.$refs.dropdownsearch.focus();
+        },
+        isChecked(item) {
+            if(this.selected.some(obj => obj.value == item.value)) {
+                return true;
+            }
+
+            return false;
         }
     },
     mounted() {
-
         if (this.value) {
             let item = this.getItemByValue(this.value);
             if (item) {
@@ -308,7 +349,14 @@ export default {
         document.addEventListener('click', this.close)
     },
     beforeDestroy() {
-        document.removeEventListener('click',this.close)
+        document.removeEventListener('click', this.close)
     }
 };
 </script> 
+
+<style scoped>
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
