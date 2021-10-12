@@ -19,9 +19,9 @@
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
                 >{{ placeholder || 'Select an option' }}</span>
-
+                
                 <span 
-                    v-else 
+                    v-else-if="!searchable && selected.length !== 0" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium "
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
@@ -273,6 +273,8 @@ export default {
             return vm.options.find(a => { return a[vm.itemValue] === value; });
         },
         selectItem(item) {
+            item.label = item.label.replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
+            
             if(!this.multiple) {
                 this.menu = false;
                 this.isSearching = false;
