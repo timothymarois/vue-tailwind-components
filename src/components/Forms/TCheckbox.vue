@@ -52,7 +52,7 @@ export default {
 			default: 'indigo'
 		},
 		size: {
-			type: Number,
+			type: [String, Number],
 			default: 5
 		},
 		check: {

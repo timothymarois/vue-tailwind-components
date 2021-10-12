@@ -18,7 +18,7 @@
                     v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
-                >{{ placeholder || 'Select an option' }}</span>
+                >{{ placeholder }}</span>
                 
                 <span 
                     v-else-if="!searchable && selected.length !== 0" 
@@ -31,12 +31,12 @@
                     ref="dropdownsearch"
                     v-else
                     v-model="localSearch"
-                    @keyup="searchLocal(localSearch);"
+                    @keyup="searchLocal(localSearch)"
                     @keyup.enter="reFocus()"
                     :disabled="disabled"
                     type="text"
                     autocomplete="off"
-                    :placeholder="placeholder"
+                    :placeholder="selectPlaceholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto focus:outline-none truncate border-0"
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon }"
                 />
@@ -84,6 +84,7 @@
                             :color="color"
                             :value="isChecked(item)"
                             :check="true"
+                            size="4"
                         />
                         <span 
                             class="font-medium m-2" 
@@ -147,7 +148,7 @@ export default {
         },
         placeholder: {
             type: String,
-            default: null
+            default: "Select One"
         },
         value: {
             type: [String, Object, Number, Array],
@@ -265,6 +266,8 @@ export default {
             } else if(!this.multiple) {
                 return this.selected.label;
             }
+
+            return this.placeholder;
         }
     },
     methods: {
@@ -274,15 +277,16 @@ export default {
         },
         selectItem(item) {
             item.label = item.label.replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
-            
+
             if(!this.multiple) {
                 this.menu = false;
                 this.isSearching = false;
                 this.selected = item;
                 this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             } else {
-                if(!this.selected.includes(item)) {
-                    this.selected = this.selected.concat([item]);
+                if(!this.selected.some(obj => obj.value === item.value)) {
+                    console.log(item);
+                    this.selected.push(item);
                 } else {
                     let i = this.selected.indexOf(item);
                     this.selected.splice(i, 1);
@@ -316,8 +320,6 @@ export default {
         searchLocal(value) {
             this.menu = true;
             this.isSearching = true;
-            this.selected = null;
-            this.$emit('input', null);
             this.$emit('search', value);
         },
         close(e) {
