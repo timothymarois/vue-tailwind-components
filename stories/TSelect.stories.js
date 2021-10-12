@@ -53,7 +53,7 @@ export const MultipleSelect = (args, { argTypes }) => ({
 	}),
 	template: `
 		<div>
-			<t-select label="Select an option" v-model="value" :searchable="true" required v-bind="$props" />
+			<t-select label="Select an option" v-model="value" required v-bind="$props" />
 			<div class="mt-8">
 				Selected: <br>
 				{{ value }}
