@@ -15,17 +15,17 @@
                 @click="menuToggle"
             >
                 <span 
-                    v-if="!searchable && selected" 
-                    :placeholder="placeholder" 
-                    class="truncate pl-3 font-medium "
-                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
-                >{{ selectPlaceholder }}</span>
-
-                <span 
-                    v-else-if="(!searchable && !selected) || (searchable && disabled && !selected)" 
+                    v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
                 >{{ placeholder || 'Select an option' }}</span>
+
+                <span 
+                    v-else 
+                    :placeholder="placeholder" 
+                    class="truncate pl-3 font-medium "
+                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
+                >{{ selectPlaceholder}}</span>
 
                 <input
                     ref="dropdownsearch"
@@ -260,11 +260,11 @@ export default {
             }
         },
         selectPlaceholder() {
-            if(this.selected.length > 0) {
+            if(this.multiple && this.selected.length > 0) {
                 return `${this.selected[0].label}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+            } else if(!this.multiple) {
+                return this.selected.label;
             }
-
-            return "Select an option";
         }
     },
     methods: {
