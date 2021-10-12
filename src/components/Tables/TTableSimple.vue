@@ -90,7 +90,7 @@
         </tbody>
         <tbody v-else >
             <tr>
-                <td colspan="100%" class="text-center">{{ messageText }}</td>
+                <td colspan="100%" class="text-center p-3">{{ messageText }}</td>
             </tr>
         </tbody>
     </table>
@@ -155,7 +155,7 @@ export default {
         },
         nodata: {
             type: String,
-            default: 'No results found.'
+            default: 'No results found'
         },
         loadingText: {
             type: String,
