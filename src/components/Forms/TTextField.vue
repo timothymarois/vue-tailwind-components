@@ -20,6 +20,7 @@
                     :maxlength="maxlength"
                     :value="value"
                     @input="update($event)"
+                    @keyup="keyup($event)"
                     :class="fieldClasses"
                     :style="(width ? 'width:'+width+'px' : '')"
                 />
@@ -96,6 +97,9 @@ export default {
     methods: {
         update(e) {
             this.$emit('input', e.target.value);
+        },
+        keyup(e) {
+            this.$emit('keyup', e);
         }
     }
 };
