@@ -15,18 +15,27 @@ export default {
 			name: 'multiple',
 			description: 'Allow selection of multiple options',
 			control: { type: 'boolean' }
+		},
+		returnObject: {
+			name: 'returnObject',
+			description: 'Toggle between returning objects/only values',
+			control: { type: 'boolean' }
 		}
 	},
 };
 
-const Template = (args, { argTypes }) => ({
+export const Standard = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect },
 	template: 
-		`<t-select label="Select an option" required v-bind="$props" />`,
+		`
+		<div>
+			<t-select label="Select an option" v-model="value" required v-bind="$props" />
+			<div class="mt-16">returnObject is set to <b>{{ returnObject }}</b>, so v-model equals: <br> {{ value }}</div>
+		</div>
+		`,
 });
 
-export const Standard = Template.bind({});
 Standard.args = {
 	color: 'indigo',
 	options: [
@@ -43,14 +52,13 @@ Standard.args = {
             value: 'option_3'
         }
     ],
+	returnObject: false,
+	value: ["option_1"] // Selected option by default
 };
 
 export const MultipleSelect = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect },
-	data: () => ({
-		value: null
-	}),
 	template: `
 		<div>
 			<t-select label="Select an option" v-model="value" required v-bind="$props" />
@@ -64,28 +72,33 @@ export const MultipleSelect = (args, { argTypes }) => ({
 
 MultipleSelect.args = {
 	color: 'indigo',
-	multiple: true,
 	options: [
-		{
-			label: 'option 1',
-			value: 'option_1'
-		},
-		{
-			label: 'option 2',
-			value: 'option_2'
-		},
-		{
-			label: 'option 3',
-			value: 'option_3'
-		}
-	],
+        {
+            label: 'option 1',
+            value: 'option_1'
+        },
+        {
+            label: 'option 2',
+            value: 'option_2'
+        },
+        {
+            label: 'option 3',
+            value: 'option_3'
+        }
+    ],
+	returnObject: false,
+	multiple: true,
+	value: ["option_1", "option_3"] // Selected option(s) by default
 };
+
 
 export const DifferentStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
     data: () => ({
         value: null,
+		multipleValue: null,
+		withDefault: 'option_1',
 		options: [
 			{
 				label: 'option 1',
@@ -110,6 +123,27 @@ export const DifferentStates = (argTypes) => ({
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="value" label="Standard" :options="options" placeholder="Select One" />
 						<t-select searchable v-model="value" label="Searchable" :options="options" placeholder="Select One" />
+					</div>
+				</t-card>
+
+				<t-card title="Standard with Default Value" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select v-model="withDefault" label="Standard" :options="options" placeholder="Select One" />
+						<t-select searchable v-model="withDefault" label="Searchable" :options="options" placeholder="Select One" />
+					</div>
+				</t-card>
+
+				<t-card title="Multiple" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple v-model="multipleValue" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" placeholder="Select Many" />
+					</div>
+				</t-card>
+
+				<t-card title="Multiple with Default Value" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple v-model="withDefault" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="withDefault" label="Searchable" :options="options" placeholder="Select Many" />
 					</div>
 				</t-card>
 

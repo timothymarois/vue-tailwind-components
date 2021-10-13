@@ -152,8 +152,7 @@ export default {
             default: "Select One"
         },
         value: {
-            type: [String, Object, Number, Array],
-            default: null
+            type: [String, Object, Number, Array]
         },
         options: {
             type: Array,
@@ -202,34 +201,15 @@ export default {
             isSearching: false
         }
     },
-    watch: {
-		value: {
-			handler: function (value) { 
-                if (value) {
-                    let item = this.getItemByValue(value);
-                    if (item) {
-                        this.isSearching = false;
-                        this.selected = item;
-                        this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
-                    }
-                }
-                else {
-                    this.selected = []
-                    // this.localSearch = null;
-                }
-			}
-		}
-	},
     computed: {
         id() {
-           return (Math.random()+1).toString(36).substring(7);
+           return (Math.random() + 1).toString(36).substring(7);
         },
         menuIcon() {
             if (this.menu) return 'chevron-up'
             return 'chevron-down'
         },
         dropdownClasses() {
-
             let c = [
                 'absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow text-gray-500 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 border border-gray-300'
             ];
@@ -267,12 +247,26 @@ export default {
             }
 
             return this.placeholder;
+        },
+        returnValue() {
+            if(this.returnObject) {
+                return this.selected;
+            }
+
+            return this.selected.map(obj => obj.value);
         }
     },
     methods: {
-        getItemByValue(value) {
-            let vm = this;
-            return vm.options.find(a => { return a[vm.itemValue] === value; });
+        getItemsByValue(values) {
+            let found = [];
+
+            for(const item of values) {
+                this.options.find(obj => {
+                    if(obj.value === item) return found.push(obj);
+                })
+            }
+
+            return found;
         },
         selectItem(item) {
             item.label = item.label.replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
@@ -291,7 +285,7 @@ export default {
                 }
             }
 
-            this.$emit('input', this.selected);
+            this.$emit('input', this.returnValue);
         },
         menuToggle() {
             // if our options are external
@@ -332,7 +326,7 @@ export default {
             this.$refs.dropdownsearch.focus();
         },
         isChecked(item) {
-            if(this.selected.some(obj => obj.value == item.value)) {
+            if(this.selected.some(obj => obj.value === item.value)) {
                 return true;
             }
 
@@ -341,10 +335,9 @@ export default {
     },
     mounted() {
         if (this.value) {
-            let item = this.getItemByValue(this.value);
-            if (item) {
-                this.selected = item;
-                this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
+            let items = this.getItemsByValue(this.value);
+            if (items) {
+                this.selected = items;
             }
         }
 
