@@ -24,7 +24,7 @@
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium "
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
-                >{{ selectPlaceholder}}</span>
+                >{{ selectPlaceholder }}</span>
 
                 <input
                     ref="dropdownsearch"
@@ -79,7 +79,7 @@
                         v-for="(item, i) of searchableOptions"
                         :key="i"
                         class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="{ 'text-white bg-indigo-800' : (!multiple && selected.value === item.value) }"
+                        :class="{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }"
                         @click="selectItem(item)"
                         @keyup.enter="selectItem(item)"
                     >  
@@ -234,7 +234,7 @@ export default {
                 'absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow text-gray-500 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 border border-gray-300'
             ];
 
-            if (this.direction=='top') {
+            if (this.direction === 'top') {
                 c = c.concat(['bottom-10']);
             } else {
                 c = c.concat(['top-10']);
@@ -247,9 +247,9 @@ export default {
 
             if (vm.localSearch && vm.searchable && vm.isSearching && !vm.external) {
                 return JSON.parse(JSON.stringify(vm.options)).filter(option => {
-                    let o = option.label.toLowerCase().match(vm.localSearch.toLowerCase());
+                    let o = option[this.itemLabel].toLowerCase().match(vm.localSearch.toLowerCase());
                     if (o) {
-                        option.label = option.label.toString().replace((new RegExp(vm.localSearch, "ig")), function(matchedText, a, b){
+                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(vm.localSearch, "ig")), function(matchedText, a, b){
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
@@ -262,9 +262,9 @@ export default {
         },
         selectPlaceholder() { 
             if(this.multiple && this.selected.length > 0) {
-                return `${this.selected[0].label}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            } else if(!this.multiple && this.selected.value) {
-                return this.selected.label;
+                return `${this.selected[0][this.itemValue]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+            } else if(!this.multiple && this.selected[this.itemValue]) {
+                return this.selected[this.itemLabel];
             }
 
             return this.placeholder;
@@ -275,13 +275,13 @@ export default {
                     return this.selected;
                 }
 
-                return this.selected.map(obj => obj.value);
+                return this.selected.map(obj => obj[this.itemValue]);
             } else {
                 if(this.returnObject) {
                     return this.selected;
                 }
 
-                return this.selected.value;
+                return this.selected[this.itemValue];
             }
 
         }
@@ -293,13 +293,13 @@ export default {
             if(multiple) {
                 for(const item of values) {
                     this.options.find(obj => {
-                        if(obj.value === item) return found.push(obj);
+                        if(obj[this.itemValue] === item) return found.push(obj);
                     })
                 }
             } else {
                 this.options.find(obj => {
-                    if(obj.value === (this.returnObject ? values.value : values)) {
-                        this.localSearch = obj.label;
+                    if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) {
+                        this.localSearch = obj[this.itemLabel];
                         return found = obj;
                     }
                 });
@@ -308,7 +308,7 @@ export default {
             return found;
         },
         selectItem(item) {
-            item.label = item.label.replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
+            item[this.itemLabel] = item[this.itemLabel].replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
 
             if(!this.multiple) {
                 this.menu = false;
@@ -316,7 +316,7 @@ export default {
                 this.selected = item;
                 this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             } else {
-                if(!this.selected.some(obj => obj.value === item.value)) {
+                if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                     this.selected.push(item);
                 } else {
                     let i = this.selected.indexOf(item);
@@ -364,7 +364,7 @@ export default {
             this.$refs.dropdownsearch.focus();
         },
         isChecked(item) {
-            if(this.selected.some(obj => obj.value === item.value)) {
+            if(this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                 return true;
             }
 
