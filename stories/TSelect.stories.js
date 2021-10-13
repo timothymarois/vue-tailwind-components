@@ -97,6 +97,8 @@ export const DifferentStates = (argTypes) => ({
 	components: { TSelect, TCard },
     data: () => ({
         value: null,
+		multipleValue: null,
+		withDefault: 'option_1',
 		options: [
 			{
 				label: 'option 1',
@@ -121,6 +123,20 @@ export const DifferentStates = (argTypes) => ({
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="value" label="Standard" :options="options" placeholder="Select One" />
 						<t-select searchable v-model="value" label="Searchable" :options="options" placeholder="Select One" />
+					</div>
+				</t-card>
+
+				<t-card title="Multiple" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple v-model="multipleValue" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" placeholder="Select Many" />
+					</div>
+				</t-card>
+
+				<t-card title="Multiple with Default Value" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple v-model="withDefault" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="withDefault" label="Searchable" :options="options" placeholder="Select Many" />
 					</div>
 				</t-card>
 
