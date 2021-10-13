@@ -40,6 +40,14 @@ export default {
             type: Boolean,
             defualt: false
         },
+        border: {
+            type: Boolean,
+            defualt: false
+        },
+        borderColor: {
+            type: String,
+            defualt: 'gray'
+        },
         contentPadding: {
             type: [Number, String],
             default: 4
@@ -62,6 +70,20 @@ export default {
 
             if (!this.tile) {
                 c = c.concat(['rounded']);
+            }
+
+            if (this.border) {
+                
+                // if (this.border!==true && this.border!='1') {
+                //     c = c.concat(['border-'+this.border]);
+                // }
+                // else {
+                //     c = c.concat(['border']);
+                // }
+
+                c = c.concat(['border-2']);
+
+                c = c.concat(['border-'+this.borderColor+'-200']);
             }
 
             return c;
