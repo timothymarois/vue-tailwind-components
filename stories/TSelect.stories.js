@@ -15,18 +15,27 @@ export default {
 			name: 'multiple',
 			description: 'Allow selection of multiple options',
 			control: { type: 'boolean' }
+		},
+		returnObject: {
+			name: 'returnObject',
+			description: 'Toggle between returning objects/only values',
+			control: { type: 'boolean' }
 		}
 	},
 };
 
-const Template = (args, { argTypes }) => ({
+export const Standard = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect },
 	template: 
-		`<t-select label="Select an option" required v-bind="$props" />`,
+		`
+		<div>
+			<t-select label="Select an option" v-model="value" required v-bind="$props" />
+			<div class="mt-16">returnObject is set to <b>{{ returnObject }}</b>, so v-model equals: <br> {{ value }}</div>
+		</div>
+		`,
 });
 
-export const Standard = Template.bind({});
 Standard.args = {
 	color: 'indigo',
 	options: [
@@ -43,14 +52,13 @@ Standard.args = {
             value: 'option_3'
         }
     ],
+	returnObject: false,
+	value: ["option_1"] // Selected option by default
 };
 
 export const MultipleSelect = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect },
-	data: () => ({
-		value: null
-	}),
 	template: `
 		<div>
 			<t-select label="Select an option" v-model="value" required v-bind="$props" />
@@ -64,22 +72,25 @@ export const MultipleSelect = (args, { argTypes }) => ({
 
 MultipleSelect.args = {
 	color: 'indigo',
-	multiple: true,
 	options: [
-		{
-			label: 'option 1',
-			value: 'option_1'
-		},
-		{
-			label: 'option 2',
-			value: 'option_2'
-		},
-		{
-			label: 'option 3',
-			value: 'option_3'
-		}
-	],
+        {
+            label: 'option 1',
+            value: 'option_1'
+        },
+        {
+            label: 'option 2',
+            value: 'option_2'
+        },
+        {
+            label: 'option 3',
+            value: 'option_3'
+        }
+    ],
+	returnObject: false,
+	multiple: true,
+	value: ["option_1", "option_3"] // Selected option(s) by default
 };
+
 
 export const DifferentStates = (argTypes) => ({
 	props: Object.keys(argTypes),
