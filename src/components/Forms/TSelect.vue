@@ -7,7 +7,6 @@
             :required="required"
         />
         <div class="relative mt-1 w-full">
-
             <button
                 type="button"
                 class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
@@ -38,7 +37,7 @@
                     autocomplete="off"
                     :placeholder="selectPlaceholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto focus:outline-none truncate border-0"
-                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon }"
+                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon, 'placeholder-indigo-800' : selected.length > 0 }"
                 />
 
                 <!-- <t-button
@@ -52,12 +51,17 @@
                 /> -->
 
                 <t-icon 
-                    v-if="!hideicon" 
+                    v-if="!hideicon && !loading" 
                     :value="menuIcon" 
                     size="5" 
                     class="mr-2" 
                 />
 
+                <t-loader
+                   v-else-if="loading"
+                    size="4"
+                    class="mr-2"
+                />
             </button>
 
             <ul
@@ -109,6 +113,7 @@ import TButton from "../Elements/TButton.vue";
 import TIcon from "../Elements/TIcon.vue";
 import TLabel from "./TLabel.vue";
 import TCheckbox from "./TCheckbox.vue";
+import TLoader from "../Elements/TLoader.vue";
 
 export default { 
     name: 't-select',
@@ -116,7 +121,8 @@ export default {
         TLabel,
         TIcon,
         TButton,
-        TCheckbox
+        TCheckbox,
+        TLoader
     }, 
     props: {
         required: {
@@ -201,6 +207,20 @@ export default {
             isSearching: false
         }
     },
+    watch: {
+        value: {
+            handler: function (value) { 
+                if (value) {
+                    let items = this.getItemsByValue(value, this.multiple);
+                    if (items) {
+                        this.selected = items;
+                    }
+                } else {
+                    this.selected = []
+                }
+            }
+        }
+    },
     computed: {
         id() {
            return (Math.random() + 1).toString(36).substring(7);
@@ -243,7 +263,7 @@ export default {
         selectPlaceholder() { 
             if(this.multiple && this.selected.length > 0) {
                 return `${this.selected[0].label}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            } else if(!this.multiple && this.selected) {
+            } else if(!this.multiple && this.selected.value) {
                 return this.selected.label;
             }
 
@@ -278,7 +298,10 @@ export default {
                 }
             } else {
                 this.options.find(obj => {
-                    if(obj.value === values) return found = obj;
+                    if(obj.value === values) {
+                        this.localSearch = obj.label;
+                        return found = obj;
+                    }
                 })
             }
             
