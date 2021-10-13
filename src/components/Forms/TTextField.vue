@@ -85,7 +85,7 @@ export default {
             return (Math.random()+1).toString(36).substring(7);
         },
         fieldClasses() {
-            let c = [`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full border-gray-300 rounded-md text-indigo-800 text-sm font-medium hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 focus:outline-none`];
+            let c = [`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full h-10 border-gray-300 rounded-md text-indigo-800 text-sm font-medium hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 focus:outline-none`];
 
             if (this.icon) {
                 c = c.concat(['pl-8']);
