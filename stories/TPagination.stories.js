@@ -19,12 +19,11 @@ export const Standard = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TPagination },
 	data: () => ({
-		page: 1,
 		currentPerPage: 10
 	}),
 	methods: {
 		changePage(val) {
-			this.page = val;
+			this.currentPage = val;
 		},
 		changePerPage(val) {
 			this.currentPerPage = val;
@@ -35,13 +34,16 @@ export const Standard = (args, { argTypes }) => ({
 		<div>
 			<t-pagination v-bind="$props" @changePerPage="changePerPage" @changePage="changePage" />
 			<div class="mt-16">
-				Current page: {{ page }}<br>
-				Items per page: {{ currentPerPage }}
+				Current page: {{ currentPage }}<br>
+				Items per page: {{ currentPerPage }} <br>
+				Per page options: {{ perPageOptions.join(", ") }}
 			</div>
 		</div>
 	`
 });
 
 Standard.args = {
-	totalItems: 500
+	currentPage: 1,
+	totalItems: 500,
+	perPageOptions: [10, 20, 30, 40, 50]
 };

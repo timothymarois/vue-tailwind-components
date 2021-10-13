@@ -7,10 +7,13 @@
                     class="cursor-pointer shadow flex w-16 pl-2 pr-4 py-2 bg-white border-gray-200 text-gray-500 hover:bg-indigo-100 hover:text-indigo-900 focus:outline-none focus:ring-indigo-800 text-sm font-medium rounded" 
                     v-model="perPage"
                 >
-                    <option :value="10">10</option>
-                    <option :value="15">15</option>
-                    <option :value="25">25</option>
-                    <option :value="50">50</option>
+                    <option
+                        v-for="option of perPageOptions"
+                        :key="option"
+                        :value="option"
+                    >
+                        {{ option }}
+                    </option>
                 </select>
                 <label for="perPage" class="mt-2 lg:mt-0 lg:ml-4 text-gray-500 text-left">Showing {{ fromItem }} to {{ toItem }} of {{ totalItems }} results</label>
             </div>
@@ -64,14 +67,23 @@ export default {
     name: "TPagination",
     data() {
         return {
-            currentPage: 1,
             perPage: 10
         }
     },
     props: {
+        currentPage: {
+            type: Number,
+            required: false,
+            default: 1
+        },
         totalItems: {
             type: Number,
             required: true
+        },
+        perPageOptions: {
+            type: Array,
+            required: false,
+            default: [10, 15, 25, 50]
         }
     },
     watch: {
