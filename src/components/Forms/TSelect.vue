@@ -298,11 +298,11 @@ export default {
                 }
             } else {
                 this.options.find(obj => {
-                    if(obj.value === values) {
+                    if(obj.value === (this.returnObject ? values.value : values)) {
                         this.localSearch = obj.label;
                         return found = obj;
                     }
-                })
+                });
             }
             
             return found;
