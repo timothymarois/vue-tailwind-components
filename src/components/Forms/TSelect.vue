@@ -7,7 +7,6 @@
             :required="required"
         />
         <div class="relative mt-1 w-full">
-
             <button
                 type="button"
                 class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
@@ -52,12 +51,17 @@
                 /> -->
 
                 <t-icon 
-                    v-if="!hideicon" 
+                    v-if="!hideicon && !loading" 
                     :value="menuIcon" 
                     size="5" 
                     class="mr-2" 
                 />
 
+                <t-loader
+                   v-else-if="loading"
+                    size="4"
+                    class="mr-2"
+                />
             </button>
 
             <ul
@@ -109,6 +113,7 @@ import TButton from "../Elements/TButton.vue";
 import TIcon from "../Elements/TIcon.vue";
 import TLabel from "./TLabel.vue";
 import TCheckbox from "./TCheckbox.vue";
+import TLoader from "../Elements/TLoader.vue";
 
 export default { 
     name: 't-select',
@@ -116,7 +121,8 @@ export default {
         TLabel,
         TIcon,
         TButton,
-        TCheckbox
+        TCheckbox,
+        TLoader
     }, 
     props: {
         required: {

@@ -20,6 +20,11 @@ export default {
 			name: 'returnObject',
 			description: 'Toggle between returning objects/only values',
 			control: { type: 'boolean' }
+		},
+		loading: {
+			name: 'loading',
+			description: 'Toggle between loading state',
+			control: { type: 'boolean' }
 		}
 	},
 };
