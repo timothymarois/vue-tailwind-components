@@ -43,24 +43,8 @@ export const Standard = (args, { argTypes }) => ({
 
 Standard.args = {
 	color: 'indigo',
-	options: [
-        {
-            someLabel: 'option 1',
-            someValue: 'option_1'
-        },
-        {
-            someLabel: 'option 2',
-            someValue: 'option_2'
-        },
-        {
-            someLabel: 'option 3',
-            someValue: 'option_3'
-        }
-    ],
+	options: ['exclude', 'include'],
 	returnObject: false,
-	itemLabel: "someLabel",
-	itemValue: "someValue",
-	value: "option_1" // Selected option by default
 };
 
 export const MultipleSelect = (args, { argTypes }) => ({
