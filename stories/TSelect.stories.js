@@ -126,6 +126,13 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card title="Standard with Default Value" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select v-model="withDefault" label="Standard" :options="options" placeholder="Select One" />
+						<t-select searchable v-model="withDefault" label="Searchable" :options="options" placeholder="Select One" />
+					</div>
+				</t-card>
+
 				<t-card title="Multiple" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select multiple v-model="multipleValue" label="Standard" :options="options" placeholder="Select Many" />
