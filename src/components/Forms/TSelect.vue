@@ -38,7 +38,7 @@
                     autocomplete="off"
                     :placeholder="selectPlaceholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto focus:outline-none truncate border-0"
-                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon }"
+                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon, 'placeholder-indigo-800' : selected.length > 0 }"
                 />
 
                 <!-- <t-button
