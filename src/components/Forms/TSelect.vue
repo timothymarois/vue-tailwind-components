@@ -201,6 +201,20 @@ export default {
             isSearching: false
         }
     },
+    watch: {
+        value: {
+            handler: function (value) { 
+                if (value) {
+                    let items = this.getItemsByValue(value, this.multiple);
+                    if (items) {
+                        this.selected = items;
+                    }
+                } else {
+                    this.selected = []
+                }
+            }
+        }
+    },
     computed: {
         id() {
            return (Math.random() + 1).toString(36).substring(7);
