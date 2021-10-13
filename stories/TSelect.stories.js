@@ -45,19 +45,21 @@ Standard.args = {
 	color: 'indigo',
 	options: [
         {
-            label: 'option 1',
-            value: 'option_1'
+            someLabel: 'option 1',
+            someValue: 'option_1'
         },
         {
-            label: 'option 2',
-            value: 'option_2'
+            someLabel: 'option 2',
+            someValue: 'option_2'
         },
         {
-            label: 'option 3',
-            value: 'option_3'
+            someLabel: 'option 3',
+            someValue: 'option_3'
         }
     ],
 	returnObject: false,
+	itemLabel: "someLabel",
+	itemValue: "someValue",
 	value: "option_1" // Selected option by default
 };
 
