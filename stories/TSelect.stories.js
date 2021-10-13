@@ -160,6 +160,13 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card title="Loading State" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select loading v-model="value" label="Standard"  placeholder="Select One" />
+						<t-select loading searchable v-model="value" label="Searchable" placeholder="Select One" />
+					</div>
+				</t-card>
+
 				<t-card title="Empty External Options" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="value" label="Standard"  placeholder="Select One" external />
