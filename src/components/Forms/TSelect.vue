@@ -291,10 +291,9 @@ export default {
                 this.itemLabel = "label";
 
                 return this.options.map(key => {
-                    const capitalized = key[0].toUpperCase() + key.slice(1)
                     return {
-                        label: capitalized,
-                        value: capitalized
+                        label: key,
+                        value: key
                     }
                 })
 
