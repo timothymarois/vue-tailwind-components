@@ -257,7 +257,7 @@ export default {
         selectPlaceholder() { 
             if(this.multiple && this.selected.length > 0) {
                 return `${this.selected[0].label}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            } else if(!this.multiple && this.selected) {
+            } else if(!this.multiple && this.selected.value) {
                 return this.selected.label;
             }
 
