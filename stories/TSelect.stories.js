@@ -53,7 +53,7 @@ Standard.args = {
         }
     ],
 	returnObject: false,
-	value: ["option_1"] // Selected option by default
+	value: "option_1" // Selected option by default
 };
 
 export const MultipleSelect = (args, { argTypes }) => ({

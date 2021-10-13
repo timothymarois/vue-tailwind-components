@@ -75,7 +75,7 @@
                         v-for="(item, i) of searchableOptions"
                         :key="i"
                         class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="{ 'text-white bg-indigo-800' : (!multiple && selected.some(obj => obj.value === item.value)) }"
+                        :class="{ 'text-white bg-indigo-800' : (!multiple && selected.value === item.value) }"
                         @click="selectItem(item)"
                         @keyup.enter="selectItem(item)"
                     >  
@@ -216,8 +216,7 @@ export default {
 
             if (this.direction=='top') {
                 c = c.concat(['bottom-10']);
-            }
-            else {
+            } else {
                 c = c.concat(['top-10']);
             }
 
@@ -241,31 +240,48 @@ export default {
                 return vm.options;
             }
         },
-        selectPlaceholder() {
-            if(this.selected.length > 0) {
+        selectPlaceholder() { 
+            if(this.multiple && this.selected.length > 0) {
                 return `${this.selected[0].label}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+            } else if(!this.multiple && this.selected) {
+                return this.selected.label;
             }
 
             return this.placeholder;
         },
         returnValue() {
-            if(this.returnObject) {
-                return this.selected;
+            if(this.multiple) {
+                if(this.returnObject) {
+                    return this.selected;
+                }
+
+                return this.selected.map(obj => obj.value);
+            } else {
+                if(this.returnObject) {
+                    return this.selected;
+                }
+
+                return this.selected.value;
             }
 
-            return this.selected.map(obj => obj.value);
         }
     },
     methods: {
-        getItemsByValue(values) {
+        getItemsByValue(values, multiple) {
             let found = [];
 
-            for(const item of values) {
+            if(multiple) {
+                for(const item of values) {
+                    this.options.find(obj => {
+                        if(obj.value === item) return found.push(obj);
+                    })
+                }
+            } else {
                 this.options.find(obj => {
-                    if(obj.value === item) return found.push(obj);
+                    if(obj.value === values) return found = obj;
                 })
             }
-
+            
             return found;
         },
         selectItem(item) {
@@ -274,7 +290,7 @@ export default {
             if(!this.multiple) {
                 this.menu = false;
                 this.isSearching = false;
-                this.selected = [item];
+                this.selected = item;
                 this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             } else {
                 if(!this.selected.some(obj => obj.value === item.value)) {
@@ -298,8 +314,7 @@ export default {
             if (!this.disabled) {
                 if (this.searchable) {
                     this.menu = true;
-                }
-                else {
+                } else {
                     this.menu = !this.menu;
                 }
             }
@@ -335,7 +350,7 @@ export default {
     },
     mounted() {
         if (this.value) {
-            let items = this.getItemsByValue(this.value);
+            let items = this.getItemsByValue(this.value, this.multiple);
             if (items) {
                 this.selected = items;
             }
