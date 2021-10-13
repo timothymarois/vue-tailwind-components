@@ -99,6 +99,7 @@ export const DifferentStates = (argTypes) => ({
         value: null,
 		multipleValue: null,
 		withDefault: 'option_1',
+		withDefaultArray: ['option_1','option_2'],
 		options: [
 			{
 				label: 'option 1',
@@ -142,8 +143,8 @@ export const DifferentStates = (argTypes) => ({
 
 				<t-card title="Multiple with Default Value" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select multiple v-model="withDefault" label="Standard" :options="options" placeholder="Select Many" />
-						<t-select multiple searchable v-model="withDefault" label="Searchable" :options="options" placeholder="Select Many" />
+						<t-select multiple v-model="withDefaultArray" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="withDefaultArray" label="Searchable" :options="options" placeholder="Select Many" />
 					</div>
 				</t-card>
 
