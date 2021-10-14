@@ -287,9 +287,8 @@ export default {
         },
         computedOptions() {
             if(this.options.length > 0 && !this.options[0].value) {
-                this.itemValue = "value";
-                this.itemLabel = "label";
-
+                // this.itemValue = "value";
+                // this.itemLabel = "label";
                 return this.options.map(key => {
                     return {
                         label: key,
