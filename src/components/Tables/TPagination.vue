@@ -83,13 +83,14 @@ export default {
         perPageOptions: {
             type: Array,
             required: false,
-            default: [10, 15, 25, 50]
+            default: () => {
+                return [20, 30, 50, 75]
+            }
         }
     },
     watch: {
         perPage: function(value) {
-            this.currentPage = 1; // Reset page to 1 when changing perPage
-            this.$emit('changePerPage', value);
+            this.$emit('changePage', 1)
         },
         currentPage: function(value) {
             this.$emit('changePage', value)
