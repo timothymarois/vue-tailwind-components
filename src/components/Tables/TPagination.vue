@@ -129,7 +129,8 @@ export default {
         toItem() {
             if (this.currentPage === this.totalPages) {
                 return this.totalItems;
-            } else {
+            }
+            else {
                 return (this.currentPage) * this.perPage;
             }
         }
