@@ -87,6 +87,7 @@ export const DifferentStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
     data: () => ({
+		empty: null,
         value: null,
 		multipleValue: null,
 		optionsArrayDefault: 'option_1',
@@ -105,6 +106,20 @@ export const DifferentStates = (argTypes) => ({
 			{
 				label: 'option 3',
 				value: 'option_3'
+			}
+		],
+		optionsWithKey: [
+			{
+				label: 'option 1',
+				key: 'option_1'
+			},
+			{
+				label: 'option 2',
+				key: 'option_2'
+			},
+			{
+				label: 'option 3',
+				key: 'option_3'
 			}
 		],
     }),
@@ -127,12 +142,20 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card title="Standard with Different itemValue" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select itemValue="key" v-model="empty" label="Standard" :options="optionsWithKey" placeholder="Select One" />
+						<t-select itemValue="key" searchable v-model="empty" label="Searchable" :options="optionsWithKey" placeholder="Select One" />
+					</div>
+				</t-card>
+
 				<t-card title="Standard (Array Options + default)" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="optionsArrayDefault" label="Standard" :options="optionsArray" placeholder="Select One" />
 						<t-select searchable v-model="optionsArrayDefault" label="Searchable" :options="optionsArray" placeholder="Select One" />
 					</div>
 				</t-card>
+
 
 				<t-card title="Multiple" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
