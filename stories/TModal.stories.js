@@ -11,6 +11,10 @@ export default {
 			description: 'Type of the modal, center, right or full',
 			control: { type: 'text' }
 		},
+		width: {
+			name: 'width',
+			description: 'Set width of modal in pixels'
+		}
 	},
 };
 

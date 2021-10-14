@@ -7,7 +7,7 @@
 				<div
 					class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-y-auto"
 					:class="containerClasses"
-					style="min-width: 300px; max-height: calc(100vh - 2em)"
+					:style="`min-width: 300px; max-height: calc(100vh - 2em); ${width ? `width: ${width}px;` : ''}`"
 				>
 					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
 						<t-button icon="close" @click="closeModal" text />
@@ -40,6 +40,10 @@ export default {
 		freeze: {
 			type: Boolean,
 			default: false
+		},
+		width: {
+			type: String,
+			required: false
 		}
 	},
 	methods: {
@@ -54,7 +58,6 @@ export default {
 			switch(this.type) {
 				case 'right': 
 					c = c.concat([
-						'max-w-xl',
 						'block',
 						'h-auto',
 						'bottom-0',
@@ -67,7 +70,6 @@ export default {
 					break;
 				case 'center': 
 					c = c.concat([
-						'max-w-xl',
 						'mx-auto',
 						'left-0',
 						'right-0',
