@@ -18,17 +18,15 @@ export default {
 export const Standard = (args, { argTypes }) => ({
 	components: { TPagination },
 	data: () => ({
-		currentPerPage: 10,
+		currentPerPage: 20,
 		currentPage: 1,
 		totalItems: 100,
-		perPageOptions: [10, 20, 30, 40, 50]
+		perPageOptions: [20, 30, 40, 50]
 	}),
 	methods: {
-		changePage(val) {
-			this.currentPage = val;
-		},
-		changePerPage(val) {
-			this.currentPerPage = val;
+		change({page, perPage}) {
+			this.currentPage = page;
+			this.currentPerPage = perPage;
 		}
 	},
 	template: 
@@ -36,11 +34,11 @@ export const Standard = (args, { argTypes }) => ({
 		<div>
 			<t-pagination 
 				:currentPage="currentPage" 
+				:currentPerPage="currentPerPage"
 				:totalItems="totalItems"
 				:perPageOptions="perPageOptions" 
-				@changePage="changePage" 
+				@change="change" 
 			/>
-			
 			<div class="mt-16">
 				Current page: {{ currentPage }}<br>
 				Items per page: {{ currentPerPage }} <br>

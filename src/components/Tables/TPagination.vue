@@ -3,9 +3,9 @@
         <div>
             <div class="flex flex-col mb-6 md:mb-0 lg:flex-row lg:items-center">
                 <select 
-                    name="perPage" 
+                    name="currentPerPage" 
                     class="cursor-pointer shadow flex w-16 pl-2 pr-4 py-2 bg-white border-gray-200 text-gray-500 hover:bg-indigo-100 hover:text-indigo-900 focus:outline-none focus:ring-indigo-800 text-sm font-medium rounded" 
-                    v-model="perPage"
+                    @input="changePerPage($event)"
                 >
                     <option
                         v-for="option of perPageOptions"
@@ -65,16 +65,18 @@
 <script>
 export default {
     name: "TPagination",
-    data() {
-        return {
-            perPage: 10
-        }
-    },
     props: {
         currentPage: {
             type: Number,
-            required: false,
+            required: true,
             default: 1
+        },
+        currentPerPage: {
+            type: Number,
+            required: true,
+            default: () => {
+                return this.perPageOptions[0]
+            }
         },
         totalItems: {
             type: Number,
@@ -88,11 +90,6 @@ export default {
             }
         }
     },
-    watch: {
-        perPage: function(value) {
-            this.$emit('changePage', 1)
-        }
-    },
     computed: {
         prevDisabled() {
             return this.currentPage === 1;
@@ -101,7 +98,7 @@ export default {
             return this.currentPage === this.totalPages;
         },
         totalPages() {
-            return Math.ceil(this.totalItems / this.perPage);
+            return Math.ceil(this.totalItems / this.currentPerPage);
         },
         pagesArray() {
 			if(this.totalPages <= 5) {
@@ -123,7 +120,7 @@ export default {
                 return 1;
             }
             else {
-                return (this.perPage * (this.currentPage - 1)) + 1;
+                return (this.currentPerPage * (this.currentPage - 1)) + 1;
             }
         },
         toItem() {
@@ -131,13 +128,22 @@ export default {
                 return this.totalItems;
             }
             else {
-                return (this.currentPage) * this.perPage;
+                return (this.currentPage) * this.currentPerPage;
             }
         }
     },
     methods: {
         goToPage(page) {
-            this.$emit('changePage', page)
+            this.$emit('change', {
+                page: parseInt(page),
+                perPage: parseInt(this.currentPerPage)
+            })
+        },
+        changePerPage(e) {
+            this.$emit('change', {
+                page: parseInt(this.currentPage),
+                perPage: parseInt(e.target.value)
+            })
         }
     },
 };
