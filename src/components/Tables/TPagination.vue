@@ -91,9 +91,6 @@ export default {
     watch: {
         perPage: function(value) {
             this.$emit('changePage', 1)
-        },
-        currentPage: function(value) {
-            this.$emit('changePage', value)
         }
     },
     computed: {
@@ -139,11 +136,8 @@ export default {
     },
     methods: {
         goToPage(page) {
-            this.currentPage = page;
-        },
-        dd(event) {
-            this.goToPage(this.currentPage, event.target.value);
-        },
+            this.$emit('changePage', page)
+        }
     },
 };
 </script>
