@@ -2,7 +2,7 @@
 	<div class="w-full h-full top-0 bottom-0 left-0 right-0" 
 		:class="{
 			'relative': relative,
-			'fixed': !relative
+			'absolute': !relative
 		}"
 	>
 		<div :class="`${relative ? 'relative' : ''} ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
