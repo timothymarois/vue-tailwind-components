@@ -43,24 +43,8 @@ export const Standard = (args, { argTypes }) => ({
 
 Standard.args = {
 	color: 'indigo',
-	options: [
-        {
-            someLabel: 'option 1',
-            someValue: 'option_1'
-        },
-        {
-            someLabel: 'option 2',
-            someValue: 'option_2'
-        },
-        {
-            someLabel: 'option 3',
-            someValue: 'option_3'
-        }
-    ],
+	options: ['exclude', 'include'],
 	returnObject: false,
-	itemLabel: "someLabel",
-	itemValue: "someValue",
-	value: "option_1" // Selected option by default
 };
 
 export const MultipleSelect = (args, { argTypes }) => ({
@@ -105,8 +89,10 @@ export const DifferentStates = (argTypes) => ({
     data: () => ({
         value: null,
 		multipleValue: null,
+		optionsArrayDefault: 'option_1',
 		withDefault: 'option_1',
 		withDefaultArray: ['option_1','option_2'],
+		optionsArray: ['option_1','option_2','option_3','option_4'],
 		options: [
 			{
 				label: 'option 1',
@@ -138,6 +124,13 @@ export const DifferentStates = (argTypes) => ({
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="withDefault" label="Standard" :options="options" placeholder="Select One" />
 						<t-select searchable v-model="withDefault" label="Searchable" :options="options" placeholder="Select One" />
+					</div>
+				</t-card>
+
+				<t-card title="Standard (Array Options + default)" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select v-model="optionsArrayDefault" label="Standard" :options="optionsArray" placeholder="Select One" />
+						<t-select searchable v-model="optionsArrayDefault" label="Searchable" :options="optionsArray" placeholder="Select One" />
 					</div>
 				</t-card>
 

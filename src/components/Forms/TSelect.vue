@@ -22,7 +22,7 @@
                 <span 
                     v-else-if="!searchable && selected.length !== 0" 
                     :placeholder="placeholder" 
-                    class="truncate pl-3 font-medium "
+                    class="truncate pl-3 font-medium"
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
                 >{{ selectPlaceholder }}</span>
 
@@ -74,7 +74,7 @@
                 >
                     Searching...
                 </li>
-                <div v-else-if="!loading && options.length > 0">
+                <div v-else-if="!loading && computedOptions.length > 0">
                     <li
                         v-for="(item, i) of searchableOptions"
                         :key="i"
@@ -98,7 +98,7 @@
                     </li>
                 </div>
                 <li 
-                    v-else-if="!loading && !options.length" 
+                    v-else-if="!loading && !computedOptions.length" 
                     class="flex items-center rounded m-4 font-medium"
                 >
                     {{ nodata }}
@@ -246,7 +246,7 @@ export default {
             let vm = this;
 
             if (vm.localSearch && vm.searchable && vm.isSearching && !vm.external) {
-                return JSON.parse(JSON.stringify(vm.options)).filter(option => {
+                return JSON.parse(JSON.stringify(vm.computedOptions)).filter(option => {
                     let o = option[this.itemLabel].toLowerCase().match(vm.localSearch.toLowerCase());
                     if (o) {
                         option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(vm.localSearch, "ig")), function(matchedText, a, b){
@@ -257,12 +257,12 @@ export default {
                 });
             }
             else {
-                return vm.options;
+                return vm.computedOptions;
             }
         },
         selectPlaceholder() { 
             if(this.multiple && this.selected.length > 0) {
-                return `${this.selected[0][this.itemValue]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+                return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
             } else if(!this.multiple && this.selected[this.itemValue]) {
                 return this.selected[this.itemLabel];
             }
@@ -284,6 +284,22 @@ export default {
                 return this.selected[this.itemValue];
             }
 
+        },
+        computedOptions() {
+            if(this.options.length > 0 && !this.options[0].value) {
+                this.itemValue = "value";
+                this.itemLabel = "label";
+
+                return this.options.map(key => {
+                    return {
+                        label: key,
+                        value: key
+                    }
+                })
+
+            } else {
+                return this.options;
+            }
         }
     },
     methods: {
@@ -292,12 +308,12 @@ export default {
 
             if(multiple) {
                 for(const item of values) {
-                    this.options.find(obj => {
+                    this.computedOptions.find(obj => {
                         if(obj[this.itemValue] === item) return found.push(obj);
                     })
                 }
             } else {
-                this.options.find(obj => {
+                this.computedOptions.find(obj => {
                     if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) {
                         this.localSearch = obj[this.itemLabel];
                         return found = obj;
@@ -330,7 +346,7 @@ export default {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
-            if (this.external && this.searchable && !this.localSearch && !this.options.length) {
+            if (this.external && this.searchable && !this.localSearch && !this.computedOptions.length) {
                 return this.menu = false;
             }
 
