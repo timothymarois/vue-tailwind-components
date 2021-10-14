@@ -18,8 +18,7 @@
                 <label for="perPage" class="mt-2 lg:mt-0 lg:ml-4 text-gray-500 text-left">Showing {{ fromItem }} to {{ toItem }} of {{ totalItems }} results</label>
             </div>
         </div>
-        <div 
-            v-if="totalPages > 1" 
+        <div
             class="relative flex space-x-1"
         >
             <div @click="prevDisabled ? '' : goToPage(currentPage - 1)">
