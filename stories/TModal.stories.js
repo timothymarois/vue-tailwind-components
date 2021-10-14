@@ -98,3 +98,23 @@ export const LongPageScroll = (argTypes) => ({
         </div>
 		`,
 });
+
+
+export const Contained = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TModal, TButton },
+    data: () => ({
+        showing: false
+    }),
+	template: 
+		`
+        <div>
+			<t-button @click="showing = true" label="Show Modal" />
+            <div style="height:600px;width:750px;border:red solid 2px">
+				<t-modal relative v-if="showing" @close-modal="showing = false" type="center" max-width="400">
+					<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
+				</t-modal>
+			</div>
+        </div>
+		`,
+});

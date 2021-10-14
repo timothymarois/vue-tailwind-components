@@ -1,13 +1,21 @@
 <template>
-	<div class="absolute w-full h-full top-0 bottom-0 left-0 right-0">
-		<div :class="`relative ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
-			<t-overlay :freeze="freeze" @close-modal="closeModal" />
-			
+	<div class="w-full h-full top-0 bottom-0 left-0 right-0" 
+		:class="{
+			'relative': relative,
+			'fixed': !relative
+		}"
+	>
+		<div :class="`${relative ? 'relative' : ''} ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
+			<t-overlay 
+				:relative="relative"
+				:freeze="freeze" 
+				@close-modal="closeModal" 
+			/>
 			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 				<div
-					class="bg-white fixed z-50 shadow-lg rounded p-4 overflow-y-auto"
+					class="bg-white z-50 shadow-lg rounded p-4 overflow-y-auto"
 					:class="containerClasses"
-					style="min-width: 300px; max-height: calc(100vh - 2em)"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''}min-width: 300px;max-height: calc(100vh - 2em)`"
 				>
 					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
 						<t-button icon="close" @click="closeModal" text />
@@ -40,7 +48,15 @@ export default {
 		freeze: {
 			type: Boolean,
 			default: false
-		}
+		},
+		relative: {
+            type: Boolean,
+            default: false
+        },
+		maxWidth: {
+            type: [String, Number],
+            default: null
+        },
 	},
 	methods: {
 		closeModal() {
@@ -81,6 +97,17 @@ export default {
 						'right-0'
 					]);
 					break; 
+			}
+
+			if (this.relative) {
+				c = c.concat([
+					'absolute'
+				]);
+			}
+			else {
+				c = c.concat([
+					'fixed'
+				]);
 			}
 
 			return c;
