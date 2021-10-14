@@ -27,6 +27,9 @@ export const Center = (argTypes) => ({
             <t-modal v-if="showing" @close-modal="showing = false" v-bind="$props">
                 <div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
             </t-modal>
+			<div class="mt-64">Test content</div>
+			<div class="mt-64">Test content</div>
+			<div class="mt-64">Test content</div>
         </div>
 		`,
 });
@@ -65,6 +68,9 @@ export const Full = (args, { argTypes }) => ({
             <t-modal v-if="showing" @close-modal="showing = false" v-bind="$props">
                 <div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
             </t-modal>
+			<div class="mt-64">Test content</div>
+			<div class="mt-64">Test content</div>
+			<div class="mt-64">Test content</div>
         </div>
 		`,
 });

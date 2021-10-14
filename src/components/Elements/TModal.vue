@@ -69,16 +69,16 @@ export default {
 					c = c.concat([
 						'max-w-xl',
 						'mx-auto',
-						'relative',
-						'top-1/2'
+						'left-0',
+						'right-0',
 					]);
 					break;
 				case 'full':
 					c = c.concat([
 						'w-11/12',
 						'mx-auto',
-						'relative',
-						'top-1/2'
+						'left-0',
+						'right-0'
 					]);
 					break; 
 			}
