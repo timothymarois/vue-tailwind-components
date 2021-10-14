@@ -86,7 +86,7 @@ export const LongPageScroll = (argTypes) => ({
         <div style="height:2000px">
             <div style="height:1000px">keep scrolling</div>
             <t-button @click="showing = true" label="Show Modal" />
-            <t-modal v-if="showing" @close-modal="showing = false" type="right">
+            <t-modal v-if="showing" @close-modal="showing = false" type="center">
                 <div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
             </t-modal>
         </div>
