@@ -114,10 +114,12 @@ export const Contained = (argTypes) => ({
 		`
         <div>
 			<t-button @click="showing = true" label="Show Modal" />
-            <div style="height:600px;width:750px;border:red solid 2px">
-				<t-modal relative v-if="showing" @close-modal="showing = false" type="center" max-width="400">
-					<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
-				</t-modal>
+            <div style="height:600px;width:750px;border:red solid 2px;" class="overflow-y-scroll">
+				<div style="height:1200px;">
+					<t-modal relative v-if="showing" @close-modal="showing = false" type="center" max-width="400">
+						<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
+					</t-modal>
+				</div>
 			</div>
         </div>
 		`,
