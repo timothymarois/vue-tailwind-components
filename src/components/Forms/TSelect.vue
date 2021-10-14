@@ -79,7 +79,7 @@
                         v-for="(item, i) of searchableOptions"
                         :key="i"
                         class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="{ 'text-white bg-indigo-800' : (!multiple && selected[internalValue] === item[internalValue]) }"
+                        :class="{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }"
                         @click="selectItem(item)"
                         @keyup.enter="selectItem(item)"
                     >  
@@ -93,7 +93,7 @@
                         />
                         <span 
                             class="font-medium m-2" 
-                            v-html="item[internalLabel]"
+                            v-html="item[itemLabel]"
                         />    
                     </li>
                 </div>
@@ -204,9 +204,7 @@ export default {
             menu: false,
             selected: [],
             localSearch: null,
-            isSearching: false,
-            internalValue: this.itemValue,
-            internalLabel: this.itemLabel
+            isSearching: false
         }
     },
     watch: {
@@ -249,9 +247,9 @@ export default {
 
             if (vm.localSearch && vm.searchable && vm.isSearching && !vm.external) {
                 return JSON.parse(JSON.stringify(vm.computedOptions)).filter(option => {
-                    let o = option[this.internalLabel].toLowerCase().match(vm.localSearch.toLowerCase());
+                    let o = option[this.itemLabel].toLowerCase().match(vm.localSearch.toLowerCase());
                     if (o) {
-                        option[this.internalLabel] = option[this.internalLabel].toString().replace((new RegExp(vm.localSearch, "ig")), function(matchedText, a, b){
+                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(vm.localSearch, "ig")), function(matchedText, a, b){
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
@@ -264,9 +262,9 @@ export default {
         },
         selectPlaceholder() { 
             if(this.multiple && this.selected.length > 0) {
-                return `${this.selected[0][this.internalLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            } else if(!this.multiple && this.selected[this.internalValue]) {
-                return this.selected[this.internalLabel];
+                return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+            } else if(!this.multiple && this.selected[this.itemValue]) {
+                return this.selected[this.itemLabel];
             }
 
             return this.placeholder;
@@ -277,20 +275,20 @@ export default {
                     return this.selected;
                 }
 
-                return this.selected.map(obj => obj[this.internalValue]);
+                return this.selected.map(obj => obj[this.itemValue]);
             } else {
                 if(this.returnObject) {
                     return this.selected;
                 }
 
-                return this.selected[this.internalValue];
+                return this.selected[this.itemValue];
             }
 
         },
         computedOptions() {
-            if(this.options.length > 0 && !this.options[0][this.internalValue]) {
-                // this.internalValue = "value";
-                // this.internalLabel = "label";
+            if(this.options.length > 0 && !this.options[0][this.itemValue]) {
+                // this.itemValue = "value";
+                // this.itemLabel = "label";
                 return this.options.map(key => {
                     return {
                         label: key,
@@ -310,13 +308,13 @@ export default {
             if(multiple) {
                 for(const item of values) {
                     this.computedOptions.find(obj => {
-                        if(obj[this.internalValue] === item) return found.push(obj);
+                        if(obj[this.itemValue] === item) return found.push(obj);
                     })
                 }
             } else {
                 this.computedOptions.find(obj => {
-                    if(obj[this.internalValue] === (this.returnObject ? values[this.internalValue] : values)) {
-                        this.localSearch = obj[this.internalLabel];
+                    if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) {
+                        this.localSearch = obj[this.itemLabel];
                         return found = obj;
                     }
                 });
@@ -325,15 +323,15 @@ export default {
             return found;
         },
         selectItem(item) {
-            item[this.internalLabel] = item[this.internalLabel].replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
+            item[this.itemLabel] = item[this.itemLabel].replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
 
             if(!this.multiple) {
                 this.menu = false;
                 this.isSearching = false;
                 this.selected = item;
-                this.localSearch = (item[this.internalLabel]) ? item[this.internalLabel] : null;
+                this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
             } else {
-                if(!this.selected.some(obj => obj[this.internalValue] === item[this.internalValue])) {
+                if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                     this.selected.push(item);
                 } else {
                     let i = this.selected.indexOf(item);
@@ -381,7 +379,7 @@ export default {
             this.$refs.dropdownsearch.focus();
         },
         isChecked(item) {
-            if(this.selected.some(obj => obj[this.internalValue] === item[this.internalValue])) {
+            if(this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                 return true;
             }
 
