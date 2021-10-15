@@ -1,7 +1,7 @@
 <template>
     <label 
         :for="id" 
-        :class="`cursor-pointer block text-sm font-medium ${color} ml-1`"
+        :class="`cursor-pointer block text-sm font-medium ${color} ml-1 transition-colors duration-300`"
     ><slot>{{ label }}</slot><span class="text-red-600" v-if="required">*</span></label>
 </template>
 
