@@ -1,6 +1,7 @@
 <template>
 	<div class="flex items-center">
 		<input 
+			:id="id"
 			type="checkbox" 
 			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
 			:checked="isChecked"
@@ -77,6 +78,9 @@ export default {
 		}
 	},
 	computed: {
+		id() {
+			return (Math.random() + 1).toString(36).substring(7);
+		},
 		internalValue: {
 			get: function() {
 				return this.value; 
