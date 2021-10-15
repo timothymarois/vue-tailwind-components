@@ -1,20 +1,17 @@
 <template>
-	<label 
-		:for="id"
-		class="flex items-center cursor-pointer"
-	>
+	<div class="flex items-center">
 		<div 
 			class="mr-3 text-sm" 
 			v-if="falseLabel"
 		>
 			<t-label 
-				:id="id"
+				@click.native="switchState('before')"
 				:color="`${checked ? 'text-gray-400' : ''}`"
 			>
 				{{ beforeLabel }}
 			</t-label>
 		</div>
-		<div class="relative">
+		<div class="relative cursor-pointer" @click="switchState('toggle')">
 			<input 
 				:id="id" 
 				type="checkbox"
@@ -33,13 +30,13 @@
 		</div>
 		<div class="ml-3 text-sm">
 			<t-label 
-				:id="id"
+				@click.native="switchState('aft')"
 				:color="`${!checked ? 'text-gray-400' : ''}`"
 			>
 				{{ aftLabel }}
 			</t-label>
 		</div>
-	</label>
+	</div>
 </template>
 
 <script>
@@ -80,12 +77,18 @@ export default {
 			required: false
 		}
 	},
-	mounted() {
-		console.log('True label: ' + this.trueLabel);
-	},
 	methods: {
 		update(e) {
 			this.$emit('input', !this.value);
+		},
+		switchState(side) {
+			if(side === 'aft' && this.falseLabel) {
+				this.checked = true;
+			} else if(side === 'before') {
+				this.checked = false;
+			} else {
+				this.checked = !this.checked;
+			}
 		}
 	},
 	computed: {
