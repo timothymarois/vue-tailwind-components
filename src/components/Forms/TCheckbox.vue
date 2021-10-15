@@ -1,7 +1,6 @@
 <template>
 	<div class="flex items-center">
 		<input 
-			:id="id" 
 			type="checkbox" 
 			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
 			:checked="isChecked"
@@ -68,32 +67,16 @@ export default {
 			default: false
 		},
 	},
-	data() {
-		return {
-			// lazyValue: this.value
-		}
-	},
 	methods: {
 		valueComparator: (a, b) => a === b,
 		onChange(e) {
-
-			// const value = e.target.checked;
 			const value = this.value;
 			let input = this.internalValue
 			input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
-
-			// console.log('----------------')
-			// console.log('isChecked: '+this.isChecked.toString())
-			// console.log('value: '+value.toString())
-			// console.log('input: '+input.toString())
-
 			this.internalValue = input
 		}
 	},
 	computed: {
-		id() {
-			return (Math.random() + 1).toString(36).substring(7);
-		},
 		internalValue: {
 			get: function() {
 				return this.value; 

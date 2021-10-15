@@ -13,7 +13,6 @@
 		</div>
 		<div class="relative cursor-pointer" @click="switchState('toggle')">
 			<input 
-				:id="id" 
 				type="checkbox"
 				@input="update($event)"
 				v-model="checked"
@@ -69,11 +68,11 @@ export default {
 			default: false
 		},
 		trueLabel: {
-			type: String,
+			type: [String,Boolean],
 			required: false
 		},
 		falseLabel: {
-			type: String,
+			type: [String,Boolean],
 			required: false
 		}
 	},
@@ -84,21 +83,21 @@ export default {
 		switchState(side) {
 			if(side === 'aft' && this.falseLabel) {
 				this.checked = true;
-			} else if(side === 'before') {
+			} 
+			else if(side === 'before') {
 				this.checked = false;
-			} else {
+			} 
+			else {
 				this.checked = !this.checked;
 			}
 		}
 	},
 	computed: {
-		id() {
-			return (Math.random()+1).toString(36).substring(7);
-		},
 		aftLabel() {
 			if ((this.trueLabel && this.checked === true) || (this.trueLabel && this.falseLabel)) {
 				return this.trueLabel;
-			} else {
+			} 
+			else {
 				return this.label;
 			}
 		},
@@ -115,12 +114,10 @@ export default {
 #dot {
 	transform: translateX(100%);
 }
-
 input:not(:checked) ~ #dot {
 	@apply bg-white;
 	transform: translateX(0%);
 }
-
 input:not(:checked) ~ #background {
 	@apply bg-gray-400;
 }
