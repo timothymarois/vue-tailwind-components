@@ -26,11 +26,11 @@
                 v-for="(item,index) in items"
                 :key="index"
                 class="p-2 flex items-center rounded m-2 transition duration-150"
-                :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-50 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
+                :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
                 :disabled="item.disabled"
                 @click="!item.disabled && selectItem(item)"
             >
-                <t-icon v-if="item.icon" :value="item.icon" size="6" class="mr-2" />
+                <t-icon v-if="item.icon" :value="item.icon" size="5" class="mr-2" />
                 <span class="font-medium">{{ item.label }}</span>
             </li>
         </ul>
@@ -140,12 +140,9 @@ export default {
                 'z-10',
                 'absolute',
                 'rounded',
-                'shadow',
+                'shadow-lg',
                 'bg-white',
                 'text-sm',
-                'ring-1',
-                'ring-black',
-                'ring-opacity-5',
                 'focus:outline-none',
                 'w-52',
                 'border border-gray-200'

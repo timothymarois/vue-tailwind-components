@@ -36,7 +36,7 @@
                     type="text"
                     autocomplete="off"
                     :placeholder="selectPlaceholder"
-                    class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto focus:outline-none truncate border-0"
+                    class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none"
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon, 'placeholder-indigo-800' : selected.length > 0 }"
                 />
 
@@ -59,7 +59,7 @@
 
                 <t-loader
                    v-else-if="loading"
-                    size="4"
+                    size="5"
                     class="mr-2"
                 />
             </button>
@@ -231,7 +231,7 @@ export default {
         },
         dropdownClasses() {
             let c = [
-                'absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow text-gray-500 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 border border-gray-300'
+                'absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none z-10 border border-gray-200'
             ];
 
             if (this.direction === 'top') {

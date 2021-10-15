@@ -8,17 +8,17 @@
 			:value="value"
 			@change="onChange($event)"
 		/>
-		<div :class="`bg-white border-2 rounded relative border-${color}-700 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
-			<div :class="`hidden bg-${color}-700 w-${size} h-${size} flex justifty-center items-center rounded`" v-if="check">
+		<div :class="`bg-white border-2 rounded relative border-${color}-800 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
+			<div :class="`hidden bg-${color}-800 w-${size} h-${size} flex justify-center items-center rounded`" v-if="check">
 				<TIcon 
-					value="check" 
+					value="check"
 					:size="size"
 					class="text-white absolute left-0 top-0"
 				/>
 			</div>
-			<div :class="`hidden bg-${color}-700 w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-sm pointer-events-none`" v-else />
+			<div :class="`hidden bg-${color}-800 w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-sm pointer-events-none`" v-else />
 		</div>
-		<div class="ml-3 text-sm" v-if="label">
+		<div class="ml-2 text-sm" v-if="label">
 			<t-label :id="id" >{{ label }}</t-label>
 		</div>
 	</div>

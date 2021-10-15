@@ -1,8 +1,8 @@
 <template>
     <label 
         :for="id" 
-        class="cursor-pointer block text-sm font-medium text-gray-700 ml-1"
-    ><slot>{{ label }}</slot><span class="text-red-600" v-if="required">*</span></label>
+        class="cursor-pointer block text-sm font-medium text-gray-800"
+    ><slot>{{ label }}</slot><span class="text-red-500" v-if="required"> *</span></label>
 </template>
 
 <script>

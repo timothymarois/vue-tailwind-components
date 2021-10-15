@@ -1,7 +1,7 @@
 <template>
 	<div :class="`relative h-1 block w-full bg-${color}-300 ${rounded ? 'rounded' : ''} overflow-hidden`">
 		<div 
-			:class="`bg-${color}-700`"
+			:class="`bg-${color}-800`"
 			id="ProgressBar__indeterminate"
 		/>
 	</div>

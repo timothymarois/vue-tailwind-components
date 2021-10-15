@@ -1,9 +1,9 @@
 <template>
-	<div :class="`_loader-wrapper relative inline-flex align-middle justifty-center items-center p-0 h-${size} w-${size}`">
+	<div :class="`_loader-wrapper relative inline-flex align-middle justify-center items-center p-0 h-${size} w-${size}`">
 		<svg 
 			xmlns="http://www.w3.org/2000/svg" 
 			viewBox="21.73913043478261 21.73913043478261 43.47826086956522 43.47826086956522" 
-			:class="`_loader-svg w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0 z-10 transition-all duration-200 ease-in-out text-${color}-900`"
+			:class="`_loader-svg w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0 z-10 transition-all duration-200 ease-in-out text-${color}-800`"
 		>
 			<circle 
 				fill="transparent" 
