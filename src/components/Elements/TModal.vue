@@ -13,7 +13,7 @@
 			/>
 			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 				<div
-					class="bg-white z-50 shadow-lg rounded p-4 overflow-y-auto"
+					class="bg-white z-50 shadow-lg rounded p-4 overflow-x-hidden"
 					:class="containerClasses"
 					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''}min-width: 300px;max-height: calc(100vh - 2em)`"
 				>
@@ -56,6 +56,10 @@ export default {
 		maxWidth: {
             type: [String, Number],
             default: null
+        },
+		scrolling: {
+            type: Boolean,
+            default: false
         },
 	},
 	methods: {
@@ -107,6 +111,17 @@ export default {
 			else {
 				c = c.concat([
 					'fixed'
+				]);
+			}
+
+			if (this.scrolling) {
+				c = c.concat([
+					'overflow-y-auto'
+				]);
+			}
+			else {
+				c = c.concat([
+					'overflow-y-hidden'
 				]);
 			}
 
