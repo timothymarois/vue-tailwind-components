@@ -6,7 +6,6 @@ export default {
 	argTypes: { 
 		color: {
 			name: 'color',
-			defaultValue: 'indigo',
 			description: 'Tailwind classname for outline and fill color',
 			control: { type: 'text' }
 		},
@@ -18,8 +17,7 @@ export default {
 		value: {
 			name: 'value',
 			description: 'Value of switch',
-			control: { type: 'boolean' },
-			defaultValue: false,
+			control: { type: 'boolean' }
 		},
 		label: {
 			name: 'label',
@@ -49,4 +47,22 @@ Inset.args = {
 	inset: true,
 	value: false,
 	label: 'Switch',
+};
+
+export const TrueLabel = Template.bind({});
+TrueLabel.args = {
+	color: 'indigo',
+	inset: false,
+	value: false,
+	label: 'Switch',
+	trueLabel: 'Switch enabled'
+};
+
+export const MultipleValues = Template.bind({});
+MultipleValues.args = {
+	color: 'indigo',
+	inset: false,
+	value: false,
+	trueLabel: 'Enabled',
+	falseLabel: 'Disabled'
 };

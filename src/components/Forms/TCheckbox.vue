@@ -1,9 +1,9 @@
 <template>
-	<div class="flex items-center">
+	<div class="relative flex items-center">
 		<input 
-			:id="id" 
+			:id="id"
 			type="checkbox" 
-			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
+			:class="`opacity-0 h-${size} w-${size} absolute cursor-pointer z-20`" 
 			:checked="isChecked"
 			:value="value"
 			@change="onChange($event)"
@@ -68,25 +68,12 @@ export default {
 			default: false
 		},
 	},
-	data() {
-		return {
-			// lazyValue: this.value
-		}
-	},
 	methods: {
 		valueComparator: (a, b) => a === b,
 		onChange(e) {
-
-			// const value = e.target.checked;
 			const value = this.value;
 			let input = this.internalValue
 			input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
-
-			// console.log('----------------')
-			// console.log('isChecked: '+this.isChecked.toString())
-			// console.log('value: '+value.toString())
-			// console.log('input: '+input.toString())
-
 			this.internalValue = input
 		}
 	},

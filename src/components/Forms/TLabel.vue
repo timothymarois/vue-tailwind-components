@@ -1,8 +1,8 @@
 <template>
     <label 
-        :for="id" 
-        class="cursor-pointer block text-sm font-medium text-gray-800"
-    ><slot>{{ label }}</slot><span class="text-red-500" v-if="required"> *</span></label>
+        :for="id"
+        :class="`cursor-pointer block text-sm font-medium ${color} ml-1 transition-colors duration-150`"
+    ><slot>{{ label }}</slot><span class="text-red-600" v-if="required">*</span></label>
 </template>
 
 <script>
@@ -20,6 +20,10 @@ export default {
         id: {
             type: String,
             default: null
+        },
+        color: {
+            type: String,
+            default: 'text-gray-800'
         }
     }
 };

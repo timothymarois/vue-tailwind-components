@@ -1,11 +1,18 @@
 <template>
-	<label 
-		:for="id"
-		class="flex items-center cursor-pointer"
-	>
-		<div class="relative">
+	<div class="flex items-center">
+		<div 
+			class="mr-3 text-sm" 
+			v-if="falseLabel"
+		>
+			<t-label 
+				@click.native="switchState('before')"
+				:color="`${checked ? 'text-gray-400' : ''}`"
+			>
+				{{ beforeLabel }}
+			</t-label>
+		</div>
+		<div class="relative cursor-pointer" @click="switchState('toggle')">
 			<input 
-				:id="id" 
 				type="checkbox"
 				@input="update($event)"
 				v-model="checked"
@@ -21,9 +28,14 @@
 			/>
 		</div>
 		<div class="ml-3 text-sm">
-			<t-label :id="id">{{ label }}</t-label>
+			<t-label 
+				@click.native="switchState('aft')"
+				:color="`${!checked ? 'text-gray-400' : ''}`"
+			>
+				{{ aftLabel }}
+			</t-label>
 		</div>
-	</label>
+	</div>
 </template>
 
 <script>
@@ -54,16 +66,45 @@ export default {
 		inset: {
 			type: Boolean,
 			default: false
+		},
+		trueLabel: {
+			type: [String,Boolean],
+			required: false
+		},
+		falseLabel: {
+			type: [String,Boolean],
+			required: false
 		}
 	},
 	methods: {
 		update(e) {
 			this.$emit('input', !this.value);
+		},
+		switchState(side) {
+			if(side === 'aft' && this.falseLabel) {
+				this.checked = true;
+			} 
+			else if(side === 'before') {
+				this.checked = false;
+			} 
+			else {
+				this.checked = !this.checked;
+			}
 		}
 	},
 	computed: {
-		id() {
-			return (Math.random()+1).toString(36).substring(7);
+		aftLabel() {
+			if ((this.trueLabel && this.checked === true) || (this.trueLabel && this.falseLabel)) {
+				return this.trueLabel;
+			} 
+			else {
+				return this.label;
+			}
+		},
+		beforeLabel() {
+			if(this.falseLabel) {
+				return this.falseLabel;
+			}
 		}
 	}
 };
@@ -73,12 +114,10 @@ export default {
 #dot {
 	transform: translateX(100%);
 }
-
 input:not(:checked) ~ #dot {
 	@apply bg-white border-gray-400;
 	transform: translateX(0%);
 }
-
 input:not(:checked) ~ #background {
 	@apply bg-gray-400;
 }
