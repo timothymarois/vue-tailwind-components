@@ -1,9 +1,9 @@
 <template>
-	<div class="flex items-center">
+	<div class="relative flex items-center">
 		<input 
 			:id="id"
 			type="checkbox" 
-			:class="`opacity-0 absolute h-${size} w-${size} cursor-pointer z-20`" 
+			:class="`opacity-0 h-${size} w-${size} absolute cursor-pointer z-20`" 
 			:checked="isChecked"
 			:value="value"
 			@change="onChange($event)"
