@@ -3,6 +3,14 @@
 		:for="id"
 		class="flex items-center cursor-pointer"
 	>
+		<div 
+			class="mr-3 text-sm" 
+			v-if="falseLabel"
+		>
+			<t-label :id="id">
+				{{ beforeLabel }}
+			</t-label>
+		</div>
 		<div class="relative">
 			<input 
 				:id="id" 
@@ -21,7 +29,9 @@
 			/>
 		</div>
 		<div class="ml-3 text-sm">
-			<t-label :id="id">{{ label }}</t-label>
+			<t-label :id="id">
+				{{ aftLabel }}
+			</t-label>
 		</div>
 	</label>
 </template>
@@ -54,7 +64,18 @@ export default {
 		inset: {
 			type: Boolean,
 			default: false
+		},
+		trueLabel: {
+			type: String,
+			required: false
+		},
+		falseLabel: {
+			type: String,
+			required: false
 		}
+	},
+	mounted() {
+		console.log('True label: ' + this.trueLabel);
 	},
 	methods: {
 		update(e) {
@@ -64,6 +85,18 @@ export default {
 	computed: {
 		id() {
 			return (Math.random()+1).toString(36).substring(7);
+		},
+		aftLabel() {
+			if ((this.trueLabel && this.checked === true) || (this.trueLabel && this.falseLabel)) {
+				return this.trueLabel;
+			} else {
+				return this.label;
+			}
+		},
+		beforeLabel() {
+			if(this.falseLabel) {
+				return this.falseLabel;
+			}
 		}
 	}
 };
