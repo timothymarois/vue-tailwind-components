@@ -270,11 +270,7 @@ export default {
 					c = c.concat(['text-gray-400', 'bg-gray-50']);
 				}
 				else {
-<<<<<<< HEAD
 					c = c.concat([`text-${this.color}-800`, `hover:text-white`, `hover:bg-${this.color}-100`]);
-=======
-					c = c.concat(['text-${this.color}-800', `hover:text-white`, `hover:bg-${this.color}-900`]);
->>>>>>> 7c1ca65d6069b2729b17d8b17b5fe345588c722a
 				}
 			} else {
 				c = c.concat(['text-white']);
@@ -384,7 +380,7 @@ export default {
 					break;
 				default: 
 					c = c.concat(['text-sm']);
-					if (!this.padding && !this.iconOnly) c = c.concat(['px-2','py-2']);
+					if (!this.padding && !this.iconOnly) c = c.concat(['px-4','py-2']);
 					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
 			}
 
