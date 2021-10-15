@@ -1,6 +1,6 @@
 <template>
 	<div 
-		:class="[alertClasses, `py-3 px-4 text-${textColor} inline-flex items-center ${rounded ? 'rounded-md' : ''} ${shadow ? 'shadow-lg' : ''}`]"
+		:class="[alertClasses, `py-3 px-4 text-${textColor} inline-flex items-center ${rounded ? 'rounded' : ''} ${shadow ? 'shadow-lg' : ''}`]"
 	>
 		<slot></slot>
 	</div>

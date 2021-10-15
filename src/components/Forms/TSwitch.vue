@@ -19,11 +19,11 @@
 				class="sr-only" 
 			/>
 			<div 
-				:class="`w-${inset ? '14' : '10'} h-${inset ? '8' : '4'} bg-${color}-300 rounded-full shadow-inner`"
+				:class="`w-${inset ? '12' : '10'} h-${inset ? '6' : '4'} bg-${color}-800 rounded-full shadow-inner`"
 				id="background" 
 			/>
 			<div 
-				:class="`absolute w-6 h-6 bg-${color}-700 rounded-full shadow ${inset ? 'left-1 top-1' : '-left-1 -top-1'} transition shadow`"
+				:class="`absolute w-6 h-6 bg-white border-2 border-${color}-800 rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`"
 				id="dot"
 			/>
 		</div>
@@ -115,7 +115,7 @@ export default {
 	transform: translateX(100%);
 }
 input:not(:checked) ~ #dot {
-	@apply bg-white;
+	@apply bg-white border-gray-400;
 	transform: translateX(0%);
 }
 input:not(:checked) ~ #background {

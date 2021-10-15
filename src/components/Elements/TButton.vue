@@ -43,7 +43,7 @@ export default {
 		},
 		size: {
 			type: String,
-			default: 'md'
+			default: 'sm'
 		},
 		iconSize: {
 			type: [Number, String],
@@ -270,13 +270,17 @@ export default {
 					c = c.concat(['text-gray-400', 'bg-gray-50']);
 				}
 				else {
+<<<<<<< HEAD
 					c = c.concat([`text-${this.color}-800`, `hover:text-white`, `hover:bg-${this.color}-100`]);
+=======
+					c = c.concat(['text-${this.color}-800', `hover:text-white`, `hover:bg-${this.color}-900`]);
+>>>>>>> 7c1ca65d6069b2729b17d8b17b5fe345588c722a
 				}
 			} else {
 				c = c.concat(['text-white']);
 				if (this.outlined) {
 					if (this.disabled) {
-						c = c.concat(['text-gray-400','border-gray-300']);
+						c = c.concat(['text-gray-400','border-gray-200']);
 					}
 					else {
 						if (this.color=='white') {
@@ -302,7 +306,7 @@ export default {
 				}
 			}
 
-			if (!this.icon) {
+			if (!this.icon && !this.iconRight) {
 				c = c.concat(['px-4']);
 			}
 
@@ -360,11 +364,12 @@ export default {
 			switch(this.size) {
 				case 'xs': 
 					c = c.concat(['text-xs']);
-					if (!this.padding && !this.padding) c = c.concat(['px-2.5','py-1.5']);
+					if (!this.padding && !this.padding) c = c.concat(['px-2','py-1']);
+          if (this.iconOnly && !this.padding) c = c.concat(['px-1','py-1']);
 					break;
 				case 'sm': 
-					c = c.concat(['text-sm','leading-4']);
-					if (!this.padding && !this.padding) c = c.concat(['px-3','py-2']);
+					c = c.concat(['text-sm']);
+					if (!this.padding && !this.padding) c = c.concat(['px-2','py-2']);
 					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
 					break;
 				case 'lg': 
@@ -379,7 +384,7 @@ export default {
 					break;
 				default: 
 					c = c.concat(['text-sm']);
-					if (!this.padding && !this.iconOnly) c = c.concat(['px-4','py-2']);
+					if (!this.padding && !this.iconOnly) c = c.concat(['px-2','py-2']);
 					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
 			}
 

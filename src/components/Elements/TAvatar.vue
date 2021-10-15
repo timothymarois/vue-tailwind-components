@@ -16,7 +16,7 @@ export default {
 		color: {
 			type: String,
 			required: false,
-			default: 'indigo-700'
+			default: 'indigo-800'
 		},
 		textColor: {
 			type: String,

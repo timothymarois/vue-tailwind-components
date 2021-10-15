@@ -81,7 +81,7 @@ export default {
                 //     c = c.concat(['border']);
                 // }
 
-                c = c.concat(['border-2']);
+                c = c.concat(['border']);
 
                 c = c.concat(['border-'+this.borderColor+'-200']);
             }

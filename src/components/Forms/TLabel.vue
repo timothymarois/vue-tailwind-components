@@ -1,7 +1,7 @@
 <template>
     <label 
-        :for="id" 
-        :class="`cursor-pointer block text-sm font-medium ${color} ml-1 transition-colors duration-300`"
+        :for="id"
+        :class="`cursor-pointer block text-sm font-medium ${color} ml-1 transition-colors duration-150`"
     ><slot>{{ label }}</slot><span class="text-red-600" v-if="required">*</span></label>
 </template>
 
@@ -23,7 +23,7 @@ export default {
         },
         color: {
             type: String,
-            default: 'text-gray-700'
+            default: 'text-gray-800'
         }
     }
 };
