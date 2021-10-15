@@ -7,7 +7,10 @@
 			class="mr-3 text-sm" 
 			v-if="falseLabel"
 		>
-			<t-label :id="id">
+			<t-label 
+				:id="id"
+				:color="`${checked ? 'text-gray-400' : ''}`"
+			>
 				{{ beforeLabel }}
 			</t-label>
 		</div>
@@ -29,7 +32,10 @@
 			/>
 		</div>
 		<div class="ml-3 text-sm">
-			<t-label :id="id">
+			<t-label 
+				:id="id"
+				:color="`${!checked ? 'text-gray-400' : ''}`"
+			>
 				{{ aftLabel }}
 			</t-label>
 		</div>
