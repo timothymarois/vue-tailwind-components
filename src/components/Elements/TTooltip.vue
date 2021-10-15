@@ -4,7 +4,7 @@
 			<slot>Text</slot>
 		</div>
 		<div 
-			:class="`absolute pointer-events-none z-50 px-3 py-1 shadow-md opacity-0 bg-${color} text-sm text-${textColor} text-center whitespace-nowrap Tooltip__${position}`" 
+			:class="`absolute pointer-events-none z-50 px-2 py-1 rounded shadow opacity-0 bg-${color} text-xs text-${textColor} text-center whitespace-nowrap Tooltip__${position}`"
 			id="Tooltip__content"
 		>
 			<div :class="`w-3 h-3 absolute bg-${color} z-10`" :id="`Tooltip__arrow__${position}`" />
@@ -24,7 +24,7 @@ export default {
 		color: {
 			type: String,
 			required: false,
-			default: 'black'
+			default: 'gray-800'
 		},
 		textColor: {
 			type: String,

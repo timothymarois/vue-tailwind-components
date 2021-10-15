@@ -9,7 +9,7 @@
         <div :class="{'mt-1':label}">
             <div class="relative text-gray-500">
                 <div v-if="icon" class="pointer-events-none absolute inset-y-0 left-0 p-2 flex items-center">
-                    <t-icon :value="icon" size="4" />
+                    <t-icon :value="icon" size="5" />
                 </div>
                 <input 
                     :id="id"
@@ -85,7 +85,7 @@ export default {
             return (Math.random()+1).toString(36).substring(7);
         },
         fieldClasses() {
-            let c = [`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full h-10 border-gray-300 rounded-md text-indigo-800 text-sm font-medium hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 focus:outline-none`];
+            let c = [`focus:ring-0 focus:border-indigo-800 block w-full h-10 border-gray-200 rounded text-indigo-800 text-sm hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 focus:outline-none`];
 
             if (this.icon) {
                 c = c.concat(['pl-8']);

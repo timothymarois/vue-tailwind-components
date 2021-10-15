@@ -82,12 +82,12 @@ export const CloseButton = (args, { argTypes }) => ({
 });
 
 Standard.args = {
-	iconSize: 6,
-	color: 'black',
+	iconSize: 5,
+	color: 'gray-800',
 	duration: 5000
 };
 
 CloseButton.args = {
-	iconSize: 4,
-	color: 'black'
+	iconSize: 5,
+	color: 'gray-800'
 }
