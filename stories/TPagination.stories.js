@@ -20,8 +20,8 @@ export const Standard = (args, { argTypes }) => ({
 	data: () => ({
 		currentPerPage: 20,
 		currentPage: 1,
-		totalItems: 20,
-		perPageOptions: [20, 30, 40, 50]
+		totalItems: 200,
+		perPageOptions: [10, 20, 30, 40, 50]
 	}),
 	methods: {
 		change({page, perPage}) {

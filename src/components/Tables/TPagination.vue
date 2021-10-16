@@ -5,6 +5,7 @@
                 <select 
                     name="currentPerPage" 
                     class="cursor-pointer shadow flex w-16 pl-2 pr-4 py-2 bg-white border-gray-200 text-gray-500 hover:bg-indigo-100 hover:text-indigo-900 focus:outline-none focus:ring-indigo-800 text-sm font-medium rounded" 
+                    :value="currentPerPage"
                     @input="changePerPage($event)"
                 >
                     <option
@@ -82,7 +83,7 @@ export default {
         perPageOptions: {
             type: Array,
             default: () => {
-                return [20, 30, 50, 75]
+                return [10, 20, 30, 50, 75, 100]
             }
         }
     },
