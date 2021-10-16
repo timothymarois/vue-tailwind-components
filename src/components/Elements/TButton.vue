@@ -270,7 +270,7 @@ export default {
 					c = c.concat(['text-gray-400', 'bg-gray-50']);
 				}
 				else {
-					c = c.concat([`text-gray-800`, `hover:text-white`, `hover:bg-${this.color}-100`]);
+					c = c.concat([`text-${this.color}-800`, `hover:text-${this.color}-900`, `hover:bg-${this.color}-100`]);
 				}
 			} else {
 				c = c.concat(['text-white']);
