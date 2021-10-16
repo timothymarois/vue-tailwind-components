@@ -67,12 +67,10 @@ export default {
     props: {
         currentPage: {
             type: Number,
-            required: true,
             default: 1
         },
         currentPerPage: {
             type: Number,
-            required: true,
             default: () => {
                 return this.perPageOptions[0]
             }
@@ -83,7 +81,6 @@ export default {
         },
         perPageOptions: {
             type: Array,
-            required: false,
             default: () => {
                 return [20, 30, 50, 75]
             }
