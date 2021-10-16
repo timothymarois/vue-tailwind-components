@@ -43,7 +43,7 @@ export default {
 		},
 		size: {
 			type: String,
-			default: 'sm'
+			default: 'md'
 		},
 		iconSize: {
 			type: [Number, String],
