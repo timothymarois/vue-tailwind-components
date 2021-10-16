@@ -30,7 +30,11 @@
                     <slot :name="'header.'+h.value" v-bind:header="h">
                         <div class="my-auto">
                             <span class="font-bold">{{ h.title }}</span>
-                            <span v-if="h.sorting" class="sort-icon"><t-icon size="4" :value="sortIcon(h.sorted)" /></span>
+                            <span v-if="h.sorting" class="sort-icon">
+                                <t-icon v-if="h.sorted=='ASC'" size="4" value="arrow-sm-up" />
+                                <t-icon v-else-if="h.sorted=='DESC'" size="4" value="arrow-sm-down" />
+                                <t-icon v-else size="4" value="switch-vertical" />
+                            </span>
                         </div>
                     </slot>
                 </th>
@@ -104,13 +108,13 @@ table.t-table>thead>tr:last-child>th:last-child {
     border-right: 0;
 }
 table.t-table>thead>tr>th.sortable:hover {
-    background: #eaeaea70!important;
+    @apply bg-indigo-50
 }
 table.t-table>thead>tr>th.sortable:not(.sorted) span.sort-icon {
-    visibility: hidden;
+    opacity: 0.3;
 }
 table.t-table>thead>tr>th.sortable:hover span.sort-icon {
-    visibility:visible
+    opacity: 1;
 }
 </style>
 
@@ -189,12 +193,27 @@ export default {
     },
     methods: {
         sortClicked(h,i) {
-            this.$emit('change-sort',h,i)
-        },
-        sortIcon(dir) {
-            if (dir=='ASC') return 'arrow-sm-up';
-            if (dir=='DESC') return 'arrow-sm-down';
-            return 'switch-vertical';
+
+            let sortUpdate = null;
+            if (h.sorted=='ASC') {
+                sortUpdate = 'DESC';
+            }
+            else if (h.sorted=='DESC') {
+                sortUpdate = 'ASC';
+            }
+            else if (!h.sorted) {
+                if (h.sortDefault) {
+                    sortUpdate = h.sortDefault
+                }
+                else {
+                    sortUpdate = 'ASC';
+                }
+            }
+            else {
+               sortUpdate = null;
+            }
+
+            this.$emit('change-sort',h,sortUpdate)
         },
         toggleAll(v) {
             if (!this.selectedAll) {

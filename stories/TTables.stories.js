@@ -133,7 +133,23 @@ export const AdvancedTables = () => ({
         },
         updateSelection(val) {
             this.selected = val;
-        } 
+        },
+        updateSorting(item, sortUpdate) {
+            // this is simple logic to change sorting
+            let newHeaders = [];
+            this.headers.forEach(h => {
+                if (h.value==item.value) {
+                    h.sorted = sortUpdate
+                    newHeaders.push(h);
+                }
+                else {
+                    h.sorted = null
+                    newHeaders.push(h);
+                }
+            });
+
+            this.headers = newHeaders;
+        }
     },
     data: () => ({
         selected: [],
@@ -143,21 +159,28 @@ export const AdvancedTables = () => ({
                 title: 'Property Address',
                 value: 'property_address',
                 sorting: true,
-                sort: 'DESC',
-                sorted: 'DESC'
+                sorted: 'DESC',
+                sortDefault: 'DESC'
             },
             {
                 title: 'Full Name',
                 value: 'full_name',
                 sorting: true,
-                sorted: null
+                sorted: false,
             },
             {
                 title: 'Mailing Address',
                 value: 'mail_address',
                 sorting: true,
-                sorted: null,
-                hide: true
+                hide: true,
+                sorted: false,
+            },
+            {
+                title: 'Email',
+                value: 'email',
+                sorting: false,
+                hide: false,
+                sorted: false,
             }
         ],
         items: [
@@ -165,25 +188,29 @@ export const AdvancedTables = () => ({
                 id: 123,
                 property_address: '845 NY Ave',
                 mail_address: '845 NY Ave',
-                full_name: 'Timothy Marois'
+                full_name: 'Timothy Marois',
+                email: 'email@gmail.com'
             },
             {
                 id: 214,
                 property_address: '210 W Trade st',
                 mail_address: '210 W Trade st',
-                full_name: 'Jason Gordon'
+                full_name: 'Jason Gordon',
+                email: 'email@gmail.com'
             },
             {
                 id: 788,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
-                full_name: 'April Lane'
+                full_name: 'April Lane',
+                email: 'email@gmail.com'
             },
             {
                 id: 888,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
-                full_name: 'April Lane'
+                full_name: 'April Lane',
+                email: 'email@gmail.com'
             }
         ]
     }),
@@ -198,6 +225,7 @@ export const AdvancedTables = () => ({
                         :items="items"
                         @click-row="rowClicked"
                         @change-selected="updateSelection"
+                        @change-sort="updateSorting"
                         select
                         selectFromRow
                     />
