@@ -15,7 +15,7 @@
 				<div
 					class="bg-white z-50 shadow-lg rounded p-4 overflow-x-hidden"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''}min-width: 300px;max-height: calc(100vh - 2em)`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: calc(100vh - 2em); ${offsetCalculation}`"
 				>
 					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
 						<t-button icon="close" @click="closeModal" text />
@@ -61,10 +61,25 @@ export default {
             type: Boolean,
             default: false
         },
+		offsetDirection: {
+			type: String,
+			default: undefined
+		},
+		offsetValue: {
+			type: [String, Number],
+			default: undefined
+		}
 	},
 	methods: {
 		closeModal() {
 			return this.$emit('close-modal');
+		},
+		oppositeOf(v) {
+			if(v === 'right') {
+				return 'left';
+			} else {
+				return 'right';
+			}
 		}
 	},
 	computed: {
@@ -107,8 +122,7 @@ export default {
 				c = c.concat([
 					'absolute'
 				]);
-			}
-			else {
+			} else {
 				c = c.concat([
 					'fixed'
 				]);
@@ -118,14 +132,18 @@ export default {
 				c = c.concat([
 					'overflow-y-auto'
 				]);
-			}
-			else {
+			} else {
 				c = c.concat([
 					'overflow-y-hidden'
 				]);
 			}
 
 			return c;
+		},
+		offsetCalculation() {
+			if(this.offsetDirection && this.offsetValue) {
+				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
+			}
 		}
 	}
 };

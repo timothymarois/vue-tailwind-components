@@ -14,6 +14,16 @@ export default {
 		width: {
 			name: 'width',
 			description: 'Set width of modal in pixels'
+		},
+		offsetDirection: {
+			name: 'offsetDirection',
+			description: 'Set direction of offset',
+			options: ['left', 'right'],
+			control: { type: 'select' },
+		},
+		offsetValue: {
+			name: 'offsetValue',
+			description: 'Set value of offset in pixels'
 		}
 	},
 };
@@ -124,3 +134,28 @@ export const Contained = (argTypes) => ({
         </div>
 		`,
 });
+
+export const Offset = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TModal, TButton },
+    data: () => ({
+        showing: false
+    }),
+	template: 
+		`
+        <div>
+            <t-button @click="showing = true" label="Show Modal" />
+            <t-modal v-if="showing" @close-modal="showing = false" v-bind="$props">
+                <div style="height:200px">This is my modal.  It is offset by 250px from the left.</div>
+            </t-modal>
+			<div class="mt-64">Test content</div>
+			<div class="mt-64">Test content</div>
+			<div class="mt-64">Test content</div>
+        </div>
+		`,
+});
+
+Offset.args = {
+	offsetDirection: 'left',
+	offsetValue: 250
+}
