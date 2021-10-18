@@ -131,10 +131,12 @@ export default {
     },
     methods: {
         goToPage(page) {
-            this.$emit('change', {
-                page: parseInt(page),
-                perPage: parseInt(this.currentPerPage)
-            })
+            if(page !== this.currentPage) {
+                this.$emit('change', {
+                    page: parseInt(page),
+                    perPage: parseInt(this.currentPerPage)
+                })
+            }
         },
         changePerPage(e) {
             this.$emit('change', {
