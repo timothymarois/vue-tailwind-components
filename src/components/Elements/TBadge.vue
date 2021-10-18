@@ -10,9 +10,9 @@
             class="rounded-full hover:bg-red-500 cursor-pointer ml-1 hover:h-4 hover:text-white" 
         >
             <TIcon 
-                class="px-2.5 mt-0.5 align-text-top"
+                class="px-2.5 mt-1 align-text-top"
                 value="close" 
-                size="4" 
+                size="3" 
             />
         </div>
     </span>
