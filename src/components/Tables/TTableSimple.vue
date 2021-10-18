@@ -268,6 +268,8 @@ export default {
                         selectedItems.push(this.items[i]);
                     }
                 }
+            } else {
+                this.selectedAll = false;
             }
 
             this.$emit('change-selected', selectedItems);

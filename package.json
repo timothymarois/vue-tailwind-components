@@ -40,8 +40,8 @@
     "babel-loader": "^8.2.2",
     "postcss": "^8.3.9",
     "tailwindcss": "^2.2.17",
-    "vite": "^2.6.7",
-    "vite-plugin-vue2": "^1.8.2",
+    "vite": "^2.6.10",
+    "vite-plugin-vue2": "^1.9.0",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14"
   }
