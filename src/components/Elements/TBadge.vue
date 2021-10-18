@@ -7,7 +7,7 @@
         <div
             v-if="removeable"
             @click="close"
-            class="rounded-full hover:bg-red-500 cursor-pointer ml-1 hover:h-4 hover:text-white" 
+            class="rounded-full hover:bg-red-500 cursor-pointer ml-1 mr-0.5 hover:h-4 hover:text-white" 
         >
             <TIcon 
                 class="px-2.5 mt-1 align-text-top"
