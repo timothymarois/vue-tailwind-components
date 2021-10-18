@@ -1,26 +1,29 @@
 <template>
-    <span :class="contentClasses">
+    <span 
+        :class="contentClasses" 
+        style="border-width: 1px;"
+    >
         <slot>Badge</slot>
-        <TButton 
-            v-if="removeable" 
-            class="ml-0.5"
-            text
-            rounded 
-            icon="close" 
-            size="xs" 
-            iconSize="4"
-            padding="0" 
-            :color="color"
-        />
+        <div
+            v-if="removeable"
+            @click="close"
+            class="rounded-full hover:bg-red-500 cursor-pointer ml-1 hover:h-4 hover:text-white" 
+        >
+            <TIcon 
+                class="px-2.5 mt-0.5 align-text-top"
+                value="close" 
+                size="4" 
+            />
+        </div>
     </span>
 </template>
 
 <script>
-import TButton from "./TButton";
+import TIcon from "./TIcon.vue";
 export default { 
     name: 'TBadge',
     components: {
-        TButton
+        TIcon
     },
     props: {
         color: {
@@ -38,7 +41,7 @@ export default {
     },
     computed: {
         contentClasses() {
-            let c = ['inline-flex rounded-full items-center py-0.5 text-sm font-medium border-2'];
+            let c = ['inline-flex rounded-full items-center py-0.5 text-sm font-medium'];
 
             if (this.removeable) {
                 c = c.concat(['pl-2','pr-0.5']);
@@ -55,6 +58,11 @@ export default {
             }
 
             return c;
+        }
+    },
+    methods: {
+        close() {
+            this.$emit('remove');
         }
     }
 };
