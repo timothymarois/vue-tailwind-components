@@ -77,6 +77,13 @@
                     class="flex items-center rounded m-4 font-medium"
                 >
                     {{ nodata }}
+
+                    <span 
+                        v-if="create"
+                        class="text-indigo-600 hover:underline hover:text-indigo-500 ml-3"
+                    >
+                        Add new
+                    </span>
                 </li>
                 <div v-else-if="!loading && computedOptions.length > 0">
                     <li
