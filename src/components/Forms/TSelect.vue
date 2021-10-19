@@ -102,7 +102,7 @@
                     </li>
                 </div>
                  <div 
-                    v-if="create"
+                    v-if="create && (localSearch || !searchable)"
                     :class="`text-${color}-600 font-medium pt-2 pb-2 px-4 border-gray-102 cursor-pointer hover:underline hover:text-${color}-500`"
                     style="border-top-width: 1px;"
                     @click="emitNew"
