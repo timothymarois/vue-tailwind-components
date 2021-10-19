@@ -156,6 +156,12 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card title="Standard with clearable prop">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select clearable v-model="value" label="Standard" :options="options" placeholder="Select One" />
+						<t-select searchable clearable v-model="value" label="Searchable" :options="options" placeholder="Select One" />
+					</div>
+				</t-card>
 
 				<t-card title="Multiple" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">

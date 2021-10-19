@@ -40,15 +40,13 @@
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon, 'placeholder-indigo-800' : selected.length > 0 }"
                 />
 
-                <!-- <t-button
-                    v-if="!hideicon" 
-                    :icon="menuIcon" 
-                    iconSize="5" 
-                    class="mr-2" 
-                    @click="menuToggle"
-                    padding="0"
-                    text
-                /> -->
+                <div 
+                    v-if="clearable && (localSearch || selected.length)"
+                    :class="`cursor-pointer absolute inset-y-0 ${searchable ? 'right-8' : 'right-6'} p-2 flex items-center`"
+                    @click="clearField"
+                >
+                    <t-icon value="close" size="5" />
+                </div>
 
                 <t-icon 
                     v-if="!hideicon && !loading" 
@@ -116,7 +114,7 @@ import TCheckbox from "./TCheckbox.vue";
 import TLoader from "../Elements/TLoader.vue";
 
 export default { 
-    name: 't-select',
+    name: 'TSelect',
     components: {
         TLabel,
         TIcon,
@@ -197,6 +195,11 @@ export default {
             type: String,
             required: false,
             default: 'indigo'
+        },
+        clearable: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     data() {
@@ -385,6 +388,11 @@ export default {
             }
 
             return false;
+        },
+        clearField() {
+            console.log('clicked');
+            this.localSearch = null;
+            this.selected = [];
         }
     },
     mounted() {
