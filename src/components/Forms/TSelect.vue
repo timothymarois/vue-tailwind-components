@@ -216,7 +216,8 @@ export default {
                         this.selected = items;
                     }
                 } else {
-                    this.selected = []
+                    this.selected = [];
+                    this.localSearch = null;
                 }
             }
         }
