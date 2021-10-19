@@ -93,8 +93,7 @@ export default {
         },
         clearable: {
             type: Boolean,
-            required: false,
-            default: true
+            default: false
         }
     },
     data() {
