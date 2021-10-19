@@ -397,9 +397,9 @@ export default {
             return false;
         },
         clearField() {
-            console.log('clicked');
             this.localSearch = null;
             this.selected = [];
+            this.$emit('input',null); 
         }
     },
     mounted() {
