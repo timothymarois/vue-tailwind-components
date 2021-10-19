@@ -4,7 +4,7 @@
             <div class="flex flex-col mb-6 md:mb-0 lg:flex-row lg:items-center">
                 <select 
                     name="currentPerPage" 
-                    class="cursor-pointer shadow flex w-16 pl-2 pr-4 py-2 bg-white border-gray-200 text-gray-500 hover:bg-indigo-100 hover:text-indigo-900 focus:outline-none focus:ring-indigo-800 text-sm font-medium rounded" 
+                    class="cursor-pointer flex w-16 pl-2 pr-4 py-2 bg-white border-gray-200 text-gray-500 hover:bg-indigo-100 hover:border-indigo-900 hover:text-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring-0 text-sm font-medium rounded"
                     :value="currentPerPage"
                     @input="changePerPage($event)"
                 >
@@ -23,7 +23,7 @@
             class="relative flex space-x-1"
         >
             <div @click="prevDisabled ? '' : goToPage(currentPage - 1)">
-                <a :class="[prevDisabled ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 bg-white text-gray-500', 'relative inline-flex items-center px-2 py-2 rounded text-sm font-medium shadow']">
+                <a :class="[prevDisabled ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 bg-white text-gray-500', 'relative inline-flex items-center px-2 py-2 rounded text-sm font-medium border border-gray-200']">
                     <span class="sr-only">
                         Previous
                     </span>
@@ -41,7 +41,7 @@
                     @click="goToPage(page)"
                 >
                     <a
-                        class="cursor-pointer w-10 min-w-min relative inline-flex items-center justify-center px-2 py-2 rounded bg-white text-sm font-medium text-gray-500 hover:bg-indigo-100 hover:text-indigo-900 shadow"
+                        class="cursor-pointer w-10 min-w-min relative inline-flex items-center justify-center px-2 py-2 rounded bg-white text-sm font-medium text-gray-500 hover:bg-indigo-100 hover:text-indigo-900 border border-gray-200 hover:border-indigo-900"
                         :class="{'z-10 bg-indigo-100 border-indigo-800 text-indigo-800' : currentPage === page}"
                     >
                         {{ page }}
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div @click="nextDisabled ? '' : goToPage(currentPage + 1)">
-                <a :class="[nextDisabled ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 bg-white text-gray-500', 'relative inline-flex items-center px-2 py-2 rounded text-sm font-medium shadow']">
+                <a :class="[nextDisabled ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 bg-white text-gray-500', 'relative inline-flex items-center px-2 py-2 rounded text-sm font-medium border border-gray-200 hover:border-indigo-900']">
                     <span class="sr-only">
                         Next
                     </span>
