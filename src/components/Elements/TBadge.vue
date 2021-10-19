@@ -3,6 +3,13 @@
         :class="contentClasses" 
         style="border-width: 1px;"
     >
+        <div v-if="icon">
+            <TIcon
+                class="mr-1"
+                :value="icon"
+                :size="iconSize"
+            />
+        </div>
         <slot>Badge</slot>
         <div
             v-if="removeable"
@@ -45,6 +52,15 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        icon: {
+            type: String,
+            required: false
+        },
+        iconSize: {
+            type: [String, Number],
+            required: false,
+            default: 5
         }
     },
     computed: {
@@ -58,9 +74,9 @@ export default {
             }
 
             if (this.outlined) {
-                c = c.concat([`border-${this.color}-800','bg-${this.color}-100','text-${this.color}-800`]);
+                c = c.concat([`border-${this.color}-800 bg-${this.color}-100 text-${this.color}-800`]);
             } else {
-                c = c.concat([`border-${this.color}-100','bg-${this.color}-100','text-${this.color}-800`]);
+                c = c.concat([`border-${this.color}-100 bg-${this.color}-100' text-${this.color}-800`]);
             }
 
             if (this.rounded) {

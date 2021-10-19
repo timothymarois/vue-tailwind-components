@@ -65,6 +65,7 @@ export const MultipleStates = () => ({
                 <t-badge removeable>Badge</t-badge>
                 <t-badge outlined>Outlined</t-badge>
                 <t-badge outlined removeable>Outlined</t-badge>
+				<t-badge outlined rounded icon="check">With icon</t-badge>
 				<t-badge outlined removeable rounded>Rounded</t-badge>
             </div>
         </div>
