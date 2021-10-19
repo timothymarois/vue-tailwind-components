@@ -408,7 +408,8 @@ export default {
             this.$emit('input',null); 
         },
         createNew() {
-            this.$emit('create-new',this.localSearch);
+            this.$emit('create-new', this.localSearch);
+            this.localSearch = null;
         }
     },
     mounted() {
