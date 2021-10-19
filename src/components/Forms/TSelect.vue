@@ -72,6 +72,12 @@
                 >
                     Searching...
                 </li>
+                <li 
+                    v-else-if="!loading && searchableOptions.length === 0" 
+                    class="flex items-center rounded m-4 font-medium"
+                >
+                    {{ nodata }}
+                </li>
                 <div v-else-if="!loading && computedOptions.length > 0">
                     <li
                         v-for="(item, i) of searchableOptions"
@@ -95,12 +101,6 @@
                         />    
                     </li>
                 </div>
-                <li 
-                    v-else-if="!loading && !computedOptions.length" 
-                    class="flex items-center rounded m-4 font-medium"
-                >
-                    {{ nodata }}
-                </li>
             </ul>
         </div>
     </div>
