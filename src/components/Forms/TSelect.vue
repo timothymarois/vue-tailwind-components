@@ -81,7 +81,7 @@
                     <span 
                         v-if="create"
                         class="text-indigo-600 hover:underline hover:text-indigo-500 cursor-pointer"
-                        @click="emitNew"
+                        @click="createNew"
                     >
                         {{ createText }}
                     </span>
@@ -407,8 +407,8 @@ export default {
             this.selected = [];
             this.$emit('input',null); 
         },
-        emitNew() {
-            this.$emit('create-new');
+        createNew() {
+            this.$emit('create-new',this.localSearch);
         }
     },
     mounted() {
