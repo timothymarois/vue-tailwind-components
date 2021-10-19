@@ -82,7 +82,7 @@ export default {
             if (this.rounded) {
                 c = c.concat(['rounded-full']);
             } else {
-                c = c.concat(['rounded-sm'])
+                c = c.concat(['rounded'])
             }
 
             return c;
