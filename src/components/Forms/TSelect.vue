@@ -74,15 +74,15 @@
                 </li>
                 <li 
                     v-else-if="!loading && searchableOptions.length === 0" 
-                    class="flex items-center rounded m-4 font-medium"
+                    class="flex items-center justify-between rounded m-4 font-medium"
                 >
                     {{ nodata }}
 
                     <span 
                         v-if="create"
-                        class="text-indigo-600 hover:underline hover:text-indigo-500 ml-3"
+                        class="text-indigo-600 hover:underline hover:text-indigo-500 cursor-pointer"
                     >
-                        Add new
+                        {{ createText }}
                     </span>
                 </li>
                 <div v-else-if="!loading && computedOptions.length > 0">
@@ -153,6 +153,11 @@ export default {
         create: {
             type: Boolean,
             default: false
+        },
+        createText: {
+            type: String,
+            required: false,
+            default: 'Add new'
         },
         label: {
             type: String,
