@@ -18,12 +18,19 @@
                     :placeholder="placeholder" 
                     :readonly="readonly"
                     :maxlength="maxlength"
-                    :value="value"
+                    v-model="inputField"
                     @input="update($event)"
                     @keyup="keyup($event)"
                     :class="fieldClasses"
-                    :style="(width ? 'width:'+width+'px' : '')"
+                    :style="(width ? `width: ${width}px` : '')"
                 />
+                <div 
+                    v-if="clearable && inputField"
+                    class="cursor-pointer absolute inset-y-0 right-0 p-2 flex items-center"
+                    @click="clearField"
+                >
+                    <t-icon value="close" size="5" />
+                </div>
             </div>
         </div>
     </div>
@@ -50,6 +57,11 @@ export default {
         placeholder: {
             type: String,
             default: null
+        },
+        color: {
+            type: String,
+            required: false,
+            default: 'indigo'
         },
         name: {
             type: String,
@@ -78,6 +90,16 @@ export default {
         icon: {
             type: String,
             default: null
+        },
+        clearable: {
+            type: Boolean,
+            required: false,
+            default: true
+        }
+    },
+    data() {
+        return {
+            inputField: this.value
         }
     },
     computed: {
@@ -85,7 +107,7 @@ export default {
             return (Math.random()+1).toString(36).substring(7);
         },
         fieldClasses() {
-            let c = [`focus:ring-0 focus:border-indigo-800 block w-full h-10 border-gray-200 rounded text-indigo-800 text-sm hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 focus:outline-none`];
+            let c = [`block w-full h-10 border-gray-200 rounded text-${this.color}-800 text-sm hover:bg-${this.color}-100 hover:text-${this.color}-900 hover:border-${this.color}-900 focus:outline-none focus:ring-0 focus:border-${this.color}-800`];
 
             if (this.icon) {
                 c = c.concat(['pl-8']);
@@ -100,7 +122,11 @@ export default {
         },
         keyup(e) {
             this.$emit('keyup', e);
+        },
+        clearField() {
+            this.inputField = null;
+            this.$emit('cleared');
         }
     }
 };
-</script> 
+</script>

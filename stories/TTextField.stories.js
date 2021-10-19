@@ -6,16 +6,19 @@ export default {
 	argTypes: { 
 		value: {
 			name: 'value',
-			description: 'Value of text field',
-			defaultValue: null,
+			description: 'Set default value of text field'
 		},
 		label: {
 			name: 'label',
-			description: ''
+			description: 'Set label of text field'
 		},
         placeholder: {
 			name: 'placeholder',
-			description: ''
+			description: 'Set placeholder for text field'
+		},
+		clearable: {
+			name: 'clearable',
+			description: 'Toggle adding clear option to text field'
 		}
 	},
 };
@@ -23,8 +26,18 @@ export default {
 const Template = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TTextField },
+	data: () => ({
+		cleared: false
+	}),
 	template: 
-		`<t-text-field v-bind="$props" />`,
+		`
+		<div>
+			<t-text-field v-bind="$props" @cleared="cleared = true" />
+			<div class="mt-4" v-if="cleared">
+				Input field cleared
+			</div>
+		</div>
+		`,
 });
 
 export const Standard = Template.bind({});
