@@ -86,10 +86,16 @@ MultipleSelect.args = {
 export const DifferentStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
+	methods: {
+		createNew(v) {
+			this.clearableValue=null
+		}
+	},
     data: () => ({
 		empty: null,
         value: null,
 		multipleValue: null,
+		clearableValue: null,
 		optionsArrayDefault: 'option_1',
 		withDefault: 'option_1',
 		withDefaultArray: ['option_1','option_2'],
@@ -158,8 +164,8 @@ export const DifferentStates = (argTypes) => ({
 
 				<t-card title="Standard with clearable and create prop" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select clearable create v-model="value" label="Standard" :options="options" placeholder="Select One" />
-						<t-select searchable clearable create v-model="value" label="Searchable" :options="options" placeholder="Select One" />
+						<t-select clearable create v-model="clearableValue" label="Standard" :options="options" placeholder="Select One" @create-new="createNew" />
+						<t-select searchable clearable create v-model="clearableValue" label="Searchable" :options="options" placeholder="Select One" @create-new="createNew" />
 					</div>
 				</t-card>
 
