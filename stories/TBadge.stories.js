@@ -4,21 +4,26 @@ export default {
 	title: 'Elements/TBadge',
 	component: TBadge,
 	argTypes: { 
-		title: {
-			name: 'title',
-			description: 'Header title text',
-			defaultValue: undefined,
-		},
-		subtitle: {
-			name: 'subtitle',
-			description: 'Header subtitle text',
-			defaultValue: undefined,
-		},
-        contentPadding: {
-			name: 'contentPadding',
-			description: 'Change the content padding (default 4)',
-            control: { type: 'number', min: 0 }
-		},
+		color: {
+            title: 'color',
+			description: 'Change color of badge',
+			control: { type: 'text' }
+        },
+        removeable : {
+			name: 'removeable',
+			description: 'Toggle ability to remove badge',
+			control: { type: 'boolean' }
+        },
+        outlined: {
+            name: 'outlined',
+			description: 'Toggle outline of badge',
+			control: { type: 'boolean' }
+        },
+        rounded: {
+			name: 'rounded',
+			description: 'Toggle roundness badge',
+			control: { type: 'boolean' }
+		}
 	},
 };
 
@@ -60,6 +65,8 @@ export const MultipleStates = () => ({
                 <t-badge removeable>Badge</t-badge>
                 <t-badge outlined>Outlined</t-badge>
                 <t-badge outlined removeable>Outlined</t-badge>
+				<t-badge outlined rounded icon="check">With icon</t-badge>
+				<t-badge outlined removeable rounded>Rounded</t-badge>
             </div>
         </div>
 	`,
