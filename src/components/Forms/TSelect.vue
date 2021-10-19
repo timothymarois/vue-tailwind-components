@@ -77,14 +77,6 @@
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
                     {{ nodata }}
-
-                    <span 
-                        v-if="create"
-                        class="text-indigo-600 hover:underline hover:text-indigo-500 cursor-pointer"
-                        @click="createNew"
-                    >
-                        {{ createText }}
-                    </span>
                 </li>
                 <div v-else-if="!loading && computedOptions.length > 0">
                     <li
@@ -108,6 +100,14 @@
                             v-html="item[itemLabel]"
                         />    
                     </li>
+                </div>
+                <div 
+                    v-if="create && (localSearch || !searchable)"
+                    :class="`text-${color}-600 font-medium pt-2 pb-2 px-4 border-gray-102 cursor-pointer hover:underline hover:text-${color}-500`"
+                    style="border-top-width: 1px;"
+                    @click="createNew"
+                >
+                    {{ createText }}
                 </div>
             </ul>
         </div>
