@@ -1,10 +1,5 @@
 <template>
-	<div class="w-full h-full top-0 bottom-0 left-0 right-0" 
-		:class="{
-			'relative': relative,
-			'absolute': !relative
-		}"
-	>
+	<div class="w-full h-full top-0 bottom-0 left-0 right-0 absolute">
 		<div :class="`${relative ? 'relative' : ''} ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
 			<t-overlay 
 				:relative="relative"
@@ -68,6 +63,15 @@ export default {
 		offsetValue: {
 			type: [String, Number],
 			default: undefined
+		},
+		offsetDiv: {
+            type: String,
+            default: null
+        },
+	},
+	data() {
+		return {
+			relativeOffsetPx: null
 		}
 	},
 	methods: {
@@ -141,10 +145,30 @@ export default {
 			return c;
 		},
 		offsetCalculation() {
+			if (this.relativeOffsetPx) {
+				return `left: ${this.relativeOffsetPx}px; right: 0;`;
+			}
 			if(this.offsetDirection && this.offsetValue) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
 			}
 		}
+	},
+	created() {
+		if (this.offsetDiv) {
+			let mainDiv = document.getElementById(this.offsetDiv).offsetWidth;
+			let appDiv  = document.getElementById('app').offsetWidth;
+			let offset  = parseInt(appDiv-mainDiv);
+			if (offset) {
+				this.relativeOffsetPx = offset;
+			}
+			// mainDiv.classList.remove("overflow-y-auto");
+		}
+	},
+	beforeDestroy() {
+		// if (this.offsetDiv) {
+		// 	let mainDiv = document.getElementById(this.offsetDiv).offsetWidth;
+		// 	mainDiv.classList.add("overflow-y-hidden");
+		// }
 	}
 };
 </script>
