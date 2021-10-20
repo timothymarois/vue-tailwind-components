@@ -18,14 +18,14 @@
                     :placeholder="placeholder" 
                     :readonly="readonly"
                     :maxlength="maxlength"
-                    v-model="inputField"
+                    v-model="internalValue"
                     @input="update($event)"
                     @keyup="keyup($event)"
                     :class="fieldClasses"
                     :style="(width ? `width: ${width}px` : '')"
                 />
                 <div 
-                    v-if="clearable && inputField"
+                    v-if="clearable && internalValue"
                     class="cursor-pointer absolute inset-y-0 right-0 p-2 flex items-center"
                     @click="clearField"
                 >
@@ -96,12 +96,15 @@ export default {
             default: false
         }
     },
-    data() {
-        return {
-            inputField: this.value
-        }
-    },
     computed: {
+        internalValue : {
+            get() {
+                return this.value
+            },
+            set(v) {
+                this.$emit('input', v);
+            }
+        },
         id() {
             return (Math.random()+1).toString(36).substring(7);
         },
@@ -123,7 +126,7 @@ export default {
             this.$emit('keyup', e);
         },
         clearField() {
-            this.inputField = null;
+            this.internalValue = null;
             this.$emit('cleared');
         }
     }

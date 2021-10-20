@@ -1,4 +1,5 @@
 import TTextField from '../src/components/Forms/TTextField';
+import TCard from '../src/components/Elements/TCard';
 
 export default {
 	title: 'FORMS/TTextField',
@@ -46,3 +47,57 @@ Standard.args = {
 	placeholder: 'Placeholder',
 	label: 'Label'
 };
+
+
+
+
+
+
+export const DifferentStates = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TTextField, TCard },
+	methods: {
+		
+	},
+    data: () => ({
+		defaultValue: 'Default Value',
+        value: null,
+		anotherValue: null
+    }),
+	template: 
+		`
+        <div class="p-6 bg-gray-100">
+            <div class="max-w-2xl">
+
+                <t-card title="Standard">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-text-field v-model="value" />
+						<t-text-field v-model="value" placeholder="placeholder" />
+					</div>
+				</t-card>
+
+				<t-card title="Default Value + Labels">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-text-field v-model="defaultValue" label="My Label" required />
+						<t-text-field v-model="defaultValue" placeholder="placeholder" label="My Label" required />
+					</div>
+				</t-card>
+
+				<t-card title="Clearable">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-text-field v-model="anotherValue" label="My Label" required clearable />
+						<t-text-field v-model="anotherValue" placeholder="placeholder" label="My Label" required clearable />
+					</div>
+				</t-card>
+
+				<t-card title="Clearable + Icons">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-text-field icon="check" v-model="anotherValue" label="My Label" required clearable />
+						<t-text-field icon="check" v-model="anotherValue" placeholder="placeholder" label="My Label" required clearable />
+					</div>
+				</t-card>
+
+			</div>
+		</div>
+		`,
+});
