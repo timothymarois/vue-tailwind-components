@@ -193,32 +193,34 @@ export default {
     },
     methods: {
         sortClicked(h,i) {
-
-            let sortUpdate = null;
-            if (h.sorted=='ASC') {
-                sortUpdate = 'DESC';
-            }
-            else if (h.sorted=='DESC') {
-                sortUpdate = 'ASC';
-            }
-            else if (!h.sorted) {
-                if (h.sortDefault) {
-                    sortUpdate = h.sortDefault
+            if (h.sorting===true) {
+                let sortUpdate = null;
+                if (h.sorted=='ASC') {
+                    sortUpdate = 'DESC';
                 }
-                else {
+                else if (h.sorted=='DESC') {
                     sortUpdate = 'ASC';
                 }
-            }
-            else {
-               sortUpdate = null;
-            }
+                else if (!h.sorted) {
+                    if (h.sortDefault) {
+                        sortUpdate = h.sortDefault
+                    }
+                    else {
+                        sortUpdate = 'ASC';
+                    }
+                }
+                else {
+                    sortUpdate = null;
+                }
 
-            this.$emit('change-sort',h,sortUpdate)
+                this.$emit('change-sort',h,sortUpdate)
+            }
         },
         toggleAll(v) {
             if (!this.selectedAll) {
                 this.selection = [];
-            } else {
+            } 
+            else {
                 this.selection = [...Array(this.items.length).keys()];
             }
         },
@@ -226,7 +228,8 @@ export default {
             if(!this.selectFromRow || origin === 'selectRow') {
                 if (!this.selection.includes(i)) {
                     this.selection.push(i);
-                } else {
+                } 
+                else {
                     const index = this.selection.indexOf(i);
                     if (index > -1) {
                         this.selection.splice(index, 1);
@@ -268,7 +271,8 @@ export default {
                         selectedItems.push(this.items[i]);
                     }
                 }
-            } else {
+            } 
+            else {
                 this.selectedAll = false;
             }
 
