@@ -1,12 +1,15 @@
 <template>
     <div class="relative w-full">
+
         <t-label 
             v-if="label"
             :id="id"
             :label="label"
             :required="required"
         />
+
         <div class="relative mt-1 w-full">
+
             <button
                 type="button"
                 class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
@@ -27,21 +30,26 @@
                 >{{ selectPlaceholder }}</span>
 
                 <input
-                    ref="dropdownsearch"
+                    ref="dsearchb"
                     v-else
-                    v-model="localSearch"
-                    @keyup="searchLocal(localSearch)"
-                    @keyup.enter="reFocus()"
+                    v-model="localsearch"
+                    @keyup="searchLocal(localsearch)"
+                    @keyup.enter="refocus()"
                     :disabled="disabled"
                     type="text"
                     autocomplete="off"
                     :placeholder="selectPlaceholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none"
-                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled, 'mr-2': !hideicon, 'placeholder-indigo-800' : selected.length > 0 }"
+                    :class="{
+                        'text-gray-500 cursor-not-allowed' : disabled, 
+                        'text-indigo-800' : !disabled, 
+                        'mr-2': !hideicon, 
+                        'placeholder-indigo-800' : selected.length > 0 
+                    }"
                 />
 
                 <div 
-                    v-if="clearable && (localSearch || selected.length)"
+                    v-if="clearable && (localsearch || selected.length)"
                     :class="`cursor-pointer absolute inset-y-0 ${searchable ? 'right-8' : 'right-6'} p-2 flex items-center`"
                     @click="clearField"
                 >
@@ -60,6 +68,7 @@
                     size="5"
                     class="mr-2"
                 />
+
             </button>
 
             <ul
@@ -102,7 +111,7 @@
                     </li>
                 </div>
                 <div 
-                    v-if="create && (localSearch || !searchable)"
+                    v-if="create && (localsearch || !searchable)"
                     :class="`text-${color}-600 font-medium pt-2 pb-2 px-4 border-gray-102 cursor-pointer hover:underline hover:text-${color}-500`"
                     style="border-top-width: 1px;"
                     @click="createNew"
@@ -120,7 +129,6 @@ import TIcon from "../Elements/TIcon.vue";
 import TLabel from "./TLabel.vue";
 import TCheckbox from "./TCheckbox.vue";
 import TLoader from "../Elements/TLoader.vue";
-
 export default { 
     name: 'TSelect',
     components: {
@@ -219,7 +227,7 @@ export default {
         return {
             menu: false,
             selected: [],
-            localSearch: null,
+            localsearch: null,
             isSearching: false
         }
     },
@@ -233,7 +241,7 @@ export default {
                     }
                 } else {
                     this.selected = [];
-                    this.localSearch = null;
+                    this.localsearch = null;
                 }
             }
         }
@@ -262,11 +270,11 @@ export default {
         searchableOptions() {
             let vm = this;
 
-            if (vm.localSearch && vm.searchable && vm.isSearching && !vm.external) {
+            if (vm.localsearch && vm.searchable && vm.isSearching && !vm.external) {
                 return JSON.parse(JSON.stringify(vm.computedOptions)).filter(option => {
-                    let o = option[this.itemLabel].toLowerCase().match(vm.localSearch.toLowerCase());
+                    let o = option[this.itemLabel].toLowerCase().match(vm.localsearch.toLowerCase());
                     if (o) {
-                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(vm.localSearch, "ig")), function(matchedText, a, b){
+                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(vm.localsearch, "ig")), function(matchedText, a, b){
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
@@ -280,10 +288,10 @@ export default {
         selectPlaceholder() { 
             if(this.multiple && this.selected.length > 0) {
                 return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            } else if(!this.multiple && this.selected[this.itemValue]) {
+            } 
+            else if(!this.multiple && this.selected[this.itemValue]) {
                 return this.selected[this.itemLabel];
             }
-
             return this.placeholder;
         },
         returnValue() {
@@ -291,29 +299,25 @@ export default {
                 if(this.returnObject) {
                     return this.selected;
                 }
-
                 return this.selected.map(obj => obj[this.itemValue]);
-            } else {
+            } 
+            else {
                 if(this.returnObject) {
                     return this.selected;
                 }
-
                 return this.selected[this.itemValue];
             }
-
         },
         computedOptions() {
             if(this.options.length > 0 && !this.options[0][this.itemValue]) {
-                // this.itemValue = "value";
-                // this.itemLabel = "label";
                 return this.options.map(key => {
                     return {
                         label: key,
                         value: key
                     }
                 })
-
-            } else {
+            } 
+            else {
                 return this.options;
             }
         }
@@ -328,10 +332,11 @@ export default {
                         if(obj[this.itemValue] === item) return found.push(obj);
                     })
                 }
-            } else {
+            } 
+            else {
                 this.computedOptions.find(obj => {
                     if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) {
-                        this.localSearch = obj[this.itemLabel];
+                        this.localsearch = obj[this.itemLabel];
                         return found = obj;
                     }
                 });
@@ -340,17 +345,20 @@ export default {
             return found;
         },
         selectItem(item) {
-            item[this.itemLabel] = item[this.itemLabel].replace( /(<([^>]+)>)/ig, ''); // Remove possible underline from search select
+            // remove possible underline from search select
+            item[this.itemLabel] = item[this.itemLabel].replace( /(<([^>]+)>)/ig, '');
 
             if(!this.multiple) {
                 this.menu = false;
                 this.isSearching = false;
                 this.selected = item;
-                this.localSearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
-            } else {
+                this.localsearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
+            } 
+            else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                     this.selected.push(item);
-                } else {
+                } 
+                else {
                     let i = this.selected.indexOf(item);
                     this.selected.splice(i, 1);
                 }
@@ -362,14 +370,15 @@ export default {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
-            if (this.external && this.searchable && !this.localSearch && !this.computedOptions.length) {
+            if (this.external && this.searchable && !this.localsearch && !this.computedOptions.length) {
                 return this.menu = false;
             }
 
             if (!this.disabled) {
                 if (this.searchable) {
                     this.menu = true;
-                } else {
+                } 
+                else {
                     this.menu = !this.menu;
                 }
             }
@@ -388,28 +397,27 @@ export default {
             if (!this.$el.contains(e.target)) {
                 this.menu = false;
                 if (this.searchable && !this.selected) {
-                    this.localSearch = null;
+                    this.localsearch = null;
                 }
             }
         },
-        reFocus() {
-            this.$refs.dropdownsearch.focus();
+        refocus() {
+            this.$refs.dsearchb.focus();
         },
         isChecked(item) {
             if(this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                 return true;
             }
-
             return false;
         },
         clearField() {
-            this.localSearch = null;
+            this.localsearch = null;
             this.selected = [];
             this.$emit('input',null); 
         },
         createNew() {
-            this.$emit('create-new', this.localSearch);
-            this.localSearch = null;
+            this.$emit('create-new', this.localsearch);
+            this.localsearch = null;
         }
     },
     mounted() {
