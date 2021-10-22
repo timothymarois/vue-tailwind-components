@@ -1,5 +1,17 @@
 # vue-tailwind-components
 
+## SETUP
+
+```
+
+# Install Deps
+npm ci
+
+# View isolated components
+npm run storybook
+
+```
+
 
 ## ELEMENTS: 
 
