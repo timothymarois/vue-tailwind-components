@@ -91,6 +91,11 @@ export const DifferentStates = (argTypes) => ({
 			this.clearableValue=null
 		}
 	},
+	mounted() {
+		setTimeout(()=>{
+			this.optionsArrayDefault2 = 'option_3'
+		},5000)
+	},
     data: () => ({
 		empty: null,
         value: null,
@@ -100,6 +105,7 @@ export const DifferentStates = (argTypes) => ({
 		withDefault: 'option_1',
 		withDefaultArray: ['option_1','option_2'],
 		optionsArray: ['option_1','option_2','option_3','option_4'],
+		optionsArrayDefault2: 'option_2',
 		options: [
 			{
 				label: 'option 1',
@@ -159,6 +165,13 @@ export const DifferentStates = (argTypes) => ({
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="optionsArrayDefault" label="Standard" :options="optionsArray" placeholder="Select One" />
 						<t-select searchable v-model="optionsArrayDefault" label="Searchable" :options="optionsArray" placeholder="Select One" />
+					</div>
+				</t-card>
+
+				<t-card title="Standard (Array Options + default + 5s change)" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select v-model="optionsArrayDefault2" label="Standard" :options="optionsArray" placeholder="Select One" />
+						<t-select searchable v-model="optionsArrayDefault2" label="Searchable" :options="optionsArray" placeholder="Select One" />
 					</div>
 				</t-card>
 

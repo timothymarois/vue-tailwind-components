@@ -239,7 +239,8 @@ export default {
                     if (items) {
                         this.selected = items;
                     }
-                } else {
+                } 
+                else {
                     this.selected = [];
                     this.localsearch = null;
                 }

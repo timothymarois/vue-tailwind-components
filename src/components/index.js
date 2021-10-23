@@ -13,6 +13,7 @@ import TTooltip from './Elements/TTooltip.vue'
 import TTabs from './Elements/TTabs.vue'
 import TTabContent from './Elements/TTabContent.vue'
 import TAvatar from './Elements/TAvatar.vue';
+import TNotify from './Elements/TNotify.vue';
 
 /**
  * Forms
@@ -42,6 +43,7 @@ export {
     TTabs,
     TTabContent,
     TAvatar,
+    TNotify,
 
     TLabel,
     TTextField,
