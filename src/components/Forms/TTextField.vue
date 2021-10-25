@@ -5,6 +5,7 @@
             :id="id"
             :label="label"
             :required="required"
+            :icon="iconLabel"
         />
         <div :class="{'mt-1':label}">
             <div class="relative text-gray-500">
@@ -88,6 +89,10 @@ export default {
             default : null
         },
         icon: {
+            type: String,
+            default: null
+        },
+        iconLabel: {
             type: String,
             default: null
         },
