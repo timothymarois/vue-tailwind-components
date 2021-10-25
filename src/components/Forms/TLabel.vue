@@ -2,12 +2,22 @@
     <label 
         :for="id"
         :class="`cursor-pointer block text-sm font-medium ${color} ml-1 transition-colors duration-150`"
-    ><slot>{{ label }}</slot><span class="text-red-600" v-if="required">*</span></label>
+    >
+        <slot>
+            <t-icon v-if="icon" :value="icon" class="mr-1" />
+            <span>{{ label }}</span>
+        </slot>
+        <span class="text-red-600" v-if="required">*</span>
+    </label>
 </template>
 
 <script>
+import TIcon from "../Elements/TIcon.vue";
 export default { 
-    name: 'BaseLabel',
+    name: 'TLabel',
+    components: {
+        TIcon
+    }, 
     props: {
         required: {
             type: Boolean,
@@ -24,6 +34,10 @@ export default {
         color: {
             type: String,
             default: 'text-gray-800'
+        },
+        icon: {
+            type: String,
+            default: null
         }
     }
 };
