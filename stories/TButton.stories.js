@@ -156,11 +156,35 @@ export const MultipleStates = () => ({
 
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button size="xs" icon="check" />
+				<t-button size="xs" icon="check" rounded />
+				<t-button size="xs" icon="check" loading />
+				<t-button size="xs" icon="check" disabled />
+				<t-button size="xs" icon="check" loading disabled />
+			</div>
+		
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
 				<t-button icon="check" />
 				<t-button icon="check" rounded />
 				<t-button icon="check" loading />
 				<t-button icon="check" disabled />
 				<t-button icon="check" loading disabled />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button size="lg" icon="check" />
+				<t-button size="lg" icon="check" rounded />
+				<t-button size="lg" icon="check" loading />
+				<t-button size="lg" icon="check" disabled />
+				<t-button size="lg" icon="check" loading disabled />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button size="xl" icon="check" />
+				<t-button size="xl" icon="check" rounded />
+				<t-button size="xl" icon="check" loading />
+				<t-button size="xl" icon="check" disabled />
+				<t-button size="xl" icon="check" loading disabled />
 			</div>
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
