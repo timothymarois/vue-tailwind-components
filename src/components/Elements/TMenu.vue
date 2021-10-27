@@ -19,6 +19,7 @@
 
         <ul
             :class="dropdownClasses"
+            :style="minWidth ? 'min-width:300px;' : ''"
             v-show="menu && !loading && !disabled"
             @click.stop
         >
@@ -120,6 +121,10 @@ export default {
             type: String,
             default: 'right'
         },
+        minWidth: {
+            type: [String, Number],
+            default: null
+        }
     },
     computed: {
         iconOnly() {

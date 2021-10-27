@@ -63,6 +63,11 @@ export const Standard = (argTypes) => ({
 			<div class="ml-10 mt-5" style="width:100px">
 				<t-menu :items="items" label="Menu" side="left"/>
 			</div>
+
+			<div class="ml-10 mt-5" style="width:100px">
+				<t-menu :items="items" label="Menu (min width)" side="left" min-width="300" />
+			</div>
+
 		</div>
 		`,
 });
