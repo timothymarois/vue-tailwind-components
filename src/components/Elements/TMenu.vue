@@ -19,7 +19,7 @@
 
         <ul
             :class="dropdownClasses"
-            :style="minWidth ? 'min-width:300px;' : ''"
+            :style="minWidth ? `min-width:${minWidth}px;` : ''"
             v-show="menu && !loading && !disabled"
             @click.stop
         >
