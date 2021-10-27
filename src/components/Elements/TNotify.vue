@@ -1,7 +1,7 @@
 <template>
 	<transition name="pop" appear>
 		<div 
-			:class="`flex justify-center absolute transform -translate-x-1/2 left-1/2  bottom-5 bg-${color} text-${textColor} px-4 py-3 text-sm rounded shadow-lg items-center`"
+			:class="`flex justify-center absolute transform -translate-x-1/2 left-1/2 bottom-10 bg-${color} text-${textColor} px-4 py-3 text-sm rounded shadow-lg items-center`"
 		>
 			<div class="mr-2 flex justify-center items-center" v-if="icon || loading">
 				<t-icon :value="icon" :size="iconSize" v-if="icon" />
@@ -19,7 +19,6 @@
 <script> 
 import TIcon from '../Elements/TIcon.vue';
 import TLoader from '../Elements/TLoader.vue';
-
 export default {
 	name: 'TNotify',
 	components: {
@@ -89,7 +88,6 @@ export default {
 .pop-enter-active, .pop-leave-active {
 	transition: .15s linear all;
 }
-
 .pop-enter, .pop-leave-to {
 	opacity: 0;
 	transform: scale(0.80) translateX(-50%);
