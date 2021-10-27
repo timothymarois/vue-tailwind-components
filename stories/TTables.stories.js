@@ -228,6 +228,7 @@ export const AdvancedTables = () => ({
                         @change-sort="updateSorting"
                         select
                         selectFromRow
+                        :selectOne="false"
                     />
                 </t-card>
             </div>

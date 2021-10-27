@@ -7,6 +7,7 @@
                     <slot name="hselect">
                         <div class="flex justify-center w-full">
                             <TCheckbox 
+                                v-if="!selectOne"
                                 v-model="selectedAll"
                                 @input="toggleAll"
                             />
@@ -177,6 +178,10 @@ export default {
             type: Boolean,
             default: false
         },
+        selectOne: {
+            type: Boolean,
+            default: false
+        },
         rowCursor: {
             type: Boolean,
             default: false
@@ -227,7 +232,12 @@ export default {
         toggleRow(i, origin) {
             if(!this.selectFromRow || origin === 'selectRow') {
                 if (!this.selection.includes(i)) {
-                    this.selection.push(i);
+                    if (this.selectOne===true) {
+                        this.selection = [i]
+                    }
+                    else {
+                        this.selection.push(i)
+                    }
                 } 
                 else {
                     const index = this.selection.indexOf(i);
