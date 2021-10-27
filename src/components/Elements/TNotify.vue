@@ -1,14 +1,14 @@
 <template>
 	<transition name="pop" appear>
 		<div 
-			:class="`flex justify-center absolute transform -translate-x-1/2 left-1/2  bottom-5 bg-${color} text-${textColor} px-4 py-2 text-sm rounded shadow-lg items-center`"
+			:class="`flex justify-center absolute transform -translate-x-1/2 left-1/2  bottom-5 bg-${color} text-${textColor} px-4 py-3 text-sm rounded shadow-lg items-center`"
 		>
 			<div class="mr-2 flex justify-center items-center" v-if="icon || loading">
 				<t-icon :value="icon" :size="iconSize" v-if="icon" />
 				<t-loader :color="textColor" :size="iconSize" v-if="loading" />
 			</div>
 			<slot>Notification component</slot>
-			<div class="ml-2 flex justify-center items-center" v-if="iconRight || !duration">
+			<div class="ml-2 flex justify-center items-center" v-if="iconRight || closeable">
 				<t-icon :value="iconRight" :size="iconSize" v-if="iconRight" />
 				<t-icon v-if="closeable" value="close" :size="iconSize" class="cursor-pointer" @click.native="closeNotification" />
 			</div>	
@@ -16,7 +16,7 @@
 	</transition>
 </template>
 
-<script>
+<script> 
 import TIcon from '../Elements/TIcon.vue';
 import TLoader from '../Elements/TLoader.vue';
 
