@@ -74,7 +74,7 @@ export const CloseButton = (args, { argTypes }) => ({
 		`
 		<div class="w-full">
 			<t-button @click.native="toggleNotification">Show notification</t-button>
-			<t-notify v-bind="$props" v-if="show" @close-notification="toggleNotification">
+			<t-notify v-bind="$props" v-if="show" closeable @close-notification="toggleNotification">
 				A notification component
 			</t-notify>
 		</div>

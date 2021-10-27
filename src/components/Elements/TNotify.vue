@@ -10,7 +10,7 @@
 			<slot>Notification component</slot>
 			<div class="ml-2 flex justify-center items-center" v-if="iconRight || !duration">
 				<t-icon :value="iconRight" :size="iconSize" v-if="iconRight" />
-				<t-icon value="close" :size="iconSize" class="cursor-pointer" @click.native="closeNotification" />
+				<t-icon v-if="closeable" value="close" :size="iconSize" class="cursor-pointer" @click.native="closeNotification" />
 			</div>	
 		</div>
 	</transition>
@@ -65,6 +65,10 @@ export default {
 		loading: {
 			type: Boolean,
 			required: false,
+			default: false
+		},
+		closeable: {
+			type: Boolean,
 			default: false
 		}
 	},
