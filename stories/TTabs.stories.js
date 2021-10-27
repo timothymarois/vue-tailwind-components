@@ -187,6 +187,11 @@ export const MultipleStates = () => ({
                         {
                             name: 'Tab 3',
                             id: 'tab3'
+                        },
+                        {
+                            name: 'Tab 4',
+                            id: 'tab4',
+                            disabled: true
                         }
                     ]"
                 />
@@ -238,6 +243,49 @@ export const MultipleStates = () => ({
                     </t-tabs>
                 </t-card>
             </div>
+
+
+            <div class="w-full mt-5" style="width:400px;">
+                <t-card title="Tabs with disabled">
+                    <t-tabs
+                        grow
+                        v-model="tabs1"
+                        :items="[
+                            {
+                                name: 'Tab 1',
+                                id: 'tab1'
+                            },
+                            {
+                                name: 'Tab 2',
+                                id: 'tab2'
+                            },
+                            {
+                                name: 'Tab 3',
+                                id: 'tab3'
+                            },
+                            {
+                                name: 'Tab 4',
+                                id: 'tab4',
+                                disabled: true
+                            }
+                        ]"
+                    >
+                        <template slot="tab1">
+                            This is tab 1 content
+                        </template>
+                        <template slot="tab2">
+                            This is tab 2 content
+                        </template>
+                        <template slot="tab3">
+                            This is tab 3 content
+                        </template>
+                        <template slot="tab4">
+                            This is tab 4 content
+                        </template>
+                    </t-tabs>
+                </t-card>
+            </div>
+
 
 
 
