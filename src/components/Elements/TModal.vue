@@ -8,7 +8,7 @@
 			/>
 			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 				<div
-					class="bg-white z-50 shadow-lg rounded p-4 overflow-x-hidden"
+					class="bg-white z-50 shadow-lg rounded overflow-x-hidden"
 					:class="containerClasses"
 					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: calc(100vh - 2em); ${offsetCalculation}`"
 				>
@@ -68,6 +68,10 @@ export default {
             type: String,
             default: null
         },
+		padding: {
+            type: [Number, String],
+            default: 4
+        },
 	},
 	data() {
 		return {
@@ -81,7 +85,8 @@ export default {
 		oppositeOf(v) {
 			if(v === 'right') {
 				return 'left';
-			} else {
+			} 
+			else {
 				return 'right';
 			}
 		}
@@ -141,6 +146,10 @@ export default {
 					'overflow-y-hidden'
 				]);
 			}
+
+			c = c.concat([
+				`p-${this.padding}`
+			]);
 
 			return c;
 		},
