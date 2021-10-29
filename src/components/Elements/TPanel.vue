@@ -80,9 +80,11 @@ export default {
 	methods: {
 		close() {
 			this.localShowing = false;
+			this.$emit('close');
+			
 			setTimeout(() => {
-				return this.$emit('close');
-			}, 500)
+				return this.$emit('end');
+			}, 300);
 		}
 	},
 	computed: {
