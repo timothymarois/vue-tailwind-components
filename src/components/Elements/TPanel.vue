@@ -1,30 +1,33 @@
 <template>
-	<div class="w-full h-full top-0 bottom-0 left-0 right-0 absolute">
-		<div :class="`${relative ? 'relative' : ''}`">
-			<t-overlay 
-				:relative="relative"
-				:freeze="freeze" 
-				@close-modal="closeModal" 
-			/>
-			<transition :name="`slide-${type}`" appear>
-				<div
-					class="bg-white z-50 shadow-lg"
-					:class="containerClasses"
-					:style="`${maxWidth ? `max-width: ${maxWidth}px;` : ''} min-width: 300px; height: 100%;`"
-				>
-					<h3 class="font-medium text-xl pb-4">
-						{{ title }}
-					</h3>
-					<div 
-						v-if="closeButton" 
-						class="z-50 absolute top-2 right-0 m-2"
+	<div>
+		<transition :name="`slide-${type}`">
+			<div class="w-full h-full top-0 bottom-0 left-0 right-0 absolute" v-show="showing">
+				<div :class="`${relative ? 'relative' : ''}`">
+					<div
+						class="bg-white shadow-lg z-50"
+						:class="containerClasses"
+						:style="`${maxWidth ? `max-width: ${maxWidth}px;` : ''} min-width: 300px; height: 100%;`"
 					>
-						<t-button icon="close" @click="closeModal" text />
+						<h3 class="font-medium text-xl pb-4">
+							{{ title }}
+						</h3>
+						<div 
+							v-if="closeButton" 
+							class="z-50 absolute top-2 right-0 m-2"
+						>
+							<t-button icon="close" @click="closeModal" text />
+						</div>
+						<slot></slot>
 					</div>
-					<slot></slot>
 				</div>
-			</transition>
-		</div>
+			</div>
+		</transition>
+		<t-overlay 
+			:relative="relative"
+			:freeze="freeze"
+			:showing="showing"
+			@close-modal="closeModal"
+		/>
 	</div>
 </template>
 
@@ -75,6 +78,10 @@ export default {
 			type: String,
 			default: null,
 			required: false
+		},
+		showing: {
+			type: Boolean,
+			default: false
 		}
 	},
 	methods: {
@@ -154,14 +161,17 @@ export default {
 
 <style scoped>
 .slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active  {
-	transition: all .5s ease-in-out;
+	transition: transform .5s ease-in-out;
+	z-index: 50;
 }
 
 .slide-right-enter, .slide-right-leave-to {
 	transform: translateX(100%);
+	z-index: 50;
 }
 
 .slide-left-enter, .slide-left-leave-to {
 	transform: translateX(-100%);
+	z-index: 50;
 }
 </style>
