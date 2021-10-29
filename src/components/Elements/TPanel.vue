@@ -39,7 +39,7 @@ export default {
 	},
 	data() {
 		return {
-			localShowing: this.showing
+			localShowing: this.show
 		}
 	},
 	props: {
@@ -72,7 +72,7 @@ export default {
 			default: null,
 			required: false
 		},
-		showing: {
+		show: {
 			type: Boolean,
 			default: false
 		}
