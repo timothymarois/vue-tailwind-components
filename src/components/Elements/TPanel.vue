@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<transition :name="`slide-${type}`">
+		<transition :name="`slide-${type}`" appear>
 			<div
 				class="bg-white shadow-lg z-50 fixed"
 				:class="containerClasses"
 				:style="`${maxWidth ? `max-width: ${maxWidth}px;` : ''} min-width: 300px; height: 100%;`"
-				v-show="showing"
+				v-if="localShowing"
 			>
 				<h3 class="font-medium text-xl pb-4">
 					{{ title }}
@@ -14,16 +14,15 @@
 					v-if="closeButton" 
 					class="z-50 absolute top-2 right-0 m-2"
 				>
-					<t-button icon="close" @click="closeModal" text />
+					<t-button icon="close" @click="closePanel" text />
 				</div>
 				<slot></slot>
 			</div>
 		</transition>
 		<t-overlay 
-			:relative="relative"
 			:freeze="freeze"
-			:showing="showing"
-			@close-modal="closeModal"
+			:showing="localShowing"
+			@close-modal="closePanel"
 		/>
 	</div>
 </template>
@@ -37,6 +36,11 @@ export default {
 	components: {
 		TButton,
 		TOverlay
+	},
+	data() {
+		return {
+			localShowing: this.showing
+		}
 	},
 	props: {
 		type: {
@@ -74,8 +78,11 @@ export default {
 		}
 	},
 	methods: {
-		closeModal() {
-			return this.$emit('close-modal');
+		closePanel() {
+			this.localShowing = false;
+			setTimeout(() => {
+				return this.$emit('close-panel');
+			}, 500)
 		}
 	},
 	computed: {
