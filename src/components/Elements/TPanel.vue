@@ -1,24 +1,22 @@
 <template>
 	<div>
-		<transition :name="`slide-${type}`">
-			<div class="w-full h-full top-0 bottom-0 left-0 right-0 absolute" v-show="showing">
-				<div :class="`${relative ? 'relative' : ''}`">
-					<div
-						class="bg-white shadow-lg z-50"
-						:class="containerClasses"
-						:style="`${maxWidth ? `max-width: ${maxWidth}px;` : ''} min-width: 300px; height: 100%;`"
+		<transition :name="`slide-${type}`" class="overflow-x-hidden pointer-events-none">
+			<div class="w-full h-full top-0 bottom-0 left-0 right-0 absolute overflow-x-hidden" v-if="showing">
+				<div
+					class="bg-white shadow-lg z-50 relative"
+					:class="containerClasses"
+					:style="`${maxWidth ? `max-width: ${maxWidth}px;` : ''} min-width: 300px; height: 100%;`"
+				>
+					<h3 class="font-medium text-xl pb-4">
+						{{ title }}
+					</h3>
+					<div 
+						v-if="closeButton" 
+						class="z-50 absolute top-2 right-0 m-2"
 					>
-						<h3 class="font-medium text-xl pb-4">
-							{{ title }}
-						</h3>
-						<div 
-							v-if="closeButton" 
-							class="z-50 absolute top-2 right-0 m-2"
-						>
-							<t-button icon="close" @click="closeModal" text />
-						</div>
-						<slot></slot>
+						<t-button icon="close" @click="closeModal" text />
 					</div>
+					<slot></slot>
 				</div>
 			</div>
 		</transition>
@@ -54,10 +52,6 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		relative: {
-            type: Boolean,
-            default: false
-        },
 		maxWidth: {
             type: [String, Number],
             default: null
@@ -70,10 +64,6 @@ export default {
             type: [Number, String],
             default: 6
         },
-		rounded: {
-			type: Boolean,
-			default: false
-		},
 		title: {
 			type: String,
 			default: null,
@@ -112,16 +102,6 @@ export default {
 					break;
 			}
 
-			if (this.relative) {
-				c = c.concat([
-					'absolute'
-				]);
-			} else {
-				c = c.concat([
-					'fixed'
-				]);
-			}
-
 			if (this.scrolling) {
 				c = c.concat([
 					'overflow-y-auto'
@@ -132,28 +112,11 @@ export default {
 				]);
 			}
 
-			if(this.rounded) {
-				c = c.concat([
-					'rounded'
-				])
-			}
-
 			c = c.concat([
 				`p-${this.padding}`
 			]);
 
 			return c;
-		}
-	},
-	created() {
-		if (this.offsetDiv) {
-			let mainDiv = document.getElementById(this.offsetDiv).offsetWidth;
-			let appDiv  = document.getElementById('app').offsetWidth;
-			let offset  = parseInt(appDiv-mainDiv);
-			if (offset) {
-				this.relativeOffsetPx = offset;
-			}
-			
 		}
 	}
 };
@@ -163,15 +126,18 @@ export default {
 .slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active  {
 	transition: transform .5s ease-in-out;
 	z-index: 50;
+	overflow-x: hidden;
 }
 
 .slide-right-enter, .slide-right-leave-to {
 	transform: translateX(100%);
 	z-index: 50;
+	overflow-x: hidden;
 }
 
 .slide-left-enter, .slide-left-leave-to {
 	transform: translateX(-100%);
 	z-index: 50;
+	overflow-x: hidden;
 }
 </style>

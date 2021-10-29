@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade">
+    <transition name="fade" appear>
         <div
             v-if="showing"
             @click="close"
@@ -27,7 +27,7 @@ export default {
         },
         showing: {
             type: Boolean,
-            default: false
+            default: true
         }
     },
     methods: {
@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-	transition: 1.5s cubic-bezier(.25,.8,.5,1) opacity;
+	transition: .5s cubic-bezier(.25,.8,.5,1) opacity;
 }
 .fade-enter, .fade-leave-to {
 	opacity: 0;
