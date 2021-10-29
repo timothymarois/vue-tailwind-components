@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-	transition: .5s cubic-bezier(.25,.8,.5,1) opacity;
+	transition: .3s cubic-bezier(.25,.8,.5,1) opacity;
 }
 .fade-enter, .fade-leave-to {
 	opacity: 0;
