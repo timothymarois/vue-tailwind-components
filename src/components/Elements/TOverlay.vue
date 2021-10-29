@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" appear>
         <div
-            v-if="showing"
+            v-if="show"
             @click="close"
             class="top-0 left-0 bottom-0 right-0 bg-gray-400 bg-opacity-60 z-40"
             :class="{
@@ -25,7 +25,7 @@ export default {
             type: Boolean,
             default: false
         },
-        showing: {
+        show: {
             type: Boolean,
             default: true
         }

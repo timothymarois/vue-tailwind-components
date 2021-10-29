@@ -1,25 +1,30 @@
 <template>
-	<div class="w-full h-full inset-0 absolute">
-		<div :class="`${relative ? 'relative' : ''} ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
-			<t-overlay 
-				:relative="relative"
-				:freeze="freeze" 
-				@close="close" 
-			/>
-			<transition :name="type === 'right' ? 'slide' : 'pop'">
+	<div class="absolute inset-0 w-full h-full">
+		<div :class="type !== 'right' ? 'flex items-center min-h-full' : ''">
+			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
 				<div
+					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden"
 					:class="containerClasses"
 					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: calc(100vh - 2em); ${offsetCalculation}`"
 				>
-					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
+					<div 
+						v-if="closeButton" 
+						class="z-50 absolute top-0 right-0 m-2"
+					>
 						<t-button icon="close" @click="close" text />
 					</div>
 					<slot></slot>
 				</div>
 			</transition>
 		</div>
-	</div>
+		<t-overlay 
+			:relative="relative"
+			:freeze="freeze"
+			:show="localShowing"
+			@close="close" 
+		/>
+	</div>	
 </template>
 
 <script>
@@ -72,15 +77,25 @@ export default {
             type: [Number, String],
             default: 4
         },
+		show: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data() {
 		return {
-			relativeOffsetPx: null
+			relativeOffsetPx: null,
+			localShowing: this.show
 		}
 	},
 	methods: {
 		close() {
-			return this.$emit('close');
+			this.localShowing = false;
+			this.$emit('close');
+
+			setTimeout(() => {
+				return this.$emit('end');
+			}, 300)
 		},
 		oppositeOf(v) {
 			if(v === 'right') {
@@ -101,8 +116,7 @@ export default {
 						'max-w-xl',
 						'block',
 						'h-auto',
-						'bottom-0',
-						'top-0',
+						'inset-y-0',
 						'right-0',
 						'mb-4',
 						'mt-4',
@@ -113,16 +127,14 @@ export default {
 					c = c.concat([
 						'max-w-xl',
 						'mx-auto',
-						'left-0',
-						'right-0',
+						'inset-x-0'
 					]);
 					break;
 				case 'full':
 					c = c.concat([
 						'w-11/12',
 						'mx-auto',
-						'left-0',
-						'right-0'
+						'inset-x-0'
 					]);
 					break; 
 			}
@@ -185,13 +197,16 @@ export default {
 <style scoped>
 .pop-enter-active, .pop-leave-active, .slide-enter-active, .slide-leave-active {
 	transition: all .3s cubic-bezier(.25,.8,.25,1);
+	z-index: 50;
 }
 .pop-enter, .pop-leave-to {
+	z-index: 50;
 	transform: scale(0.30);
 	opacity: 0.80;
 	transform-origin: center center;
 }
 .slide-enter, .slide-leave-to {
-	transform: translateX(400%);
+	z-index: 50;
+	transform: translateX(120%);
 }
 </style>

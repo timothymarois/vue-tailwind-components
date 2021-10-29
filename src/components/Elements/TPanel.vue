@@ -21,7 +21,7 @@
 		</transition>
 		<t-overlay 
 			:freeze="freeze"
-			:showing="localShowing"
+			:show="localShowing"
 			@close="close"
 		/>
 	</div>
