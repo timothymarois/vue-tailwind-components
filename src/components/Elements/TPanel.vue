@@ -14,7 +14,7 @@
 					v-if="closeButton" 
 					class="z-50 absolute top-2 right-0 m-2"
 				>
-					<t-button icon="close" @click="closePanel" text />
+					<t-button icon="close" @click="close" text />
 				</div>
 				<slot></slot>
 			</div>
@@ -22,7 +22,7 @@
 		<t-overlay 
 			:freeze="freeze"
 			:showing="localShowing"
-			@close-modal="closePanel"
+			@close="close"
 		/>
 	</div>
 </template>
@@ -78,10 +78,10 @@ export default {
 		}
 	},
 	methods: {
-		closePanel() {
+		close() {
 			this.localShowing = false;
 			setTimeout(() => {
-				return this.$emit('close-panel');
+				return this.$emit('close');
 			}, 500)
 		}
 	},

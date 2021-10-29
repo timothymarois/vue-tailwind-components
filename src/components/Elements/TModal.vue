@@ -1,19 +1,19 @@
 <template>
-	<div class="w-full h-full top-0 bottom-0 left-0 right-0 absolute">
+	<div class="w-full h-full inset-0 absolute">
 		<div :class="`${relative ? 'relative' : ''} ${type !== 'right' ? 'flex items-center min-h-full' : ''}`">
 			<t-overlay 
 				:relative="relative"
 				:freeze="freeze" 
-				@close-modal="closeModal" 
+				@close="close" 
 			/>
-			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
+			<transition :name="type === 'right' ? 'slide' : 'pop'">
 				<div
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden"
 					:class="containerClasses"
 					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: calc(100vh - 2em); ${offsetCalculation}`"
 				>
 					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
-						<t-button icon="close" @click="closeModal" text />
+						<t-button icon="close" @click="close" text />
 					</div>
 					<slot></slot>
 				</div>
@@ -79,8 +79,8 @@ export default {
 		}
 	},
 	methods: {
-		closeModal() {
-			return this.$emit('close-modal');
+		close() {
+			return this.$emit('close');
 		},
 		oppositeOf(v) {
 			if(v === 'right') {

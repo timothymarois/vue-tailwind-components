@@ -33,7 +33,7 @@ export default {
     methods: {
         close() {
             if (this.freeze===false) {
-                this.$emit('close-modal')
+                this.$emit('close')
             }
         }
     }
