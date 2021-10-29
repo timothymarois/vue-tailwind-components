@@ -130,7 +130,7 @@ export default {
 
 <style scoped>
 .slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active  {
-	transition: transform .5s ease-in-out;
+	transition: transform .3s cubic-bezier(.25,.8,.25,1);
 	z-index: 50;
 }
 
