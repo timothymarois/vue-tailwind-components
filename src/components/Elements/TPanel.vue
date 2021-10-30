@@ -42,6 +42,18 @@ export default {
 			localShowing: this.show
 		}
 	},
+	watch: {
+		show(v) {
+			if (v !== this.localShowing) {
+				if (v===false) {
+					this.close()
+				}
+				else {
+					this.localShowing = v
+				}
+			}
+		}
+	},
 	props: {
 		type: {
 			type: String,
@@ -81,10 +93,9 @@ export default {
 		close() {
 			this.localShowing = false;
 			this.$emit('close');
-			
 			setTimeout(() => {
 				return this.$emit('end');
-			}, 300);
+			}, 200);
 		}
 	},
 	computed: {
@@ -130,15 +141,13 @@ export default {
 
 <style scoped>
 .slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active  {
-	transition: transform .3s cubic-bezier(.25,.8,.25,1);
+	transition: transform .2s cubic-bezier(.25,.8,.25,1);
 	z-index: 50;
 }
-
 .slide-right-enter, .slide-right-leave-to {
 	transform: translateX(100%);
 	z-index: 50;
 }
-
 .slide-left-enter, .slide-left-leave-to {
 	transform: translateX(-100%);
 	z-index: 50;

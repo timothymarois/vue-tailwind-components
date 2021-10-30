@@ -88,14 +88,25 @@ export default {
 			localShowing: this.show
 		}
 	},
+	watch: {
+		show(v) {
+			if (v !== this.localShowing) {
+				if (v===false) {
+					this.close()
+				}
+				else {
+					this.localShowing = v
+				}
+			}
+		}
+	},
 	methods: {
 		close() {
 			this.localShowing = false;
 			this.$emit('close');
-
 			setTimeout(() => {
 				return this.$emit('end');
-			}, 300)
+			}, 200)
 		},
 		oppositeOf(v) {
 			if(v === 'right') {
@@ -196,7 +207,7 @@ export default {
 
 <style scoped>
 .pop-enter-active, .pop-leave-active, .slide-enter-active, .slide-leave-active {
-	transition: all .3s cubic-bezier(.25,.8,.25,1);
+	transition: all .2s cubic-bezier(.25,.8,.25,1);
 	z-index: 50;
 }
 .pop-enter, .pop-leave-to {
