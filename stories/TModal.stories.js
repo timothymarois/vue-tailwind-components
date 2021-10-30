@@ -32,18 +32,17 @@ export const Center = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TModal, TButton },
     data: () => ({
-        showing: false,
-		activeModal: false
+        showing: false
     }),
 	template: 
 		`
         <div>
-            <t-button @click="showing=true;activeModal=true" label="Show Modal" />
+            <t-button @click="showing = true;" label="Show Modal" />
 
-            <t-modal v-if="activeModal" :show="showing" @end="activeModal = false" v-bind="$props">
+            <t-modal v-if="showing" :show="showing" @end="showing = false" v-bind="$props">
                 <div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
 				<div class="lg:flex-grow flex items-end justify-center mt-8">
-                    <t-button :disabled="loading" icon="close" @click="showing=false" outlined class="mr-3">Cancel</t-button>
+                    <t-button icon="close" @click="showing=false" outlined class="mr-3">Cancel</t-button>
                 </div>
             </t-modal>
 

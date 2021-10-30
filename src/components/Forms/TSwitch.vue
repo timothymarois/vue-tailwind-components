@@ -13,6 +13,7 @@
 		</div>
 		<div class="relative cursor-pointer" @click="switchState('toggle')">
 			<input 
+				:id="id"
 				type="checkbox"
 				@input="update($event)"
 				v-model="checked"
@@ -39,6 +40,7 @@
 </template>
 
 <script>
+import uniqid from "../../utils/uniqid.js";
 import TLabel from "./TLabel";
 export default { 
 	name: 'TSwitch',
@@ -93,6 +95,9 @@ export default {
 		}
 	},
 	computed: {
+		id() {
+			return uniqid()
+		},
 		aftLabel() {
 			if ((this.trueLabel && this.checked === true) || (this.trueLabel && this.falseLabel)) {
 				return this.trueLabel;

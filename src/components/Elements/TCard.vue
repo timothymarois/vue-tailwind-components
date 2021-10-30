@@ -73,16 +73,7 @@ export default {
             }
 
             if (this.border) {
-                
-                // if (this.border!==true && this.border!='1') {
-                //     c = c.concat(['border-'+this.border]);
-                // }
-                // else {
-                //     c = c.concat(['border']);
-                // }
-
                 c = c.concat(['border']);
-
                 c = c.concat(['border-'+this.borderColor+'-200']);
             }
 

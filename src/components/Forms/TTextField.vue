@@ -1,5 +1,5 @@
 <template>
-    <div class="relative">
+    <div class="relative w-full">
         <t-label 
             v-if="label"
             :id="id"
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import uniqid from "../../utils/uniqid.js";
 import TIcon from "../Elements/TIcon";
 import TLabel from "./TLabel";
 export default { 
@@ -111,7 +112,7 @@ export default {
             }
         },
         id() {
-            return (Math.random()+1).toString(36).substring(7);
+            return uniqid();
         },
         fieldClasses() {
             let c = [`block w-full h-10 border-gray-200 rounded text-${this.color}-800 text-sm hover:bg-${this.color}-100 hover:text-${this.color}-900 hover:border-${this.color}-900 focus:outline-none focus:ring-0 focus:border-${this.color}-800`];

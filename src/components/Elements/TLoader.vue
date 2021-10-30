@@ -42,13 +42,11 @@ export default {
 	stroke-dasharray: 80,200;
 	stroke-dashoffset: 0px;
 }
-
 ._loader-svg {
 	animation: _loader-svg 1.4s linear infinite;
 	transform-origin: center center;
 	transform: rotate(0deg)
 }
-
 @keyframes _loader-spinner {
 	0% {
     stroke-dasharray: 1,200;
@@ -61,7 +59,6 @@ export default {
 		stroke-dashoffset: -124px;
 	}
 }
-
 @keyframes _loader-svg {
 	100% {
 		transform: rotate(1turn);

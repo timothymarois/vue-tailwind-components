@@ -25,9 +25,9 @@
 </template>
 
 <script>
+import uniqid from "../../utils/uniqid.js";
 import TLabel from "./TLabel.vue";
 import TIcon from "../Elements/TIcon.vue";
-
 export default { 
 	name: 'TCheckbox',
 	components: {
@@ -79,7 +79,7 @@ export default {
 	},
 	computed: {
 		id() {
-			return (Math.random() + 1).toString(36).substring(7);
+			return uniqid()
 		},
 		internalValue: {
 			get: function() {
