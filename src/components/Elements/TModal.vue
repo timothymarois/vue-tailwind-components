@@ -212,8 +212,8 @@ export default {
 }
 .pop-enter, .pop-leave-to {
 	z-index: 50;
-	transform: scale(0.30);
-	opacity: 0.80;
+	transform: scale(0.50);
+	opacity: 0;
 	transform-origin: center center;
 }
 .slide-enter, .slide-leave-to {
