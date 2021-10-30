@@ -69,35 +69,35 @@ export const DifferentStates = (argTypes) => ({
         <div class="p-6 bg-gray-100">
             <div class="max-w-2xl">
 
-                <t-card title="Standard">
+                <t-card class="mt-5" title="Standard">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field v-model="value" />
 						<t-text-field v-model="value" placeholder="placeholder" />
 					</div>
 				</t-card>
 
-				<t-card title="Default Value + Labels">
+				<t-card class="mt-5" title="Default Value + Labels">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field v-model="defaultValue" label="My Label" required />
 						<t-text-field v-model="defaultValue" placeholder="placeholder" label="My Label" required />
 					</div>
 				</t-card>
 
-				<t-card title="Clearable">
+				<t-card class="mt-5" title="Clearable">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field v-model="anotherValue" label="My Label" required clearable />
 						<t-text-field v-model="anotherValue" placeholder="placeholder" label="My Label" required clearable />
 					</div>
 				</t-card>
 
-				<t-card title="Clearable + Icons">
+				<t-card class="mt-5" title="Clearable + Icons">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field icon="check" v-model="anotherValue" label="My Label" required clearable />
 						<t-text-field icon="check" v-model="anotherValue" placeholder="placeholder" label="My Label" required clearable />
 					</div>
 				</t-card>
 
-				<t-card title="Label Icons">
+				<t-card class="mt-5" title="Label Icons">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field type="time" iconLabel="clock" v-model="anotherValue" label="My Label" required />
 						<t-text-field type="date" iconLabel="calendar" v-model="anotherValue" label="My Label" required />
