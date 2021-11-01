@@ -65,7 +65,7 @@ export const Standard = (argTypes) => ({
 			</div>
 
 			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu (min width)" side="left" min-width="300" />
+				<t-menu :items="items" label="Menu (max height)" side="left" max-height="100" />
 			</div>
 
 		</div>

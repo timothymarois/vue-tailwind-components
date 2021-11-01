@@ -19,7 +19,7 @@
 
         <ul
             :class="dropdownClasses"
-            :style="minWidth ? `min-width:${minWidth}px;` : ''"
+            :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px` : ''}`"
             v-show="menu && !loading && !disabled"
             @click.stop
             id="dropdownMenu"
@@ -127,6 +127,10 @@ export default {
         minWidth: {
             type: [String, Number],
             default: null
+        },
+        maxHeight: {
+            type: [String, Number],
+            default: null
         }
     },
      data() {
@@ -177,16 +181,18 @@ export default {
 
             if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-12']);
-            }
-            else {
+            } else {
                 c = c.concat(['top-12']);
             }
 
             if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
-            }
-            else {
+            } else {
                 c = c.concat(['right-0']);
+            }
+
+            if (this.maxHeight) {
+                c = c.concat(['overflow-auto'])
             }
 
             return c;
