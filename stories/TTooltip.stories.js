@@ -66,6 +66,18 @@ export const Icon = (args, { argTypes }) => ({
 	`
 })
 
+export const Disabled = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TTooltip, TButton },
+	template: `
+		<div class="ml-64 mt-20">
+			<t-tooltip v-bind="$props" :active="false">
+				Tooltip disabled
+			</t-tooltip>
+		</div>
+	`
+})
+
 Button.argTypes = {
 	position: 'bottom',
 	content: 'Tooltip content'
