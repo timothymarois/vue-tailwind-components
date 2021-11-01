@@ -15,7 +15,7 @@ npm run storybook
 
 ## ELEMENTS: 
 
-### Buttons
+### Button
 
 [View Code](https://github.com/timothymarois/vue-tailwind-components/blob/main/src/components/Elements/TButton.vue) | [View Examples](https://github.com/timothymarois/vue-tailwind-components/blob/main/stories/TButton.stories.js)
 
@@ -23,7 +23,7 @@ npm run storybook
 <t-button>Button</t-button>
 ```
 
-### Icons
+### Icon
 
 [View Code](https://github.com/timothymarois/vue-tailwind-components/blob/main/src/components/Elements/TIcon.vue) | [View Examples](https://github.com/timothymarois/vue-tailwind-components/blob/main/stories/TIcon.stories.js)
 
@@ -31,7 +31,7 @@ npm run storybook
 <t-icon value="cog" />
 ```
 
-### Cards
+### Card
 
 [View Code](https://github.com/timothymarois/vue-tailwind-components/blob/main/src/components/Elements/TCard.vuee) | [View Examples](https://github.com/timothymarois/vue-tailwind-components/blob/main/stories/TCard.stories.js)
 
@@ -64,7 +64,7 @@ npm run storybook
 [View Code](https://github.com/timothymarois/vue-tailwind-components/blob/main/src/components/Elements/TModal.vue) | [View Examples](https://github.com/timothymarois/vue-tailwind-components/blob/main/stories/TModal.stories.js)
 
 ```vue
-<t-modal v-if="showing" @close-modal="showing = false">
+<t-modal :show="showing" @end="showing = false">
     Modal content here....
 </t-modal>
 ```
@@ -76,8 +76,15 @@ npm run storybook
 
 [View Code](https://github.com/timothymarois/vue-tailwind-components/blob/main/src/components/Forms/TSelect.vue) | [View Examples](https://github.com/timothymarois/vue-tailwind-components/blob/main/stories/TSelect.stories.js)
 
+Options can be Array of objects or an Array of values. 
+
 ```vue
-<t-select v-model="value" label="My Select" :options="options" placeholder="Select One" />
+<t-select 
+    v-model="value" 
+    label="My Select" 
+    :options="options" 
+    placeholder="Select One" 
+/>
 ```
 
 ### Text Field
