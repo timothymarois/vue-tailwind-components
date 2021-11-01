@@ -22,6 +22,7 @@
             :style="minWidth ? `min-width:${minWidth}px;` : ''"
             v-show="menu && !loading && !disabled"
             @click.stop
+            id="dropdownMenu"
         >
             <li 
                 v-for="(item,index) in items"
@@ -40,8 +41,10 @@
 </template>
 
 <script>
-import TIcon from "./TIcon";
-import TButton from "./TButton";
+import TIcon from "./TIcon.vue";
+import TButton from "./TButton.vue";
+import viewportHelper from "../../utils/viewport.js";
+
 export default { 
     name: 'TMenu',
     components: {
@@ -126,6 +129,25 @@ export default {
             default: null
         }
     },
+     data() {
+        return {
+            menu: false,
+            dropdownSide: this.side,
+            dropdownDirection: this.direction
+        }
+    },
+    watch: {
+        menu: function(value) {
+            if(value) {
+                this.$nextTick(() => {
+                    const viewport = viewportHelper('#dropdownMenu');
+                    if(viewport.includes('left')) { this.dropdownSide = 'left'; }
+                    if(viewport.includes('right')) { this.dropdownSide = 'right'; }
+                    if(viewport.includes('bottom')) { this.dropdownDirection = 'top'; }
+                })
+            }    
+        }
+    },
     computed: {
         iconOnly() {
             if ((typeof this.icon==='string' && !this.$slots.default) || this.icon===true) {
@@ -153,14 +175,14 @@ export default {
                 'border border-gray-200'
             ];
 
-            if (this.direction=='top') {
+            if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-12']);
             }
             else {
                 c = c.concat(['top-12']);
             }
 
-            if (this.side=='left') {
+            if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
             }
             else {
@@ -168,11 +190,6 @@ export default {
             }
 
             return c;
-        }
-    },
-    data: () => {
-        return {
-            menu: false
         }
     },
     methods: {
@@ -195,7 +212,6 @@ export default {
         }
     },
     mounted() {
-        // if (this.value) this.selected = this.getItemByValue(this.value);
         document.addEventListener('click', this.close)
     },
     beforeDestroy() {
