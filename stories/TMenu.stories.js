@@ -56,16 +56,16 @@ export const Standard = (argTypes) => ({
 	template: 
 		`
 		<div>
-			<div class="ml-10 mt-5" style="width:100px">
+			<div class="ml-10 mt-5 absolute bottom-0" style="width:100px">
 				<t-menu :items="items" label="Menu" />
 			</div>
 
-			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu" side="left"/>
+			<div class="ml-10 mt-5 float-right" style="width:100px">
+				<t-menu :items="items" label="Menu"/>
 			</div>
 
 			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu (min width)" side="left" min-width="300" />
+				<t-menu :items="items" label="Menu (max height)" side="left" max-height="100" />
 			</div>
 
 		</div>

@@ -19,9 +19,10 @@
 
         <ul
             :class="dropdownClasses"
-            :style="minWidth ? `min-width:${minWidth}px;` : ''"
+            :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
             v-show="menu && !loading && !disabled"
             @click.stop
+            :id="'dropdown-'+this.id"
         >
             <li 
                 v-for="(item,index) in items"
@@ -40,8 +41,12 @@
 </template>
 
 <script>
-import TIcon from "./TIcon";
-import TButton from "./TButton";
+import TIcon from "./TIcon.vue";
+import TButton from "./TButton.vue";
+
+import uniqid from "../../utils/uniqid.js";
+import viewportHelper from "../../utils/viewport.js";
+
 export default { 
     name: 'TMenu',
     components: {
@@ -124,9 +129,35 @@ export default {
         minWidth: {
             type: [String, Number],
             default: null
+        },
+        maxHeight: {
+            type: [String, Number],
+            default: 300
+        }
+    },
+     data() {
+        return {
+            menu: false,
+            dropdownSide: this.side,
+            dropdownDirection: this.direction
+        }
+    },
+    watch: {
+        menu: function(value) {
+            if(value) {
+                this.$nextTick(() => {
+                    const viewport = viewportHelper('#dropdown-'+this.id);
+                    if(viewport.includes('left')) this.dropdownSide = 'left';
+                    if(viewport.includes('right')) this.dropdownSide = 'right';
+                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+                })
+            }    
         }
     },
     computed: {
+        id() {
+            return uniqid();
+        },
         iconOnly() {
             if ((typeof this.icon==='string' && !this.$slots.default) || this.icon===true) {
                 return true;
@@ -153,26 +184,25 @@ export default {
                 'border border-gray-200'
             ];
 
-            if (this.direction=='top') {
+            if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-12']);
-            }
+            } 
             else {
                 c = c.concat(['top-12']);
             }
 
-            if (this.side=='left') {
+            if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
-            }
+            } 
             else {
                 c = c.concat(['right-0']);
             }
 
+            if (this.maxHeight) {
+                c = c.concat(['overflow-y-auto'])
+            }
+
             return c;
-        }
-    },
-    data: () => {
-        return {
-            menu: false
         }
     },
     methods: {
@@ -195,7 +225,6 @@ export default {
         }
     },
     mounted() {
-        // if (this.value) this.selected = this.getItemByValue(this.value);
         document.addEventListener('click', this.close)
     },
     beforeDestroy() {
