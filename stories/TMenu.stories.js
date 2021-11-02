@@ -112,20 +112,7 @@ export const MultipleStates = (argTypes) => ({
 	`
 	<div class="p-6 bg-gray-100">
 		<div class="w-full flex flex-col space-y-4">
-			<t-card title="Menu with no text">
-				<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
-					<t-menu :items="items">
-						<template v-slot:opener>
-							Open menu (left)
-						</template>
-					</t-menu>
-					<t-menu :items="items" side="right">
-						<template v-slot:opener>
-							Open menu (right)
-						</template>
-					</t-menu>
-				</div>
-			</t-card>
+		
 			<t-card title="Menu with button">
 				<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
 					<t-menu :items="items">
@@ -170,6 +157,20 @@ export const MultipleStates = (argTypes) => ({
 						</template>
 						<template v-slot:content>
 							Here's some custom content for inside the menu.
+						</template>
+					</t-menu>
+				</div>
+			</t-card>
+			<t-card title="Menu with no text">
+				<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<t-menu :items="items">
+						<template v-slot:opener>
+							Open menu (left)
+						</template>
+					</t-menu>
+					<t-menu :items="items" side="right">
+						<template v-slot:opener>
+							Open menu (right)
 						</template>
 					</t-menu>
 				</div>

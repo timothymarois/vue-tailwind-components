@@ -1,14 +1,14 @@
 <template>
     <div class="relative">
-        <div class="cursor-pointer" @click="openClick">
+        <div class="cursor-pointer" @click="openClick" :id="`slot-container-${id}`">
             <slot name="opener"></slot>
         </div>
         <div v-if="items">
             <transition name="fade">
                 <ul
-                    :class="dropdownClasses"
-                    :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
                     v-if="menu && !loading && !disabled"
+                    :class="dropdownClasses"
+                    :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''} ${dropdownOffset}`"
                     @click.stop
                     :id="'dropdown-'+this.id"
                 >
@@ -29,8 +29,9 @@
         <div v-else>
             <transition name="fade">
                 <div
-                    :class="dropdownClasses"
                     v-if="menu && !loading && !disabled"
+                    :class="dropdownClasses"
+                    :style="`${dropdownOffset}`"
                     :id="'dropdown-'+this.id"
                 >
                     <slot name="content"></slot>
@@ -192,12 +193,6 @@ export default {
                 'border border-gray-200'
             ];
 
-            if (this.dropdownDirection === 'top') {
-                c = c.concat(['bottom-12']);
-            } else {
-                c = c.concat(['top-12']);
-            }
-
             if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
             } else {
@@ -209,6 +204,15 @@ export default {
             }
 
             return c;
+        },
+        dropdownOffset() {
+            const el = document.getElementById(`slot-container-${this.id}`);
+            
+            if(this.dropdownDirection === 'top') {
+                return `bottom: ${el.clientHeight + 10}px`;
+            } else {
+                return `top: ${el.clientHeight + 10}px`;
+            }
         }
     },
     methods: {
