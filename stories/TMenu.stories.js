@@ -111,13 +111,23 @@ export const MultipleStates = (argTypes) => ({
 		<div class="p-6 bg-gray-100">
 			<div class="w-full flex flex-col space-y-4">
 				<t-card title="Menu with no text">
-					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
 						<t-menu :items="items">Open menu (left)</t-menu>
-						<t-menu :items="items">Open menu (right)</t-menu>
+						<t-menu :items="items" side="right">Open menu (right)</t-menu>
 					</div>
 				</t-card>
 				<t-card title="Menu with button">
-					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+						<t-menu :items="items">
+							<t-button color="indigo">Open menu (left)</t-button>
+						</t-menu>
+						<t-menu :items="items" side="right">
+							<t-button color="indigo">Open menu (right)</t-button>
+						</t-menu>
+					</div>
+				</t-card>
+				<t-card title="Menu with button and auto-detected sides">
+					<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
 						<t-menu :items="items">
 							<t-button color="indigo">Open menu (left)</t-button>
 						</t-menu>
@@ -141,7 +151,7 @@ export const MultipleStates = (argTypes) => ({
 						<t-menu :items="items" max-height="100">
 							<t-button color="indigo">Open menu (left)</t-button>
 						</t-menu>
-						<t-menu :items="items" max-height="100">
+						<t-menu :items="items" max-height="100" side="right">
 							<t-button color="indigo">Open menu (right)</t-button>
 						</t-menu>
 					</div>
