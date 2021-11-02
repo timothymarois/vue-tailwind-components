@@ -1,21 +1,8 @@
 <template>
     <div class="relative">
-        <t-button 
-            @click="btnClick" 
-            :iconRight="menuIcon"
-            :loading="loading"
-            :disabled="disabled"
-            :label="label"
-            :shadow="shadow"
-            :rounded="rounded"
-            :text="text"
-            :outlined="outlined"
-            :block="block"
-            :size="size"
-            :color="color"
-            :icon="icon"
-            :iconSize="iconSize"
-        ><slot></slot></t-button>
+        <div class="cursor-pointer" @click="openClick">
+            <slot></slot>
+        </div>
 
         <ul
             :class="dropdownClasses"
@@ -41,11 +28,10 @@
 
 <script>
 import TIcon from "./TIcon";
-import TButton from "./TButton";
+
 export default { 
     name: 'TMenu',
     components: {
-        TButton,
         TIcon
     },
     props: {
@@ -113,10 +99,6 @@ export default {
             type: String,
             default: 'bottom'
         },
-        label: {
-            type: String,
-            default: null
-        },
         side: {
             type: String,
             default: 'right'
@@ -180,7 +162,7 @@ export default {
             let vm = this;
             return vm.items.find(a => { return a.value === value; });
         },
-        btnClick() {
+        openClick() {
             this.menu = !this.menu;
         },
         selectItem(item) {

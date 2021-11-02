@@ -20,7 +20,7 @@ export default {
 
 export const Standard = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TMenu },
+	components: { TMenu, TButton },
     data: () => ({
         color: 'indigo',
 		label: 'Menu',
@@ -56,16 +56,26 @@ export const Standard = (argTypes) => ({
 	template: 
 		`
 		<div>
-			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu" />
+			<div class="ml-10 mt-5">
+				<t-menu :items="items" label="Menu" side="left">
+					Menu with text
+				</t-menu>
 			</div>
 
 			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu" side="left"/>
+				<t-menu :items="items" label="Menu with button" side="left">
+					<t-button :color="indigo">
+						Menu with button
+					</t-button>
+				</t-menu>
 			</div>
 
 			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu (min width)" side="left" min-width="300" />
+				<t-menu :items="items" label="Menu with button (min width)" side="left" min-width="300">
+					<t-button :color="indigo">
+						Menu with button (min width)
+					</t-button>
+				</t-menu>
 			</div>
 
 		</div>
