@@ -19,10 +19,10 @@
 
         <ul
             :class="dropdownClasses"
-            :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px` : ''}`"
+            :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
             v-show="menu && !loading && !disabled"
             @click.stop
-            id="dropdownMenu"
+            :id="'dropdown-'+this.id"
         >
             <li 
                 v-for="(item,index) in items"
@@ -43,6 +43,8 @@
 <script>
 import TIcon from "./TIcon.vue";
 import TButton from "./TButton.vue";
+
+import uniqid from "../../utils/uniqid.js";
 import viewportHelper from "../../utils/viewport.js";
 
 export default { 
@@ -130,7 +132,7 @@ export default {
         },
         maxHeight: {
             type: [String, Number],
-            default: null
+            default: 300
         }
     },
      data() {
@@ -144,15 +146,18 @@ export default {
         menu: function(value) {
             if(value) {
                 this.$nextTick(() => {
-                    const viewport = viewportHelper('#dropdownMenu');
-                    if(viewport.includes('left')) { this.dropdownSide = 'left'; }
-                    if(viewport.includes('right')) { this.dropdownSide = 'right'; }
-                    if(viewport.includes('bottom')) { this.dropdownDirection = 'top'; }
+                    const viewport = viewportHelper('#dropdown-'+this.id);
+                    if(viewport.includes('left')) this.dropdownSide = 'left';
+                    if(viewport.includes('right')) this.dropdownSide = 'right';
+                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
                 })
             }    
         }
     },
     computed: {
+        id() {
+            return uniqid();
+        },
         iconOnly() {
             if ((typeof this.icon==='string' && !this.$slots.default) || this.icon===true) {
                 return true;
@@ -181,18 +186,20 @@ export default {
 
             if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-12']);
-            } else {
+            } 
+            else {
                 c = c.concat(['top-12']);
             }
 
             if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
-            } else {
+            } 
+            else {
                 c = c.concat(['right-0']);
             }
 
             if (this.maxHeight) {
-                c = c.concat(['overflow-auto'])
+                c = c.concat(['overflow-y-auto'])
             }
 
             return c;
