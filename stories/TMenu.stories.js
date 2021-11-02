@@ -21,6 +21,11 @@ export default {
 export const Standard = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TMenu, TButton },
+	methods: {
+		menuChange(v) {
+			this.menuOpen = v
+		}
+	},
     data: () => ({
         color: 'indigo',
 		label: 'Menu',
@@ -72,7 +77,7 @@ export const Standard = (argTypes) => ({
 			</div>
 
 			<div class="ml-10 mt-5">
-				<t-menu :items="items" side="left" @menu-open="menuOpen = !menuOpen" min-width="300">
+				<t-menu :items="items" side="left" @menu="menuChange" min-width="300">
 					<t-button :color="indigo" :iconRight="menuOpen ? 'chevron-up' : 'chevron-down'">
 						Menu with button and icon
 					</t-button>

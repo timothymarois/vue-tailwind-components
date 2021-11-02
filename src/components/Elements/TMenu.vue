@@ -3,7 +3,6 @@
         <div class="cursor-pointer" @click.stop="openClick">
             <slot></slot>
         </div>
-
         <ul
             :class="dropdownClasses"
             :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
@@ -124,6 +123,7 @@ export default {
     },
     watch: {
         menu: function(value) {
+            this.$emit("menu",value)
             if(value) {
                 this.$nextTick(() => {
                     const viewport = viewportHelper('#dropdown-'+this.id);
@@ -192,11 +192,9 @@ export default {
         },
         openClick() {
             this.menu = !this.menu;
-            this.$emit("menu-open");
         },
         selectItem(item) {
             this.$emit('change',item.value)
-            // this.selected = item;
             if (this.closeOnClick) this.menu = false;
         },
         close(e) {
