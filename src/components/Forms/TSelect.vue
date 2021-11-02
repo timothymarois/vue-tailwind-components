@@ -252,13 +252,13 @@ export default {
             }
         },
         menu: function(value) {
-            if(value) {
+           
                 this.$nextTick(() => {
                     const viewport = viewportHelper('#dropdown-'+this.id);
                     if(viewport.includes('bottom')) this.dropdownDirection = 'top';
                     else this.dropdownDirection = 'bottom';
                 })
-            }    
+            
         }
     },
     computed: {
