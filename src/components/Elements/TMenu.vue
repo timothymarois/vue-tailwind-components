@@ -4,34 +4,38 @@
             <slot name="opener"></slot>
         </div>
         <div v-if="items">
-            <ul
-                :class="dropdownClasses"
-                :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
-                v-show="menu && !loading && !disabled"
-                @click.stop
-                :id="'dropdown-'+this.id"
-            >
-                <li 
-                    v-for="(item,index) in items"
-                    :key="index"
-                    class="p-2 flex items-center rounded m-2 transition duration-150"
-                    :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
-                    :disabled="item.disabled"
-                    @click="!item.disabled && selectItem(item)"
+            <transition name="fade">
+                <ul
+                    :class="dropdownClasses"
+                    :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
+                    v-show="menu && !loading && !disabled"
+                    @click.stop
+                    :id="'dropdown-'+this.id"
                 >
-                    <t-icon v-if="item.icon" :value="item.icon" size="5" class="mr-2" />
-                    <span class="font-medium">{{ item.label }}</span>
-                </li>
-            </ul>
+                    <li 
+                        v-for="(item,index) in items"
+                        :key="index"
+                        class="p-2 flex items-center rounded m-2 transition duration-150"
+                        :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
+                        :disabled="item.disabled"
+                        @click="!item.disabled && selectItem(item)"
+                    >
+                        <t-icon v-if="item.icon" :value="item.icon" size="5" class="mr-2" />
+                        <span class="font-medium">{{ item.label }}</span>
+                    </li>
+                </ul>
+            </transition>
         </div>
         <div v-else>
-            <div
-                :class="dropdownClasses"
-                v-show="menu && !loading && !disabled"
-                :id="'dropdown-slot-'+this.id"
-            >
-                <slot name="content"></slot>
-            </div>
+            <transition name="fade">
+                <div
+                    :class="dropdownClasses"
+                    v-show="menu && !loading && !disabled"
+                    :id="'dropdown-slot-'+this.id"
+                >
+                    <slot name="content"></slot>
+                </div>
+            </transition>
         </div>
         
     </div>
@@ -230,4 +234,16 @@ export default {
         document.removeEventListener('click',this.close)
     }
 };
-</script> 
+</script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+	transition: all .2s cubic-bezier(.25,.8,.25,1);
+	z-index: 50;
+}
+.fade-enter, .fade-leave-to {
+	z-index: 50;
+	opacity: 0;
+    transform: translateY(-5%);
+}
+</style>
