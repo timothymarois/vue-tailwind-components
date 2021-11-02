@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <div class="cursor-pointer" @click="openClick">
+        <div class="cursor-pointer" @click.stop="openClick">
             <slot></slot>
         </div>
 
@@ -164,6 +164,7 @@ export default {
         },
         openClick() {
             this.menu = !this.menu;
+            this.$emit("menu-open");
         },
         selectItem(item) {
             this.$emit('change',item.value)

@@ -52,28 +52,29 @@ export const Standard = (argTypes) => ({
 				disabled: true
 			}
 		],
+		menuOpen: false
     }),
 	template: 
 		`
 		<div>
 			<div class="ml-10 mt-5">
-				<t-menu :items="items" label="Menu" side="left">
+				<t-menu :items="items" side="left">
 					Menu with text
 				</t-menu>
 			</div>
 
-			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu with button" side="left">
+			<div class="ml-10 mt-5">
+				<t-menu :items="items" side="left">
 					<t-button :color="indigo">
 						Menu with button
 					</t-button>
 				</t-menu>
 			</div>
 
-			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu with button (min width)" side="left" min-width="300">
-					<t-button :color="indigo">
-						Menu with button (min width)
+			<div class="ml-10 mt-5">
+				<t-menu :items="items" side="left" @menu-open="menuOpen = !menuOpen" min-width="300">
+					<t-button :color="indigo" :iconRight="menuOpen ? 'chevron-up' : 'chevron-down'">
+						Menu with button and icon
 					</t-button>
 				</t-menu>
 			</div>
