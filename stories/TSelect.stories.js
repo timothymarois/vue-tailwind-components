@@ -35,7 +35,9 @@ export const Standard = (args, { argTypes }) => ({
 	template: 
 		`
 		<div>
-			<t-select label="Select an option" v-model="value" required v-bind="$props" />
+			<div class="absolute bottom-0 w-1/2">
+				<t-select label="Select an option" v-model="value" required v-bind="$props" />
+			</div>
 			<div class="mt-16">returnObject is set to <b>{{ returnObject }}</b>, so v-model equals: <br> {{ value }}</div>
 		</div>
 		`,

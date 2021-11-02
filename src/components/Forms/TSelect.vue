@@ -74,6 +74,7 @@
             <ul
                 :class="dropdownClasses"
                 v-show="menu"
+                :id="'dropdown-'+this.id"
             >
                 <li 
                     v-if="loading" 
@@ -129,6 +130,9 @@ import TIcon from "../Elements/TIcon.vue";
 import TLabel from "./TLabel.vue";
 import TCheckbox from "./TCheckbox.vue";
 import TLoader from "../Elements/TLoader.vue";
+import viewportHelper from "../../utils/viewport.js";
+import uniqid from "../../utils/uniqid.js";
+
 export default { 
     name: 'TSelect',
     components: {
@@ -228,7 +232,8 @@ export default {
             menu: false,
             selected: [],
             localsearch: null,
-            isSearching: false
+            isSearching: false,
+            dropdownDirection: this.direction
         }
     },
     watch: {
@@ -245,11 +250,20 @@ export default {
                     this.localsearch = null;
                 }
             }
+        },
+        menu: function(value) {
+            if(value) {
+                this.$nextTick(() => {
+                    const viewport = viewportHelper('#dropdown-'+this.id);
+                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+                    else this.dropdownDirection = 'bottom';
+                })
+            }    
         }
     },
     computed: {
         id() {
-           return (Math.random() + 1).toString(36).substring(7);
+           return uniqid();
         },
         menuIcon() {
             if (this.menu) return 'chevron-up'
@@ -260,7 +274,7 @@ export default {
                 'absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none z-10 border border-gray-200'
             ];
 
-            if (this.direction === 'top') {
+            if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-10']);
             } else {
                 c = c.concat(['top-10']);
