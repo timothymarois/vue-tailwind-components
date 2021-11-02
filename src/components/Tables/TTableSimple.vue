@@ -6,7 +6,7 @@
                 <th v-if="select" style="width:30px;">
                     <slot name="hselect">
                         <div class="flex justify-center w-full">
-                            <TCheckbox 
+                            <t-checkbox 
                                 v-if="!selectOne"
                                 v-model="selectedAll"
                                 @input="toggleAll"
@@ -123,7 +123,7 @@ table.t-table>thead>tr>th.sortable:hover span.sort-icon {
 import TCheckbox from "../Forms/TCheckbox.vue";
 import TProgressBar from "../Elements/TProgressBar.vue";
 import TIcon from "../Elements/TIcon.vue";
-
+// import TButton from "../Elements/TButton.vue";
 export default {
     name: 'TTableSimple',
     data () {
@@ -135,7 +135,8 @@ export default {
     components: {
         TCheckbox,
         TProgressBar,
-        TIcon
+        TIcon,
+        // TButton
     },
     props: {
         headers: {
@@ -281,8 +282,20 @@ export default {
                         selectedItems.push(this.items[i]);
                     }
                 }
+
+                // if the selected items equal the total items
+                // lets make sure to check the selected all
+                // however, if they do not match, then uncheck select all
+                if (this.selection.length===this.items.length) {
+                    this.selectedAll = true;
+                }
+                else {
+                    this.selectedAll = false;
+                }
             } 
             else {
+                // if the selection is empty, 
+                // lets uncheck the select all
                 this.selectedAll = false;
             }
 
