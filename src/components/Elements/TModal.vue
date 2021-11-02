@@ -146,7 +146,8 @@ export default {
 					c = c.concat([
 						'w-11/12',
 						'mx-auto',
-						'inset-x-0'
+						'inset-x-0',
+						'h-5/6'
 					]);
 					break; 
 			}
