@@ -1,27 +1,37 @@
 <template>
     <div class="relative">
-        <div class="cursor-pointer" @click.stop="openClick">
-            <slot></slot>
+        <div class="cursor-pointer" @click="openClick">
+            <slot name="opener"></slot>
         </div>
-
-        <ul
-            :class="dropdownClasses"
-            :style="minWidth ? `min-width:${minWidth}px;` : ''"
-            v-show="menu && !loading && !disabled"
-            @click.stop
-        >
-            <li 
-                v-for="(item,index) in items"
-                :key="index"
-                class="p-2 flex items-center rounded m-2 transition duration-150"
-                :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
-                :disabled="item.disabled"
-                @click="!item.disabled && selectItem(item)"
+        <div v-if="items">
+            <ul
+                :class="dropdownClasses"
+                :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
+                v-show="menu && !loading && !disabled"
+                @click.stop
+                :id="'dropdown-'+this.id"
             >
-                <t-icon v-if="item.icon" :value="item.icon" size="5" class="mr-2" />
-                <span class="font-medium">{{ item.label }}</span>
-            </li>
-        </ul>
+                <li 
+                    v-for="(item,index) in items"
+                    :key="index"
+                    class="p-2 flex items-center rounded m-2 transition duration-150"
+                    :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
+                    :disabled="item.disabled"
+                    @click="!item.disabled && selectItem(item)"
+                >
+                    <t-icon v-if="item.icon" :value="item.icon" size="5" class="mr-2" />
+                    <span class="font-medium">{{ item.label }}</span>
+                </li>
+            </ul>
+        </div>
+        <div v-else>
+            <div
+                :class="dropdownClasses"
+                v-show="menu && !loading && !disabled"
+            >
+                <slot name="content"></slot>
+            </div>
+        </div>
         
     </div>
 </template>
@@ -106,6 +116,30 @@ export default {
         minWidth: {
             type: [String, Number],
             default: null
+        },
+        maxHeight: {
+            type: [String, Number],
+            default: 300
+        }
+    },
+     data() {
+        return {
+            menu: false,
+            dropdownSide: this.side,
+            dropdownDirection: this.direction
+        }
+    },
+    watch: {
+        menu: function(value) {
+            this.$emit("menu",value)
+            if(value && this.items) {
+                this.$nextTick(() => {
+                    const viewport = viewportHelper('#dropdown-'+this.id);
+                    if(viewport.includes('left')) this.dropdownSide = 'left';
+                    if(viewport.includes('right')) this.dropdownSide = 'right';
+                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+                })
+            }    
         }
     },
     computed: {
