@@ -28,6 +28,7 @@
             <div
                 :class="dropdownClasses"
                 v-show="menu && !loading && !disabled"
+                :id="'dropdown-slot-'+this.id"
             >
                 <slot name="content"></slot>
             </div>
@@ -134,12 +135,19 @@ export default {
     watch: {
         menu: function(value) {
             this.$emit("menu",value)
-            if(value && this.items) {
+            if(this.items) {
                 this.$nextTick(() => {
                     const viewport = viewportHelper('#dropdown-'+this.id);
                     if(viewport.includes('left')) this.dropdownSide = 'left';
                     if(viewport.includes('right')) this.dropdownSide = 'right';
                     if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+                    else this.dropdownDirection = 'bottom';
+                })
+            } else {
+                this.$nextTick(() => {
+                    const viewport = viewportHelper('#dropdown-slot-'+this.id);
+                    if(viewport.includes('left')) this.dropdownSide = 'left';
+                    if(viewport.includes('right')) this.dropdownSide = 'right';
                 })
             }    
         }
