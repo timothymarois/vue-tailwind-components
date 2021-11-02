@@ -20,7 +20,7 @@ export default {
 
 export const Standard = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TMenu },
+	components: { TMenu, TButton },
     data: () => ({
         color: 'indigo',
 		label: 'Menu',
@@ -52,20 +52,31 @@ export const Standard = (argTypes) => ({
 				disabled: true
 			}
 		],
+		menuOpen: false
     }),
 	template: 
 		`
 		<div>
-			<div class="ml-10 mt-5 absolute bottom-0" style="width:100px">
-				<t-menu :items="items" label="Menu" />
+			<div class="ml-10 mt-5">
+				<t-menu :items="items" side="left">
+					Menu with text
+				</t-menu>
 			</div>
 
-			<div class="ml-10 mt-5 float-right" style="width:100px">
-				<t-menu :items="items" label="Menu"/>
+			<div class="ml-10 mt-5 absolute bottom-0">
+				<t-menu :items="items" side="left">
+					<t-button :color="indigo">
+						Menu with button
+					</t-button>
+				</t-menu>
 			</div>
 
-			<div class="ml-10 mt-5" style="width:100px">
-				<t-menu :items="items" label="Menu (max height)" side="left" max-height="100" />
+			<div class="ml-10 mt-5">
+				<t-menu :items="items" side="left" @menu-open="menuOpen = !menuOpen" min-width="300">
+					<t-button :color="indigo" :iconRight="menuOpen ? 'chevron-up' : 'chevron-down'">
+						Menu with button and icon
+					</t-button>
+				</t-menu>
 			</div>
 
 		</div>

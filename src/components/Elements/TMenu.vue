@@ -1,21 +1,8 @@
 <template>
     <div class="relative">
-        <t-button 
-            @click="btnClick" 
-            :iconRight="menuIcon"
-            :loading="loading"
-            :disabled="disabled"
-            :label="label"
-            :shadow="shadow"
-            :rounded="rounded"
-            :text="text"
-            :outlined="outlined"
-            :block="block"
-            :size="size"
-            :color="color"
-            :icon="icon"
-            :iconSize="iconSize"
-        ><slot></slot></t-button>
+        <div class="cursor-pointer" @click.stop="openClick">
+            <slot></slot>
+        </div>
 
         <ul
             :class="dropdownClasses"
@@ -42,15 +29,12 @@
 
 <script>
 import TIcon from "./TIcon.vue";
-import TButton from "./TButton.vue";
-
 import uniqid from "../../utils/uniqid.js";
 import viewportHelper from "../../utils/viewport.js";
 
 export default { 
     name: 'TMenu',
     components: {
-        TButton,
         TIcon
     },
     props: {
@@ -117,10 +101,6 @@ export default {
         direction: {
             type: String,
             default: 'bottom'
-        },
-        label: {
-            type: String,
-            default: null
         },
         side: {
             type: String,
@@ -210,8 +190,9 @@ export default {
             let vm = this;
             return vm.items.find(a => { return a.value === value; });
         },
-        btnClick() {
+        openClick() {
             this.menu = !this.menu;
+            this.$emit("menu-open");
         },
         selectItem(item) {
             this.$emit('change',item.value)
