@@ -1,27 +1,42 @@
 <template>
     <div class="relative">
         <div class="cursor-pointer" @click="openClick">
-            <slot></slot>
+            <slot name="opener"></slot>
         </div>
-        <ul
-            :class="dropdownClasses"
-            :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
-            v-show="menu && !loading && !disabled"
-            @click.stop
-            :id="'dropdown-'+this.id"
-        >
-            <li 
-                v-for="(item,index) in items"
-                :key="index"
-                class="p-2 flex items-center rounded m-2 transition duration-150"
-                :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
-                :disabled="item.disabled"
-                @click="!item.disabled && selectItem(item)"
-            >
-                <t-icon v-if="item.icon" :value="item.icon" size="5" class="mr-2" />
-                <span class="font-medium">{{ item.label }}</span>
-            </li>
-        </ul>
+        <div v-if="items">
+            <transition name="fade">
+                <ul
+                    :class="dropdownClasses"
+                    :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
+                    v-if="menu && !loading && !disabled"
+                    @click.stop
+                    :id="'dropdown-'+this.id"
+                >
+                    <li 
+                        v-for="(item,index) in items"
+                        :key="index"
+                        class="p-2 flex items-center rounded m-2 transition duration-150"
+                        :class="(!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`"
+                        :disabled="item.disabled"
+                        @click="!item.disabled && selectItem(item)"
+                    >
+                        <t-icon v-if="item.icon" :value="item.icon" size="5" class="mr-2" />
+                        <span class="font-medium">{{ item.label }}</span>
+                    </li>
+                </ul>
+            </transition>
+        </div>
+        <div v-else>
+            <transition name="fade">
+                <div
+                    :class="dropdownClasses"
+                    v-if="menu && !loading && !disabled"
+                    :id="'dropdown-'+this.id"
+                >
+                    <slot name="content"></slot>
+                </div>
+            </transition>
+        </div>
         
     </div>
 </template>
@@ -123,15 +138,22 @@ export default {
     },
     watch: {
         menu: function(value) {
-            this.$emit("menu",value)
-            if(value) {
-                this.$nextTick(() => {
-                    const viewport = viewportHelper('#dropdown-'+this.id);
-                    if(viewport.includes('left')) this.dropdownSide = 'left';
-                    if(viewport.includes('right')) this.dropdownSide = 'right';
-                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
-                })
-            }    
+            this.$emit("menu", value);
+
+            this.$nextTick(() => {
+                const viewport = viewportHelper('#dropdown-'+this.id);
+                if(viewport.includes('left')) this.dropdownSide = 'left';
+                if(viewport.includes('right')) this.dropdownSide = 'right';
+                if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+                if(viewport.length === 0) this.dropdownDirection = 'bottom';
+                
+            })
+
+            if(value === false) {
+                setTimeout(() => {
+                    this.dropdownDirection = 'bottom';
+                }, 200)
+            }
         }
     },
     computed: {
@@ -166,15 +188,13 @@ export default {
 
             if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-12']);
-            } 
-            else {
+            } else {
                 c = c.concat(['top-12']);
             }
 
             if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
-            } 
-            else {
+            } else {
                 c = c.concat(['right-0']);
             }
 
@@ -210,4 +230,16 @@ export default {
         document.removeEventListener('click',this.close)
     }
 };
-</script> 
+</script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+	transition: all .2s cubic-bezier(.25,.8,.25,1);
+	z-index: 50;
+}
+.fade-enter, .fade-leave-to {
+	z-index: 50;
+	opacity: 0;
+    transform: translateY(-5%);
+}
+</style>

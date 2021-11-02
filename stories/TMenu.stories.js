@@ -61,10 +61,12 @@ export const Standard = (argTypes) => ({
 		menuOpen: false
     }),
 	template: 
-		`
+	`
 		<div>
 			<t-menu :items="items">
-				<t-button color="indigo">Open menu (left)</t-button>
+				<template v-slot:opener>
+					<t-button color="indigo">Open menu (left)</t-button>
+				</template>
 			</t-menu>				
 		</div>
 		`,
@@ -107,56 +109,109 @@ export const MultipleStates = (argTypes) => ({
 		menuOpen: false
     }),
 	template: 
-		`
-		<div class="p-6 bg-gray-100">
-			<div class="w-full flex flex-col space-y-4">
-				<t-card title="Menu with no text">
-					<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
-						<t-menu :items="items">Open menu (left)</t-menu>
-						<t-menu :items="items" side="right">Open menu (right)</t-menu>
-					</div>
-				</t-card>
-				<t-card title="Menu with button">
-					<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
-						<t-menu :items="items">
+	`
+	<div class="p-6 bg-gray-100">
+		<div class="w-full flex flex-col space-y-4">
+			<t-card title="Menu with no text">
+				<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<t-menu :items="items">
+						<template v-slot:opener>
+							Open menu (left)
+						</template>
+					</t-menu>
+					<t-menu :items="items" side="right">
+						<template v-slot:opener>
+							Open menu (right)
+						</template>
+					</t-menu>
+				</div>
+			</t-card>
+			<t-card title="Menu with button">
+				<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<t-menu :items="items">
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (left)</t-button>
-						</t-menu>
-						<t-menu :items="items" side="right">
+						</template>
+					</t-menu>
+					<t-menu :items="items" side="right">
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (right)</t-button>
-						</t-menu>
-					</div>
-				</t-card>
-				<t-card title="Menu with button and auto-detected sides">
-					<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
-						<t-menu :items="items">
+						</template>
+					</t-menu>
+				</div>
+			</t-card>
+			<t-card title="Menu with button and auto-detected sides">
+				<div class="w-full mx-auto flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<t-menu :items="items">
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (left)</t-button>
-						</t-menu>
-						<t-menu :items="items">
+						</template>
+					</t-menu>
+					<t-menu :items="items">
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (right)</t-button>
-						</t-menu>
-					</div>
-				</t-card>
-				<t-card title="Menu with min-width">
-					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
-						<t-menu :items="items" min-width="500">
+						</template>
+					</t-menu>
+				</div>
+			</t-card>
+			<t-card title="Menu with custom content">
+				<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<t-menu>
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (left)</t-button>
-						</t-menu>
-						<t-menu :items="items" min-width="500">
+						</template>
+						<template v-slot:content>
+							Here's some custom content for inside the menu.
+						</template>
+					</t-menu>
+					<t-menu side="right">
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (right)</t-button>
-						</t-menu>
-					</div>
-				</t-card>
-				<t-card title="Menu with max-height">
-					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
-						<t-menu :items="items" max-height="100">
+						</template>
+						<template v-slot:content>
+							Here's some custom content for inside the menu.
+						</template>
+					</t-menu>
+				</div>
+			</t-card>
+			<t-card title="Menu with min-width">
+				<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<t-menu :items="items" min-width="500">
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (left)</t-button>
-						</t-menu>
-						<t-menu :items="items" max-height="100" side="right">
+						</template>
+					</t-menu>
+					<t-menu :items="items" min-width="500">
+						<template v-slot:opener>
 							<t-button color="indigo">Open menu (right)</t-button>
-						</t-menu>
-					</div>
-				</t-card>
-			</div>
+						</template>
+					</t-menu>
+				</div>
+			</t-card>
+			<t-card title="Menu with max-height">
+				<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+					<t-menu :items="items" max-height="100">
+						<template v-slot:opener>
+							<t-button color="indigo">Open menu (left)</t-button>
+						</template>
+					</t-menu>
+					<t-menu :items="items" max-height="100" side="right">
+						<template v-slot:opener>
+							<t-button color="indigo">Open menu (right)</t-button>
+						</template>
+					</t-menu>
+				</div>
+			</t-card>
 		</div>
-		`,
+
+		<div class="ml-10 mt-5">
+			<t-menu :items="items" side="left" @menu-open="menuOpen = !menuOpen" min-width="300">
+				<t-button :color="indigo" :iconRight="menuOpen ? 'chevron-up' : 'chevron-down'">
+					Menu with button and icon
+				</t-button>
+			</t-menu>
+		</div>
+
+	</div>
+	`
 });
