@@ -146,6 +146,7 @@ export default {
                     if(viewport.includes('left')) this.dropdownSide = 'left';
                     if(viewport.includes('right')) this.dropdownSide = 'right';
                     if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+                    else if (value === true && viewport.length === 0) this.dropdownDirection = 'bottom';
                    
                 })
             } else {
