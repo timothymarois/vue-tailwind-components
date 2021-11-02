@@ -1,5 +1,6 @@
-import TMenu from '../src/components/Elements/TMenu';
-import TButton from '../src/components/Elements/TButton';
+import TMenu from '../src/components/Elements/TMenu.vue';
+import TButton from '../src/components/Elements/TButton.vue';
+import TCard from '../src/components/Elements/TCard.vue';
 
 export default {
 	title: 'ELEMENTS/TMenu',
@@ -57,28 +58,90 @@ export const Standard = (argTypes) => ({
 	template: 
 		`
 		<div>
-			<div class="ml-10 mt-5">
-				<t-menu :items="items" side="left">
-					Menu with text
-				</t-menu>
-			</div>
+			<t-menu :items="items">
+				<t-button color="indigo">Open menu (left)</t-button>
+			</t-menu>				
+		</div>
+		`,
+});
 
-			<div class="ml-10 mt-5 absolute bottom-0">
-				<t-menu :items="items" side="left">
-					<t-button :color="indigo">
-						Menu with button
-					</t-button>
-				</t-menu>
+export const MultipleStates = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TMenu, TButton, TCard },
+    data: () => ({
+        color: 'indigo',
+		label: 'Menu',
+		items: [
+			{
+				icon: 'arrow-right',
+				label: 'Home',
+				value: 'home',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'About',
+				value: 'about',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'About',
+				value: 'about',
+				color: 'red',
+				hover: 'red',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'Disabled',
+				value: 'disabled',
+				disabled: true
+			}
+		],
+		menuOpen: false
+    }),
+	template: 
+		`
+		<div class="p-6 bg-gray-100">
+			<div class="w-full flex flex-col space-y-4">
+				<t-card title="Menu with no text">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+						<t-menu :items="items">Open menu (left)</t-menu>
+						<t-menu :items="items">Open menu (right)</t-menu>
+					</div>
+				</t-card>
+				<t-card title="Menu with button">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+						<t-menu :items="items">
+							<t-button color="indigo">Open menu (left)</t-button>
+						</t-menu>
+						<t-menu :items="items">
+							<t-button color="indigo">Open menu (right)</t-button>
+						</t-menu>
+					</div>
+				</t-card>
+				<t-card title="Menu with min-width">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+						<t-menu :items="items" min-width="500">
+							<t-button color="indigo">Open menu (left)</t-button>
+						</t-menu>
+						<t-menu :items="items" min-width="500">
+							<t-button color="indigo">Open menu (right)</t-button>
+						</t-menu>
+					</div>
+				</t-card>
+				<t-card title="Menu with max-height">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-between sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end">
+						<t-menu :items="items" max-height="100">
+							<t-button color="indigo">Open menu (left)</t-button>
+						</t-menu>
+						<t-menu :items="items" max-height="100">
+							<t-button color="indigo">Open menu (right)</t-button>
+						</t-menu>
+					</div>
+				</t-card>
 			</div>
-
-			<div class="ml-10 mt-5">
-				<t-menu :items="items" side="left" @menu-open="menuOpen = !menuOpen" min-width="300">
-					<t-button :color="indigo" :iconRight="menuOpen ? 'chevron-up' : 'chevron-down'">
-						Menu with button and icon
-					</t-button>
-				</t-menu>
-			</div>
-
 		</div>
 		`,
 });

@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <div class="cursor-pointer" @click.stop="openClick">
+        <div class="cursor-pointer" @click="openClick">
             <slot></slot>
         </div>
 
@@ -104,7 +104,7 @@ export default {
         },
         side: {
             type: String,
-            default: 'right'
+            default: 'left'
         },
         minWidth: {
             type: [String, Number],
@@ -124,14 +124,12 @@ export default {
     },
     watch: {
         menu: function(value) {
-            if(value) {
-                this.$nextTick(() => {
-                    const viewport = viewportHelper('#dropdown-'+this.id);
-                    if(viewport.includes('left')) this.dropdownSide = 'left';
-                    if(viewport.includes('right')) this.dropdownSide = 'right';
-                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
-                })
-            }    
+            this.$nextTick(() => {
+                const viewport = viewportHelper('#dropdown-'+this.id);
+                if(viewport.includes('left')) this.dropdownSide = 'left';
+                if(viewport.includes('right')) this.dropdownSide = 'right';
+                if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+            })   
         }
     },
     computed: {
