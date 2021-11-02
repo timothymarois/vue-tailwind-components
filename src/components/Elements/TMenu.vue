@@ -138,14 +138,15 @@ export default {
     },
     watch: {
         menu: function(value) {
-            this.$emit("menu",value)
+            this.$emit("menu", value);
+
             if(this.items) {
                 this.$nextTick(() => {
                     const viewport = viewportHelper('#dropdown-'+this.id);
                     if(viewport.includes('left')) this.dropdownSide = 'left';
                     if(viewport.includes('right')) this.dropdownSide = 'right';
                     if(viewport.includes('bottom')) this.dropdownDirection = 'top';
-                    else this.dropdownDirection = 'bottom';
+                   
                 })
             } else {
                 this.$nextTick(() => {
