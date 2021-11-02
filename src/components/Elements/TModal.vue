@@ -1,7 +1,7 @@
 <template>
 	<div class="absolute inset-0 w-full h-full">
 		<div :class="type !== 'right' ? 'flex items-center min-h-full' : ''">
-			<transition :name="type === 'right' ? 'slide' : 'pop'" appear>
+			<transition :name="transitionName" appear>
 				<div
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden"
@@ -122,6 +122,18 @@ export default {
 			let c = [];
 			
 			switch(this.type) {
+				case 'left':
+					c = c.concat([
+						'max-w-xl',
+						'block',
+						'h-full',
+						'md:h-auto',
+						'md:inset-y-0',
+						'md:left-0',
+						'md:ml-4',
+						'md:mt-4',
+						'md:mr-4'
+					])
 				case 'right': 
 					c = c.concat([
 						'max-w-xl',
@@ -185,6 +197,15 @@ export default {
 			if(this.offsetDirection && this.offsetValue) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
 			}
+		},
+		transitionName() {
+			if(this.type === 'right') {
+				return 'slide-right';
+			} else if (this.type === 'left') {
+				return 'slide-left';
+			} else {
+				return 'pop';
+			}
 		}
 	},
 	created() {
@@ -208,7 +229,7 @@ export default {
 </script>
 
 <style scoped>
-.pop-enter-active, .pop-leave-active, .slide-enter-active, .slide-leave-active {
+.pop-enter-active, .pop-leave-active, .slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active {
 	transition: all .2s cubic-bezier(.25,.8,.25,1);
 	z-index: 50;
 }
@@ -218,8 +239,12 @@ export default {
 	opacity: 0;
 	transform-origin: center center;
 }
-.slide-enter, .slide-leave-to {
+.slide-right-enter, .slide-right-leave-to {
 	z-index: 50;
 	transform: translateX(120%);
+}
+.slide-left-enter, .slide-left-leave-to {
+	z-index: 50;
+	transform: translateX(-120%);
 }
 </style>
