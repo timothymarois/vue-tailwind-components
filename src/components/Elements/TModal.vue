@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: calc(100vh - 2em); ${offsetCalculation}`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${offsetCalculation}`"
 				>
 					<div 
 						v-if="closeButton" 
@@ -126,12 +126,13 @@ export default {
 					c = c.concat([
 						'max-w-xl',
 						'block',
-						'h-auto',
-						'inset-y-0',
-						'right-0',
-						'mb-4',
-						'mt-4',
-						'mr-4'
+						'h-full',
+						'md:h-auto',
+						'md:inset-y-0',
+						'md:right-0',
+						'md:mb-4',
+						'md:mt-4',
+						'md:mr-4'
 					]);
 					break;
 				case 'center': 
