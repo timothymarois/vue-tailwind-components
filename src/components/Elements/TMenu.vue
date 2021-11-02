@@ -31,7 +31,7 @@
                 <div
                     :class="dropdownClasses"
                     v-if="menu && !loading && !disabled"
-                    :id="'dropdown-slot-'+this.id"
+                    :id="'dropdown-'+this.id"
                 >
                     <slot name="content"></slot>
                 </div>
