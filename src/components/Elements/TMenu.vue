@@ -138,7 +138,13 @@ export default {
     },
     watch: {
         menu: function(value) {
-            this.$emit("menu", value);
+
+            if (value===true) {
+                this.$emit("open", true);
+            }
+            else {
+                this.$emit("close", true);
+            }
 
             this.$nextTick(() => {
                 const viewport = viewportHelper('#dropdown-'+this.id);
