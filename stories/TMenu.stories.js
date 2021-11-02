@@ -58,10 +58,12 @@ export const Standard = (argTypes) => ({
 	template: 
 	`
 		<div>
-			<div class="ml-10 mt-5">
-				<t-menu :items="items" side="left">
-					Menu with text
-				</t-menu>
+			<div class="ml-10 mt-5 absolute bottom-0" style="width:100px">
+				<t-menu :items="items" label="Menu" />
+			</div>
+
+			<div class="ml-10 mt-5 float-right" style="width:100px">
+				<t-menu :items="items" label="Menu"/>
 			</div>
 		</div>
 	`

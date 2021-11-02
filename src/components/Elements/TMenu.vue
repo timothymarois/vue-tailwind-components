@@ -38,6 +38,8 @@
 
 <script>
 import TIcon from "./TIcon";
+import uniqid from "../../utils/uniqid.js";
+import viewportHelper from "../../utils/viewport.js";
 
 export default { 
     name: 'TMenu',
@@ -143,6 +145,9 @@ export default {
         }
     },
     computed: {
+        id() {
+            return uniqid();
+        },
         iconOnly() {
             if ((typeof this.icon==='string' && !this.$slots.default) || this.icon===true) {
                 return true;
@@ -169,26 +174,25 @@ export default {
                 'border border-gray-200'
             ];
 
-            if (this.direction=='top') {
+            if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-12']);
-            }
+            } 
             else {
                 c = c.concat(['top-12']);
             }
 
-            if (this.side=='left') {
+            if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
-            }
+            } 
             else {
                 c = c.concat(['right-0']);
             }
 
+            if (this.maxHeight) {
+                c = c.concat(['overflow-y-auto'])
+            }
+
             return c;
-        }
-    },
-    data: () => {
-        return {
-            menu: false
         }
     },
     methods: {
@@ -212,7 +216,6 @@ export default {
         }
     },
     mounted() {
-        // if (this.value) this.selected = this.getItemByValue(this.value);
         document.addEventListener('click', this.close)
     },
     beforeDestroy() {
