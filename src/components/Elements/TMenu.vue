@@ -8,7 +8,7 @@
                 <ul
                     :class="dropdownClasses"
                     :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''}`"
-                    v-show="menu && !loading && !disabled"
+                    v-if="menu && !loading && !disabled"
                     @click.stop
                     :id="'dropdown-'+this.id"
                 >
@@ -30,7 +30,7 @@
             <transition name="fade">
                 <div
                     :class="dropdownClasses"
-                    v-show="menu && !loading && !disabled"
+                    v-if="menu && !loading && !disabled"
                     :id="'dropdown-slot-'+this.id"
                 >
                     <slot name="content"></slot>
@@ -140,22 +140,20 @@ export default {
         menu: function(value) {
             this.$emit("menu", value);
 
-            if(this.items) {
-                this.$nextTick(() => {
-                    const viewport = viewportHelper('#dropdown-'+this.id);
-                    if(viewport.includes('left')) this.dropdownSide = 'left';
-                    if(viewport.includes('right')) this.dropdownSide = 'right';
-                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
-                    else if (value === true && viewport.length === 0) this.dropdownDirection = 'bottom';
-                   
-                })
-            } else {
-                this.$nextTick(() => {
-                    const viewport = viewportHelper('#dropdown-slot-'+this.id);
-                    if(viewport.includes('left')) this.dropdownSide = 'left';
-                    if(viewport.includes('right')) this.dropdownSide = 'right';
-                })
-            }    
+            this.$nextTick(() => {
+                const viewport = viewportHelper('#dropdown-'+this.id);
+                if(viewport.includes('left')) this.dropdownSide = 'left';
+                if(viewport.includes('right')) this.dropdownSide = 'right';
+                if(viewport.includes('bottom')) this.dropdownDirection = 'top';
+                if(viewport.length === 0) this.dropdownDirection = 'bottom';
+                
+            })
+
+            if(value === false) {
+                setTimeout(() => {
+                    this.dropdownDirection = 'bottom';
+                }, 200)
+            }
         }
     },
     computed: {
@@ -190,15 +188,13 @@ export default {
 
             if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-12']);
-            } 
-            else {
+            } else {
                 c = c.concat(['top-12']);
             }
 
             if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
-            } 
-            else {
+            } else {
                 c = c.concat(['right-0']);
             }
 
