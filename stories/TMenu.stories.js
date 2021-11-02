@@ -22,6 +22,11 @@ export default {
 export const Standard = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TMenu, TButton },
+	methods: {
+		menuChange(v) {
+			this.menuOpen = v
+		}
+	},
     data: () => ({
         color: 'indigo',
 		label: 'Menu',
