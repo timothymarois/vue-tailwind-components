@@ -2,7 +2,7 @@
 	<div class="relative flex items-center">
 		<input 
 			:id="id"
-			type="checkbox" 
+			:type="radio ? 'radio' : 'checkbox'" 
 			:class="`opacity-0 h-${size} w-${size} absolute cursor-pointer z-20`" 
 			:checked="isChecked"
 			:value="value"
@@ -97,7 +97,7 @@ export default {
 </script> 
 
 <style scoped>
-input[type="checkbox"]:checked + div div {
+input:checked + div div {
   display: block;
 }
 </style>
