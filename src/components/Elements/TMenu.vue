@@ -52,7 +52,7 @@
                     :style="`${dropdownOffset}`"
                     :id="'dropdown-'+id"
                 >
-                    <slot name="content"></slot>
+                    <slot></slot>
                 </div>
             </transition>
         </div>
