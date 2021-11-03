@@ -96,3 +96,34 @@ export const MultipleValues = (argTypes) => ({
         </div>
 		`,
 });
+
+export const Radio = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TCheckbox, TCard },
+    data: () => ({
+        value: 'option_1'
+    }),
+	computed: {
+		firstValue() {
+			return this.value.toString(); 
+		}
+	},
+	methods: {
+
+	},
+	template: 
+		`
+        <div>
+            <t-card title="Radio group">
+				<div class="flex flex-col space-y-3">
+					<t-checkbox v-model="value" label="Option 1" trueValue="option_1" :radio="true" />
+					<t-checkbox v-model="value" label="Option 2" trueValue="option_2" :radio="true" />
+					<t-checkbox v-model="value" label="Option 3" trueValue="option_3" :radio="true" />
+					<t-checkbox v-model="value" label="Option 4" trueValue="option_4" :radio="true" />
+					value: {{ firstValue }}
+				</div>
+			</t-card>
+        </div>
+		`,
+});
+
