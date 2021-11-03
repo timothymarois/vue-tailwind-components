@@ -28,7 +28,7 @@
                     :class="dropdownClasses"
                     :style="`${minWidth ? `min-width:${minWidth}px;` : ''} ${maxHeight ? `max-height: ${maxHeight}px;` : ''} ${dropdownOffset}`"
                     @click.stop
-                    :id="'dropdown-'+this.id"
+                    :id="'dropdown-'+id"
                 >
                     <li 
                         v-for="(item,index) in items"
@@ -50,7 +50,7 @@
                     v-if="menu && !loading && !disabled"
                     :class="dropdownClasses"
                     :style="`${dropdownOffset}`"
-                    :id="'dropdown-'+this.id"
+                    :id="'dropdown-'+id"
                 >
                     <slot name="content"></slot>
                 </div>
