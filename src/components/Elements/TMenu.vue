@@ -1,6 +1,24 @@
 <template>
     <div class="relative">
-        <div class="cursor-pointer" @click="openClick" :id="`slot-container-${id}`">
+        <div v-if="openerSlotEmpty" :id="`slot-container-${id}`">
+            <t-button 
+                @click="openClick" 
+                :iconRight="menuIcon"
+                :loading="loading"
+                :disabled="disabled"
+                :label="label"
+                :shadow="shadow"
+                :rounded="rounded"
+                :text="text"
+                :outlined="outlined"
+                :block="block"
+                :size="size"
+                :color="color"
+                :icon="icon"
+                :iconSize="iconSize"
+            />
+        </div>
+        <div class="cursor-pointer" @click="openClick" :id="`slot-container-${id}`" v-else>
             <slot name="opener"></slot>
         </div>
         <div v-if="items">
@@ -44,13 +62,15 @@
 
 <script>
 import TIcon from "./TIcon.vue";
+import TButton from "./TButton.vue";
 import uniqid from "../../utils/uniqid.js";
 import viewportHelper from "../../utils/viewport.js";
 
 export default { 
     name: 'TMenu',
     components: {
-        TIcon
+        TIcon,
+        TButton
     },
     props: {
         items: {
@@ -128,6 +148,10 @@ export default {
         maxHeight: {
             type: [String, Number],
             default: 300
+        },
+        label: {
+            type: String,
+            default: null
         }
     },
      data() {
@@ -213,6 +237,13 @@ export default {
             } else {
                 return `top: ${el.clientHeight + 10}px`;
             }
+        },
+        openerSlotEmpty() {
+            if(!this.$slots.opener) {
+                return true;
+            }
+
+            return false;
         }
     },
     methods: {

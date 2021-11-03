@@ -72,6 +72,55 @@ export const Standard = (argTypes) => ({
 		`,
 });
 
+export const OldVersion = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TMenu },
+	methods: {
+		menuChange(v) {
+			this.menuOpen = v
+		}
+	},
+    data: () => ({
+        color: 'indigo',
+		label: 'Menu',
+		items: [
+			{
+				icon: 'arrow-right',
+				label: 'Home',
+				value: 'home',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'About',
+				value: 'about',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'About',
+				value: 'about',
+				color: 'red',
+				hover: 'red',
+				disabled: false
+			},
+			{
+				icon: 'arrow-right',
+				label: 'Disabled',
+				value: 'disabled',
+				disabled: true
+			}
+		],
+		menuOpen: false
+    }),
+	template: 
+	`
+		<div>
+			<t-menu :items="items" label="Menu" />			
+		</div>
+		`,
+});
+
 export const MultipleStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TMenu, TButton, TCard },
