@@ -210,12 +210,19 @@ export default {
 	},
 	created() {
 		if (this.offsetDiv) {
-			let mainDiv = document.getElementById(this.offsetDiv).offsetWidth;
+
+			let mainDivOffset = 0;
+			let mainDiv = document.getElementById(this.offsetDiv);
+			if (mainDiv) {
+				mainDivOffset = mainDiv.offsetWidth;
+			}
+
 			let appDiv  = document.getElementById('app').offsetWidth;
 			let offset  = parseInt(appDiv-mainDiv);
 			if (offset) {
 				this.relativeOffsetPx = offset;
 			}
+			
 			// mainDiv.classList.remove("overflow-y-auto");
 		}
 	},
