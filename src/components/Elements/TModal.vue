@@ -126,7 +126,7 @@ export default {
 					mainDivOffset = mainDiv.offsetWidth;
 				}
 				let appDiv  = document.getElementById('app').offsetWidth;
-				let offset  = parseInt(appDiv-mainDiv);
+				let offset  = parseInt(appDiv-mainDivOffset);
 				if (offset) {
 					this.relativeOffsetPx = offset;
 				}

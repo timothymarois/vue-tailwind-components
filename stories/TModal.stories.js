@@ -185,3 +185,37 @@ Offset.args = {
 	offsetDirection: 'left',
 	offsetValue: 250
 }
+
+
+export const CenterDivOffset = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TModal, TButton },
+    data: () => ({
+        showing: false
+    }),
+	template: 
+		`
+        <div id="app">
+
+			<div class="flex">
+				<div style="width:300px;height:100vh;border:1px solid">
+					side panel
+				</div>
+				<div id="content" style="width:100%;height:100vh;border:1px solid">
+
+					<t-button @click="showing = true;" label="Show Modal" />
+
+					<t-modal v-if="showing" :show="showing" @end="showing = false" offset-div="content">
+						<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
+						<div class="lg:flex-grow flex items-end justify-center mt-8">
+							<t-button icon="close" @click="showing=false" outlined class="mr-3">Cancel</t-button>
+						</div>
+					</t-modal>
+
+				</div>
+			</div>
+
+            
+        </div>
+		`,
+});
