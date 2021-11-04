@@ -96,6 +96,7 @@ export default {
 				}
 				else {
 					this.localShowing = v
+					this.updateDivOffset()
 				}
 			}
 		}
@@ -114,6 +115,21 @@ export default {
 			} 
 			else {
 				return 'right';
+			}
+		},
+		updateDivOffset() {
+			this.relativeOffsetPx = null
+			if (this.offsetDiv) {
+				let mainDivOffset = 0;
+				let mainDiv = document.getElementById(this.offsetDiv);
+				if (mainDiv) {
+					mainDivOffset = mainDiv.offsetWidth;
+				}
+				let appDiv  = document.getElementById('app').offsetWidth;
+				let offset  = parseInt(appDiv-mainDiv);
+				if (offset) {
+					this.relativeOffsetPx = offset;
+				}
 			}
 		}
 	},
@@ -201,30 +217,17 @@ export default {
 		transitionName() {
 			if(this.type === 'right') {
 				return 'slide-right';
-			} else if (this.type === 'left') {
+			} 
+			else if (this.type === 'left') {
 				return 'slide-left';
-			} else {
+			} 
+			else {
 				return 'pop';
 			}
 		}
 	},
 	created() {
-		if (this.offsetDiv) {
-
-			let mainDivOffset = 0;
-			let mainDiv = document.getElementById(this.offsetDiv);
-			if (mainDiv) {
-				mainDivOffset = mainDiv.offsetWidth;
-			}
-
-			let appDiv  = document.getElementById('app').offsetWidth;
-			let offset  = parseInt(appDiv-mainDiv);
-			if (offset) {
-				this.relativeOffsetPx = offset;
-			}
-			
-			// mainDiv.classList.remove("overflow-y-auto");
-		}
+		this.updateDivOffset()
 	},
 	beforeDestroy() {
 		// if (this.offsetDiv) {
