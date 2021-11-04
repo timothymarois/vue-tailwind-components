@@ -2,7 +2,7 @@
     <div class="relative">
         <div v-if="openerSlotEmpty" :id="`slot-container-${id}`">
             <t-button 
-                @click="openClick" 
+                @click="menuToggle" 
                 :iconRight="menuIcon"
                 :loading="loading"
                 :disabled="disabled"
@@ -18,7 +18,7 @@
                 :iconSize="iconSize"
             ><slot></slot></t-button>
         </div>
-        <div class="cursor-pointer" @click="openClick" :id="`slot-container-${id}`" v-else>
+        <div class="cursor-pointer" @click="menuToggle" :id="`slot-container-${id}`" v-else>
             <slot name="opener"></slot>
         </div>
         <div v-if="items">
@@ -172,9 +172,14 @@ export default {
                 this.$emit("close", true);
             }
 
-            this.$nextTick(() => {
-                this.viewport = viewportHelper('#dropdown-'+this.id);
-            });
+            if (value===true) {
+                this.$nextTick(() => {
+                    this.viewport = viewportHelper('#dropdown-'+this.id);
+                });
+            }
+            else {
+                this.viewport = []
+            }
         }
     },
     computed: {
@@ -185,7 +190,7 @@ export default {
         },
         dropdownDirection() {
             if(this.viewport.includes('bottom')) return 'top';
-            if(this.viewport.length === 0) return 'bottom';
+            if(this.viewport.includes('top')) return 'bottom';
             return this.direction
         },
         id() {
@@ -244,7 +249,6 @@ export default {
             if(!this.$slots.opener) {
                 return true;
             }
-
             return false;
         }
     },
@@ -253,7 +257,7 @@ export default {
             let vm = this;
             return vm.items.find(a => { return a.value === value; });
         },
-        openClick() {
+        menuToggle() {
             this.menu = !this.menu;
         },
         selectItem(item) {

@@ -257,7 +257,7 @@ export const MultipleStates = (argTypes) => ({
 			<t-card title="Menu with button and icon">
 				<t-menu :items="items" @open="menuOpen=true" @close="menuOpen=false">
 					<template v-slot:opener>
-						<t-button side="right" :color="indigo" :iconRight="menuOpen ? 'chevron-up' : 'chevron-down'">
+						<t-button side="right" color="indigo" :iconRight="menuOpen ? 'chevron-up' : 'chevron-down'">
 							Menu with button and icon
 						</t-button>
 					</template>

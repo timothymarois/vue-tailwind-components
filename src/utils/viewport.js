@@ -5,12 +5,9 @@ export default (element) => {
 
 	const bounding = elem.getBoundingClientRect();
 
-	// console.log(bounding);
-
 	let outOfViewport = [];
 
 	if (bounding.top < 0) {
-		// Top is out of viewport
 		outOfViewport.push('top')
 	} 
 	
