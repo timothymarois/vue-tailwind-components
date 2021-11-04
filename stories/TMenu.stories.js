@@ -264,6 +264,17 @@ export const MultipleStates = (argTypes) => ({
 				</t-menu>
 			</t-card>
 
+
+			<t-card title="Menu with button and icon">
+				<t-menu 
+					outlined
+					direction="top"
+					side="left"
+					@open="menuOpen=true" @close="menuOpen=false"
+					:items="items"
+				>Manage</t-menu>
+			</t-card>
+
 		</div>
 
 		

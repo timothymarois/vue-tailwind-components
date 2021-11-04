@@ -157,8 +157,9 @@ export default {
      data() {
         return {
             menu: false,
-            dropdownSide: this.side,
-            dropdownDirection: this.direction
+            viewport: [],
+            // dropdownSide: this.side,
+            // dropdownDirection: this.direction
         }
     },
     watch: {
@@ -172,22 +173,21 @@ export default {
             }
 
             this.$nextTick(() => {
-                const viewport = viewportHelper('#dropdown-'+this.id);
-                if(viewport.includes('left')) this.dropdownSide = 'left';
-                if(viewport.includes('right')) this.dropdownSide = 'right';
-                if(viewport.includes('bottom')) this.dropdownDirection = 'top';
-                if(viewport.length === 0) this.dropdownDirection = 'bottom';
-                
-            })
-
-            if(value === false) {
-                setTimeout(() => {
-                    this.dropdownDirection = 'bottom';
-                }, 200)
-            }
+                this.viewport = viewportHelper('#dropdown-'+this.id);
+            });
         }
     },
     computed: {
+        dropdownSide() {
+            if(this.viewport.includes('left')) return 'left';
+            if(this.viewport.includes('right')) return 'right';
+            return this.side
+        },
+        dropdownDirection() {
+            if(this.viewport.includes('bottom')) return 'top';
+            if(this.viewport.length === 0) return 'bottom';
+            return this.direction
+        },
         id() {
             return uniqid();
         },
@@ -219,7 +219,8 @@ export default {
 
             if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
-            } else {
+            } 
+            else {
                 c = c.concat(['right-0']);
             }
 
@@ -234,7 +235,8 @@ export default {
             
             if(this.dropdownDirection === 'top') {
                 return `bottom: ${el.clientHeight + 10}px`;
-            } else {
+            } 
+            else {
                 return `top: ${el.clientHeight + 10}px`;
             }
         },
@@ -262,9 +264,14 @@ export default {
             if (!this.$el.contains(e.target)) {
                 this.menu = false
             }
-        }
+        },
+        
     },
     mounted() {
+        this.$nextTick(() => {
+            this.viewport = viewportHelper('#dropdown-'+this.id);
+        });
+        
         document.addEventListener('click', this.close)
     },
     beforeDestroy() {

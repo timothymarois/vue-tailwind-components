@@ -1,5 +1,8 @@
 export default (element) => {
 	const elem = document.querySelector(element);
+
+	if (!elem) return [];
+
 	const bounding = elem.getBoundingClientRect();
 
 	// console.log(bounding);
