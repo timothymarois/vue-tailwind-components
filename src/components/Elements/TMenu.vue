@@ -16,7 +16,7 @@
                 :color="color"
                 :icon="icon"
                 :iconSize="iconSize"
-            />
+            ><slot></slot></t-button>
         </div>
         <div class="cursor-pointer" @click="openClick" :id="`slot-container-${id}`" v-else>
             <slot name="opener"></slot>
@@ -52,7 +52,7 @@
                     :style="`${dropdownOffset}`"
                     :id="'dropdown-'+id"
                 >
-                    <slot></slot>
+                    <slot name="content"></slot>
                 </div>
             </transition>
         </div>

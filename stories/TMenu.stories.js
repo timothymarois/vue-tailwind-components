@@ -196,13 +196,15 @@ export const MultipleStates = (argTypes) => ({
 						<template v-slot:opener>
 							<t-button color="indigo">Open menu (left)</t-button>
 						</template>
-						Here's some custom content for inside the menu.
+						<template v-slot:content>
+							Here's some custom content for inside the menu.
+						</template>
 					</t-menu>
 					<t-menu side="right">
 						<template v-slot:opener>
 							<t-button color="indigo">Open menu (right)</t-button>
 						</template>
-						<template>
+						<template v-slot:content>
 							Here's some custom content for inside the menu.
 						</template>
 					</t-menu>
