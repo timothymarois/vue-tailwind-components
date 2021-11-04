@@ -271,11 +271,7 @@ export default {
         },
         
     },
-    mounted() {
-        this.$nextTick(() => {
-            this.viewport = viewportHelper('#dropdown-'+this.id);
-        });
-        
+    mounted() {        
         document.addEventListener('click', this.close)
     },
     beforeDestroy() {

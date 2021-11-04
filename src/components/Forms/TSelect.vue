@@ -233,7 +233,7 @@ export default {
             selected: [],
             localsearch: null,
             isSearching: false,
-            dropdownDirection: this.direction
+            viewport: []
         }
     },
     watch: {
@@ -252,16 +252,22 @@ export default {
             }
         },
         menu: function(value) {
-           
+            if (value===true) {
                 this.$nextTick(() => {
-                    const viewport = viewportHelper('#dropdown-'+this.id);
-                    if(viewport.includes('bottom')) this.dropdownDirection = 'top';
-                    else this.dropdownDirection = 'bottom';
-                })
-            
+                    this.viewport = viewportHelper('#dropdown-'+this.id);
+                });
+            }
+            else {
+                this.viewport = []
+            }            
         }
     },
     computed: {
+        dropdownDirection() {
+            if(this.viewport.includes('bottom')) return 'top';
+            if(this.viewport.includes('top')) return 'bottom';
+            return this.direction
+        },
         id() {
            return uniqid();
         },
