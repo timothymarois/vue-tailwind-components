@@ -34,10 +34,21 @@ export const Button = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TTooltip, TButton },
 	template: `
-		<div class="ml-64 mt-20">
-			<t-tooltip v-bind="$props">
-				<t-button label="Button with Tooltip" v-slot />
-			</t-tooltip>
+		<div>
+			<div class="ml-32 mt-20 flex flex-row space-x-10">
+				<t-tooltip v-bind="$props" content="Tooltip top" position="top">
+					<t-button label="Button with Tooltip" v-slot />
+				</t-tooltip>
+				<t-tooltip v-bind="$props" content="Tooltip bottom" position="bottom">
+					<t-button label="Button with Tooltip" v-slot />
+				</t-tooltip>
+				<t-tooltip v-bind="$props" content="Tooltip left" position="left">
+					<t-button label="Button with Tooltip" v-slot />
+				</t-tooltip>
+				<t-tooltip v-bind="$props" content="Tooltip right" position="right">
+					<t-button label="Button with Tooltip" v-slot />
+				</t-tooltip>
+			</div>
 		</div>
 	`
 });
@@ -47,7 +58,7 @@ export const Text = (args, { argTypes }) => ({
 	components: { TTooltip, TButton },
 	template: `
 		<div class="ml-64 mt-20">
-			<t-tooltip v-bind="$props">
+			<t-tooltip v-bind="$props" content="Some tooltip">
 				Some text
 			</t-tooltip>
 		</div>
@@ -59,7 +70,7 @@ export const Icon = (args, { argTypes }) => ({
 	components: { TTooltip, TButton, TIcon },
 	template: `
 		<div class="ml-64 mt-20">
-			<t-tooltip v-bind="$props">
+			<t-tooltip v-bind="$props" content="Some tooltip">
 				<t-icon value="question-mark-circle"></t-icon>
 			</t-tooltip>
 		</div>
