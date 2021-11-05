@@ -94,6 +94,7 @@ export default {
 				const newRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
 				if(newRect.y != this.clientRect.y || newRect.x != this.clientRect.x) {
 					this.element.style = this.tooltipOffset(newRect);
+					this.element.style.zIndex = 1007;
 					this.clientRect = newRect;
 				}
 			}, 1000);
