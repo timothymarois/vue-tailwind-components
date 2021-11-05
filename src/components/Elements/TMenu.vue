@@ -218,14 +218,12 @@ export default {
             let c = [
                 'z-10',
                 'absolute',
-                'rounded',
-                'shadow-lg',
-                'bg-white',
-                'text-sm',
                 'focus:outline-none',
-                'w-52',
-                'border border-gray-200'
             ];
+
+            if (!this.$slots.content) {
+                c = c.concat(['bg-white','shadow-lg','rounded','text-sm','w-52','border border-gray-200']);
+            }
 
             if (this.dropdownSide === 'left') {
                 c = c.concat(['left-0']);
