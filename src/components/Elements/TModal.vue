@@ -172,10 +172,7 @@ export default {
 					break;
 				case 'full':
 					c = c.concat([
-						'w-11/12',
-						'mx-auto',
-						'inset-x-0',
-						'h-5/6'
+						'inset-4'
 					]);
 					break; 
 			}

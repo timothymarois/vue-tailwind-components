@@ -28,7 +28,7 @@
     "vue": "^2.6.14"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.8",
+    "@babel/core": "^7.16.0",
     "@storybook/addon-actions": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.12",
     "@storybook/addon-links": "^6.3.12",
@@ -36,11 +36,11 @@
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
-    "autoprefixer": "^10.3.7",
-    "babel-loader": "^8.2.2",
-    "postcss": "^8.3.9",
-    "tailwindcss": "^2.2.17",
-    "vite": "^2.6.10",
+    "autoprefixer": "^10.4.0",
+    "babel-loader": "^8.2.3",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19",
+    "vite": "^2.6.13",
     "vite-plugin-vue2": "^1.9.0",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14"
