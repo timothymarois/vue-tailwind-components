@@ -95,8 +95,6 @@ export default {
 				if(newRect.y != this.clientRect.y || newRect.x != this.clientRect.x) {
 					this.element.style = this.tooltipOffset(newRect);
 					this.clientRect = newRect;
-
-					console.log('update');
 				}
 			}, 1000);
 		},
