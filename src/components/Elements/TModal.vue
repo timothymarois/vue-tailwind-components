@@ -100,15 +100,14 @@ export default {
 				}
 			}
 		},
-		offsetValue(v) {
-			if(v) {
-				this.updateDivOffset();
-			}
+		offsetValue() {
+			this.updateDivOffset();
 		},
-		offsetDirection(v) {
-			if(v) {
-				this.updateDivOffset();
-			}
+		offsetDirection() {
+			this.updateDivOffset();
+		},
+		offsetDiv() {
+			this.updateDivOffset();
 		}
 	},
 	methods: {
