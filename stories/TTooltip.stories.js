@@ -35,17 +35,17 @@ export const Button = (args, { argTypes }) => ({
 	components: { TTooltip, TButton },
 	template: `
 		<div>
-			<div class="mt-64">
-				keep scrolling
-			</div>
-			<div class="mt-64">
-				keep scrolling
-			</div>
-			<div class="mt-64">
-				keep scrolling
-			</div>
-			<div class="ml-64 mt-20">
-				<t-tooltip v-bind="$props" content="Some tooltip">
+			<div class="ml-32 mt-20 flex flex-row space-x-10">
+				<t-tooltip v-bind="$props" content="Tooltip top" position="top">
+					<t-button label="Button with Tooltip" v-slot />
+				</t-tooltip>
+				<t-tooltip v-bind="$props" content="Tooltip bottom" position="bottom">
+					<t-button label="Button with Tooltip" v-slot />
+				</t-tooltip>
+				<t-tooltip v-bind="$props" content="Tooltip left" position="left">
+					<t-button label="Button with Tooltip" v-slot />
+				</t-tooltip>
+				<t-tooltip v-bind="$props" content="Tooltip right" position="right">
 					<t-button label="Button with Tooltip" v-slot />
 				</t-tooltip>
 			</div>
