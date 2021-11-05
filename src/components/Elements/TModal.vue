@@ -99,6 +99,16 @@ export default {
 					this.updateDivOffset()
 				}
 			}
+		},
+		offsetValue(v) {
+			if(v) {
+				this.updateDivOffset();
+			}
+		},
+		offsetDirection(v) {
+			if(v) {
+				this.updateDivOffset();
+			}
 		}
 	},
 	methods: {
@@ -166,7 +176,8 @@ export default {
 					break;
 				case 'full':
 					c = c.concat([
-						'inset-4'
+						'inset-0',
+						'm-4'
 					]);
 					break; 
 			}
