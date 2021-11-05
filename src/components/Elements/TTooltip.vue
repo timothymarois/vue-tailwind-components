@@ -52,11 +52,11 @@ export default {
 		this.arrowElement.classList.add("w-3", "h-3", "absolute", `bg-${this.color}`, ...this.arrowOffset);
 
 		this.element.style = this.tooltipOffset;
+		this.element.style.zIndex = 1007;
 
 		const classes = [
 			"absolute",
 			"pointer-events-none",
-			"z-50", 
 			"px-2", 
 			"py-1.5", 
 			"rounded", 
@@ -109,7 +109,7 @@ export default {
 				case 'top': 
 					return `left: ${offset['x'] + (offset['width'] / 2)}px; top: ${offset['y'] - offset['height']}px;`;
 				case 'bottom':
-					return `left: ${offset['x'] + (offset['width'] / 2)}px; margin-top: 10px;`;
+					return `left: ${offset['x'] + (offset['width'] / 2)}px; top: ${offset['y'] + offset['height'] + 10}px;`;
 				case 'left':
 					return `left: ${offset['x'] - 10}px; top: ${offset['y'] + (offset['height'] / 2)}px; transform: translateX(-100%) translateY(-50%);`;
 				case 'right':
