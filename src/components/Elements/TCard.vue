@@ -1,10 +1,15 @@
 <template>
     <div :class="cardClasses">
-        <div v-if="title" class="px-4 py-5 border-b border-gray-200">
-            <div class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-nowrap">
-                <div class="ml-4 mt-4">
-                    <h3 class="text-lg leading-6 font-medium text-indigo-800">{{ title }}</h3>
-                    <p class="mt-1 text-sm text-gray-500">{{ subtitle }}</p>
+        <div v-if="title || $slots.title" class="px-4 py-3 border-b border-gray-200">
+            <div class="-ml-4 -mt-3 flex justify-between items-center flex-wrap sm:flex-nowrap">
+                <div class="ml-4 mt-3">
+                    <div v-if="$slots.title">
+                        <slot name="title"></slot>
+                    </div>
+                    <div>
+                        <h3 class="text-lg leading-6 font-medium text-indigo-800">{{ title }}</h3>
+                        <p v-if="subtitle" class="mt-1 text-sm text-gray-500">{{ subtitle }}</p>
+                    </div>
                 </div>
                 <div v-if="$slots.actions" class="ml-4 mt-4 flex justify-between items-center flex-nowrap space-x-2">
                     <slot name="actions"></slot>
