@@ -35,7 +35,7 @@ export const Button = (args, { argTypes }) => ({
 	components: { TTooltip, TButton },
 	template: `
 		<div>
-			<div class="ml-32 mt-20 flex flex-row space-x-10">
+			<div class="ml-32 mt-20 flex flex-wrap flex-row space-x-10">
 				<t-tooltip v-bind="$props" content="Tooltip top" position="top">
 					<t-button label="Button with Tooltip" v-slot />
 				</t-tooltip>

@@ -36,7 +36,8 @@ export default {
 		return {
 			show: false,
 			element: document.createElement("div"),
-			arrowElement: document.createElement("div")
+			arrowElement: document.createElement("div"),
+			clientRect: null,
 		}
 	},
 	watch: {
@@ -49,9 +50,10 @@ export default {
 		}
 	},
 	mounted() {
-		this.arrowElement.classList.add("w-3", "h-3", "absolute", `bg-${this.color}`, ...this.arrowOffset);
+		this.clientRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
 
-		this.element.style = this.tooltipOffset;
+		this.arrowElement.classList.add("w-3", "h-3", "absolute", `bg-${this.color}`, ...this.arrowOffset);
+		this.element.style = this.tooltipOffset(this.clientRect);
 		this.element.style.zIndex = 1007;
 
 		const classes = [
@@ -78,43 +80,42 @@ export default {
 		this.element.setAttribute("id", this.id);
 		this.element.appendChild(this.arrowElement);
 		document.body.appendChild(this.element);
+
+		window.addEventListener('resize', this.checkResize);
 	},
 	beforeDestroy() {
 		this.element.remove();
 		this.arrowElement.remove();
+		window.removeEventListener('resize', this.checkResize);
 	},
 	methods: {
-		getParentOffset() {
-			const element = document.getElementById(`tooltip__wrap-${this.id}`);
-			const rect = element.getBoundingClientRect();
+		checkResize() {
+			setTimeout(() => {
+				const newRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
+				if(newRect.y != this.clientRect.y || newRect.x != this.clientRect.x) {
+					this.element.style = this.tooltipOffset(newRect);
+					this.clientRect = newRect;
 
-			return {
-				'x': rect.left + window.scrollX,
-				'y': rect.top + window.scrollY,
-				'width': rect.width,
-				'height': rect.height
-			};
-		}
+					console.log('update');
+				}
+			}, 1000);
+		},
+		tooltipOffset(newRect) {		
+			switch(this.position) {
+				case 'top': 
+					return `left: ${newRect['x'] + (newRect['width'] / 2)}px; top: ${newRect['y'] - newRect['height']}px;`;
+				case 'bottom':
+					return `left: ${newRect['x'] + (newRect['width'] / 2)}px; top: ${newRect['y'] + newRect['height'] + 10}px;`;
+				case 'left':
+					return `left: ${newRect['x'] - 10}px; top: ${newRect['y'] + (newRect['height'] / 2)}px; transform: translateX(-100%) translateY(-50%);`;
+				case 'right':
+					return `left: ${newRect['x'] + newRect['width'] + 10}px; top: ${newRect['y'] + (newRect['height'] / 2)}px; transform: translateX(0%) translateY(-50%);`;
+			}
+		},
 	},
 	computed: {
 		id() {
 			return uniqid();
-		},
-		tooltipOffset() {
-			const offset = this.getParentOffset();
-
-			console.log(offset);
-
-			switch(this.position) {
-				case 'top': 
-					return `left: ${offset['x'] + (offset['width'] / 2)}px; top: ${offset['y'] - offset['height']}px;`;
-				case 'bottom':
-					return `left: ${offset['x'] + (offset['width'] / 2)}px; top: ${offset['y'] + offset['height'] + 10}px;`;
-				case 'left':
-					return `left: ${offset['x'] - 10}px; top: ${offset['y'] + (offset['height'] / 2)}px; transform: translateX(-100%) translateY(-50%);`;
-				case 'right':
-					return `left: ${offset['x'] + offset['width'] + 10}px; top: ${offset['y'] + (offset['height'] / 2)}px; transform: translateX(0%) translateY(-50%);`;
-			}
 		},
 		arrowOffset() {
 			switch(this.position) {
