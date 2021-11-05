@@ -18,7 +18,7 @@
                 :iconSize="iconSize"
             ><slot></slot></t-button>
         </div>
-        <div class="cursor-pointer" @click="menuToggle" :id="`slot-container-${id}`" v-else>
+        <div :id="`slot-container-${id}`" v-else>
             <slot name="opener"></slot>
         </div>
         <div v-if="items">
@@ -152,27 +152,32 @@ export default {
         label: {
             type: String,
             default: null
+        },
+        value: {
+            type: Boolean,
+            default: false
         }
     },
      data() {
         return {
-            menu: false,
+            menu: this.value,
             viewport: [],
-            // dropdownSide: this.side,
-            // dropdownDirection: this.direction
         }
     },
     watch: {
-        menu: function(value) {
+        value(v) {
+            this.menu = v
+        },
+        menu(v) {
 
-            if (value===true) {
-                this.$emit("open", true);
+            if (v===true) {
+                this.$emit("input", true);
             }
             else {
-                this.$emit("close", true);
+                this.$emit("input", false);
             }
 
-            if (value===true) {
+            if (v===true) {
                 this.$nextTick(() => {
                     this.viewport = viewportHelper('#dropdown-'+this.id);
                 });
@@ -236,13 +241,16 @@ export default {
             return c;
         },
         dropdownOffset() {
-            const el = document.getElementById(`slot-container-${this.id}`);
-            
-            if(this.dropdownDirection === 'top') {
-                return `bottom: ${el.clientHeight + 10}px`;
-            } 
-            else {
-                return `top: ${el.clientHeight + 10}px`;
+            if (this.menu) {
+                const el = document.getElementById(`slot-container-${this.id}`);
+                if (!el) return;
+                
+                if(this.dropdownDirection === 'top') {
+                    return `bottom: ${el.clientHeight + 5}px`;
+                } 
+                else {
+                    return `top: ${el.clientHeight + 5}px`;
+                }
             }
         },
         openerSlotEmpty() {
