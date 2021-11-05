@@ -97,7 +97,7 @@ export default {
 					this.element.style.zIndex = 1007;
 					this.clientRect = newRect;
 				}
-			}, 1000);
+			}, 500);
 		},
 		tooltipOffset(newRect) {		
 			switch(this.position) {
