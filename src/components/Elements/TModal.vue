@@ -144,11 +144,8 @@ export default {
 						'block',
 						'h-full',
 						'md:h-auto',
-						'md:inset-y-0',
-						'md:left-0',
-						'md:ml-4',
-						'md:mt-4',
-						'md:mr-4'
+						'md:inset-y-4',
+						'md:left-4'
 					])
 				case 'right': 
 					c = c.concat([
@@ -156,11 +153,8 @@ export default {
 						'block',
 						'h-full',
 						'md:h-auto',
-						'md:inset-y-0',
-						'md:right-0',
-						'md:mb-4',
-						'md:mt-4',
-						'md:mr-4'
+						'md:inset-y-4',
+						'md:right-4'
 					]);
 					break;
 				case 'center': 
