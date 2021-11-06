@@ -267,6 +267,7 @@ export const DifferentStates = (argTypes) => ({
 });
 
 
+import axios from 'axios';
 
 export const ExternalStates = (argTypes) => ({
 	props: Object.keys(argTypes),
@@ -278,47 +279,20 @@ export const ExternalStates = (argTypes) => ({
 		search(s) {
 			this.loadingDelay = true
 			this.optionsArrayDelay = [];
-			setTimeout(()=>{
+
+			// https://api.openbrewerydb.org/breweries/search?query=dog
+
+			axios
+			.get('https://api.openbrewerydb.org/breweries/search?per_page=20&query='+s)
+			.then((r) => {
 				this.loadingDelay = false
-				this.optionsArrayDelay = [
-					{
-						label: 'option 1',
-						value: 'option_1'
-					},
-					{
-						label: 'option 2',
-						value: 'option_2'
-					},
-					{
-						label: 'option 3',
-						value: 'option_3'
-					}
-				]
-			},300)
+				this.optionsArrayDelay = r.data
+			})
 		}
 	},
 	mounted() {
 		setTimeout(()=>{
 			this.optionsArrayDefault2 = 'option_3'
-		},5000)
-
-		this.loadingDelay = true
-		setTimeout(()=>{
-			this.loadingDelay = false
-			this.optionsArrayDelay = [
-				{
-					label: 'option 1',
-					value: 'option_1'
-				},
-				{
-					label: 'option 2',
-					value: 'option_2'
-				},
-				{
-					label: 'option 3',
-					value: 'option_3'
-				}
-			]
 		},5000)
 	},
     data: () => ({
@@ -414,14 +388,14 @@ export const ExternalStates = (argTypes) => ({
 					</div>
 				</t-card>
 
-				<t-card title="Delayed Options (5s)" class="mt-4">
+				<t-card title="API Search Breweries (returnObject)" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select @search="search" :loading="loadingDelay" v-model="valueExternalDelay" label="Standard"  placeholder="Select One" external :options="optionsArrayDelay" />
-						<t-select @search="search" :loading="loadingDelay" searchable v-model="valueExternalDelay" label="Searchable" placeholder="Select One" :options="optionsArrayDelay" external />
+						<t-select @search="search" :loading="loadingDelay" v-model="valueExternalDelay" label="Standard"  placeholder="Select One" external :options="optionsArrayDelay" itemValue="name" itemLabel="name" returnObject />
+						<t-select @search="search" :loading="loadingDelay" searchable v-model="valueExternalDelay" label="Searchable" placeholder="Select One" :options="optionsArrayDelay" external itemValue="name" itemLabel="name" returnObject />
 					</div>
 
 					<template slot="footer">
-						Selected: {{ valueExternalDelay }}
+						<div>Selected: {{ valueExternalDelay }}</div>
 					</template>
 				</t-card>
 

@@ -25,6 +25,7 @@
     "src/"
   ],
   "dependencies": {
+    "axios": "^0.24.0",
     "vue": "^2.6.14"
   },
   "devDependencies": {
