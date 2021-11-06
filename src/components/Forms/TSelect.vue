@@ -384,18 +384,21 @@ export default {
             item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
 
             if(!this.multiple) {
-                this.selected = item;
-                let i = this.searchableOptions.indexOf(item);
-                this.selectedIndex = i;
-                this.menu = false;
-                this.isSearching = false;
+                this.selected = item
+                let i = this.searchableOptions.indexOf(item)
+                this.selectedIndex = i
+                this.menu = false
+                this.isSearching = false
+                // make sure we clear search out after we have selected an item
+                this.localsearch = null
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
-                    this.selected.push(item);
-                } else {
-                    let i = this.selected.indexOf(item);
-                    this.selected.splice(i, 1);
+                    this.selected.push(item)
+                } 
+                else {
+                    let i = this.selected.indexOf(item)
+                    this.selected.splice(i, 1)
                 }
             }
 
@@ -433,13 +436,17 @@ export default {
                     this.cycleIndex -= 1;
                      this.$nextTick(() => {
                         const el = document.getElementById(`focus-${this.id}`);
-                        el.scrollIntoView({block: "nearest", inline: "nearest"});
+                        if (el) {
+                            el.scrollIntoView({block: "nearest", inline: "nearest"});
+                        }
                     });
                 } else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
                     this.cycleIndex += 1;
                      this.$nextTick(() => {
                         const el = document.getElementById(`focus-${this.id}`);
-                        el.scrollIntoView({block: "nearest", inline: "nearest"});
+                        if (el) {
+                            el.scrollIntoView({block: "nearest", inline: "nearest"});
+                        }
                     });
                 }
             }
