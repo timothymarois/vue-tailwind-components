@@ -3,7 +3,7 @@
 
         <t-label 
             v-if="label"
-            :id="id"
+            :id="`search-${id}`"
             :label="label"
             :required="required"
         />
@@ -41,6 +41,8 @@
                     @click="menuToggle('input')"
                     type="text"
                     autocomplete="off"
+                    :id="`search-${id}`"
+                    :name="`n[${id}]`"
                     :placeholder="selectPlaceholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none"
                     :class="{
