@@ -271,7 +271,8 @@ export default {
             else {
                 if(this.multiple || this.searchable) {
                     this.cycleIndex = -1;
-                } else {
+                }
+                else {
                     this.cycleIndex = this.selectedIndex || -1;
                 }
                 this.viewport = [];
@@ -299,7 +300,8 @@ export default {
 
             if (this.dropdownDirection === 'top') {
                 c = c.concat(['bottom-10']);
-            } else {
+            }
+            else {
                 c = c.concat(['top-10']);
             }
 
@@ -415,7 +417,8 @@ export default {
             if (!this.disabled) {
                 if (this.searchable && source !== 'arrow') {
                     this.menu = true;
-                } else {
+                }
+                else {
                     this.menu = !this.menu;
                 }
             }
@@ -434,15 +437,16 @@ export default {
             if(this.searchableOptions.length > 0) {
                 if(key === 'up' && this.cycleIndex > 0) {
                     this.cycleIndex -= 1;
-                     this.$nextTick(() => {
+                    this.$nextTick(() => {
                         const el = document.getElementById(`focus-${this.id}`);
                         if (el) {
                             el.scrollIntoView({block: "nearest", inline: "nearest"});
                         }
                     });
-                } else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
+                } 
+                else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
                     this.cycleIndex += 1;
-                     this.$nextTick(() => {
+                    this.$nextTick(() => {
                         const el = document.getElementById(`focus-${this.id}`);
                         if (el) {
                             el.scrollIntoView({block: "nearest", inline: "nearest"});
