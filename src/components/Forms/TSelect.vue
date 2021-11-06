@@ -95,7 +95,10 @@
                 >
                     {{ nodata }}
                 </li>
-                <div v-else-if="!loading && computedOptions.length > 0">
+                <div 
+                    class="relative" 
+                    v-else-if="!loading && computedOptions.length > 0"
+                >
                     <li
                         v-for="(item, i) of (dropdownDirection === 'top' ? searchableOptions.slice().reverse() : searchableOptions)"
                         :key="i"
