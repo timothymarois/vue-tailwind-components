@@ -14,7 +14,8 @@
                 type="button"
                 class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
                 :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
-                @click="menuToggle"
+                @click.self="menuToggle('button')"
+                
             >
                 <span 
                     v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
@@ -36,6 +37,7 @@
                     @keyup="searchLocal(localsearch)"
                     @keyup.enter="refocus()"
                     :disabled="disabled"
+                    @click="menuToggle('input')"
                     type="text"
                     autocomplete="off"
                     :placeholder="selectPlaceholder"
@@ -56,12 +58,17 @@
                     <t-icon value="close" size="5" />
                 </div>
 
-                <t-icon 
-                    v-if="!hideicon && !loading" 
-                    :value="menuIcon" 
-                    size="5" 
-                    class="mr-2" 
-                />
+                <div 
+                    v-if="!hideicon && !loading"
+                    @click="menuToggle('arrow')"
+                >
+                    <t-icon 
+                        v-if="!hideicon && !loading" 
+                        :value="menuIcon" 
+                        size="5" 
+                        class="mr-2"
+                    />
+                </div>
 
                 <t-loader
                    v-else-if="loading"
@@ -387,7 +394,7 @@ export default {
 
             this.$emit('input', this.returnValue);
         },
-        menuToggle() {
+        menuToggle(source) {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
@@ -396,10 +403,9 @@ export default {
             }
 
             if (!this.disabled) {
-                if (this.searchable) {
+                if (this.searchable && source !== 'arrow') {
                     this.menu = true;
-                } 
-                else {
+                } else {
                     this.menu = !this.menu;
                 }
             }
