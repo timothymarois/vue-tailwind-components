@@ -85,7 +85,7 @@ MultipleSelect.args = {
 };
 
 
-export const DifferentStates = (argTypes) => ({
+export const StandardStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
 	methods: {
@@ -233,27 +233,6 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
-				<t-card title="Multiple" class="mt-4">
-					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select multiple clearable v-model="multipleValue" label="Standard" :options="options" placeholder="Select Many" />
-						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" placeholder="Select Many" />
-					</div>
-				</t-card>
-
-				<t-card title="Multiple with Default Value" class="mt-4">
-					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select multiple v-model="withDefaultArray" label="Standard" :options="options" placeholder="Select Many" />
-						<t-select multiple searchable v-model="withDefaultArray" label="Searchable" :options="options" placeholder="Select Many" />
-					</div>
-				</t-card>
-
-				<t-card title="Multiple (Array Options)" class="mt-4">
-					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select multiple clearable v-model="multipleValue" label="Standard" :options="options" :options="optionsArray" placeholder="Select Many" />
-						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" :options="optionsArray" placeholder="Select Many" />
-					</div>
-				</t-card>
-
 				<t-card title="Empty Options" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="value" label="Standard"  placeholder="Select One" />
@@ -274,27 +253,13 @@ export const DifferentStates = (argTypes) => ({
 });
 
 
-import axios from 'axios';
 
-export const ExternalStates = (argTypes) => ({
+export const MultipleStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
 	methods: {
 		createNew(v) {
 			this.clearableValue=null
-		},
-		search(s) {
-			this.loadingDelay = true
-			this.optionsArrayDelay = [];
-
-			// https://api.openbrewerydb.org/breweries/search?query=dog
-
-			axios
-			.get('https://api.openbrewerydb.org/breweries/search?per_page=20&query='+s)
-			.then((r) => {
-				this.loadingDelay = false
-				this.optionsArrayDelay = r.data
-			})
 		}
 	},
 	mounted() {
@@ -388,21 +353,97 @@ export const ExternalStates = (argTypes) => ({
         <div class="p-6 bg-gray-100">
             <div class="max-w-2xl">
 
-				<t-card title="Empty External Options" class="mt-4">
+				<t-card title="Multiple" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple clearable v-model="multipleValue" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" placeholder="Select Many" />
+					</div>
+				</t-card>
+
+				<t-card title="Multiple with Default Value" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple v-model="withDefaultArray" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="withDefaultArray" label="Searchable" :options="options" placeholder="Select Many" />
+					</div>
+				</t-card>
+
+				<t-card title="Multiple (Array Options)" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple clearable v-model="multipleValue" label="Standard" :options="options" :options="optionsArray" placeholder="Select Many" />
+						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" :options="optionsArray" placeholder="Select Many" />
+					</div>
+				</t-card>
+
+			</div>
+		</div>
+		`,
+});
+
+
+import axios from 'axios';
+
+export const ExternalStates = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TSelect, TCard },
+	methods: {
+		createNew(v) {
+			this.clearableValue=null
+		},
+		search(s) {
+			this.loading = true
+			this.options = [];
+			axios
+			.get('https://api.openbrewerydb.org/breweries/search?per_page=20&query='+s)
+			.then((r) => {
+				this.loading = false
+				this.options = r.data
+			})
+		}
+	},
+    data: () => ({
+		loading: false,
+		valueExternalObj: null,
+		valueExternalValue: null,
+		options: [],
+    }),
+	template: 
+		`
+        <div class="p-6 bg-gray-100">
+            <div class="max-w-2xl">
+
+				<t-card title="External: Empty Options" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="value" label="Standard"  placeholder="Select One" external />
 						<t-select searchable v-model="value" label="Searchable" placeholder="Select One" external />
 					</div>
 				</t-card>
 
-				<t-card title="API Search Breweries (returnObject)" class="mt-4">
+				<t-card title="External: Disabled State" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select @search="search" :loading="loadingDelay" v-model="valueExternalDelay" label="Standard"  placeholder="Select One" external :options="optionsArrayDelay" itemValue="name" itemLabel="name" returnObject />
-						<t-select @search="search" :loading="loadingDelay" searchable v-model="valueExternalDelay" label="Searchable" placeholder="Select One" :options="optionsArrayDelay" external itemValue="name" itemLabel="name" returnObject />
+						<t-select v-model="value" label="Standard"  placeholder="Select One" external disabled />
+						<t-select searchable v-model="value" label="Searchable" placeholder="Select One" external disabled />
+					</div>
+				</t-card>
+
+				<t-card title="External: API Search (return Value) + clearable" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select @search="search" :loading="loading" v-model="valueExternalValue" label="Standard"  placeholder="Select One" external :options="options" itemValue="name" itemLabel="name" clearable />
+						<t-select @search="search" :loading="loading" searchable v-model="valueExternalValue" label="Searchable" placeholder="Select One" :options="options" external itemValue="name" itemLabel="name" clearable />
 					</div>
 
 					<template slot="footer">
-						<div>Selected: {{ valueExternalDelay }}</div>
+						<div>Selected: {{ valueExternalValue }}</div>
+					</template>
+				</t-card>
+
+				<t-card title="External: API Search (return Object) + clearable" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select @search="search" :loading="loading" v-model="valueExternalObj" label="Standard"  placeholder="Select One" external :options="options" itemValue="name" itemLabel="name" returnObject clearable />
+						<t-select @search="search" :loading="loading" searchable v-model="valueExternalObj" label="Searchable" placeholder="Select One" :options="options" external itemValue="name" itemLabel="name" returnObject clearable />
+					</div>
+
+					<template slot="footer">
+						<div>Selected: {{ valueExternalObj }}</div>
 					</template>
 				</t-card>
 
