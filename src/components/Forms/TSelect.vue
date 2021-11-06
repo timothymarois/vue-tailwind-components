@@ -70,11 +70,14 @@
                     />
                 </div>
 
-                <t-loader
-                   v-else-if="loading"
-                    size="5"
-                    class="mr-2"
-                />
+                <div 
+                    v-if="loading"
+                    class="p-2 h-full"
+                >
+                    <t-loader
+                        size="5"
+                    />
+                </div>
 
             </button>
 
