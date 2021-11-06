@@ -104,11 +104,14 @@ export const DifferentStates = (argTypes) => ({
 		multipleValue: null,
 		clearableValue: null,
 		maxHeightValue: null,
+		valueExternalDelay: null,
+		loadingDelay: false,
 		optionsArrayDefault: 'option_1',
 		withDefault: 'option_1',
 		withDefaultArray: ['option_1','option_2'],
 		optionsArray: ['option_1','option_2','option_3','option_4'],
 		optionsArrayDefault2: 'option_2',
+		optionsArrayDelay: [],
 		options: [
 			{
 				label: 'option 1',
@@ -258,6 +261,152 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+			</div>
+		</div>
+		`,
+});
+
+
+
+export const ExternalStates = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TSelect, TCard },
+	methods: {
+		createNew(v) {
+			this.clearableValue=null
+		},
+		search(s) {
+			this.loadingDelay = true
+			this.optionsArrayDelay = [];
+			setTimeout(()=>{
+				this.loadingDelay = false
+				this.optionsArrayDelay = [
+					{
+						label: 'option 1',
+						value: 'option_1'
+					},
+					{
+						label: 'option 2',
+						value: 'option_2'
+					},
+					{
+						label: 'option 3',
+						value: 'option_3'
+					}
+				]
+			},300)
+		}
+	},
+	mounted() {
+		setTimeout(()=>{
+			this.optionsArrayDefault2 = 'option_3'
+		},5000)
+
+		this.loadingDelay = true
+		setTimeout(()=>{
+			this.loadingDelay = false
+			this.optionsArrayDelay = [
+				{
+					label: 'option 1',
+					value: 'option_1'
+				},
+				{
+					label: 'option 2',
+					value: 'option_2'
+				},
+				{
+					label: 'option 3',
+					value: 'option_3'
+				}
+			]
+		},5000)
+	},
+    data: () => ({
+		empty: null,
+        value: null,
+		multipleValue: null,
+		clearableValue: null,
+		maxHeightValue: null,
+		valueExternalDelay: null,
+		loadingDelay: false,
+		optionsArrayDefault: 'option_1',
+		withDefault: 'option_1',
+		withDefaultArray: ['option_1','option_2'],
+		optionsArray: ['option_1','option_2','option_3','option_4'],
+		optionsArrayDefault2: 'option_2',
+		optionsArrayDelay: [],
+		options: [
+			{
+				label: 'option 1',
+				value: 'option_1'
+			},
+			{
+				label: 'option 2',
+				value: 'option_2'
+			},
+			{
+				label: 'option 3',
+				value: 'option_3'
+			}
+		],
+		options2: [
+			{
+				label: 'option 1',
+				value: 'option_1'
+			},
+			{
+				label: 'option 2',
+				value: 'option_2'
+			},
+			{
+				label: 'option 3',
+				value: 'option_3'
+			},
+			{
+				label: 'option 4',
+				value: 'option_4'
+			},
+			{
+				label: 'option 5',
+				value: 'option_5'
+			},
+			{
+				label: 'option 6',
+				value: 'option_6'
+			},
+			{
+				label: 'option 7',
+				value: 'option_7'
+			},
+			{
+				label: 'option 8',
+				value: 'option_8'
+			},
+			{
+				label: 'option 9',
+				value: 'option_9'
+			}
+		],
+		optionsWithKey: [
+			{
+				label: 'option 1',
+				key: 'option_1'
+			},
+			{
+				label: 'option 2',
+				key: 'option_2'
+			},
+			{
+				label: 'option 3',
+				key: 'option_3'
+			}
+		],
+    }),
+	template: 
+		`
+        <div class="p-6 bg-gray-100">
+            <div class="max-w-2xl">
+
 				<t-card title="Empty External Options" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="value" label="Standard"  placeholder="Select One" external />
@@ -265,11 +414,15 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
-				<t-card title="Disabled" class="mt-4">
+				<t-card title="Delayed Options (5s)" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select disabled v-model="value" label="Standard Disabled" :options="options" placeholder="Select One" />
-						<t-select disabled searchable v-model="value" label="Disabled Searchable" :options="options" placeholder="Select One" />
+						<t-select @search="search" :loading="loadingDelay" v-model="valueExternalDelay" label="Standard"  placeholder="Select One" external :options="optionsArrayDelay" />
+						<t-select @search="search" :loading="loadingDelay" searchable v-model="valueExternalDelay" label="Searchable" placeholder="Select One" :options="optionsArrayDelay" external />
 					</div>
+
+					<template slot="footer">
+						Selected: {{ valueExternalDelay }}
+					</template>
 				</t-card>
 
 			</div>
