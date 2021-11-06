@@ -495,6 +495,10 @@ export default {
     text-overflow: ellipsis;
 }
 
+.focused {
+    scroll-margin: 8px;
+}
+
 .focused::before {
     content: "";
     transition: .3s cubic-bezier(.25, .8, .5, 1);
