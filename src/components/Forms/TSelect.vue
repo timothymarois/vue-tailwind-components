@@ -433,6 +433,11 @@ export default {
             } else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
                 this.cycleIndex += 1;
             }
+
+            this.$nextTick(() => {
+                const el = document.getElementById("focused");
+                el.scrollIntoView({block: "nearest", inline: "nearest"});
+            });
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
