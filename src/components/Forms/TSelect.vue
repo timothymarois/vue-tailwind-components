@@ -23,6 +23,7 @@
                     v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
+                    @click="menuToggle('label')"
                 >{{ placeholder }}</span>
                 
                 <span 
@@ -30,6 +31,7 @@
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
                     :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
+                    @click="menuToggle('label')"
                 >{{ selectPlaceholder }}</span>
 
                 <input
@@ -53,7 +55,7 @@
                 />
 
                 <div 
-                    v-if="clearable && (localsearch || selected.length)"
+                    v-if="clearable && (localsearch || selected.length || selected[itemValue])"
                     :class="`cursor-pointer absolute inset-y-0 ${searchable ? 'right-8' : 'right-6'} p-2 flex items-center`"
                     @click="clearField"
                 >
