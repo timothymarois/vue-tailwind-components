@@ -14,7 +14,10 @@
                 type="button"
                 class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
                 :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
-                @click="menuToggle"
+                @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
+                @keydown.up.prevent="cycleOptions(dropdownDirection === 'top' ? 'down' : 'up')"
+                @keydown.down.prevent="cycleOptions(dropdownDirection === 'top' ? 'up' : 'down')"
+                @click.self="menuToggle('button')"
             >
                 <span 
                     v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
@@ -92,10 +95,10 @@
                     <li
                         v-for="(item, i) of searchableOptions"
                         :key="i"
-                        class="cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }"
+                        class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
+                        :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }]"
+                        :id="i === cycleIndex ? 'focused' : ''"
                         @click="selectItem(item)"
-                        @keyup.enter="selectItem(item)"
                     >  
                         <t-checkbox 
                             v-if="multiple"
@@ -233,7 +236,9 @@ export default {
             selected: [],
             localsearch: null,
             isSearching: false,
-            viewport: []
+            viewport: [],
+            selectedIndex: -1,
+            cycleIndex: -1
         }
     },
     watch: {
@@ -258,7 +263,12 @@ export default {
                 });
             }
             else {
-                this.viewport = []
+                if(this.multiple) {
+                    this.cycleIndex = -1;
+                } else {
+                    this.cycleIndex = this.selectedIndex || -1;
+                }
+                this.viewport = [];
             }            
         }
     },
@@ -289,13 +299,11 @@ export default {
             return c;
         },
         searchableOptions() {
-            let vm = this;
-
-            if (vm.localsearch && vm.searchable && vm.isSearching && !vm.external) {
-                return JSON.parse(JSON.stringify(vm.computedOptions)).filter(option => {
-                    let o = option[this.itemLabel].toLowerCase().match(vm.localsearch.toLowerCase());
+            if (this.localsearch && this.searchable && this.isSearching && !this.external) {
+                return JSON.parse(JSON.stringify(this.computedOptions)).filter(option => {
+                    let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase());
                     if (o) {
-                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(vm.localsearch, "ig")), function(matchedText, a, b){
+                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), function(matchedText, a, b){
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
@@ -303,7 +311,8 @@ export default {
                 });
             }
             else {
-                return vm.computedOptions;
+                if(this.dropdownDirection === 'top') return this.computedOptions.slice().reverse();
+                return this.computedOptions;
             }
         },
         selectPlaceholder() { 
@@ -374,12 +383,13 @@ export default {
                 this.isSearching = false;
                 this.selected = item;
                 this.localsearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
+                let i = this.computedOptions.indexOf(item);
+                this.selectedIndex = i;
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                     this.selected.push(item);
-                } 
-                else {
+                } else {
                     let i = this.selected.indexOf(item);
                     this.selected.splice(i, 1);
                 }
@@ -413,6 +423,13 @@ export default {
             this.menu = true;
             this.isSearching = true;
             this.$emit('search', value);
+        },
+        cycleOptions(key) {
+            if(key === 'up' && this.cycleIndex > 0) {
+                this.cycleIndex -= 1;
+            } else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
+                this.cycleIndex += 1;
+            }
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
@@ -461,5 +478,11 @@ export default {
 .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#focused::before {
+    content: "";
+    transition: .3s cubic-bezier(.25, .8, .5, 1);
+    @apply inset-0 rounded pointer-events-none absolute block bg-black opacity-10;
 }
 </style>
