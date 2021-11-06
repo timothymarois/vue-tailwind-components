@@ -48,7 +48,7 @@
                     :class="{
                         'text-gray-500 cursor-not-allowed' : disabled, 
                         'text-indigo-800' : !disabled,
-                        'placeholder-indigo-800' : selected.length > 0 
+                        'placeholder-indigo-800' : selected.length > 0 || selected[itemValue] ,                        
                     }"
                 />
 
