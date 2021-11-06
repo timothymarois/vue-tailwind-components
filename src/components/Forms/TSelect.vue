@@ -96,15 +96,14 @@
                     {{ nodata }}
                 </li>
                 <div 
-                    class="relative" 
                     v-else-if="!loading && computedOptions.length > 0"
                 >
                     <li
                         v-for="(item, i) of (dropdownDirection === 'top' ? searchableOptions.slice().reverse() : searchableOptions)"
                         :key="i"
                         class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }]"
-                        :id="searchableOptions[cycleIndex] === item ? 'focused' : ''"
+                        :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : searchableOptions[cycleIndex] === item}]"
+                        :id="searchableOptions[cycleIndex] === item ? `focus-${id}` : ''"
                         @click="selectItem(item)"
                     >  
                         <t-checkbox 
@@ -431,16 +430,18 @@ export default {
             this.$emit('search', value);
         },
         cycleOptions(key) {
-            if(key === 'up' && this.cycleIndex > 0) {
-                this.cycleIndex -= 1;
-            } else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
-                this.cycleIndex += 1;
-            }
+            if(this.searchableOptions.length > 0) {
+                if(key === 'up' && this.cycleIndex > 0) {
+                    this.cycleIndex -= 1;
+                } else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
+                    this.cycleIndex += 1;
+                }
 
-            this.$nextTick(() => {
-                const el = document.getElementById("focused");
-                el.scrollIntoView({block: "nearest", inline: "nearest"});
-            });
+                this.$nextTick(() => {
+                    const el = document.getElementById(`focus-${this.id}`);
+                    el.scrollIntoView({block: "nearest", inline: "nearest"});
+                });
+            }
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
@@ -491,7 +492,7 @@ export default {
     text-overflow: ellipsis;
 }
 
-#focused::before {
+.focused::before {
     content: "";
     transition: .3s cubic-bezier(.25, .8, .5, 1);
     @apply inset-0 rounded pointer-events-none absolute block bg-black opacity-10;
