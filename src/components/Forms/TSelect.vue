@@ -36,7 +36,7 @@
                     ref="dsearchb"
                     v-else
                     v-model="localsearch"
-                    @keydown="searchLocal(localsearch)"
+                    @keydown="searchLocal($event, localsearch)"
                     :disabled="disabled"
                     @click="menuToggle('input')"
                     type="text"
@@ -428,7 +428,10 @@ export default {
                 this.menu = true;
             }
         },
-        searchLocal(value) {
+        searchLocal(event, value) {
+            // lets ignore these events since they are not searches
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Enter') return false;
+            
             this.menu = true;
             this.isSearching = true;
             this.$emit('search', value);
