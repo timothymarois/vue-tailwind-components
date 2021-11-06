@@ -404,7 +404,7 @@ export default {
                     this.selected.push(item)
                 } 
                 else {
-                    let i = this.selected.indexOf(item)
+                    let i = this.selected.findIndex(obj => obj[this.itemValue] === item[this.itemValue])
                     this.selected.splice(i, 1)
                 }
             }
