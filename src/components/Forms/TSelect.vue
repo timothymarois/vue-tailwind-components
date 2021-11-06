@@ -93,11 +93,11 @@
                 </li>
                 <div v-else-if="!loading && computedOptions.length > 0">
                     <li
-                        v-for="(item, i) of searchableOptions"
+                        v-for="(item, i) of (dropdownDirection === 'top' ? searchableOptions.slice().reverse() : searchableOptions)"
                         :key="i"
                         class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
                         :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }]"
-                        :id="i === cycleIndex ? 'focused' : ''"
+                        :id="searchableOptions[cycleIndex] === item ? 'focused' : ''"
                         @click="selectItem(item)"
                     >  
                         <t-checkbox 
@@ -311,7 +311,6 @@ export default {
                 });
             }
             else {
-                if(this.dropdownDirection === 'top') return this.computedOptions.slice().reverse();
                 return this.computedOptions;
             }
         },
