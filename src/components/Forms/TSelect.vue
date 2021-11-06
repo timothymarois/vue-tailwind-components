@@ -372,7 +372,6 @@ export default {
             else {
                 this.computedOptions.find(obj => {
                     if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) {
-                        this.localsearch = obj[this.itemLabel];
                         return found = obj;
                     }
                 });
@@ -386,7 +385,6 @@ export default {
 
             if(!this.multiple) {
                 this.selected = item;
-                this.localsearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
                 let i = this.searchableOptions.indexOf(item);
                 this.selectedIndex = i;
                 this.menu = false;
