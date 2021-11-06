@@ -39,14 +39,14 @@
                     @keyup="searchLocal(localsearch)"
                     @keyup.enter="refocus()"
                     :disabled="disabled"
+                    @click="menuToggle('input')"
                     type="text"
                     autocomplete="off"
                     :placeholder="selectPlaceholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none"
                     :class="{
                         'text-gray-500 cursor-not-allowed' : disabled, 
-                        'text-indigo-800' : !disabled, 
-                        'mr-2': !hideicon, 
+                        'text-indigo-800' : !disabled,
                         'placeholder-indigo-800' : selected.length > 0 
                     }"
                 />
@@ -59,12 +59,17 @@
                     <t-icon value="close" size="5" />
                 </div>
 
-                <t-icon 
-                    v-if="!hideicon && !loading" 
-                    :value="menuIcon" 
-                    size="5" 
-                    class="mr-2" 
-                />
+                <div 
+                    v-if="!hideicon && !loading"
+                    @click="menuToggle('arrow')"
+                    class="p-2 h-full"
+                >
+                    <t-icon 
+                        v-if="!hideicon && !loading" 
+                        :value="menuIcon" 
+                        size="5" 
+                    />
+                </div>
 
                 <t-loader
                    v-else-if="loading"
@@ -283,7 +288,8 @@ export default {
         },
         menuIcon() {
             if (this.menu) return 'chevron-up'
-            return 'chevron-down'
+            return 'selector'
+            // return 'chevron-down'
         },
         dropdownClasses() {
             let c = [
@@ -396,7 +402,7 @@ export default {
 
             this.$emit('input', this.returnValue);
         },
-        menuToggle() {
+        menuToggle(source) {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
@@ -405,10 +411,9 @@ export default {
             }
 
             if (!this.disabled) {
-                if (this.searchable) {
+                if (this.searchable && source !== 'arrow') {
                     this.menu = true;
-                } 
-                else {
+                } else {
                     this.menu = !this.menu;
                 }
             }
