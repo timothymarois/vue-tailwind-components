@@ -36,8 +36,7 @@
                     ref="dsearchb"
                     v-else
                     v-model="localsearch"
-                    @keyup="searchLocal(localsearch)"
-                    @keyup.enter="refocus()"
+                    @keydown="searchLocal(localsearch)"
                     :disabled="disabled"
                     @click="menuToggle('input')"
                     type="text"
@@ -384,12 +383,12 @@ export default {
             item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
 
             if(!this.multiple) {
-                this.isSearching = false;
                 this.selected = item;
                 this.localsearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
                 let i = this.searchableOptions.indexOf(item);
                 this.selectedIndex = i;
                 this.menu = false;
+                this.isSearching = false;
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
