@@ -280,7 +280,8 @@ export default {
         },
         menuIcon() {
             if (this.menu) return 'chevron-up'
-            return 'chevron-down'
+            return 'selector'
+            // return 'chevron-down'
         },
         dropdownClasses() {
             let c = [
