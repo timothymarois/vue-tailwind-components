@@ -103,6 +103,7 @@ export const DifferentStates = (argTypes) => ({
         value: null,
 		multipleValue: null,
 		clearableValue: null,
+		maxHeightValue: null,
 		optionsArrayDefault: 'option_1',
 		withDefault: 'option_1',
 		withDefaultArray: ['option_1','option_2'],
@@ -120,6 +121,44 @@ export const DifferentStates = (argTypes) => ({
 			{
 				label: 'option 3',
 				value: 'option_3'
+			}
+		],
+		options2: [
+			{
+				label: 'option 1',
+				value: 'option_1'
+			},
+			{
+				label: 'option 2',
+				value: 'option_2'
+			},
+			{
+				label: 'option 3',
+				value: 'option_3'
+			},
+			{
+				label: 'option 4',
+				value: 'option_4'
+			},
+			{
+				label: 'option 5',
+				value: 'option_5'
+			},
+			{
+				label: 'option 6',
+				value: 'option_6'
+			},
+			{
+				label: 'option 7',
+				value: 'option_7'
+			},
+			{
+				label: 'option 8',
+				value: 'option_8'
+			},
+			{
+				label: 'option 9',
+				value: 'option_9'
 			}
 		],
 		optionsWithKey: [
@@ -181,6 +220,13 @@ export const DifferentStates = (argTypes) => ({
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select clearable create v-model="clearableValue" label="Standard" :options="options" placeholder="Select One" @create-new="createNew" />
 						<t-select searchable clearable create v-model="clearableValue" label="Searchable" :options="options" placeholder="Select One" @create-new="createNew" />
+					</div>
+				</t-card>
+
+				<t-card title="Standard with scroll bar" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select v-model="maxHeightValue" label="Standard" :options="options2" placeholder="Select One" />
+						<t-select searchable v-model="maxHeightValue" label="Searchable" :options="options2" placeholder="Select One" />
 					</div>
 				</t-card>
 
