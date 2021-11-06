@@ -268,7 +268,7 @@ export default {
                 });
             }
             else {
-                if(this.multiple) {
+                if(this.multiple || this.searchable) {
                     this.cycleIndex = -1;
                 } else {
                     this.cycleIndex = this.selectedIndex || -1;
@@ -381,15 +381,15 @@ export default {
         },
         selectItem(item) {
             // remove possible underline from search select
-            item[this.itemLabel] = item[this.itemLabel].replace( /(<([^>]+)>)/ig, '');
+            item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
 
             if(!this.multiple) {
-                this.menu = false;
                 this.isSearching = false;
                 this.selected = item;
                 this.localsearch = (item[this.itemLabel]) ? item[this.itemLabel] : null;
-                let i = this.computedOptions.indexOf(item);
+                let i = this.searchableOptions.indexOf(item);
                 this.selectedIndex = i;
+                this.menu = false;
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
