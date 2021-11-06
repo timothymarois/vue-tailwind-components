@@ -433,14 +433,17 @@ export default {
             if(this.searchableOptions.length > 0) {
                 if(key === 'up' && this.cycleIndex > 0) {
                     this.cycleIndex -= 1;
+                     this.$nextTick(() => {
+                        const el = document.getElementById(`focus-${this.id}`);
+                        el.scrollIntoView({block: "nearest", inline: "nearest"});
+                    });
                 } else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
                     this.cycleIndex += 1;
+                     this.$nextTick(() => {
+                        const el = document.getElementById(`focus-${this.id}`);
+                        el.scrollIntoView({block: "nearest", inline: "nearest"});
+                    });
                 }
-
-                this.$nextTick(() => {
-                    const el = document.getElementById(`focus-${this.id}`);
-                    el.scrollIntoView({block: "nearest", inline: "nearest"});
-                });
             }
         },
         close(e) {
