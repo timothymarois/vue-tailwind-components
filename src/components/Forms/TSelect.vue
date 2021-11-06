@@ -44,8 +44,7 @@
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none"
                     :class="{
                         'text-gray-500 cursor-not-allowed' : disabled, 
-                        'text-indigo-800' : !disabled, 
-                        'mr-2': !hideicon, 
+                        'text-indigo-800' : !disabled,
                         'placeholder-indigo-800' : selected.length > 0 
                     }"
                 />
@@ -61,12 +60,12 @@
                 <div 
                     v-if="!hideicon && !loading"
                     @click="menuToggle('arrow')"
+                    class="p-2 h-full"
                 >
                     <t-icon 
                         v-if="!hideicon && !loading" 
                         :value="menuIcon" 
                         size="5" 
-                        class="mr-2"
                     />
                 </div>
 
