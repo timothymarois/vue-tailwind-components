@@ -3,7 +3,7 @@
 		<svg 
 			xmlns="http://www.w3.org/2000/svg" 
 			viewBox="21.73913043478261 21.73913043478261 43.47826086956522 43.47826086956522" 
-			:class="`_loader-svg w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0 z-10 transition-all duration-200 ease-in-out text-${color}-800`"
+			:class="`_loader-svg w-full h-full mx-auto absolute top-0 bottom-0 left-0 right-0 transition-all duration-200 ease-in-out text-${color}-800`"
 		>
 			<circle 
 				fill="transparent" 
@@ -13,7 +13,7 @@
 				stroke-width="3.4782608695652177" 
 				stroke-dasharray="125.664" 
 				stroke-dashoffset="125.66370614359172px" 
-				class="_loader-spinner stroke-current z-10 transition-opacity transition-transform duration-500 ease-in-out"
+				class="_loader-spinner stroke-current transition-opacity transition-transform duration-500 ease-in-out"
 			/>
 		</svg>
 	</div>
