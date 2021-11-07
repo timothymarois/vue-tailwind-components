@@ -97,7 +97,7 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
-				<t-card class="mt-5" title="Label Icons">
+				<t-card class="mt-5" title="Label Icons with Time + Date types">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field type="time" iconLabel="clock" v-model="anotherValue" label="My Label" required />
 						<t-text-field type="date" iconLabel="calendar" v-model="anotherValue" label="My Label" required />
