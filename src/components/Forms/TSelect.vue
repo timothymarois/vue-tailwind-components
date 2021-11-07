@@ -46,7 +46,7 @@
                     :id="`search-${id}`"
                     :name="`n[${id}]`"
                     :placeholder="selectPlaceholder"
-                    class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none"
+                    class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
                     :class="{
                         'text-gray-500 cursor-not-allowed' : disabled, 
                         'text-indigo-800' : !disabled,

@@ -1,13 +1,13 @@
 <template>
     <label 
         :for="id"
-        :class="`cursor-pointer block text-sm font-medium ${color} ml-1 transition-colors duration-150`"
+        :class="`cursor-pointer block text-sm font-medium ${color} transition-colors duration-150`"
     >
         <slot>
             <t-icon v-if="icon" :value="icon" class="mr-1" />
-            <span>{{ label }}</span>
+            <span class="inline-block">{{ label }}</span>
         </slot>
-        <span class="text-red-600" v-if="required">*</span>
+        <span class="inline-block text-red-600" v-if="required">*</span>
     </label>
 </template>
 
