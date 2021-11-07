@@ -1,6 +1,6 @@
 <template>
     <div :class="`relative inline-flex align-middle justify-center items-center p-0 h-${size} w-${size}`">
-        <BaseIcon :value="value" />
+        <base-icon :value="value" />
     </div>
 </template>
 
