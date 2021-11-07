@@ -32,17 +32,24 @@ export const Center = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TModal, TButton },
     data: () => ({
-        showing: false
+        showing: false,
+		showModal: false
     }),
+	methods: {
+		close() {
+			this.showing=false
+			this.showModal=false
+		}
+	},
 	template: 
 		`
         <div>
-            <t-button @click="showing = true;" label="Show Modal" />
+            <t-button @click="showModal=true;showing=true;" label="Show Modal" />
 
-            <t-modal v-if="showing" :show="showing" @end="showing = false" v-bind="$props">
+            <t-modal v-if="showing" :show="showModal" @end="close()" v-bind="$props">
                 <div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
 				<div class="lg:flex-grow flex items-end justify-center mt-8">
-                    <t-button icon="close" @click="showing=false" outlined class="mr-3">Cancel</t-button>
+                    <t-button icon="close" @click="showModal=false" outlined class="mr-3">Cancel</t-button>
                 </div>
             </t-modal>
 
@@ -191,8 +198,15 @@ export const CenterDivOffset = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TModal, TButton },
     data: () => ({
-        showing: false
+        showing: false,
+		showModal: false
     }),
+	methods: {
+		close() {
+			this.showing=false
+			this.showModal=false
+		}
+	},
 	template: 
 		`
         <div id="app">
@@ -203,12 +217,12 @@ export const CenterDivOffset = (argTypes) => ({
 				</div>
 				<div id="content" style="width:100%;height:100vh;border:1px solid">
 
-					<t-button @click="showing = true;" label="Show Modal" />
+					<t-button @click="showing = true;showModal=true" label="Show Modal" />
 
-					<t-modal v-if="showing" :show="showing" @end="showing = false" offset-div="content">
+					<t-modal v-if="showing" :show="showModal" @end="close" offset-div="content">
 						<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
 						<div class="lg:flex-grow flex items-end justify-center mt-8">
-							<t-button icon="close" @click="showing=false" outlined class="mr-3">Cancel</t-button>
+							<t-button icon="close" @click="showModal=false" outlined class="mr-3">Cancel</t-button>
 						</div>
 					</t-modal>
 
