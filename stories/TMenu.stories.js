@@ -63,16 +63,16 @@ export const Standard = (argTypes) => ({
 	template: 
 	`
 		<div>
-			<t-menu :items="items">
+			<t-menu :items="items" v-model="menuOpen">
 				<template v-slot:opener>
-					<t-button color="indigo">Open menu (left)</t-button>
+					<t-button color="indigo" @click="menuOpen=!menuOpen">Open menu</t-button>
 				</template>
 			</t-menu>				
 		</div>
 		`,
 });
 
-export const OldVersion = (argTypes) => ({
+export const Basic = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TMenu },
 	methods: {
@@ -85,19 +85,16 @@ export const OldVersion = (argTypes) => ({
 		label: 'Menu',
 		items: [
 			{
-				icon: 'arrow-right',
 				label: 'Home',
 				value: 'home',
 				disabled: false
 			},
 			{
-				icon: 'arrow-right',
 				label: 'About',
 				value: 'about',
 				disabled: false
 			},
 			{
-				icon: 'arrow-right',
 				label: 'About',
 				value: 'about',
 				color: 'red',
@@ -105,7 +102,6 @@ export const OldVersion = (argTypes) => ({
 				disabled: false
 			},
 			{
-				icon: 'arrow-right',
 				label: 'Disabled',
 				value: 'disabled',
 				disabled: true
