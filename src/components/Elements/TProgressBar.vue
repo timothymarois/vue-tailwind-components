@@ -1,9 +1,6 @@
 <template>
 	<div :class="`relative h-1 block w-full bg-${color}-300 ${rounded ? 'rounded' : ''} overflow-hidden`">
-		<div 
-			:class="`bg-${color}-800`"
-			id="progressbar__indeterminate"
-		/>
+		<div :class="`progressbar__indeterminate bg-${color}-800`" />
 	</div>
 </template>
 
@@ -26,7 +23,7 @@ export default {
 </script>
 
 <style scoped>
-#progressbar__indeterminate::before {
+.progressbar__indeterminate::before {
 	content: '';
 	position: absolute;
 	background-color: inherit;
@@ -35,7 +32,7 @@ export default {
 	left: 0;
 	animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
-#progressbar__indeterminate::after {
+.progressbar__indeterminate::after {
 	content: '';
 	position: absolute;
 	background-color: inherit;
@@ -49,10 +46,12 @@ export default {
 	0% {
 		left:-35%;
 		right:100%;
-	} 60% {
+	} 
+	60% {
 		left:100%;
 		right:-90%;
-	} 100% {
+	} 
+	100% {
 		left:100%;
 		right:-90%;
 	}
@@ -61,10 +60,12 @@ export default {
 	0% { 
 		left: -200%;
 		right: 100%;
-	} 60% {
+	} 
+	60% {
 		left: 107%;
 		right: -8%;
-	} 100% {
+	} 
+	100% {
 		left:107%;
 		right:-8%;
 	}

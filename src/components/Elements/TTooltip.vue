@@ -44,7 +44,8 @@ export default {
 		show(value) {
 			if(value && this.active) {
 				document.getElementById(this.id).classList.remove("opacity-0");
-			} else {
+			} 
+			else {
 				document.getElementById(this.id).classList.add("opacity-0");
 			}
 		}
@@ -131,35 +132,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-.tooltip__right {
-	left: calc(100% + 10px);
-}
-.tooltip__bottom {
-	transform: translateX(-50%);
-}
-.tooltip__left {
-	right: calc(100% + 10px);
-}
-.tooltip__arrow__top {
-	left: 50%;
-	bottom: -5px;
-	transform: translateX(-50%) rotate(45deg);
-}
-.tooltip__arrow__right {
-	left: -5px;
-	top: 50%;
-	transform: translateY(-50%) rotate(45deg);
-}
-.tooltip__arrow__bottom {
-	left: 50%;
-	top: -5px;
-	transform: translateX(-50%) rotate(45deg);
-}
-.tooltip__arrow__left {
-	right: -5px;
-	top: 50%;
-	transform: translateY(-50%) rotate(45deg);
-}
-</style>
