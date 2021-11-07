@@ -7,12 +7,12 @@
 				:style="`${maxWidth ? `max-width: ${maxWidth}px;` : ''} min-width: 300px; height: 100%;`"
 				v-if="localShowing"
 			>
-				<h3 class="font-medium text-xl pb-4">
+				<h3 v-if="title" class="font-medium text-xl pb-4">
 					{{ title }}
 				</h3>
 				<div 
 					v-if="closeButton" 
-					class="z-50 absolute top-2 right-0 m-2"
+					class="z-50 absolute top-1 right-0 m-2"
 				>
 					<t-button icon="close" @click="close" text />
 				</div>
