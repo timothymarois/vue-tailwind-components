@@ -67,7 +67,7 @@ export default {
 		},
 		offsetValue: {
 			type: [String, Number],
-			default: undefined
+			default: 0
 		},
 		offsetDiv: {
             type: String,
@@ -85,7 +85,8 @@ export default {
 	data() {
 		return {
 			relativeOffsetPx: null,
-			localShowing: this.show
+			localShowing: this.show,
+			previousType: null,
 		}
 	},
 	watch: {
@@ -98,6 +99,11 @@ export default {
 					this.localShowing = v
 					this.updateDivOffset()
 				}
+			}
+		},
+		type(newValue, oldValue) {
+			if(newValue !== oldValue) {
+				this.previousType = oldValue;
 			}
 		},
 		offsetValue() {
@@ -178,7 +184,7 @@ export default {
 					c = c.concat([
 						'max-w-full',
 						'inset-y-0',
-						'md:right-4',
+						`md:${this.previousType}-4`,
 						'md:inset-y-4',
 						'card-width'
 					]);
@@ -215,7 +221,7 @@ export default {
 			if (this.relativeOffsetPx) {
 				return `left: ${this.relativeOffsetPx}px; right: 0;`;
 			}
-			if(this.offsetDirection && this.offsetValue) {
+			if(this.offsetDirection && this.offsetValue > 0) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
 			}
 		},
