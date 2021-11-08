@@ -12,7 +12,7 @@
 					<div class="relative" :key="step.id">
 						<div 
 							class="flex items-center justify-center rounded-full text-lg select-none"
-							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default', `h-${size} w-${size}`]"
+							:class="[stepColor(i), allowBack(i) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon value="check" size="6" v-if="(currentStep > i + 1 || finished) && !simple" />
@@ -40,7 +40,7 @@
 					<div class="relative flex flex-row items-center">
 						<div 
 							class="flex items-center justify-center rounded-full text-lg select-none"
-							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default', `h-${size} w-${size}`]"
+							:class="[stepColor(i), allowBack(i) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon value="check" size="6" v-if="(currentStep > i + 1 || finished) && !simple" />

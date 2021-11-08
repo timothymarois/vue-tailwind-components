@@ -5,7 +5,10 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      border: ['hover'],
+      ring: ['hover']
+    },
   },
   plugins: [
     // require('@tailwindcss/typography'),
