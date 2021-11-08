@@ -246,6 +246,10 @@ export const RightToFull = (argTypes) => ({
 		close() {
 			this.showing=false
 			this.showModal=false
+		},
+		changeType() {
+			if (this.modalType === 'right') this.modalType = 'full';
+			else this.modalType = 'right';
 		}
 	},
 	template: 
@@ -256,7 +260,7 @@ export const RightToFull = (argTypes) => ({
 			<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType">
 				<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
 				<div class="lg:flex-grow flex items-end justify-center mt-8">
-					<t-button icon="close" @click="modalType = 'full'" outlined class="mr-3">Make full</t-button>
+					<t-button icon="close" @click="changeType" outlined class="mr-3">Make {{ modalType === 'full' ? 'right' : 'full' }}</t-button>
 				</div>
 			</t-modal>
         </div>

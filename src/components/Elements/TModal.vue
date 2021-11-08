@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${offsetCalculation}; ${type === 'full' ? 'width: calc(100% - 2em)' : ''}`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${offsetCalculation};`"
 				>
 					<div 
 						v-if="closeButton" 
@@ -164,6 +164,7 @@ export default {
 						'md:h-auto',
 						'md:inset-y-4',
 						'md:right-4',
+						'card-width'
 					]);
 					break;
 				case 'center': 
@@ -178,7 +179,8 @@ export default {
 						'max-w-full',
 						'inset-y-0',
 						'md:right-4',
-						'md:inset-y-4'
+						'md:inset-y-4',
+						'card-width'
 					]);
 					break; 
 			}
@@ -260,4 +262,15 @@ export default {
 	z-index: 50;
 	transform: translateX(-120%);
 }
+
+.card-width {
+	width: auto;
+}
+
+@media only screen and (min-width: 768px) {
+	.card-width {
+		width: calc(100% - 2em);
+	}
+}
+
 </style>
