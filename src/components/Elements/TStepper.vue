@@ -10,7 +10,7 @@
 							:class="[stepColor(i), (i + 1 < currentStep && !disableBack) ? 'cursor-pointer' : 'cursor-default']"
 							@click="(i + 1 < currentStep && !disableBack) ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon value="check" size="6" v-if="currentStep > i + 1" />
+							<t-icon value="check" size="6" v-if="currentStep > i + 1 || finished" />
 							<span v-else>
 								{{ +i + 1 }}
 							</span>
@@ -23,7 +23,7 @@
 				</template>
 			</div>
 			<div class="mt-20" v-for="(step, i) of stepOptions" :key="step.id">
-				<div v-show="(currentStep - 1) == i">
+				<div v-show="(currentStep - 1) == i && !finished">
 					<slot :name="step.id" />
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 							:class="[stepColor(i), (i + 1 < currentStep && !disableBack) ? 'cursor-pointer' : 'cursor-default']"
 							@click="(i + 1 < currentStep && !disableBack) ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon value="check" size="6" v-if="currentStep > i + 1" />
+							<t-icon value="check" size="6" v-if="currentStep > i + 1 || finished" />
 							<span v-else>
 								{{ +i + 1 }}
 							</span>
@@ -53,7 +53,7 @@
 						style="min-height: 2rem;"
 					>
 						<transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
-							<div v-show="(currentStep - 1) == i">
+							<div v-show="(currentStep - 1) == i && !finished">
 								<slot :name="step.id" id="stepper-slot" />
 							</div>
 						</transition>
@@ -101,6 +101,11 @@ export default {
 			type: Number,
 			required: true,
 			default: 1
+		},
+		finished: {
+			type: Boolean,
+			required: true,
+			default: false
 		}
 	},
 	methods: {
@@ -140,9 +145,9 @@ export default {
 			});
 		},
 		stepColor(i) {
-			if(this.currentStep === i + 1) {
+			if(this.currentStep === i + 1 && !this.finished) {
 				return `bg-${this.color} text-${this.textColor}`
-			} else if(this.currentStep > i + 1) {
+			} else if(this.currentStep > i + 1 || this.finished) {
 				return `bg-green-500 text-white`
 			} else {
 				return `bg-gray-400 text-white`

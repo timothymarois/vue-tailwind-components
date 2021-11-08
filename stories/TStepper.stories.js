@@ -45,7 +45,8 @@ export const Horizontal = (args, { argTypes }) => ({
 				id: "step_4"
 			}
 		],
-		currentStep1: 1
+		currentStep1: 1,
+		finished1: false
 	}),
 	methods: {
 		changeStep(e) {
@@ -56,7 +57,7 @@ export const Horizontal = (args, { argTypes }) => ({
 		`
 		<div>
 			<div class="w-2/3 mx-auto">
-				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="true" @previous-step="changeStep" v-bind="$props">
+				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="true" @previous-step="changeStep" :finished="finished1" v-bind="$props">
 					<template v-slot:step_1>
 						Content for step 1
 						<t-button @click="currentStep1 += 1">Next step</t-button>
@@ -77,7 +78,10 @@ export const Horizontal = (args, { argTypes }) => ({
 					</template>
 					<template v-slot:step_4>
 						Content for step 4
-						<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+						<div class="flex flex-row space-x-4">
+							<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+							<t-button @click="finished1 = true">Finish</t-button>
+						</div>
 					</template>
 				</t-stepper>
 			</div>
@@ -107,7 +111,8 @@ export const Vertical = (args, { argTypes }) => ({
 				id: "step_4"
 			}
 		],
-		currentStep1: 1
+		currentStep1: 1,
+		finished1: false
 	}),
 	methods: {
 		changeStep(e) {
@@ -118,7 +123,7 @@ export const Vertical = (args, { argTypes }) => ({
 		`
 		<div>
 			<div class="w-2/3 mx-auto">
-				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="false" @previous-step="changeStep" disableBack v-bind="$props">
+				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="false" @previous-step="changeStep" :finished="finished1" disableBack v-bind="$props">
 					<template v-slot:step_1>
 						Content for step 1
 						<t-button @click="currentStep1 += 1">Next step</t-button>
@@ -139,7 +144,10 @@ export const Vertical = (args, { argTypes }) => ({
 					</template>
 					<template v-slot:step_4>
 						Content for step 4
-						<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+						<div class="flex flex-row space-x-4">
+							<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+							<t-button @click="finished1 = true">Finish</t-button>
+						</div>
 					</template>
 				</t-stepper>
 			</div>
