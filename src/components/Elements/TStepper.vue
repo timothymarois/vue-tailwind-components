@@ -10,7 +10,9 @@
 							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor} cursor-pointer` : 'bg-gray-400 text-white'"
 							@click="i + 1 < currentStep ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon v-if="currentStep > i + 1" value="check" size="6" />
+							<span class="text-green-400" v-if="currentStep > i + 1">
+								<t-icon value="check" size="6" />
+							</span>
 							<span v-else>
 								{{ +i + 1 }}
 							</span>
@@ -37,7 +39,9 @@
 							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor} cursor-pointer` : 'bg-gray-400 text-white'"
 							@click="i + 1 < currentStep ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon v-if="currentStep > i + 1" value="check" size="6" />
+							<span class="text-green-400" v-if="currentStep > i + 1">
+								<t-icon value="check" size="6" />
+							</span>
 							<span v-else>
 								{{ +i + 1 }}
 							</span>
