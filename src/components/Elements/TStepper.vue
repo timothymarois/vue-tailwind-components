@@ -6,8 +6,9 @@
 					<hr v-if="i != 0" class="flex-grow h-0.5 ml-4 mr-4 mt-5 bg-gray-300" :key="i" />
 					<div class="relative" :key="step.id">
 						<div 
-							class="flex items-center justify-center rounded-full h-12 w-12 text-lg cursor-pointer select-none"
-							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor}` : 'bg-gray-400 text-white'"
+							class="flex items-center justify-center rounded-full h-12 w-12 text-lg select-none"
+							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor} cursor-pointer` : 'bg-gray-400 text-white'"
+							@click="i + 1 < currentStep ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon v-if="currentStep > i + 1" value="check" size="6" />
 							<span v-else>
@@ -32,8 +33,9 @@
 				<div v-for="(step, i) of stepOptions" :key="step.id">
 					<div class="relative">
 						<div 
-							class="flex items-center justify-center rounded-full h-8 w-8 text-lg cursor-pointer select-none"
-							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor}` : 'bg-gray-400 text-white'"
+							class="flex items-center justify-center rounded-full h-8 w-8 text-lg select-none"
+							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor} cursor-pointer` : 'bg-gray-400 text-white'"
+							@click="i + 1 < currentStep ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon v-if="currentStep > i + 1" value="check" size="6" />
 							<span v-else>

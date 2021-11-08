@@ -42,11 +42,16 @@ export const Horizontal = (args, { argTypes }) => ({
 		],
 		currentStep1: 1
 	}),
+	methods: {
+		changeStep(e) {
+			this.currentStep1 = e;
+		}
+	},
 	template: 
 		`
 		<div>
 			<div class="w-2/3 mx-auto">
-				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="true" v-bind="$props">
+				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="true" @previous-step="changeStep" v-bind="$props">
 					<template v-slot:step_1>
 						Content for step 1
 						<t-button @click="currentStep1 += 1">Next step</t-button>
@@ -99,11 +104,16 @@ export const Vertical = (args, { argTypes }) => ({
 		],
 		currentStep1: 1
 	}),
+	methods: {
+		changeStep(e) {
+			this.currentStep1 = e;
+		}
+	},
 	template: 
 		`
 		<div>
 			<div class="w-2/3 mx-auto">
-				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="false" v-bind="$props">
+				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="false" @previous-step="changeStep" v-bind="$props">
 					<template v-slot:step_1>
 						Content for step 1
 						<t-button @click="currentStep1 += 1">Next step</t-button>
