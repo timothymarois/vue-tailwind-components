@@ -27,6 +27,7 @@
 					<slot :name="step.id" />
 				</div>
 			</div>
+			<slot class="mt-20" name="finished" v-if="finished" />
 		</div>
 		<div v-else>
 			<div class="flex flex-col justify-between">
@@ -59,6 +60,7 @@
 						</transition>
 					</div>
 				</div>
+				<slot class="mt-20" name="finished" v-if="finished" />
 			</div>
 		</div>
 	</div>
