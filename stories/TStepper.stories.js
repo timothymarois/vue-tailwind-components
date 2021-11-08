@@ -53,14 +53,21 @@ export const Horizontal = (args, { argTypes }) => ({
 					</template>
 					<template v-slot:step_2>
 						Content for step 2
-						<t-button @click="currentStep1 += 1">Next step</t-button>
+						<div class="flex flex-row space-x-4">
+							<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+							<t-button @click="currentStep1 += 1">Next step</t-button>
+						</div>
 					</template>
 					<template v-slot:step_3>
 						Content for step 3
-						<t-button @click="currentStep1 += 1">Next step</t-button>
+						<div class="flex flex-row space-x-4">
+							<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+							<t-button @click="currentStep1 += 1">Next step</t-button>
+						</div>
 					</template>
 					<template v-slot:step_4>
 						Content for step 4
+						<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
 					</template>
 				</t-stepper>
 			</div>
@@ -103,14 +110,21 @@ export const Vertical = (args, { argTypes }) => ({
 					</template>
 					<template v-slot:step_2>
 						Content for step 2
-						<t-button @click="currentStep1 += 1">Next step</t-button>
+						<div class="flex flex-row space-x-4">
+							<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+							<t-button @click="currentStep1 += 1">Next step</t-button>
+						</div>
 					</template>
 					<template v-slot:step_3>
 						Content for step 3
-						<t-button @click="currentStep1 += 1">Next step</t-button>
+						<div class="flex flex-row space-x-4">
+							<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
+							<t-button @click="currentStep1 += 1">Next step</t-button>
+						</div>
 					</template>
 					<template v-slot:step_4>
 						Content for step 4
+						<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
 					</template>
 				</t-stepper>
 			</div>
