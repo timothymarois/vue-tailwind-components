@@ -83,6 +83,9 @@ export const Horizontal = (args, { argTypes }) => ({
 							<t-button @click="finished1 = true">Finish</t-button>
 						</div>
 					</template>
+					<template v-slot:finished>
+						Finished!
+					</template>
 				</t-stepper>
 			</div>
 		</div>
@@ -148,6 +151,9 @@ export const Vertical = (args, { argTypes }) => ({
 							<t-button @click="currentStep1 -= 1" :text="true">Previous step</t-button>
 							<t-button @click="finished1 = true">Finish</t-button>
 						</div>
+					</template>
+					<template v-slot:finished>
+						Finished!
 					</template>
 				</t-stepper>
 			</div>

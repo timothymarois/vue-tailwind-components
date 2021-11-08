@@ -7,8 +7,8 @@
 					<div class="relative" :key="step.id">
 						<div 
 							class="flex items-center justify-center rounded-full h-12 w-12 text-lg select-none"
-							:class="[stepColor(i), (i + 1 < currentStep && !disableBack) ? 'cursor-pointer' : 'cursor-default']"
-							@click="(i + 1 < currentStep && !disableBack) ? $emit('previous-step', i + 1) : ''"
+							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default']"
+							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon value="check" size="6" v-if="currentStep > i + 1 || finished" />
 							<span v-else>
@@ -35,8 +35,8 @@
 					<div class="relative">
 						<div 
 							class="flex items-center justify-center rounded-full h-8 w-8 text-lg select-none"
-							:class="[stepColor(i), (i + 1 < currentStep && !disableBack) ? 'cursor-pointer' : 'cursor-default']"
-							@click="(i + 1 < currentStep && !disableBack) ? $emit('previous-step', i + 1) : ''"
+							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default']"
+							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon value="check" size="6" v-if="currentStep > i + 1 || finished" />
 							<span v-else>
@@ -154,8 +154,12 @@ export default {
 			} else {
 				return `bg-gray-400 text-white`
 			}
+		},
+		allowBack(i) {
+			if (i + 1 < this.currentStep && !this.disableBack && !this.finished) return true;
+			else return false;
 		}
-	}
+	},
 }
 </script>
 
