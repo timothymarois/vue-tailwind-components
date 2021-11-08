@@ -7,12 +7,10 @@
 					<div class="relative" :key="step.id">
 						<div 
 							class="flex items-center justify-center rounded-full h-12 w-12 text-lg select-none"
-							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor} cursor-pointer` : 'bg-gray-400 text-white'"
-							@click="i + 1 < currentStep ? $emit('previous-step', i + 1) : ''"
+							:class="[stepColor(i), (i + 1 < currentStep && !disableBack) ? 'cursor-pointer' : 'cursor-default']"
+							@click="(i + 1 < currentStep && !disableBack) ? $emit('previous-step', i + 1) : ''"
 						>
-							<span class="text-green-400" v-if="currentStep > i + 1">
-								<t-icon value="check" size="6" />
-							</span>
+							<t-icon value="check" size="6" v-if="currentStep > i + 1" />
 							<span v-else>
 								{{ +i + 1 }}
 							</span>
@@ -36,12 +34,10 @@
 					<div class="relative">
 						<div 
 							class="flex items-center justify-center rounded-full h-8 w-8 text-lg select-none"
-							:class="currentStep >= i + 1 ? `bg-${color} text-${textColor} cursor-pointer` : 'bg-gray-400 text-white'"
-							@click="i + 1 < currentStep ? $emit('previous-step', i + 1) : ''"
+							:class="[stepColor(i), (i + 1 < currentStep && !disableBack) ? 'cursor-pointer' : 'cursor-default']"
+							@click="(i + 1 < currentStep && !disableBack) ? $emit('previous-step', i + 1) : ''"
 						>
-							<span class="text-green-400" v-if="currentStep > i + 1">
-								<t-icon value="check" size="6" />
-							</span>
+							<t-icon value="check" size="6" v-if="currentStep > i + 1" />
 							<span v-else>
 								{{ +i + 1 }}
 							</span>
@@ -96,6 +92,11 @@ export default {
 			type: Array,
 			required: true
 		},
+		disableBack: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
 		currentStep: {
 			type: Number,
 			required: true,
@@ -138,6 +139,15 @@ export default {
 				element.style.height = 0;
 			});
 		},
+		stepColor(i) {
+			if(this.currentStep === i + 1) {
+				return `bg-${this.color} text-${this.textColor}`
+			} else if(this.currentStep > i + 1) {
+				return `bg-green-500 text-white`
+			} else {
+				return `bg-gray-400 text-white`
+			}
+		}
 	}
 }
 </script>

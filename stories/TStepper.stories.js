@@ -14,6 +14,11 @@ export default {
 			name: 'textColor',
 			description: 'Tailwind classname for text color of steps',
 			control: { type: 'text' }
+		},
+		disableBack: {
+			name: 'disableBack',
+			description: 'Disable going back to previous steps after completed',
+			control: { type: 'text' }
 		}
 	}
 };
@@ -113,7 +118,7 @@ export const Vertical = (args, { argTypes }) => ({
 		`
 		<div>
 			<div class="w-2/3 mx-auto">
-				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="false" @previous-step="changeStep" v-bind="$props">
+				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="false" @previous-step="changeStep" disableBack v-bind="$props">
 					<template v-slot:step_1>
 						Content for step 1
 						<t-button @click="currentStep1 += 1">Next step</t-button>
