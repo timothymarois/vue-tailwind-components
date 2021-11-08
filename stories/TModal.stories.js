@@ -234,13 +234,13 @@ export const CenterDivOffset = (argTypes) => ({
 		`,
 });
 
-export const LeftToFull = (argTypes) => ({
+export const RightToFull = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false,
-		modalType: 'left'
+		modalType: 'right'
     }),
 	methods: {
 		close() {

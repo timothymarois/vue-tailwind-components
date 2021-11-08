@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${offsetCalculation}`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${offsetCalculation}; ${type === 'full' ? 'width: calc(100% - 2em)' : ''}`"
 				>
 					<div 
 						v-if="closeButton" 
@@ -163,7 +163,7 @@ export default {
 						'h-full',
 						'md:h-auto',
 						'md:inset-y-4',
-						'md:right-4'
+						'md:right-4',
 					]);
 					break;
 				case 'center': 
@@ -177,7 +177,8 @@ export default {
 					c = c.concat([
 						'max-w-full',
 						'inset-y-0',
-						'md:inset-4'
+						'md:right-4',
+						'md:inset-y-4'
 					]);
 					break; 
 			}
