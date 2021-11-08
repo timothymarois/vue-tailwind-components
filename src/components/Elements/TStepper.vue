@@ -172,7 +172,7 @@ export default {
 				}
 			} else {
 				if(this.currentStep > i + 1 || this.finished) {
-					return `bg-${this.color}`;
+					return `bg-${this.color} border-2 border-${this.color} ring-2 ring-${this.color}`;
 				} else if(this.currentStep === i + 1) {
 					return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`
 				} else {
