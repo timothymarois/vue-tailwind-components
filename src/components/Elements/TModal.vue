@@ -181,10 +181,12 @@ export default {
 					]);
 					break;
 				case 'full':
+					let prevType = this.previousType
+					if (!this.previousType) prevType = 'inset-x'
 					c = c.concat([
 						'max-w-full',
 						'inset-y-0',
-						`md:${this.previousType}-4`,
+						`md:${prevType}-4`,
 						'md:inset-y-4',
 						'card-width'
 					]);
