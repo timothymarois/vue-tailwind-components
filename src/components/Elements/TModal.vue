@@ -4,7 +4,7 @@
 			<transition :name="transitionName" appear>
 				<div
 					v-if="localShowing"
-					class="bg-white z-50 shadow-lg rounded overflow-x-hidden"
+					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
 					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${offsetCalculation}`"
 				>
@@ -175,8 +175,9 @@ export default {
 					break;
 				case 'full':
 					c = c.concat([
-						'inset-0',
-						'm-4'
+						'max-w-full',
+						'inset-y-0',
+						'md:inset-4'
 					]);
 					break; 
 			}
