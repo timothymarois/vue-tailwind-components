@@ -5,7 +5,6 @@
 				<hr v-if="i != 0" class="flex-grow h-0.5 ml-4 mr-4 mt-5 bg-gray-300" :key="i" />
 				<div class="relative" :key="step.id">
 					<div 
-						@click="currentStep = (+i + 1)"
 						class="flex items-center justify-center rounded-full h-12 w-12 text-lg cursor-pointer select-none"
 						:class="currentStep >= i + 1 ? `bg-${color} text-${textColor}` : 'bg-gray-400 text-white'"
 					>
@@ -51,11 +50,11 @@ export default {
 		stepOptions: {
 			type: Array,
 			required: true
-		}
-	},
-	data() {
-		return {
-			currentStep: 1
+		},
+		currentStep: {
+			type: Number,
+			required: true,
+			default: 1
 		}
 	}
 }
