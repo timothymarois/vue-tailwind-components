@@ -1,23 +1,28 @@
 <template>
 	<div>
 		<div v-if="horizontal">
-			<div class="flex flex-row justify-between">
+			<div class="flex flex-row justify-between items-center">
 				<template v-for="(step, i) of stepOptions">
-					<hr v-if="i != 0" class="flex-grow h-0.5 ml-4 mr-4 mt-5 bg-gray-300" :key="i" />
+					<hr 
+						v-if="i != 0" 
+						class="flex-grow" 
+						:class="dividerColor(i)"
+						:key="i" 
+					/>
 					<div class="relative" :key="step.id">
 						<div 
-							class="flex items-center justify-center rounded-full h-12 w-12 text-lg select-none"
-							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default']"
+							class="flex items-center justify-center rounded-full text-lg select-none"
+							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon value="check" size="6" v-if="currentStep > i + 1 || finished" />
-							<span v-else>
+							<t-icon value="check" size="6" v-if="(currentStep > i + 1 || finished) && !simple" />
+							<span v-else-if="!simple">
 								{{ +i + 1 }}
 							</span>
 						</div>
 						<div 
 							class="absolute text-center mt-2 w-40 left-1/2 transform -translate-x-1/2"
-							:class="{'text-gray-400' : currentStep < i + 1}"
+							:class="[nameColor(i), simple ? 'font-semibold' : '']"
 						>{{ step.title }}</div>
 					</div>
 				</template>
@@ -32,25 +37,25 @@
 		<div v-else>
 			<div class="flex flex-col justify-between">
 				<div v-for="(step, i) of stepOptions" :key="step.id">
-					<div class="relative">
+					<div class="relative flex flex-row items-center">
 						<div 
-							class="flex items-center justify-center rounded-full h-8 w-8 text-lg select-none"
-							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default']"
+							class="flex items-center justify-center rounded-full text-lg select-none"
+							:class="[stepColor(i), allowBack(i) ? 'cursor-pointer' : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon value="check" size="6" v-if="currentStep > i + 1 || finished" />
-							<span v-else>
+							<t-icon value="check" size="6" v-if="(currentStep > i + 1 || finished) && !simple" />
+							<span v-else-if="!simple">
 								{{ +i + 1 }}
 							</span>
 						</div>
 						<div 
-							class="absolute left-10 top-0.5 text-lg"
-							:class="{'text-gray-400' : currentStep < i + 1}"
+							class="ml-4 text-lg"
+							:class="[nameColor(i), simple ? 'font-semibold' : '']"
 						>{{ step.title }}</div>
 					</div>
 					<div 
-						class="ml-4 my-2 px-8 pt-2 pb-6"
-						:class="{'border-l-2 border-gray-300': i + 1 !== stepOptions.length}"
+						class="my-2 px-8 pt-2 pb-6"
+						:class="[{'border-l-2': i + 1 !== stepOptions.length}, i + 1 < currentStep ? `border-${color}` : '', `ml-${size / 2}`]"
 						style="min-height: 2rem;"
 					>
 						<transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
@@ -108,6 +113,16 @@ export default {
 			type: Boolean,
 			required: true,
 			default: false
+		},
+		simple: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
+		size: {
+			type: [String, Number],
+			required: false,
+			default: 12
 		}
 	},
 	methods: {
@@ -147,12 +162,48 @@ export default {
 			});
 		},
 		stepColor(i) {
-			if(this.currentStep === i + 1 && !this.finished) {
-				return `bg-${this.color} text-${this.textColor}`
-			} else if(this.currentStep > i + 1 || this.finished) {
-				return `bg-green-500 text-white`
+			if(!this.simple) {
+				if(this.currentStep === i + 1 && !this.finished) {
+					return `bg-${this.color} text-${this.textColor}`
+				} else if(this.currentStep > i + 1 || this.finished) {
+					return `bg-green-500 text-white`
+				} else {
+					return `bg-gray-400 text-white`
+				}
 			} else {
-				return `bg-gray-400 text-white`
+				if(this.currentStep > i + 1 || this.finished) {
+					return `bg-${this.color}`;
+				} else if(this.currentStep === i + 1) {
+					return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`
+				} else {
+					return `ring-2 ring-gray-300`
+				}
+			}
+		},
+		nameColor(i) {
+			if(!this.simple) {
+				if(i + 1 > this.currentStep) {
+					return `text-gray-400`;
+				} else {
+					return `text-black`;
+				}
+			} else {
+				if(i + 1 <= this.currentStep) {
+					return `text-${this.color}`;
+				} else {
+					return `text-gray-400`;
+				}
+			}
+		},
+		dividerColor(i) {
+			if(!this.simple) {
+				return `h-0.5 bg-gray-300 mx-4`;
+			} else {
+				if(i < this.currentStep) {
+					return `h-1 bg-${this.color}`;
+				} else {
+					return `h-0.5 bg-gray-300`;
+				}
 			}
 		},
 		allowBack(i) {
