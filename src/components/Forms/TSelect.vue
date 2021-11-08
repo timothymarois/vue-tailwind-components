@@ -42,7 +42,7 @@
                     :disabled="disabled"
                     @click="menuToggle('input')"
                     type="text"
-                    autocomplete="off"
+                    :autocomplete="`new-search-${id}`"
                     :id="`search-${id}`"
                     :name="`n[${id}]`"
                     :placeholder="selectPlaceholder"

@@ -19,6 +19,7 @@
                     :placeholder="placeholder" 
                     :readonly="readonly"
                     :maxlength="maxlength"
+                    :autocomplete="`new-${id}`"
                     v-model="internalValue"
                     @input="update($event)"
                     @keyup="keyup($event)"
