@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; width: calc(100% - 2em ${offsetValue || relativeOffsetPx ? `- ${offsetValue || relativeOffsetPx}px` : ''}); ${offsetCalculation};`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${widthCalculation} ${offsetCalculation};`"
 				>
 					<div 
 						v-if="closeButton" 
@@ -155,16 +155,17 @@ export default {
 			switch(this.type) {
 				case 'left':
 					c = c.concat([
-						'max-w-md',
+						'max-w-xl',
 						'block',
 						'h-full',
 						'md:h-auto',
 						'md:inset-y-4',
-						'md:left-4'
+						'md:left-4',
+						'card-width'
 					])
 				case 'right': 
 					c = c.concat([
-						'max-w-md',
+						'max-w-xl',
 						'block',
 						'h-full',
 						'md:h-auto',
@@ -223,6 +224,15 @@ export default {
 				else return `right: 1em;`;
 			} else if(this.offsetDirection && this.offsetValue > 0) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
+			}
+		},
+		widthCalculation() {
+			if(this.offsetValue || this.relativeOffsetPx) {
+				return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
+			} else if(this.type === 'full') {
+				return `width: calc(100% - 2em);`;
+			} else {
+				return `width: fit-content;`;
 			}
 		},
 		transitionName() {
