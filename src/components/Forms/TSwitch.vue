@@ -6,7 +6,7 @@
 		>
 			<t-label 
 				@click.native="switchState('before')"
-				:color="`${checked ? 'text-gray-400' : ''}`"
+				:color="`${isChecked ? 'text-gray-400' : ''}`"
 			>
 				{{ beforeLabel }}
 			</t-label>
@@ -15,9 +15,10 @@
 			<input 
 				:id="id"
 				type="checkbox"
-				@input="update($event)"
-				v-model="checked"
 				class="sr-only" 
+				:checked="isChecked"
+				:value="value"
+				@change="onChange($event)"
 			/>
 			<div 
 				:class="`w-${inset ? '12' : '10'} h-${inset ? '6' : '4'} bg-${color}-800 rounded-full shadow-inner`"
@@ -31,7 +32,7 @@
 		<div class="ml-3 text-sm">
 			<t-label 
 				@click.native="switchState('aft')"
-				:color="`${!checked ? 'text-gray-400' : ''}`"
+				:color="`${!isChecked ? 'text-gray-400' : ''}`"
 			>
 				{{ aftLabel }}
 			</t-label>
@@ -44,11 +45,6 @@ import uniqid from "../../utils/uniqid.js";
 import TLabel from "./TLabel";
 export default { 
 	name: 'TSwitch',
-	data() {
-		return {
-			checked: false
-		}
-	},
 	components: {
 		TLabel
 	},
@@ -76,22 +72,38 @@ export default {
 		falseLabel: {
 			type: [String,Boolean],
 			required: false
-		}
+		},
+		trueValue: {
+			type: [String, Boolean],
+			default: true
+		},
+		falseValue: {
+			type: [String, Boolean],
+			default: false
+		},
 	},
 	methods: {
-		update(e) {
-			this.$emit('input', !this.value);
-		},
 		switchState(side) {
 			if(side === 'aft' && this.falseLabel) {
-				this.checked = true;
+				this.internalValue = this.trueValue;
 			} 
 			else if(side === 'before') {
-				this.checked = false;
+				this.internalValue = this.falseValue;
 			} 
 			else {
-				this.checked = !this.checked;
+				// this.internalValue = !this.internalValue;
+				const value = this.value;
+				let input = this.internalValue
+				input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
+				this.internalValue = input
 			}
+		},
+		valueComparator: (a, b) => a === b,
+		onChange(e) {
+			// const value = this.value;
+			// let input = this.internalValue
+			// input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
+			// this.internalValue = input
 		}
 	},
 	computed: {
@@ -99,7 +111,7 @@ export default {
 			return uniqid()
 		},
 		aftLabel() {
-			if ((this.trueLabel && this.checked === true) || (this.trueLabel && this.falseLabel)) {
+			if ((this.trueLabel && this.isChecked === true) || (this.trueLabel && this.falseLabel)) {
 				return this.trueLabel;
 			} 
 			else {
@@ -110,6 +122,17 @@ export default {
 			if(this.falseLabel) {
 				return this.falseLabel;
 			}
+		},
+		internalValue: {
+			get: function() {
+				return this.value; 
+			},
+			set: function(val) { 
+				this.$emit('input',val);
+			}
+		},
+		isChecked() {
+			return this.valueComparator(this.value, this.trueValue) ? true : false
 		}
 	}
 };
