@@ -234,13 +234,13 @@ export const CenterDivOffset = (argTypes) => ({
 		`,
 });
 
-export const RightToFull = (argTypes) => ({
+export const TransitionToFull = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false,
-		modalType: 'right'
+		modalType: 'left'
     }),
 	methods: {
 		close() {
@@ -253,7 +253,7 @@ export const RightToFull = (argTypes) => ({
 		<div>
 			<t-button @click="showing = true;showModal=true" label="Show Modal" />
 
-			<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType"> 
+			<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType" offsetDirection="left" offsetValue="250"> 
 				<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
 				<div class="lg:flex-grow flex items-end justify-center mt-8">
 					<t-button icon="close" @click="modalType = 'left'" outlined class="mr-3">Make left</t-button>

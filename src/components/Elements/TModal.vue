@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${offsetCalculation};`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; width: calc(100% - 2em ${this.offsetValue ? `- ${this.offsetValue}px + 1em` : ''}); ${offsetCalculation};`"
 				>
 					<div 
 						v-if="closeButton" 
@@ -184,7 +184,7 @@ export default {
 					c = c.concat([
 						'max-w-full',
 						'inset-y-0',
-						`md:${this.previousType}-4`,
+						`md:${this.previousType || 'left'}-4`,
 						'md:inset-y-4',
 						'card-width'
 					]);
@@ -273,9 +273,9 @@ export default {
 	width: auto;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
 	.card-width {
-		width: calc(100% - 2em);
+		width: 100%!important;
 	}
 }
 
