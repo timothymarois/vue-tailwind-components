@@ -155,12 +155,13 @@ export default {
 			switch(this.type) {
 				case 'left':
 					c = c.concat([
-						'max-w-xl',
 						'block',
 						'h-full',
-						'md:h-auto',
-						'md:inset-y-4',
-						'md:left-4',
+						'left-0',
+						'sm:max-w-xl',
+						'sm:h-auto',
+						'sm:inset-y-4',
+						'sm:left-4',
 						'card-width'
 					])
 				case 'right': 
@@ -168,9 +169,10 @@ export default {
 						'max-w-xl',
 						'block',
 						'h-full',
-						'md:h-auto',
-						'md:inset-y-4',
-						'md:right-4',
+						'right-0',
+						'sm:h-auto',
+						'sm:inset-y-4',
+						'sm:right-4',
 						'card-width'
 					]);
 					break;
@@ -279,7 +281,7 @@ export default {
 	transform: translateX(-120%);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 640px) {
 	.card-width {
 		width: 100%!important;
 	}
