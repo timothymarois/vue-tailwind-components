@@ -271,7 +271,7 @@ export default {
 	transform: translateX(-120%);
 }
 
-.card-width {
+/* .card-width {
 	width: auto;
 }
 
@@ -279,6 +279,6 @@ export default {
 	.card-width {
 		width: calc(100% - 2em);
 	}
-}
+} */
 
 </style>
