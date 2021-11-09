@@ -15,8 +15,8 @@
                 class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
                 :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
                 @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
-                @keydown.up.prevent="cycleOptions(dropdownDirection === 'top' ? 'down' : 'up')"
-                @keydown.down.prevent="cycleOptions(dropdownDirection === 'top' ? 'up' : 'down')"
+                @keydown.up.prevent="cycleOptions('up')"
+                @keydown.down.prevent="cycleOptions('down')"
                 @click.self="menuToggle('button')"
             >
                 <span 
@@ -106,7 +106,7 @@
                     v-else-if="!loading && computedOptions.length > 0"
                 >
                     <li
-                        v-for="(item, i) of (dropdownDirection === 'top' ? searchableOptions.slice().reverse() : searchableOptions)"
+                        v-for="(item, i) of searchableOptions"
                         :key="i"
                         class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
                         :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : searchableOptions[cycleIndex] === item}]"
