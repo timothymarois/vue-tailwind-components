@@ -269,14 +269,10 @@ export default {
 	transform: translateX(-120%);
 }
 
-/* .card-width {
-	width: auto;
-}
-
 @media only screen and (max-width: 768px) {
 	.card-width {
 		width: 100%!important;
 	}
-} */
+}
 
 </style>
