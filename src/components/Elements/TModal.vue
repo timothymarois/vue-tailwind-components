@@ -155,7 +155,7 @@ export default {
 			switch(this.type) {
 				case 'left':
 					c = c.concat([
-						'max-w-xl',
+						'max-w-md',
 						'block',
 						'h-full',
 						'md:h-auto',
@@ -164,7 +164,7 @@ export default {
 					])
 				case 'right': 
 					c = c.concat([
-						'max-w-xl',
+						'max-w-md',
 						'block',
 						'h-full',
 						'md:h-auto',
