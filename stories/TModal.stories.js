@@ -264,3 +264,45 @@ export const TransitionToFull = (argTypes) => ({
         </div>
 		`,
 });
+
+
+export const RightToFullOffset = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TModal, TButton },
+    data: () => ({
+        showing: false,
+		showModal: false,
+		modalType: 'right'
+    }),
+	methods: {
+		close() {
+			this.showing=false
+			this.showModal=false
+		}
+	},
+	template: 
+		`
+			<div id="app">
+				<div class="flex">
+					<div style="width:300px;height:100vh;border:1px solid">
+						side panel
+					</div>
+					<div id="content" style="width:100%;height:100vh;border:1px solid">
+						<t-button @click="showing = true;showModal=true" label="Show Modal" />
+
+						<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType" :offset-div="(modalType=='full') ? 'content' : null"> 
+							<div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
+							<div class="lg:flex-grow flex items-end justify-center mt-8">
+								<t-button icon="close" @click="modalType = 'left'" outlined class="mr-3">Make left</t-button>
+								<t-button icon="close" @click="modalType = 'full'" outlined class="mr-3">Make full</t-button>
+								<t-button icon="close" @click="modalType = 'right'" outlined class="mr-3">Make right</t-button>
+							</div>
+						</t-modal>
+
+					</div>
+					
+				</div>
+
+			</div>
+		`,
+});
