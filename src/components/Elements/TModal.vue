@@ -219,7 +219,7 @@ export default {
 		},
 		offsetCalculation() {
 			if (this.relativeOffsetPx) {
-				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right')) return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
+				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right') || this.type === 'center') return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
 				else return `right: 1em;`;
 			} else if(this.offsetDirection && this.offsetValue > 0) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
