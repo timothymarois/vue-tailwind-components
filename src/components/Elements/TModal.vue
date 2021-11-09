@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; width: calc(100% - 2em ${this.offsetValue ? `- ${this.offsetValue}px + 1em` : ''}); ${offsetCalculation};`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; width: calc(100% - 2em ${offsetValue || relativeOffsetPx ? `- ${offsetValue || relativeOffsetPx}px` : ''}); ${offsetCalculation};`"
 				>
 					<div 
 						v-if="closeButton" 
@@ -141,7 +141,7 @@ export default {
 					mainDivOffset = mainDiv.offsetWidth;
 				}
 				let appDiv  = document.getElementById('app').offsetWidth;
-				let offset  = parseInt(appDiv-mainDivOffset);
+				let offset  = +(appDiv-mainDivOffset);
 				if (offset) {
 					this.relativeOffsetPx = offset;
 				}
@@ -219,9 +219,9 @@ export default {
 		},
 		offsetCalculation() {
 			if (this.relativeOffsetPx) {
-				return `left: ${this.relativeOffsetPx}px; right: 0;`;
-			}
-			if(this.offsetDirection && this.offsetValue > 0) {
+				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right')) return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
+				else return `right: 1em;`;
+			} else if(this.offsetDirection && this.offsetValue > 0) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
 			}
 		},
