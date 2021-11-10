@@ -1,6 +1,7 @@
 /**
  * Elements
  */
+import TAlert from './Elements/TAlert.vue'
 import TIcon from './Elements/TIcon.vue'
 import TLoader from './Elements/TLoader.vue'
 import TButton from './Elements/TButton.vue'
@@ -31,6 +32,7 @@ import TTableSimple from './Tables/TTableSimple.vue'
 import TPagination from './Tables/TPagination.vue'
 
 export {
+    TAlert,
     TIcon,
     TLoader,
     TButton,
