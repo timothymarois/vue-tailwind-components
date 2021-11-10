@@ -67,7 +67,6 @@ export const Error = (args, { argTypes }) => ({
 	components: { TAlert, TIcon },
 	template: `
 	<t-alert v-bind="$props" v-slot>
-		<t-icon :value="icon" :size="iconSize" class="mr-2" />
 		Your notifications are turned off
 	</t-alert>
 	`
@@ -88,7 +87,6 @@ export const Warning = (args, { argTypes }) => ({
 	components: { TAlert, TIcon },
 	template: `
 	<t-alert v-bind="$props" v-slot>
-		<t-icon :value="icon" :size="iconSize" class="mr-2" />
 		Your car's extended warranty expires soon
 	</t-alert>
 	`
@@ -110,7 +108,6 @@ export const Success = (args, { argTypes }) => ({
 	template: 
 	`
 		<t-alert v-bind="$props" v-slot>
-			<t-icon :value="icon" :size="iconSize" class="mr-2" />
 			Your entry has been confirmed
 		</t-alert>
 	`
@@ -121,5 +118,7 @@ Success.args = {
 	icon: 'check',
 	iconSize: 5,
 	shadow: true,
-	rounded: true
+	rounded: true,
+	borderPosition:"left",
+	borderColor:"green-800"
 }

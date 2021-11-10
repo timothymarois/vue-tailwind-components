@@ -2,14 +2,34 @@
 	<div 
 		:class="[alertClasses, `py-3 px-4 text-${textColor} inline-flex items-center ${rounded ? 'rounded' : ''} ${shadow ? 'shadow-lg' : ''}`]"
 	>
-		<slot></slot>
+		<div v-if="icon" class="mr-2">
+			<t-icon 
+                :value="icon" 
+                :size="iconSize" 
+            />
+		</div>
+		<div>
+			<slot></slot>
+		</div>
 	</div>
 </template>
 
 <script>
+import TIcon from "./TIcon.vue";
 export default {
 	name: 'TAlert',
+	components: {
+		TIcon
+	},
 	props: {
+		icon: {
+			type: String,
+			default: null
+		},
+		iconSize: {
+			type: String,
+			default: 6
+		},
 		color: {
 			type: String,
 			required: false,
