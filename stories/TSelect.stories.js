@@ -104,7 +104,8 @@ export const GroupedSelect = (args, { argTypes }) => ({
 			<t-card title="Grouped Select" class="mt-4">
 				<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 					<t-select v-model="value2" label="Standard" :options="options" grouped placeholder="Select One" />
-					<div class="w-1/2 ml-8">Value: {{ value2 }}</div>
+					<t-select v-model="value2" label="Searchable" :options="options" grouped searchable placeholder="Select One" />
+				</div>
 				</div>
 			</t-card>
 		</div>
