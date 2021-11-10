@@ -10,7 +10,7 @@
 					:size="iconSize" 
 				/>
 			</div>
-			<div>
+			<div :class="`text-${textColor}-${colorLevel}`">
 				<slot></slot>
 			</div>
 		</div>
