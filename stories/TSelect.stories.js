@@ -89,7 +89,7 @@ export const GroupedSelect = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
 	data: () => ({
-		value: null,
+		value1: null,
 		value2: null
 	}),
 	template: `
@@ -97,8 +97,8 @@ export const GroupedSelect = (args, { argTypes }) => ({
 		<div class="max-w-2xl">
 			<t-card title="Grouped Multiple Select">
 				<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-					<t-select v-model="value" label="Standard" :options="options" grouped multiple placeholder="Select One" />
-					<div class="w-full ml-8">Value: {{ value }}</div>
+					<t-select v-model="value1" label="Standard" :options="options" grouped multiple placeholder="Select One" />
+					<t-select v-model="value1" label="Searchable" :options="options" grouped multiple searchable placeholder="Select One" />
 				</div>
 			</t-card>
 			<t-card title="Grouped Select" class="mt-4">
