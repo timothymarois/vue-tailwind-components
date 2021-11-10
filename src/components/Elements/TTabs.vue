@@ -14,6 +14,7 @@
                     'px-4 py-2 text-sm' : !dense,
                     'px-2 py-1 text-xs' : dense,
                     'flex-grow' : grow,
+                    'flex-1' : even,
                     'hover:bg-indigo-900 hover:text-white' : (value == item.id) && !item.disabled,
                     'hover:bg-indigo-100 hover:text-indigo-900' : (value != item.id) && !item.disabled,
                     'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300' : item.disabled,
@@ -53,7 +54,11 @@ export default {
         grow : {
             type: Boolean,
             default: false
-        }
+        },
+        even : {
+          type: Boolean,
+          default: false
+        },
     },
     methods:{
         update(item) {
