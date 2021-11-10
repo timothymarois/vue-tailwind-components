@@ -1,10 +1,11 @@
 <template>
 	<div class="w-full">
 		<div 
-			:class="[alertClasses, `py-3 px-4 w-full text-${textColor} inline-flex items-center ${rounded ? 'rounded' : ''} ${shadow ? 'shadow-lg' : ''}`]"
+			:class="[alertClasses, `py-3 px-4 w-full text-${textColor} inline-flex items-center ${rounded ? 'rounded' : ''} ${shadow ? 'shadow' : ''}`]"
 		>
 			<div v-if="icon" class="mr-2">
 				<t-icon 
+					:class="`text-${iconColor}-${iconColorLevel}`"
 					:value="icon" 
 					:size="iconSize" 
 				/>
@@ -32,49 +33,52 @@ export default {
 			type: String,
 			default: 6
 		},
+		iconColor: {
+			type: String,
+			default: 'white'
+		},
+		iconColorLevel: {
+			type: [Number, String],
+			default: '600'
+		},
 		color: {
 			type: String,
-			required: false,
 			default: 'indigo'
+		},
+		colorLevel: {
+			type: [Number, String],
+			default: '600'
 		},
 		textColor: {
 			type: String,
-			required: false,
 			default: 'white'
 		},
 		outlined: {
 			type: Boolean,
-			required: false,
 			default: false
 		},
 		rounded: {
 			type: Boolean,
-			required: false,
-			default: true
+			default: false
 		},
 		shadow: {
 			type: Boolean,
-			required: false,
-			default: true
+			default: false
 		},
-		textOnly: {
+		text: {
 			type: Boolean,
-			required: false,
 			default: false
 		},
 		borderColor: {
 			type: String,
-			required: false,
 			default: 'indigo'
 		},
 		borderPosition: {
 			type: String,
-			required: false,
 			default: null
 		},
 		borderWidth: {
 			type: [String, Number],
-			required: false,
 			default: '4'
 		}
 	},
@@ -82,15 +86,17 @@ export default {
 		alertClasses() {
 			let c = []
 
-			if(!this.textOnly) {
+			if(!this.text) {
 				if(this.outlined) {
-					c = c.concat([`bg-white border-2 border-${this.borderColor}-600`])
-				} else {
-					c = c.concat([`bg-${this.color}-600`])
+					c = c.concat([`border-2 border-${this.borderColor}-${this.colorLevel}`])
+				} 
+				else {
+					c = c.concat([`bg-${this.color}-${this.colorLevel}`])
 				}
-			} else {
+			} 
+			else {
 				if(this.outlined) {
-					c = c.concat([`border-2 border-${this.borderColor}-600`]);
+					c = c.concat([`border-2 border-${this.borderColor}-${this.colorLevel}`]);
 				}
 			}
 
