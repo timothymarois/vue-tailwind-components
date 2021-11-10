@@ -97,13 +97,13 @@
                     Searching...
                 </li>
                 <li 
-                    v-else-if="!loading && searchableOptions.length === 0" 
+                    v-else-if="!loading && searchableOptions.length === 0 && !grouped" 
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
                     {{ nodata }}
                 </li>
                 <div 
-                    v-else-if="!loading && computedOptions.length > 0"
+                    v-else-if="!loading && computedOptions.length > 0 && !grouped"
                 >
                     <li
                         v-for="(item, i) of searchableOptions"
@@ -122,10 +122,38 @@
                             class="ml-2"
                         />
                         <span 
-                            class="font-medium m-2" 
+                            class="font-normal m-2" 
                             v-html="item[itemLabel]"
                         />    
                     </li>
+                </div>
+                <div 
+                    v-else-if="!loading && options.length > 0 && grouped"
+                >
+                    <div v-for="(group, j) of options" :key="group.groupName">
+                        <div :class="`font-bold text-gray-800 border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`" style="border-bottom-width: 1px;">{{group.groupName}}</div>
+                        <li
+                            v-for="(item, i) of group.items"
+                            :key="i"
+                            class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
+                            :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : searchableOptions[cycleIndex] === item}]"
+                            :id="searchableOptions[cycleIndex] === item ? `focus-${id}` : ''"
+                            @click="selectItem(item)"
+                        >  
+                            <t-checkbox 
+                                v-if="multiple"
+                                :color="color"
+                                :value="isChecked(item)"
+                                :check="true"
+                                size="4"
+                                class="ml-2"
+                            />
+                            <span 
+                                class="font-normal m-2" 
+                                v-html="item[itemLabel]"
+                            />    
+                        </li>
+                    </div>
                 </div>
                 <div 
                     v-if="create && (localsearch || !searchable)"
@@ -241,6 +269,11 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        grouped: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     data() {
@@ -315,7 +348,7 @@ export default {
             return c;
         },
         searchableOptions() {
-            if (this.localsearch && this.searchable && this.isSearching && !this.external) {
+            if (this.localsearch && this.searchable && this.isSearching && !this.external && !this.grouped) {
                 return JSON.parse(JSON.stringify(this.computedOptions)).filter(option => {
                     let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase());
                     if (o) {
@@ -325,8 +358,15 @@ export default {
                         return o;
                     }
                 });
-            }
-            else {
+            } else if (this.grouped) {
+                let returnItems = [];
+
+                for(const group of this.options) {
+                    returnItems.push(...group.items);
+                }
+
+                return returnItems;
+            } else {
                 return this.computedOptions;
             }
         },
@@ -373,13 +413,13 @@ export default {
 
             if(multiple) {
                 for(const item of values) {
-                    this.computedOptions.find(obj => {
+                    this.searchableOptions.find(obj => {
                         if(obj[this.itemValue] === item) return found.push(obj);
                     })
                 }
             } 
             else {
-                this.computedOptions.find(obj => {
+                this.searchableOptions.find(obj => {
                     if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) {
                         return found = obj;
                     }
@@ -393,6 +433,7 @@ export default {
             item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
 
             if(!this.multiple) {
+                console.log(item);
                 this.selected = item
                 let i = this.searchableOptions.indexOf(item)
                 this.selectedIndex = i
@@ -464,6 +505,14 @@ export default {
                     });
                 }
             }
+        },
+        groupedOptions(group) {
+            return group.map(key => {
+                return {
+                    label: key,
+                    value: key
+                }
+            })
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
