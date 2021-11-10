@@ -1,15 +1,17 @@
 <template>
-	<div 
-		:class="[alertClasses, `py-3 px-4 text-${textColor} inline-flex items-center ${rounded ? 'rounded' : ''} ${shadow ? 'shadow-lg' : ''}`]"
-	>
-		<div v-if="icon" class="mr-2">
-			<t-icon 
-                :value="icon" 
-                :size="iconSize" 
-            />
-		</div>
-		<div>
-			<slot></slot>
+	<div class="w-full">
+		<div 
+			:class="[alertClasses, `py-3 px-4 w-full text-${textColor} inline-flex items-center ${rounded ? 'rounded' : ''} ${shadow ? 'shadow-lg' : ''}`]"
+		>
+			<div v-if="icon" class="mr-2">
+				<t-icon 
+					:value="icon" 
+					:size="iconSize" 
+				/>
+			</div>
+			<div>
+				<slot></slot>
+			</div>
 		</div>
 	</div>
 </template>
