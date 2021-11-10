@@ -436,7 +436,6 @@ export default {
             item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
 
             if(!this.multiple) {
-                console.log(item);
                 this.selected = item
                 let i = this.searchableOptions.indexOf(item)
                 this.selectedIndex = i
