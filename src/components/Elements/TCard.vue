@@ -60,7 +60,7 @@ export default {
     },
     computed: {
         contentClasses() {
-            let c = '';
+            let c = 'w-full ';
             if (this.contentPadding) {
                 c = 'p-'+this.contentPadding;
             }
