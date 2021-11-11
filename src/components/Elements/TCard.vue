@@ -60,9 +60,9 @@ export default {
     },
     computed: {
         contentClasses() {
-            let c = 'w-full ';
+            let c = ['w-full'];
             if (this.contentPadding) {
-                c = 'p-'+this.contentPadding;
+                c = c.concat(['p-'+this.contentPadding]);
             }
             return c;
         },
