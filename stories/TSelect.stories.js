@@ -85,6 +85,76 @@ MultipleSelect.args = {
 };
 
 
+export const GroupedSelect = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TSelect, TCard },
+	data: () => ({
+		value1: null,
+		value2: null
+	}),
+	template: `
+	<div class="p-6 bg-gray-100 absolute inset-0 w-full h-full">
+		<div class="max-w-2xl">
+			<t-card title="Grouped Multiple Select">
+				<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+					<t-select v-model="value1" label="Standard" :options="options" grouped multiple placeholder="Select One" />
+					<t-select v-model="value1" label="Searchable" :options="options" grouped multiple searchable placeholder="Select One" />
+				</div>
+			</t-card>
+			<t-card title="Grouped Select" class="mt-4">
+				<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+					<t-select v-model="value2" label="Standard" :options="options" grouped placeholder="Select One" />
+					<t-select v-model="value2" label="Searchable" :options="options" grouped searchable placeholder="Select One" />
+				</div>
+				</div>
+			</t-card>
+		</div>
+	</div>
+	`,
+});
+
+GroupedSelect.args = {
+	color: 'indigo',
+	options: [
+		{
+			groupName: "Dogs",
+			items: [
+				{
+					label: 'Dog 1',
+					value: 'dog_1'
+				},
+				{
+					label: 'Dog 2',
+					value: 'dog_2'
+				},
+				{
+					label: 'Dog 3',
+					value: 'dog_3'
+				}
+			]
+		},
+		{
+			groupName: "Cats",
+			items: [
+				{
+					label: 'Cat 1',
+					value: 'cat_1'
+				},
+				{
+					label: 'Cat 2',
+					value: 'cat_2'
+				},
+				{
+					label: 'Cat 3',
+					value: 'cat_3'
+				}
+			]
+		}
+	],
+	returnObject: false,
+	grouped: true
+};
+
 export const StandardStates = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect, TCard },
