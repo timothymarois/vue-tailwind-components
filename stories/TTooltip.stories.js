@@ -35,12 +35,12 @@ export const Button = (args, { argTypes }) => ({
 	components: { TTooltip, TButton },
 	template: `
 		<div>
-			<div class="ml-32 mt-20 flex flex-wrap flex-row space-x-10">
-				<t-tooltip v-bind="$props" content="Tooltip top" position="top">
+			<div class="ml-32 mt-64 flex flex-wrap flex-row space-x-10">
+				<t-tooltip v-bind="$props" content="Tooltip top content that is very long Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." position="top">
 					<t-button label="Button with Tooltip" v-slot />
 				</t-tooltip>
-				<t-tooltip v-bind="$props" content="Tooltip bottom" position="bottom">
-					<t-button label="Button with Tooltip" v-slot />
+				<t-tooltip v-bind="$props" content="Tooltip bottom content that is very long Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." position="bottom" maxWidth="400">
+					<t-button label="Button with and custom max-width" v-slot />
 				</t-tooltip>
 				<t-tooltip v-bind="$props" content="Tooltip left" position="left">
 					<t-button label="Button with Tooltip" v-slot />

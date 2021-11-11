@@ -30,6 +30,11 @@ export default {
 		active: {
 			type: Boolean,
 			default: true
+		},
+		maxWidth: {
+			type: [String, Number],
+			required: false,
+			default: 250
 		}
 	},
 	data() {
@@ -56,6 +61,7 @@ export default {
 		this.arrowElement.classList.add("w-3", "h-3", "absolute", `bg-${this.color}`, ...this.arrowOffset);
 		this.element.style = this.tooltipOffset(this.clientRect);
 		this.element.style.zIndex = 1007;
+		this.element.style.maxWidth = `${this.maxWidth}px`;
 
 		const classes = [
 			"absolute",
@@ -67,13 +73,13 @@ export default {
 			`bg-${this.color}`, 
 			"text-xs", 
 			`text-${this.textColor}`, 
-			"text-center", 
-			"whitespace-nowrap", 
+			"text-center",
 			"transform",
 			"-translate-x-1/2",
 			"transition-opacity",
 			"duration-200",
-			"opacity-0"
+			"opacity-0",
+			"break-words"
 		];
 
 		this.element.classList.add(...classes);
@@ -103,7 +109,7 @@ export default {
 		tooltipOffset(newRect) {		
 			switch(this.position) {
 				case 'top': 
-					return `left: ${newRect['x'] + (newRect['width'] / 2)}px; top: ${newRect['y'] - newRect['height']}px;`;
+					return `left: ${newRect['x'] + (newRect['width'] / 2)}px; bottom: calc(100% - ${newRect['y']}px + 10px);`;
 				case 'bottom':
 					return `left: ${newRect['x'] + (newRect['width'] / 2)}px; top: ${newRect['y'] + newRect['height'] + 10}px;`;
 				case 'left':
