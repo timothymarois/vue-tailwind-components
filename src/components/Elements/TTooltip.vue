@@ -103,6 +103,7 @@ export default {
 				this.element.style = this.tooltipOffset(newRect);
 				this.element.style.zIndex = 1007;
 				this.clientRect = newRect;
+				this.element.style.maxWidth = `${this.maxWidth}px`;
 			}
 		},
 		tooltipOffset(newRect) {		
