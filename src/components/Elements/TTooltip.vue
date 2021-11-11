@@ -1,6 +1,6 @@
 <template>
 	<div class="relative inline-flex">
-		<div :id="`tooltip__wrap-${id}`" @mouseenter="show = true" @mouseleave="show = false">
+		<div :id="`tooltip__wrap-${id}`" @mouseenter="showTooltip(true)" @mouseleave="showTooltip(false)">
 			<slot>Text</slot>
 		</div>
 	</div>
@@ -87,35 +87,34 @@ export default {
 		this.element.setAttribute("id", this.id);
 		this.element.appendChild(this.arrowElement);
 		document.body.appendChild(this.element);
-
-		window.addEventListener('resize', this.checkResize);
 	},
 	beforeDestroy() {
 		this.element.remove();
 		this.arrowElement.remove();
-		window.removeEventListener('resize', this.checkResize);
 	},
 	methods: {
+		showTooltip(v) {
+			this.checkResize();
+			this.show = v;
+		},
 		checkResize() {
-			setTimeout(() => {
-				const newRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
-				if(newRect.y != this.clientRect.y || newRect.x != this.clientRect.x) {
-					this.element.style = this.tooltipOffset(newRect);
-					this.element.style.zIndex = 1007;
-					this.clientRect = newRect;
-				}
-			}, 300);
+			const newRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
+			if(newRect.y != this.clientRect.y || newRect.x != this.clientRect.x) {
+				this.element.style = this.tooltipOffset(newRect);
+				this.element.style.zIndex = 1007;
+				this.clientRect = newRect;
+			}
 		},
 		tooltipOffset(newRect) {		
 			switch(this.position) {
 				case 'top': 
-					return `left: ${newRect['x'] + (newRect['width'] / 2)}px; bottom: calc(100% - ${newRect['y']}px + 10px);`;
+					return `left: ${newRect['x'] + window.scrollX + (newRect['width'] / 2)}px; bottom: calc(100% - ${newRect['y'] + window.scrollY}px + 10px);`;
 				case 'bottom':
-					return `left: ${newRect['x'] + (newRect['width'] / 2)}px; top: ${newRect['y'] + newRect['height'] + 10}px;`;
+					return `left: ${newRect['x'] + window.scrollX + (newRect['width'] / 2)}px; top: ${newRect['y'] + window.scrollY + newRect['height'] + 10}px;`;
 				case 'left':
-					return `left: ${newRect['x'] - 10}px; top: ${newRect['y'] + (newRect['height'] / 2)}px; transform: translateX(-100%) translateY(-50%);`;
+					return `left: ${newRect['x'] + window.scrollX - 10}px; top: ${newRect['y'] + window.scrollY + (newRect['height'] / 2)}px; transform: translateX(-100%) translateY(-50%);`;
 				case 'right':
-					return `left: ${newRect['x'] + newRect['width'] + 10}px; top: ${newRect['y'] + (newRect['height'] / 2)}px; transform: translateX(0%) translateY(-50%);`;
+					return `left: ${newRect['x'] + window.scrollX + newRect['width'] + 10}px; top: ${newRect['y'] + window.scrollY + (newRect['height'] / 2)}px; transform: translateX(0%) translateY(-50%);`;
 			}
 		},
 	},
