@@ -57,6 +57,10 @@ export default {
             type: String,
             default: null
         },
+        inputClasses: {
+            type: String,
+            default: null
+        },
         placeholder: {
             type: String,
             default: null
@@ -83,7 +87,7 @@ export default {
             default: 255
         },
         value: {
-            type: String,
+            type: [Number, String],
             default: null
         },
         width: {
@@ -120,6 +124,10 @@ export default {
 
             if (this.icon) {
                 c = c.concat(['pl-8']);
+            }
+
+            if (this.inputClasses) {
+                c = c.concat([this.inputClasses]);
             }
 
             return c;
