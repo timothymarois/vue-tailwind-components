@@ -21,8 +21,10 @@
                     :maxlength="maxlength"
                     :autocomplete="`new-${id}`"
                     v-model="internalValue"
-                    @input="update($event)"
+                    @input="input($event)"
                     @keyup="keyup($event)"
+                    @keydown="keydown($event)"
+                    @focusout="focusout($event)"
                     :class="fieldClasses"
                     :style="(width ? `width: ${width}px` : '')"
                 />
@@ -134,11 +136,17 @@ export default {
         }
     },
     methods: {
-        update(e) {
+        input(e) {
             this.$emit('input', e.target.value);
         },
         keyup(e) {
             this.$emit('keyup', e);
+        },
+        keydown(e) {
+            this.$emit('keydown', e);
+        },
+        focusout(e) {
+            this.$emit('focusout', e);
         },
         clearField() {
             this.internalValue = null;
