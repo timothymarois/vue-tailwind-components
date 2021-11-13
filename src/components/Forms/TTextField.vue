@@ -20,11 +20,13 @@
                     :readonly="readonly"
                     :maxlength="maxlength"
                     :autocomplete="`new-${id}`"
-                    v-model="internalValue"
+                    :value="internalValue"
                     @input="input($event)"
                     @keyup="keyup($event)"
                     @keydown="keydown($event)"
                     @focusout="focusout($event)"
+                    :min="min"
+                    :max="max"
                     :class="fieldClasses"
                     :style="(width ? `width: ${width}px` : '')"
                 />
@@ -107,6 +109,14 @@ export default {
         clearable: {
             type: Boolean,
             default: false
+        },
+        min: {
+            type: [String, Number],
+            default: null
+        },
+        max: {
+            type: [String, Number],
+            default: null
         }
     },
     computed: {
@@ -136,7 +146,17 @@ export default {
         }
     },
     methods: {
+        validateValue(value) {
+            if (value===null || value==='') return null
+            if (this.type=='number') {
+                value = Number(value)
+                if (this.max && value > Number(this.max)) value = Number(this.max)
+                if (this.min && value < Number(this.min)) value = Number(this.min)
+            }
+            return value
+        },
         input(e) {
+            e.target.value = this.validateValue(e.target.value)
             this.$emit('input', e.target.value);
         },
         keyup(e) {

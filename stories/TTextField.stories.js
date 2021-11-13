@@ -62,7 +62,9 @@ export const DifferentStates = (argTypes) => ({
     data: () => ({
 		defaultValue: 'Default Value',
         value: null,
-		anotherValue: null
+		anotherValue: null,
+		limitValue: null,
+		noLimts: 0
     }),
 	template: 
 		`
@@ -101,6 +103,26 @@ export const DifferentStates = (argTypes) => ({
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field type="time" iconLabel="clock" v-model="anotherValue" label="My Label" required />
 						<t-text-field type="date" iconLabel="calendar" v-model="anotherValue" label="My Label" required />
+					</div>
+				</t-card>
+
+				<t-card class="mt-5" title="25000 Limit">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+
+						<t-text-field 
+							v-model="limitValue" 
+							label="Enter Value" 
+							type="number"
+							min="0" 
+							max="25000"
+						/>
+
+						<t-text-field 
+							v-model="noLimts" 
+							label="No Limits" 
+							type="number"
+						/>
+
 					</div>
 				</t-card>
 
