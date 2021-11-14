@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BaseIcon from "./Base/BaseIcon";
+import BaseIcon from "./Base/BaseIcon.vue";
 export default { 
     name: 'TIcon',
     components: {

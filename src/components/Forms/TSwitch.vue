@@ -42,7 +42,7 @@
 
 <script>
 import uniqid from "../../utils/uniqid.js";
-import TLabel from "./TLabel";
+import TLabel from "./TLabel.vue";
 export default { 
 	name: 'TSwitch',
 	components: {

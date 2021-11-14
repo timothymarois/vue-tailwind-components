@@ -44,8 +44,8 @@
 
 <script>
 import uniqid from "../../utils/uniqid.js";
-import TIcon from "../Elements/TIcon";
-import TLabel from "./TLabel";
+import TIcon from "../Elements/TIcon.vue";
+import TLabel from "./TLabel.vue";
 export default { 
     name: 'TTextField',
     components: {

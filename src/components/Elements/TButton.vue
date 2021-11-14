@@ -1,6 +1,6 @@
 <script>
-import TLoader from './TLoader';
-import TIcon from './TIcon';
+import TLoader from './TLoader.vue';
+import TIcon from './TIcon.vue';
 
 export default {
 	name: 'TButton',
