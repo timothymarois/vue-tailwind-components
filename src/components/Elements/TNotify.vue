@@ -1,24 +1,44 @@
 <template>
-	<transition name="pop" appear>
-		<div 
-			:class="`flex justify-center absolute transform -translate-x-1/2 left-1/2 bottom-10 bg-${color} text-${textColor} px-4 py-3 text-sm rounded shadow-lg items-center`"
-		>
-			<div class="mr-2 flex justify-center items-center" v-if="icon || loading">
-				<t-icon :value="icon" :size="iconSize" v-if="icon" />
-				<t-loader :color="textColor" :size="iconSize" v-if="loading" />
-			</div>
-			<slot>Notification component</slot>
-			<div class="ml-2 flex justify-center items-center" v-if="iconRight || closeable">
-				<t-icon :value="iconRight" :size="iconSize" v-if="iconRight" />
-				<t-icon v-if="closeable" value="close" :size="iconSize" class="cursor-pointer" @click.native="closeNotification" />
-			</div>	
+	<div class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start">
+		<div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+			<transition name="pop" appear>
+				<div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden z-50" v-if="localShowing">
+					<div class="p-4">
+						<div class="flex items-start">
+							<div :class="`flex-shrink-0 text-${iconColor}`">
+								<t-icon :value="icon" :size="iconSize" />
+							</div>
+							<div class="ml-3 w-0 flex-1 pt-0.5">
+								<p :class="`text-sm font-medium text-${titleColor}`">
+									{{ title }}
+								</p>
+								<p :class="`mt-1 text-sm text-${descColor}`" v-if="description">
+									{{ description }}
+								</p>
+							</div>
+							<div class="ml-4 flex-shrink-0 flex" v-if="closeable">
+								<button 
+									class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									@click="close"
+								>
+									<span class="sr-only">
+										Close
+									</span>
+									<t-icon value="close" :size="iconSize" />
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</transition>
 		</div>
-	</transition>
+	</div>
 </template>
 
 <script> 
 import TIcon from '../Elements/TIcon.vue';
 import TLoader from '../Elements/TLoader.vue';
+
 export default {
 	name: 'TNotify',
 	components: {
@@ -31,54 +51,60 @@ export default {
 			required: false,
 			default: undefined
 		},
-		iconRight: {
-			type: String,
-			required: false,
-			default: undefined
-		},
 		iconSize: {
 			type: [Number, String],
 			required: false,
 			default: 5
 		},
-		color: {
+		iconColor: {
 			type: String,
-			required: false,
-			default: 'gray-800'
+			required: false
 		},
-		textColor: {
+		titleColor: {
 			type: String,
 			required: false,
-			default: 'white'
+			default: 'gray-900'
+		},
+		descColor: {
+			type: String,
+			required: false,
+			default: 'gray-500'
 		},
 		duration: {
 			type: [String, Number],
 			required: false,
 			default: null
 		},
-		location: {
-			type: String,
-			required: false,
-			default: 'center_bottom'
-		},
-		loading: {
-			type: Boolean,
-			required: false,
-			default: false
-		},
 		closeable: {
 			type: Boolean,
 			default: false
+		},
+		title: {
+			type: String,
+			default: 'Notification title'
+		},
+		description: {
+			type: String,
+			required: false
 		}
 	},
-	async mounted() {
+	data() {
+		return {
+			localShowing: true
+		}
+	},
+	mounted() {
 		if(this.duration) {
-			setTimeout(() => this.closeNotification(), this.duration)
+			setTimeout(this.close, this.duration);
 		}
 	},
 	methods: {
-		closeNotification() {
-			this.$emit('close-notification');
+		close() {
+			this.localShowing = false;
+			this.$emit('close');
+			setTimeout(() => {
+				return this.$emit('end');
+			}, 200)
 		}
 	}
 }
@@ -86,10 +112,14 @@ export default {
 
 <style scoped>
 .pop-enter-active, .pop-leave-active {
-	transition: .15s linear all;
+	transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.pop-enter, .pop-leave-to {
+.pop-enter {
 	opacity: 0;
-	transform: scale(0.80) translateX(-50%);
+	transform: translateY(-50%);
+}
+
+.pop-leave-to {
+	opacity: 0;
 }
 </style>

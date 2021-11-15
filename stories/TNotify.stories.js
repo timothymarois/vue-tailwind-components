@@ -36,21 +36,17 @@ export default {
 export const Standard = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TNotify, TButton },
-	data() {
-		return {
-			show: false
-		}
-	},
-	methods: {
-		toggleNotification() {
-			this.show = !this.show
-		}
-	},
+	data: () => ({
+        showing: false
+    }),
 	template:
 		`
-		<div class="w-full">
-			<t-button @click.native="toggleNotification">Show notification</t-button>
-			<t-notify v-bind="$props" v-if="show" @close-notification="toggleNotification">
+		<div>
+			<div class="mt-72">Scroll down</div>
+			<div class="mt-72">Scroll down</div>
+			<div class="mt-72">Scroll down</div>
+			<t-button @click="showing = true" label="Show notification" />
+			<t-notify v-if="showing" @end="showing = false" v-bind="$props">
 				A notification component
 			</t-notify>
 		</div>
@@ -60,21 +56,14 @@ export const Standard = (args, { argTypes }) => ({
 export const CloseButton = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TNotify, TButton },
-	data() {
-		return {
-			show: false
-		}
-	},
-	methods: {
-		toggleNotification() {
-			this.show = !this.show
-		}
-	},
+	data: () => ({
+        showing: false
+    }),
 	template:
 		`
-		<div class="w-full">
-			<t-button @click.native="toggleNotification">Show notification</t-button>
-			<t-notify v-bind="$props" v-if="show" closeable @close-notification="toggleNotification">
+		<div>
+			<t-button @click="showing = true" label="Show notification" />
+			<t-notify v-if="showing" @end="showing = false" closeable v-bind="$props">
 				A notification component
 			</t-notify>
 		</div>
@@ -83,11 +72,14 @@ export const CloseButton = (args, { argTypes }) => ({
 
 Standard.args = {
 	iconSize: 5,
-	color: 'gray-800',
-	duration: 5000
+	duration: 3000,
+	iconColor: 'green-500',
+	title: 'Successfully saved!'
 };
 
 CloseButton.args = {
 	iconSize: 5,
-	color: 'gray-800'
+	iconColor: 'green-500',
+	title: 'Successfully saved!',
+	description: 'Anyone with a link can now view this file.'
 }
