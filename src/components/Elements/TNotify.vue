@@ -1,5 +1,5 @@
 <template>
-	<div class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start">
+	<div class="fixed inset-0 flex items-end pointer-events-none sm:p-6 sm:items-start notify-padding" :style="`padding-top: calc(1.5rem ${offsetValue ? `+ ${offsetValue}px` : ''});`">
 		<div class="w-full flex flex-col items-center space-y-4 sm:items-end">
 			<transition name="pop" appear>
 				<div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden z-50" v-if="localShowing">
@@ -79,6 +79,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		offsetValue: {
+			type: [String, Number],
+			default: 0
+		},
 		title: {
 			type: String,
 			default: 'Notification title'
@@ -121,5 +125,13 @@ export default {
 
 .pop-leave-to {
 	opacity: 0;
+}
+@media only screen and (max-width: 640px) {
+	.notify-padding {
+		padding-left: 1rem!important;
+		padding-right: 1rem!important;
+		padding-top: 1.5rem!important;
+		padding-bottom: 1.5rem!important;
+	}
 }
 </style>

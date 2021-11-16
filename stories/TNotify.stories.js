@@ -70,6 +70,24 @@ export const CloseButton = (args, { argTypes }) => ({
 		`
 });
 
+export const Offset = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TNotify, TButton },
+	data: () => ({
+        showing: false
+    }),
+	template:
+		`
+		<div>
+			<t-button @click="showing = true" label="Show notification" />
+			<t-notify v-if="showing" @end="showing = false" closeable v-bind="$props">
+				A notification component
+			</t-notify>
+		</div>
+		`
+});
+
+
 Standard.args = {
 	iconSize: 5,
 	duration: 3000,
@@ -82,4 +100,12 @@ CloseButton.args = {
 	iconColor: 'green-500',
 	title: 'Successfully saved!',
 	description: 'Anyone with a link can now view this file.'
+}
+
+Offset.args = {
+	iconSize: 5,
+	iconColor: 'green-500',
+	title: 'Successfully saved!',
+	description: 'Anyone with a link can now view this file.',
+	offsetValue: 400
 }
