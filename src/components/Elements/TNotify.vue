@@ -2,7 +2,7 @@
 	<div class="fixed inset-0 flex items-end pointer-events-none sm:p-6 sm:items-start notify-padding" :style="`padding-top: calc(1.5rem ${offsetValue ? `+ ${offsetValue}px` : ''});`">
 		<div class="w-full flex flex-col items-center space-y-4 sm:items-end">
 			<transition name="pop" appear>
-				<div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden z-50" v-if="localShowing">
+				<div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50" v-if="localShowing">
 					<div class="p-4">
 						<div class="flex items-start">
 							<div :class="`flex-shrink-0 text-${iconColor}`">
