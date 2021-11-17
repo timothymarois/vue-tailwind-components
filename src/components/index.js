@@ -15,6 +15,7 @@ import TTabs from './Elements/TTabs.vue'
 import TTabContent from './Elements/TTabContent.vue'
 import TAvatar from './Elements/TAvatar.vue';
 import TNotify from './Elements/TNotify.vue';
+import TStepper from './Elements/TStepper.vue';
 
 /**
  * Forms
@@ -46,6 +47,7 @@ export {
     TTabContent,
     TAvatar,
     TNotify,
+    TStepper,
 
     TLabel,
     TTextField,
