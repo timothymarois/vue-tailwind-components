@@ -165,17 +165,22 @@ export default {
 			if(!this.simple) {
 				if(this.currentStep === i + 1 && !this.finished) {
 					return `bg-${this.color} text-${this.textColor}`
-				} else if(this.currentStep > i + 1 || this.finished) {
+				} 
+				else if(this.currentStep > i + 1 || this.finished) {
 					return `bg-green-500 text-white`
-				} else {
+				} 
+				else {
 					return `bg-gray-400 text-white`
 				}
-			} else {
+			} 
+			else {
 				if(this.currentStep > i + 1 || this.finished) {
 					return `bg-${this.color} border-2 border-${this.color} ring-2 ring-${this.color}`;
-				} else if(this.currentStep === i + 1) {
+				} 
+				else if(this.currentStep === i + 1) {
 					return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`
-				} else {
+				} 
+				else {
 					return `ring-2 ring-gray-300`
 				}
 			}
@@ -184,13 +189,16 @@ export default {
 			if(!this.simple) {
 				if(i + 1 > this.currentStep) {
 					return `text-gray-400`;
-				} else {
+				} 
+				else {
 					return `text-black`;
 				}
-			} else {
+			} 
+			else {
 				if(i + 1 <= this.currentStep) {
 					return `text-${this.color}`;
-				} else {
+				} 
+				else {
 					return `text-gray-400`;
 				}
 			}
@@ -198,10 +206,12 @@ export default {
 		dividerColor(i) {
 			if(!this.simple) {
 				return `h-0.5 bg-gray-300 mx-4`;
-			} else {
+			} 
+			else {
 				if(i < this.currentStep) {
 					return `h-1 bg-${this.color}`;
-				} else {
+				} 
+				else {
 					return `h-0.5 bg-gray-300`;
 				}
 			}
