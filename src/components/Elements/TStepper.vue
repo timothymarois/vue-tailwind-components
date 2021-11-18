@@ -22,7 +22,7 @@
 						</div>
 						<div 
 							class="absolute text-center mt-2 w-40 left-1/2 transform -translate-x-1/2"
-							:class="[nameColor(i), simple ? 'font-semibold' : '', allowBack(i) ? 'cursor-pointer' : '']"
+							:class="[nameColor(i), simple ? 'font-semibold' : '', allowBack(i) ? 'cursor-pointer hover:underline' : '']"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>{{ step.title }}</div>
 					</div>
@@ -51,7 +51,7 @@
 						</div>
 						<div 
 							class="ml-4 text-lg"
-							:class="[nameColor(i), simple ? 'font-semibold' : '', allowBack(i) ? 'cursor-pointer' : '']"
+							:class="[nameColor(i), simple ? 'font-semibold' : '', allowBack(i) ? 'cursor-pointer hover:underline' : '']"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>{{ step.title }}</div>
 					</div>
