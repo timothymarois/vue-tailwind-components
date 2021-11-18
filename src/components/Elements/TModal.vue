@@ -1,5 +1,5 @@
 <template>
-	<div class="absolute inset-0 w-full h-full overlay-y-scroll">
+	<div :class="`absolute inset-0 w-full h-full ${scroll ? 'overlay-y-scroll' : ''}`">
 		<div :class="type !== 'right' ? 'flex items-center min-h-full' : ''">
 			<transition :name="transitionName" appear>
 				<div
