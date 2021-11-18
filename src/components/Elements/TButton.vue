@@ -39,7 +39,7 @@ export default {
 		},
 		padding: {
 			type: [Number, String],
-			default: 0
+			default: null
 		},
 		size: {
 			type: String,
@@ -111,7 +111,7 @@ export default {
             return (this.icon!==true && this.icon!==false);
         },
 		iconOnly() {
-			if (this.icon===true && this.$slots.default) return true;
+			if (this.icon===true && (this.$slots.default || this.$slots.icon)) return true;
 			if (typeof this.icon==='string' && !this.$slots.default && !this.label) return true;
 			return false;
 		}
@@ -135,7 +135,8 @@ export default {
 				Object.assign(data.props, {
 					to: this.to
 				});
-			} else {
+			} 
+			else {
 				tag = (this.href && 'a') || this.tag || 'div';
 				if (tag === 'a' && this.href) { data.attrs.href = this.href; }
 			}
@@ -186,7 +187,8 @@ export default {
 			else {
 				if(this.outlined) {
 					color = this.color;
-				} else {
+				} 
+				else {
 					color = 'white';
 				}
 			}
@@ -221,13 +223,22 @@ export default {
 			});
 		},
 		genIcon() {
-            if (this.$slots.icon || this.icon) {
+            if ((this.iconOnly && this.$slots.default) || this.$slots.icon || this.icon) {
+
+				let icon = null
+				if (this.iconOnly && this.$slots.default) {
+					icon = this.$slots.default
+				}
+				else {
+					icon = this.$slots.icon ? this.$slots.icon : this.buildIcon(this.icon)
+				}
+
                 return this.$createElement('span',{
                     staticClass:'btn__icon flex align-center',
                     class: {
                         'mr-2': !this.iconOnly
                     }
-                }, [(this.loading ? this.genBaseLoader() : (this.$slots.icon ? this.$slots.icon : this.buildIcon(this.icon)) )])
+                }, [(this.loading ? this.genBaseLoader() : icon)])
             }
         },
 		genIconAfter() {
@@ -241,9 +252,11 @@ export default {
             }
         },
 		genContent() {
-			return this.$createElement('span', {
-					staticClass: 'btn__content',
-			}, (this.$slots.default ? this.$slots.default : this.label));
+			if (!this.iconOnly) {
+				return this.$createElement('span', {
+						staticClass: 'btn__content',
+				}, (this.$slots.default ? this.$slots.default : this.label));
+			}
 		},
 		genLoader() {
             if (!this.$slots.icon && !this.$slots['icon-right'] && !this.iconRight && !this.icon) {
@@ -272,7 +285,8 @@ export default {
 				else {
 					c = c.concat([`text-${this.color}-800`, `hover:text-${this.color}-900`, `hover:bg-${this.color}-100`]);
 				}
-			} else {
+			} 
+			else {
 				c = c.concat(['text-white']);
 				if (this.outlined) {
 					if (this.disabled) {
@@ -302,13 +316,10 @@ export default {
 				}
 			}
 
-			if (!this.icon && !this.iconRight) {
-				c = c.concat(['px-4']);
-			}
-
 			if (this.rounded) {
 				c = c.concat(['rounded-full']);
-			} else {
+			} 
+			else {
 				c = c.concat(['rounded']);
 			}
 
@@ -325,9 +336,10 @@ export default {
 			return c;
 		},
 		bDisabled(c) {
-			if (this.disabled === true) {
+			if (this.disabled===true) {
 				c = c.concat(['cursor-not-allowed']);
-			} else {
+			} 
+			else {
 				c = c.concat(['cursor-pointer']);
 			}
 			return c;
@@ -357,36 +369,36 @@ export default {
 		},
 		bSize(c) {
 
-			switch(this.size) {
-				case 'xs': 
-					c = c.concat(['text-xs']);
-					if (!this.iconOnly && !this.padding) c = c.concat(['px-2','py-1']);
-					if (this.iconOnly && !this.padding) c = c.concat(['px-1','py-1']);
-					break;
-				case 'sm': 
-					c = c.concat(['text-sm']);
-					if (!this.iconOnly && !this.padding) c = c.concat(['px-3','py-2']);
-					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
-					break;
-				case 'lg': 
-					c = c.concat(['text-base']);
-					if (!this.iconOnly && !this.padding) c = c.concat(['px-4','py-2']);
-					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
-					break;
-				case 'xl': 
-					c = c.concat(['text-base']);
-					if (!this.iconOnly && !this.padding) c = c.concat(['px-6','py-3']);
-					if (this.iconOnly && !this.padding) c = c.concat(['px-3','py-3']);
-					break;
-				default: 
-					c = c.concat(['text-sm']);
-					if (!this.iconOnly && !this.padding) c = c.concat(['px-4','py-2']);
-					if (this.iconOnly && !this.padding) c = c.concat(['px-2','py-2']);
-			}
-
-
-			if (this.padding) {
+			if (this.padding || this.padding===0) {
 				c = c.concat([`px-${this.padding} py-${this.padding}`]);
+			}
+			else{
+				switch(this.size) {
+					case 'xs': 
+						c = c.concat(['text-xs']);
+						if (!this.iconOnly) c = c.concat(['px-2','py-1']);
+						if (this.iconOnly) c = c.concat(['px-1','py-1']);
+						break;
+					case 'sm': 
+						c = c.concat(['text-sm']);
+						if (!this.iconOnly) c = c.concat(['px-3','py-2']);
+						if (this.iconOnly) c = c.concat(['px-2','py-2']);
+						break;
+					case 'lg': 
+						c = c.concat(['text-base']);
+						if (!this.iconOnly) c = c.concat(['px-4','py-2']);
+						if (this.iconOnly) c = c.concat(['px-2','py-2']);
+						break;
+					case 'xl': 
+						c = c.concat(['text-base']);
+						if (!this.iconOnly) c = c.concat(['px-6','py-3']);
+						if (this.iconOnly) c = c.concat(['px-3','py-3']);
+						break;
+					default: 
+						c = c.concat(['text-sm']);
+						if (!this.iconOnly) c = c.concat(['px-4','py-2']);
+						if (this.iconOnly) c = c.concat(['px-2','py-2']);
+				}
 			}
 
 			return c;
@@ -406,7 +418,7 @@ export default {
 		// if we are a button
 		// lets add the disabled state (if we're disabled)
 		if (tag === 'button') {
-				data.attrs.disabled = this.disabled;
+			data.attrs.disabled = this.disabled;
 		}
 
 		return h(tag, { ...(!this.disabled ? data : {}), class: this.classes }, children)
@@ -418,7 +430,6 @@ export default {
 .btn__loading .btn__content {
 	opacity: 0;
 }
-
 .btn__loader {
 	display: flex;
 	align-items: center;
