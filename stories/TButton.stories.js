@@ -1,4 +1,5 @@
-import TButton from '../src/components/Elements/TButton';
+import TButton from '../src/components/Elements/TButton.vue';
+import TIcon from '../src/components/Elements/TIcon.vue';
 
 export default {
 	title: 'Elements/TButton',
@@ -67,7 +68,7 @@ export default {
 
 export const Primary = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TButton },
+	components: { TButton, TIcon },
 	template:
 		`<t-button v-bind="$props" />`
 });
@@ -77,7 +78,7 @@ Primary.args = {
 
 export const MultipleStates = () => ({
 	// props: Object.keys(argTypes),
-	components: { TButton },
+	components: { TButton, TIcon },
 	template: 
 	`
 		<div>
@@ -154,6 +155,42 @@ export const MultipleStates = () => ({
 				<t-button label="Small" size="xs" iconRight="arrow-right" loading />
 			</div>
 
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button size="xs" icon>
+					<template slot="icon"><t-icon value="check" /></template>
+				</t-button>
+				<t-button size="xs" icon rounded>
+					<template slot="icon"><t-icon value="check" /></template>
+				</t-button>
+				<t-button size="xs" icon loading>
+					<template slot="icon"><t-icon value="check" /></template>
+				</t-button>
+				<t-button size="xs" icon disabled>
+					<template slot="icon"><t-icon value="check" /></template>
+				</t-button>
+				<t-button size="xs" icon loading disabled>
+					<template slot="icon"><t-icon value="check" /></template>
+				</t-button>
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button size="xs" icon>
+					<t-icon value="check" />
+				</t-button>
+				<t-button size="xs" icon rounded>
+					<t-icon value="check" />
+				</t-button>
+				<t-button size="xs" icon loading>
+					<t-icon value="check" />
+				</t-button>
+				<t-button size="xs" icon disabled>
+					<t-icon value="check" />
+				</t-button>
+				<t-button size="xs" icon loading disabled>
+					<t-icon value="check" />
+				</t-button>
+			</div>
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
 				<t-button size="xs" icon="check" />
