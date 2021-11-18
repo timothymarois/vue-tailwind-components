@@ -191,9 +191,13 @@ export default {
 				c = c.concat([
 					'absolute'
 				]);
-			} else {
+			} else if(!this.relative && this.scroll) {
 				c = c.concat([
 					'relative'
+				]);
+			} else {
+				c = c.concat([
+					'fixed'
 				]);
 			}
 
