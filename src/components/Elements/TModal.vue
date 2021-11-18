@@ -1,12 +1,12 @@
 <template>
-	<div class="absolute inset-0 w-full h-full">
+	<div class="absolute inset-0 w-full h-full overlay-y-scroll">
 		<div :class="type !== 'right' ? 'flex items-center min-h-full' : ''">
 			<transition :name="transitionName" appear>
 				<div
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; max-height: 100vh; ${widthCalculation} ${offsetCalculation};`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : 'max-height: 100vh;'} ${widthCalculation} ${offsetCalculation};`"
 				>
 					<div 
 						v-if="closeButton" 
@@ -80,6 +80,10 @@ export default {
 		show: {
 			type: Boolean,
 			default: false
+		},
+		scroll: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -90,17 +94,6 @@ export default {
 		}
 	},
 	watch: {
-		show(v) {
-			if (v !== this.localShowing) {
-				if (v===false) {
-					this.close()
-				}
-				else {
-					this.localShowing = v
-					this.updateDivOffset()
-				}
-			}
-		},
 		type(newValue, oldValue) {
 			if(newValue !== oldValue) {
 				this.previousType = oldValue;
@@ -200,7 +193,7 @@ export default {
 				]);
 			} else {
 				c = c.concat([
-					'fixed'
+					'relative'
 				]);
 			}
 
@@ -250,7 +243,7 @@ export default {
 		}
 	},
 	created() {
-		this.updateDivOffset()
+		this.updateDivOffset();
 	},
 	beforeDestroy() {
 		// if (this.offsetDiv) {
