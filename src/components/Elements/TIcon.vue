@@ -1,15 +1,18 @@
 <template>
     <div :class="`relative inline-flex align-middle justify-center items-center p-0 h-${size} w-${size}`">
-        <base-icon :value="value" />
+        <base-icon-solid v-if="solid" :value="value" />
+        <base-icon-outline v-else :value="value" />
     </div>
 </template>
 
 <script>
-import BaseIcon from "./Base/BaseIcon.vue";
+import BaseIconOutline from "./Base/BaseIconOutline.vue";
+import BaseIconSolid from "./Base/BaseIconSolid.vue";
 export default { 
     name: 'TIcon',
     components: {
-        BaseIcon
+        BaseIconOutline,
+        BaseIconSolid
     },
     props: {
         value: {
@@ -19,7 +22,11 @@ export default {
         size: {
             type: [String, Number],
             default: 5
-        }
+        },
+        solid: {
+			type: Boolean,
+			default: null
+		}
     }
 };
 </script> 
