@@ -128,7 +128,7 @@ Full.args = {
 
 
 
-export const LongPageScroll = (argTypes) => ({
+export const LongModalScroll = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TModal, TButton },
     data: () => ({
@@ -136,12 +136,12 @@ export const LongPageScroll = (argTypes) => ({
     }),
 	template: 
 		`
-        <div style="height:2000px">
-            <div style="height:1000px">keep scrolling</div>
+        <div>
             <t-button @click="showing = true" label="Show Modal" />
-            <t-modal v-if="showing" :show="showing" @end="showing = false" type="center">
-                <div style="height:200px">This is my modal.  It can be used for many things, but I use it for this.</div>
+            <t-modal v-if="showing" :show="showing" @end="showing = false" type="center" scroll>
+                <div style="height:3000px">This is my modal.  It's very tall.</div>
             </t-modal>
+			<div style="height: 2000px">test</div>
         </div>
 		`,
 });
