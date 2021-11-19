@@ -138,7 +138,7 @@ export const LongModalScroll = (argTypes) => ({
 		`
         <div>
             <t-button @click="showing = true" label="Show Modal" />
-            <t-modal v-if="showing" :show="showing" @end="showing = false" type="center" scroll>
+            <t-modal v-if="showing" :show="showing" @end="showing = false" type="center" offsetDirection="left" offsetValue="350" scroll>
                 <div style="height:3000px">This is my modal.  It's very tall.</div>
             </t-modal>
 			<div style="height: 2000px">test</div>
