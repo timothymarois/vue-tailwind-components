@@ -225,11 +225,19 @@ export const MultipleStates = () => ({
 			</div>
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-button icon="check" outlined />
-				<t-button icon="check" outlined rounded />
-				<t-button icon="check" outlined loading />
-				<t-button icon="check" outlined disabled />
-				<t-button icon="check" outlined loading disabled />
+				<t-button icon="library" outlined />
+				<t-button icon="library" outlined rounded />
+				<t-button icon="library" outlined loading />
+				<t-button icon="library" outlined disabled />
+				<t-button icon="library" outlined loading disabled />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button icon="library" outlined iconSolid />
+				<t-button icon="library" outlined iconSolid rounded />
+				<t-button icon="library" outlined iconSolid loading />
+				<t-button icon="library" outlined iconSolid disabled />
+				<t-button icon="library" outlined iconSolid loading disabled />
 			</div>
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">

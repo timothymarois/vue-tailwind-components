@@ -22,7 +22,7 @@
                         'text-left' : !h.align,
                         'text-right' : (h.align=='right'),
                         'text-center' : (h.align=='center'),
-                        'sortable cursor-pointer' : h.sorting,
+                        'sortable cursor-pointer hover:bg-indigo-50' : h.sorting,
                         'sorted' : h.sorted
                     }"
                     :style="(h.width) ? 'width:'+h.width+';' : ''"
@@ -108,9 +108,9 @@ table.t-table>thead>tr:last-child>th {
 table.t-table>thead>tr:last-child>th:last-child {
     border-right: 0;
 }
-table.t-table>thead>tr>th.sortable:hover {
+/* table.t-table>thead>tr>th.sortable:hover {
     @apply bg-indigo-50
-}
+} */
 table.t-table>thead>tr>th.sortable:not(.sorted) span.sort-icon {
     opacity: 0.3;
 }
