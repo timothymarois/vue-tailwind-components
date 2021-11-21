@@ -250,3 +250,142 @@ export const AdvancedTables = () => ({
 	`,
 });
 
+export const FixedHeaderTable = () => ({
+	// props: Object.keys(argTypes),
+	components: { TTableSimple, TCard },
+    methods: {
+        rowClicked(item) {
+            this.clickedRow = item;
+        },
+        updateSelection(val) {
+            this.selected = val;
+        },
+        updateSorting(item, sortUpdate) {
+            // this is simple logic to change sorting
+            let newHeaders = [];
+            this.headers.forEach(h => {
+                if (h.value==item.value) {
+                    h.sorted = sortUpdate
+                    newHeaders.push(h);
+                }
+                else {
+                    h.sorted = null
+                    newHeaders.push(h);
+                }
+            });
+
+            this.headers = newHeaders;
+        }
+    },
+    data: () => ({
+        selected: [],
+        clickedRow: {},
+        headers: [
+            {
+                title: 'Property Address',
+                value: 'property_address',
+                sorting: true,
+                sorted: 'DESC',
+                sortDefault: 'DESC'
+            },
+            {
+                title: 'Full Name',
+                value: 'full_name',
+                sorting: true,
+                sorted: false,
+            },
+            {
+                title: 'Mailing Address',
+                value: 'mail_address',
+                sorting: true,
+                hide: true,
+                sorted: false,
+            },
+            {
+                title: 'Email',
+                value: 'email',
+                sorting: false,
+                hide: false,
+                sorted: false,
+            }
+        ],
+        items: [
+            {
+                id: 123,
+                property_address: '845 NY Ave',
+                mail_address: '845 NY Ave',
+                full_name: 'Timothy Marois',
+                email: 'email@gmail.com'
+            },
+            {
+                id: 214,
+                property_address: '210 W Trade st',
+                mail_address: '210 W Trade st',
+                full_name: 'Jason Gordon',
+                email: 'email@gmail.com'
+            },
+            {
+                id: 788,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com'
+            },
+            {
+                id: 888,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com'
+            },
+            {
+                id: 1234,
+                property_address: '845 NY Ave',
+                mail_address: '845 NY Ave',
+                full_name: 'Timothy Marois',
+                email: 'email@gmail.com'
+            },
+            {
+                id: 2144,
+                property_address: '210 W Trade st',
+                mail_address: '210 W Trade st',
+                full_name: 'Jason Gordon',
+                email: 'email@gmail.com'
+            },
+            {
+                id: 7884,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com'
+            },
+            {
+                id: 8884,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com'
+            }
+        ]
+    }),
+	template: 
+	`
+        <div class="p-6 bg-gray-100">
+            <t-card title="Selection (prop: select)" contentPadding="0">
+                <t-table-simple 
+                    :headers="headers"
+                    :items="items"
+                    @click-row="rowClicked"
+                    @change-selected="updateSelection"
+                    @change-sort="updateSorting"
+                    select
+                    selectFromRow
+                    :selectOne="false"
+                    maxHeight="200"
+
+                />
+            </t-card>
+        </div>
+	`,
+});
+

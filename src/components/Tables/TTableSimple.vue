@@ -1,9 +1,8 @@
 <template>
     <table class="t-table min-w-full divide-y divide-gray-200 bg-gray-50">
-        <thead v-if="!hideHeader" class="bg-white text-indigo-800">
+        <thead v-if="!hideHeader" class="bg-white text-indigo-800" :style="maxHeight ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
             <tr>
-
-                <th v-if="select" style="width:30px;">
+                <th v-if="select" class="w-12">
                     <slot name="hselect">
                         <div class="flex justify-center w-full">
                             <t-checkbox 
@@ -41,8 +40,8 @@
                 </th>
             </tr>
         </thead>
-        <thead v-if="loading">
-            <tr class="v-data-table__progress">
+        <thead v-if="loading" :style="maxHeight ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
+            <tr :class="`v-data-table__progress table ${maxHeight ? 'table-fixed w-full' : ''}`">
                 <th colspan="100%" class="border-none p-0 relative">
                     <t-progress-bar 
                         :color="selectedColor" 
@@ -52,11 +51,12 @@
                 </th>
             </tr>
         </thead>
-        <tbody v-if="items && items.length > 0" class="tbody bg-white overflow-scroll">
+        <tbody v-if="items && items.length > 0" class="tbody bg-white" :style="maxHeight ? `max-height: ${maxHeight}px; overflow-y: scroll; display: block;` : ''">
             <tr 
                 v-for="(item, i) in items" :key="i" 
                 :class="[
-                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`, 
+                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`,
+                    (maxHeight ? 'table table-fixed w-full' : ''), 
                     (item.class ? item.class+' trow' : 'trow'), 
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
                     (selectFromRow || rowCursor) ? 'cursor-pointer' : ''
@@ -65,7 +65,7 @@
             >
                 <td 
                     v-if="select"
-                    class="p-4 border-0 relative font-normal text-center"
+                    class="p-4 border-0 relative font-normal text-center w-12"
                 >
                     <slot name="column.select">
                         <div class="flex justify-center w-full">
@@ -186,6 +186,11 @@ export default {
         rowCursor: {
             type: Boolean,
             default: false
+        },
+        maxHeight: {
+            type: [String, Number],
+            default: null,
+            required: false
         }
     },
     computed: {
