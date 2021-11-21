@@ -1,5 +1,5 @@
 <template>
-	<div class="absolute inset-0 w-full h-full overlay-y-scroll">
+	<div class="absolute inset-0 w-full h-full" :class="{'overlay-y-scroll':scroll}">
 		<div :class="type !== 'right' ? 'flex items-center min-h-full' : ''">
 			<transition :name="transitionName" appear>
 				<div
@@ -8,10 +8,7 @@
 					:class="containerClasses"
 					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : 'max-height: 100vh;'} ${widthCalculation} ${offsetCalculation};`"
 				>
-					<div 
-						v-if="closeButton" 
-						class="z-50 absolute top-0 right-0 m-2"
-					>
+					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
 						<t-button icon="close" @click="close" text />
 					</div>
 					<slot></slot>
@@ -94,6 +91,17 @@ export default {
 		}
 	},
 	watch: {
+		show(v) {
+			if (v !== this.localShowing) {
+				if (v===false) {
+					this.close()
+				}
+				else {
+					this.localShowing = v
+					this.updateDivOffset()
+				}
+			}
+		},
 		type(newValue, oldValue) {
 			if(newValue !== oldValue) {
 				this.previousType = oldValue;
@@ -191,11 +199,13 @@ export default {
 				c = c.concat([
 					'absolute'
 				]);
-			} else if(!this.relative && this.scroll) {
+			} 
+			else if(!this.relative && this.scroll) {
 				c = c.concat([
 					'relative'
 				]);
-			} else {
+			} 
+			else {
 				c = c.concat([
 					'fixed'
 				]);
@@ -205,7 +215,8 @@ export default {
 				c = c.concat([
 					'overflow-y-auto'
 				]);
-			} else {
+			} 
+			else {
 				c = c.concat([
 					'overflow-y-hidden'
 				]);
@@ -221,16 +232,19 @@ export default {
 			if (this.relativeOffsetPx) {
 				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right') || this.type === 'center') return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
 				else return `right: 1em;`;
-			} else if(this.offsetDirection && this.offsetValue > 0) {
+			} 
+			else if(this.offsetDirection && this.offsetValue > 0) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
 			}
 		},
 		widthCalculation() {
 			if(this.offsetValue || this.relativeOffsetPx) {
 				return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
-			} else if(this.type === 'full') {
+			} 
+			else if(this.type === 'full') {
 				return `width: calc(100% - 2em);`;
-			} else {
+			} 
+			else {
 				return `width: fit-content;`;
 			}
 		},
