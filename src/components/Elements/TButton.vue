@@ -77,6 +77,10 @@ export default {
 			type: String,
 			default: null
 		},
+		iconSolid: {
+			type: Boolean,
+			default: false
+		},
 		iconRight: {
 			type: String,
 			default: null
@@ -173,7 +177,8 @@ export default {
 				return this.$createElement(TIcon, {
 					props: {
 						size: sz,
-						value: icon
+						value: icon,
+						solid: (this.iconSolid) ? true : false
 					},
 				});
 			}

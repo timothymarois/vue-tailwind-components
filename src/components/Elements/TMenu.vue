@@ -16,6 +16,7 @@
                 :color="color"
                 :icon="icon"
                 :iconSize="iconSize"
+                :iconSolid="iconSolid"
             ><slot></slot></t-button>
         </div>
         <div :id="`slot-container-${id}`" v-else>
@@ -124,6 +125,10 @@ export default {
         iconSize: {
             type: [Number, String],
             default: null
+        },
+        iconSolid: {
+            type: Boolean,
+            default: false
         },
         color: {
             type: String,
