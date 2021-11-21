@@ -40,7 +40,7 @@
                 </th>
             </tr>
         </thead>
-        <thead v-if="loading" :style="maxHeight ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
+        <thead v-if="loading" :style="maxHeight ? 'width: 100%; display: table; table-layout: fixed;' : ''">
             <tr :class="`v-data-table__progress table ${maxHeight ? 'table-fixed w-full' : ''}`">
                 <th colspan="100%" class="border-none p-0 relative">
                     <t-progress-bar 
