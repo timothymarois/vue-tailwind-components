@@ -41,7 +41,7 @@
             </tr>
         </thead>
         <thead v-if="loading" :style="fixedHeader ? 'width: 100%; display: table; table-layout: fixed;' : ''">
-            <tr :class="`v-data-table__progress table ${fixedHeader ? 'table-fixed w-full' : ''}`">
+            <tr :class="`v-data-table__progress ${fixedHeader ? 'table table-fixed w-full' : ''}`">
                 <th colspan="100%" class="border-none p-0 relative">
                     <t-progress-bar 
                         :color="selectedColor" 
@@ -93,7 +93,7 @@
                 </td>
             </tr>
         </tbody>
-        <tbody v-else :style="fixedHeader ? `height: calc(100% - 36px); overflow-y: scroll; display: block;` : ''">
+        <tbody v-else :style="fixedHeader ? `height: calc(100% - 36px); overflow-y: auto; display: block;` : ''">
             <tr>
                 <td colspan="100%" class="text-center p-3"><slot name="noresults">{{ messageText }}</slot></td>
             </tr>
