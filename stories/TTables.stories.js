@@ -372,18 +372,20 @@ export const FixedHeaderTable = () => ({
 	`
         <div class="p-6 bg-gray-100">
             <t-card title="Selection (prop: select)" contentPadding="0">
-                <t-table-simple 
-                    :headers="headers"
-                    :items="items"
-                    @click-row="rowClicked"
-                    @change-selected="updateSelection"
-                    @change-sort="updateSorting"
-                    select
-                    selectFromRow
-                    :selectOne="false"
-                    maxHeight="200"
+                <div class="h-72 overflow-y-hidden">
+                    <t-table-simple 
+                        :headers="headers"
+                        :items="items"
+                        @click-row="rowClicked"
+                        @change-selected="updateSelection"
+                        @change-sort="updateSorting"
+                        select
+                        selectFromRow
+                        :selectOne="false"
+                        fixedHeader
 
-                />
+                    />
+                </div>
             </t-card>
         </div>
 	`,
