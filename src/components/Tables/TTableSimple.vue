@@ -1,5 +1,5 @@
 <template>
-    <table class="t-table min-w-full divide-y divide-gray-200 bg-gray-50">
+    <table class="t-table min-w-full divide-y divide-gray-200">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800" :style="maxHeight ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
             <tr>
                 <th v-if="select" class="w-12">
