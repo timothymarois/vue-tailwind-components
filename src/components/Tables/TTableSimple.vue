@@ -93,8 +93,8 @@
                 </td>
             </tr>
         </tbody>
-        <tbody v-else :style="fixedHeader ? `height: calc(100% - 36px); overflow-y: auto; display: block;` : ''">
-            <tr>
+        <tbody v-else :style="fixedHeader ? `height: calc(100% - 36px); display: block;` : ''">
+            <tr :class="fixedHeader ? 'table table-fixed w-full' : ''">
                 <td colspan="100%" class="text-center p-3"><slot name="noresults">{{ messageText }}</slot></td>
             </tr>
         </tbody>
