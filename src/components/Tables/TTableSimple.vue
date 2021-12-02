@@ -148,6 +148,10 @@ export default {
             type: Array,
             default: () => []
         },
+        defaultSelected: {
+            type: Array,
+            default: () => []
+        },
         select: {
             type: Boolean,
             default: false
@@ -208,6 +212,11 @@ export default {
         },
         headerItems() {
             return this.headers.filter(item => !item.hide)
+        }
+    },
+    mounted() {
+        if(this.defaultSelected.length > 0) {
+            this.selection = this.defaultSelected;
         }
     },
     methods: {
@@ -316,6 +325,11 @@ export default {
         },
         items() {
             this.selection = [];
+        },
+        defaultSelected() {
+            if(this.defaultSelected.length > 0) {
+                this.selection = this.defaultSelected;
+            }
         }
     }
 }
