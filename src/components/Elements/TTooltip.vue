@@ -56,37 +56,39 @@ export default {
 		}
 	},
 	mounted() {
-		this.clientRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
+		if(!('ontouchstart' in window || navigator.msMaxTouchPoints)) { // Only for non-touch devices
+			this.clientRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
 
-		this.arrowElement.classList.add("w-3", "h-3", "absolute", `bg-${this.color}`, ...this.arrowOffset);
-		this.element.style = this.tooltipOffset(this.clientRect);
-		this.element.style.zIndex = 1007;
-		this.element.style.maxWidth = `${this.maxWidth}px`;
+			this.arrowElement.classList.add("w-3", "h-3", "absolute", `bg-${this.color}`, ...this.arrowOffset);
+			this.element.style = this.tooltipOffset(this.clientRect);
+			this.element.style.zIndex = 1007;
+			this.element.style.maxWidth = `${this.maxWidth}px`;
 
-		const classes = [
-			"absolute",
-			"pointer-events-none",
-			"px-2", 
-			"py-1.5", 
-			"rounded", 
-			"shadow", 
-			`bg-${this.color}`, 
-			"text-xs", 
-			`text-${this.textColor}`, 
-			"text-center",
-			"transform",
-			"-translate-x-1/2",
-			"transition-opacity",
-			"duration-200",
-			"opacity-0",
-			"break-words"
-		];
+			const classes = [
+				"absolute",
+				"pointer-events-none",
+				"px-2", 
+				"py-1.5", 
+				"rounded", 
+				"shadow", 
+				`bg-${this.color}`, 
+				"text-xs", 
+				`text-${this.textColor}`, 
+				"text-center",
+				"transform",
+				"-translate-x-1/2",
+				"transition-opacity",
+				"duration-200",
+				"opacity-0",
+				"break-words"
+			];
 
-		this.element.classList.add(...classes);
-		this.element.innerHTML = this.content;
-		this.element.setAttribute("id", this.id);
-		this.element.appendChild(this.arrowElement);
-		document.body.appendChild(this.element);
+			this.element.classList.add(...classes);
+			this.element.innerHTML = this.content;
+			this.element.setAttribute("id", this.id);
+			this.element.appendChild(this.arrowElement);
+			document.body.appendChild(this.element);
+		}
 	},
 	beforeDestroy() {
 		this.element.remove();
@@ -94,8 +96,10 @@ export default {
 	},
 	methods: {
 		showTooltip(v) {
-			this.checkResize();
-			this.show = v;
+			if(!('ontouchstart' in window || navigator.msMaxTouchPoints)) { // Only for non-touch devices
+				this.checkResize();
+				this.show = v;
+			}
 		},
 		checkResize() {
 			const newRect = document.getElementById(`tooltip__wrap-${this.id}`).getBoundingClientRect();
