@@ -89,6 +89,7 @@
                         (h.align=='center') ? 'text-center' : '',
                         (h.class) ? h.class : ''
                     ]"
+                    :style="(h.width) ? 'width:'+h.width+';' : ''"
                 >
                     <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
