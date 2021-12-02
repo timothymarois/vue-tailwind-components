@@ -450,6 +450,7 @@ export const WithDefaultValue = () => ({
                 sorting: false,
                 hide: false,
                 sorted: false,
+                width: '100px'
             }
         ],
         items: [

@@ -55,7 +55,7 @@
             <tr 
                 v-for="(item, i) in items" :key="i" 
                 :class="[
-                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`,
+                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm font-normal`,
                     (fixedHeader ? 'table table-fixed w-full' : ''),
                     (striped ? 'even:bg-gray-50' : ''),
                     (item.class ? item.class+' trow' : 'trow'), 
@@ -66,7 +66,7 @@
             >
                 <td 
                     v-if="select"
-                    class="px-4 py-2 border-0 relative font-normal text-center w-12"
+                    class="px-4 py-2 border-0 relative text-center w-12"
                 >
                     <slot name="column.select">
                         <div class="flex justify-center w-full">
@@ -146,10 +146,6 @@ export default {
             default: () => []
         },
         items: {
-            type: Array,
-            default: () => []
-        },
-        defaultSelected: {
             type: Array,
             default: () => []
         },
@@ -326,11 +322,6 @@ export default {
         },
         items() {
             this.selection = [];
-        },
-        defaultSelected() {
-            if(this.defaultSelected.length > 0) {
-                this.selection = this.defaultSelected;
-            }
         }
     }
 }
