@@ -45,7 +45,8 @@ export const Standard = Template.bind({});
 Standard.args = {
 	value: null,
 	placeholder: 'Placeholder',
-	label: 'Label'
+	label: 'Label',
+	errorState: true
 };
 
 

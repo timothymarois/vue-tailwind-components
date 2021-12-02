@@ -581,6 +581,6 @@ export default {
 .focused::before {
     content: "";
     transition: .3s cubic-bezier(.25, .8, .5, 1);
-    @apply inset-0 rounded pointer-events-none absolute block bg-black opacity-10;
+    @apply inset-0 rounded pointer-events-none absolute block bg-black opacity-5;
 }
 </style>
