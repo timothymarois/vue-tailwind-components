@@ -211,11 +211,6 @@ export default {
             return this.headers.filter(item => !item.hide)
         }
     },
-    mounted() {
-        if(this.defaultSelected.length > 0) {
-            this.selection = this.defaultSelected;
-        }
-    },
     methods: {
         sortClicked(h,i) {
             if (h.sorting===true) {
