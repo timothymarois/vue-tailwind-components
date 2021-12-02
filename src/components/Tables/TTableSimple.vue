@@ -82,7 +82,7 @@
                 <td 
                     v-for="(h) in headerItems" 
                     :key="h.value" 
-                    class="px-4 py-2 border-0 relative font-normal"
+                    class="px-4 py-3 border-0 relative font-normal"
                     :class="[
                         (!h.align) ? 'text-left' : '',
                         (h.align=='right') ? 'text-right' : '',
