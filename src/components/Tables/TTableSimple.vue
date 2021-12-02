@@ -15,7 +15,7 @@
                 </th>
 
                 <th v-for="(h,hindex) in headerItems"
-                    class="my-auto px-4 py-2 text-sm font-normal whitespace-nowrap capitalize"
+                    class="my-auto py-1 px-2 lg:px-4 lg:py-2 text-sm font-normal whitespace-nowrap capitalize"
                     :key="hindex"
                     :class="{
                         'text-left' : !h.align,
@@ -28,7 +28,7 @@
                     @click="sortClicked(h,hindex)"
                 >
                     <slot :name="'header.'+h.value" v-bind:header="h">
-                        <div class="my-auto">
+                        <div class="my-auto truncate">
                             <span class="font-bold">{{ h.title }}</span>
                             <span v-if="h.sorting" class="sort-icon">
                                 <t-icon v-if="h.sorted=='ASC'" size="4" value="arrow-sm-up" />
