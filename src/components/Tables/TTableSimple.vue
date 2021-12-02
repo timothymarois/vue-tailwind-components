@@ -55,7 +55,7 @@
             <tr 
                 v-for="(item, i) in items" :key="i" 
                 :class="[
-                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm font-normal`,
+                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`,
                     (fixedHeader ? 'table table-fixed w-full' : ''),
                     (striped ? 'even:bg-gray-50' : ''),
                     (item.class ? item.class+' trow' : 'trow'), 
@@ -87,7 +87,7 @@
                         (!h.align) ? 'text-left' : '',
                         (h.align=='right') ? 'text-right' : '',
                         (h.align=='center') ? 'text-center' : '',
-                        (h.class) ? h.class : ''
+                        (item.class) ? item.class : ''
                     ]"
                     :style="(h.width) ? 'width:'+h.width+';' : ''"
                 >
