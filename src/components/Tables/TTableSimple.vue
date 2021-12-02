@@ -66,7 +66,7 @@
             >
                 <td 
                     v-if="select"
-                    class="p-4 border-0 relative font-normal text-center w-12"
+                    class="px-4 py-2 border-0 relative font-normal text-center w-12"
                 >
                     <slot name="column.select">
                         <div class="flex justify-center w-full">
@@ -82,7 +82,7 @@
                 <td 
                     v-for="(h) in headerItems" 
                     :key="h.value" 
-                    class="p-4 border-0 relative font-normal"
+                    class="px-4 py-2 border-0 relative font-normal"
                     :class="[
                         (!h.align) ? 'text-left' : '',
                         (h.align=='right') ? 'text-right' : '',
