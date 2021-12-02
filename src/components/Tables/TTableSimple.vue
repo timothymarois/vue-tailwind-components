@@ -40,7 +40,7 @@
                 </th>
             </tr>
         </thead>
-        <thead v-if="loading" :style="fixedHeader ? 'width: 100%; display: table; table-layout: fixed;' : ''">
+        <thead v-if="loading" :style="fixedHeader ? 'width: 100%; display: table; table-layout: fixed;' : 'position: relative; top: 0;'">
             <tr :class="`v-data-table__progress ${fixedHeader ? 'table table-fixed w-full' : ''}`">
                 <th colspan="100%" class="border-none p-0 relative">
                     <t-progress-bar 
