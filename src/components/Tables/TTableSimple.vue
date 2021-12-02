@@ -1,5 +1,5 @@
 <template>
-    <table class="t-table min-w-full h-full divide-y divide-gray-200">
+    <table :class="`t-table min-w-full h-full divide-y divide-gray-200 ${outlined ? 'ring-1 ring-gray-200' : ''}`">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800" :style="fixedHeader ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
             <tr>
                 <th v-if="select" class="w-12">
@@ -56,7 +56,8 @@
                 v-for="(item, i) in items" :key="i" 
                 :class="[
                     `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`,
-                    (fixedHeader ? 'table table-fixed w-full' : ''), 
+                    (fixedHeader ? 'table table-fixed w-full' : ''),
+                    (striped ? 'even:bg-gray-50' : ''),
                     (item.class ? item.class+' trow' : 'trow'), 
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
                     (selectFromRow || rowCursor) ? 'cursor-pointer' : ''
@@ -188,6 +189,14 @@ export default {
             default: false
         },
         fixedHeader: {
+            type: Boolean,
+            default: false
+        },
+        striped: {
+            type: Boolean,
+            default: false
+        },
+        outlined: {
             type: Boolean,
             default: false
         }

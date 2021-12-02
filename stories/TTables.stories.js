@@ -86,6 +86,8 @@ export const BasicTables = () => ({
                         :headers="headers"
                         :items="items"
                         hideHeader
+                        striped
+                        outlined
                     />
                 </t-card>
             </div>
