@@ -8,15 +8,15 @@
 			:value="value"
 			@change="onChange($event)"
 		/>
-		<div :class="`bg-white border-2 ${radio ? 'rounded-full' : 'rounded'} relative border-${color}-800 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
-			<div :class="`hidden bg-${color}-800 w-${size} h-${size} flex justify-center items-center rounded`" v-if="check && !radio">
+		<div :class="`bg-white border-2 ${radio ? 'rounded-full' : 'rounded'} relative border-${borderColor}-${borderColorLevel} w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
+			<div :class="`hidden bg-${color}-${colorLevel} w-${size} h-${size} flex justify-center items-center rounded`" v-if="check && !radio">
 				<TIcon 
 					value="check"
 					:size="size"
 					class="text-white absolute left-0 top-0"
 				/>
 			</div>
-			<div :class="`hidden bg-${color}-800 w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] ${radio ? 'rounded-full' : 'rounded-sm'} pointer-events-none`" v-else />
+			<div :class="`hidden bg-${color}-${colorLevel} w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] ${radio ? 'rounded-full' : 'rounded-sm'} pointer-events-none`" v-else />
 		</div>
 		<div class="ml-2 text-sm" v-if="label">
 			<t-label :id="id" >{{ label }}</t-label>
@@ -43,6 +43,10 @@ export default {
 			type: String,
 			default: 'indigo'
 		},
+		colorLevel: {
+			type: [String, Number],
+			default: '800'
+		},
 		label: {
 			type: String,
 			default: null
@@ -66,6 +70,14 @@ export default {
 		radio: {
 			type: Boolean,
 			default: false
+		},
+		borderColor: {
+			type: String,
+			default: 'indigo'
+		},
+		borderColorLevel: {
+			type: [String, Number],
+			default: '800'
 		}
 	},
 	methods: {

@@ -65,7 +65,7 @@ export default {
 			this.element.style.maxWidth = `${this.maxWidth}px`;
 
 			const classes = [
-				"absolute",
+				"fixed",
 				"pointer-events-none",
 				"px-2", 
 				"py-1.5", 

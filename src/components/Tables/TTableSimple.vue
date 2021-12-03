@@ -40,7 +40,7 @@
                 </th>
             </tr>
         </thead>
-        <thead v-if="loading" :style="fixedHeader ? 'width: 100%; display: table; table-layout: fixed;' : ''">
+        <thead v-if="loading" :style="fixedHeader ? 'width: 100%; display: table; table-layout: fixed;' : 'position: relative; top: 0;'">
             <tr :class="`v-data-table__progress ${fixedHeader ? 'table table-fixed w-full' : ''}`">
                 <th colspan="100%" class="border-none p-0 relative">
                     <t-progress-bar 
@@ -66,7 +66,7 @@
             >
                 <td 
                     v-if="select"
-                    class="px-4 py-2 border-0 relative font-normal text-center w-12"
+                    class="px-4 py-2 border-0 relative text-center w-12"
                 >
                     <slot name="column.select">
                         <div class="flex justify-center w-full">
@@ -87,8 +87,9 @@
                         (!h.align) ? 'text-left' : '',
                         (h.align=='right') ? 'text-right' : '',
                         (h.align=='center') ? 'text-center' : '',
-                        (h.class) ? h.class : ''
+                        (item.class) ? item.class : ''
                     ]"
+                    :style="(h.width) ? 'width:'+h.width+';' : ''"
                 >
                     <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>

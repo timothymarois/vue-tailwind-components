@@ -7,8 +7,7 @@ export default {
 	argTypes: { 
 		color: {
 			name: 'color',
-			defaultValue: 'indigo',
-			description: 'Tailwind classname for outline and fill color',
+			description: 'Tailwind classname for fill color',
 			control: { type: 'text' }
 		},
 		size: {
@@ -30,6 +29,11 @@ export default {
 			name: 'check',
 			description: 'Toggles checkmark in middle of checkbox',
 			control: { type: 'boolean' },
+		},
+		borderColor: {
+			name: 'borderColor',
+			description: 'Tailwind classname for outline color',
+			control: { type: 'text' }
 		}
 	},
 };
