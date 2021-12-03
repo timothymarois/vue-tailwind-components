@@ -8,7 +8,7 @@
 			:value="value"
 			@change="onChange($event)"
 		/>
-		<div :class="`bg-white border-2 ${radio ? 'rounded-full' : 'rounded'} relative border-${color}-800 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
+		<div :class="`bg-white border-2 ${radio ? 'rounded-full' : 'rounded'} relative border-${borderColor}-800 w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
 			<div :class="`hidden bg-${color}-800 w-${size} h-${size} flex justify-center items-center rounded`" v-if="check && !radio">
 				<TIcon 
 					value="check"
@@ -66,6 +66,10 @@ export default {
 		radio: {
 			type: Boolean,
 			default: false
+		},
+		borderColor: {
+			type: String,
+			default: 'indigo'
 		}
 	},
 	methods: {
