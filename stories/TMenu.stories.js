@@ -145,6 +145,9 @@ export const MultipleStates = (argTypes) => ({
 				disabled: false
 			},
 			{
+				divider: true
+			},
+			{
 				icon: 'arrow-right',
 				label: 'Disabled',
 				value: 'disabled',
