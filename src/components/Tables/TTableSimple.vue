@@ -55,10 +55,10 @@
             <tr 
                 v-for="(item, i) in items" :key="i" 
                 :class="[
-                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm`,
+                    `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm trow`,
                     (fixedHeader ? 'table table-fixed w-full' : ''),
                     (striped ? 'even:bg-gray-50' : ''),
-                    (item.class ? item.class+' trow' : 'trow'), 
+                    (item.class ? item.class : ''), 
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
                     (selectFromRow || rowCursor) ? 'cursor-pointer' : ''
                 ]"
