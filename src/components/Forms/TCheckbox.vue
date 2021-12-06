@@ -19,7 +19,7 @@
 			<div :class="`hidden bg-${color}-${colorLevel} w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] ${radio ? 'rounded-full' : 'rounded-sm'} pointer-events-none`" v-else />
 		</div>
 		<div class="ml-2 text-sm" v-if="label">
-			<t-label :id="id" >{{ label }}</t-label>
+			<t-label :id="id" :color="labelColor" >{{ label }}</t-label>
 		</div>
 	</div>
 </template>
@@ -78,6 +78,10 @@ export default {
 		borderColorLevel: {
 			type: [String, Number],
 			default: '800'
+		},
+		labelColor: {
+			type: String,
+			default: 'gray-800'
 		}
 	},
 	methods: {

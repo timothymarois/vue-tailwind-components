@@ -1,7 +1,7 @@
 <template>
     <label 
         :for="id"
-        :class="`cursor-pointer block text-sm font-medium ${color} transition-colors duration-150`"
+        :class="`cursor-pointer block text-sm font-medium text-${color} transition-colors duration-150`"
     >
         <slot>
             <t-icon v-if="icon" :value="icon" class="mr-1" />
@@ -33,7 +33,7 @@ export default {
         },
         color: {
             type: String,
-            default: 'text-gray-800'
+            default: 'gray-800'
         },
         icon: {
             type: String,
