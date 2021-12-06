@@ -20,6 +20,11 @@ export default {
 		clearable: {
 			name: 'clearable',
 			description: 'Toggle adding clear option to text field'
+		},
+		borderColor: {
+			name: 'borderColor',
+			description: 'Set custom borde rcolor',
+			control: { type: 'text' }
 		}
 	},
 };

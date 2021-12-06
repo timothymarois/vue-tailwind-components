@@ -81,6 +81,11 @@ export default {
             required: false,
             default: 'black'
         },
+        borderColor: {
+            type: String,
+            required: false,
+            default: 'gray-200'
+        },
         name: {
             type: String,
             default: null
@@ -143,7 +148,7 @@ export default {
             return uniqid();
         },
         fieldClasses() {
-            let c = [`block w-full h-10 rounded text-${this.textColor} text-sm hover:bg-${this.color}-100 focus:outline-none focus:ring-0`];
+            let c = [`block w-full h-10 rounded text-sm hover:bg-${this.color}-100 focus:outline-none focus:ring-0`];
 
             if (this.icon) {
                 c = c.concat(['pl-8']);
@@ -154,9 +159,9 @@ export default {
             }
 
             if(this.errorState) {
-                c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800'])
+                c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
             } else {
-                c = c.concat([`border-gray-200 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
+                c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
             }
 
             return c;
