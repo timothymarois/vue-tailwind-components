@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : 'max-height: 100vh;'} ${widthCalculation} ${offsetCalculation};`"
+					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : 'max-height: calc(100vh - 4em);'} ${widthCalculation} ${offsetCalculation};`"
 				>
 					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
 						<t-button icon="close" @click="close" text />
