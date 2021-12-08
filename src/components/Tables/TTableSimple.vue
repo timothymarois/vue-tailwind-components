@@ -25,7 +25,7 @@
                                     <template v-slot:content>
                                         <ul class="bg-white text-sm p-2 rounded border border-gray-200 w-52 text-left text-gray-500 font-medium">
                                             <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('all'); selectAll()">
-                                                Select All
+                                                Select All <span v-if="totalCount">{{ totalCount }}</span>
                                             </li>
                                             <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('none'); deselectAll()">
                                                 Select None
@@ -33,12 +33,11 @@
                                             <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('visible'); selectAll()">
                                                 Select Visible
                                             </li>
-                                            <li class="p-2 mt-1 rounded" @click="">
+                                            <li class="p-2 mt-1 rounded" v-if="selectOptionCustom">
                                                 <form class="flex flex-row" @submit.prevent="changeSelectControl('number'); selectRows($refs.rows_to_select.value);">
                                                     Select 
-                                                    <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-12 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 mx-1.5 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
-                                                    Items
-                                                    <t-button type="submit" icon="arrow-right" iconSize="4" :padding="0.5" class="ml-auto -mt-0.5" />
+                                                    <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-16 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 ml-2 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
+                                                    <t-button type="submit" icon="arrow-right" iconSize="4" :padding="1" class="ml-auto -mt-1" />
                                                 </form>
                                             </li>
                                         </ul>
@@ -224,6 +223,14 @@ export default {
         selectOptions: {
             type: Boolean,
             default: false
+        },
+        selectOptionCustom: {
+            type: Boolean,
+            default: true
+        },
+        totalCount: {
+            type: [String, Number],
+            default: null
         }
     },
     computed: {

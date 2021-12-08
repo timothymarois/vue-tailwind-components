@@ -634,6 +634,7 @@ export const SelectAllOptions = () => ({
                         :selectOne="false"
                         selectOptions
                         @select-control="updateSelectControl"
+                        totalCount="808"
                     />
                 </t-card>
             </div>
