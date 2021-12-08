@@ -2,14 +2,26 @@
     <table :class="`t-table min-w-full h-full divide-y divide-gray-200 ${outlined ? 'ring-1 ring-gray-200' : ''}`">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800" :style="fixedHeader ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
             <tr>
-                <th v-if="select" class="w-12">
+                <th v-if="select" :class="`w-${selectOptions.length > 0 ? '14' : '12'}`">
                     <slot name="hselect">
-                        <div class="flex justify-center w-full">
+                        <div class="flex justify-evenly w-full">
                             <t-checkbox 
                                 v-if="!selectOne"
                                 v-model="selectedAll"
                                 @input="toggleAll"
                             />
+                            <div class="-mt-1" v-if="!selectOne && selectOptions.length > 0">
+                                <t-menu :items="selectOptionsComputed" v-model="menuOpen" @change="changeSelectAllOption">
+                                    <template v-slot:opener>
+                                        <t-icon
+                                            value="chevron-down"
+                                            size="4"
+                                            @click.native="menuOpen =! menuOpen"
+                                            class="cursor-pointer select-none"
+                                        />
+                                    </template>
+			                    </t-menu>
+                            </div>
                         </div>
                     </slot>
                 </th>
@@ -103,41 +115,26 @@
     </table>
 </template>
 
-<style scoped>
-table.t-table>thead>tr:last-child>th {
-    border-right: 1px solid #e5e5e5;
-}
-table.t-table>thead>tr:last-child>th:last-child {
-    border-right: 0;
-}
-/* table.t-table>thead>tr>th.sortable:hover {
-    @apply bg-indigo-50
-} */
-table.t-table>thead>tr>th.sortable:not(.sorted) span.sort-icon {
-    opacity: 0.3;
-}
-table.t-table>thead>tr>th.sortable:hover span.sort-icon {
-    opacity: 1;
-}
-</style>
-
 <script>
 import TCheckbox from "../Forms/TCheckbox.vue";
 import TProgressBar from "../Elements/TProgressBar.vue";
 import TIcon from "../Elements/TIcon.vue";
+import TMenu from "../Elements/TMenu.vue";
 // import TButton from "../Elements/TButton.vue";
 export default {
     name: 'TTableSimple',
     data () {
         return {
             selection: [],
-            selectedAll: false
+            selectedAll: false,
+            menuOpen: false
         }
     },
     components: {
         TCheckbox,
         TProgressBar,
         TIcon,
+        TMenu
         // TButton
     },
     props: {
@@ -200,6 +197,10 @@ export default {
         outlined: {
             type: Boolean,
             default: false
+        },
+        selectOptions: {
+            type: Array,
+            default: () => []
         }
     },
     computed: {
@@ -209,6 +210,16 @@ export default {
         },
         headerItems() {
             return this.headers.filter(item => !item.hide)
+        },
+        selectOptionsComputed() {
+            if(this.selectOptions) {
+                return this.selectOptions.map((i) => {
+                    return {
+                        value: i,
+                        label: i.replace('_', ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase())
+                    }
+                })
+            }
         }
     },
     methods: {
@@ -284,6 +295,13 @@ export default {
         },
         checkedAll(e) {
             this.selectedAll = e;
+        },
+        changeSelectAllOption(v) {
+            if(v !== 'select_control') {
+                this.$emit('select-all-change', v);
+            } else {
+
+            }
         }
     },
     watch: {
@@ -321,3 +339,21 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+table.t-table>thead>tr:last-child>th {
+    border-right: 1px solid #e5e5e5;
+}
+table.t-table>thead>tr:last-child>th:last-child {
+    border-right: 0;
+}
+/* table.t-table>thead>tr>th.sortable:hover {
+    @apply bg-indigo-50
+} */
+table.t-table>thead>tr>th.sortable:not(.sorted) span.sort-icon {
+    opacity: 0.3;
+}
+table.t-table>thead>tr>th.sortable:hover span.sort-icon {
+    opacity: 1;
+}
+</style>

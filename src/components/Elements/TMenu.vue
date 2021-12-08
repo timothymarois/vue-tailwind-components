@@ -269,28 +269,27 @@ export default {
     },
     methods: {
         getItemByValue(value) {
-            let vm = this;
-            return vm.items.find(a => { return a.value === value; });
+            return this.items.find(a => { return a.value === value; });
         },
         menuToggle() {
             this.menu = !this.menu;
         },
         selectItem(item) {
-            this.$emit('change',item.value)
+            this.$emit('change', item.value);
             if (this.closeOnClick) this.menu = false;
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
-                this.menu = false
+                this.menu = false;
             }
         },
         
     },
     mounted() {        
-        document.addEventListener('click', this.close)
+        document.addEventListener('click', this.close);
     },
     beforeDestroy() {
-        document.removeEventListener('click',this.close)
+        document.removeEventListener('click', this.close);
     }
 };
 </script>
