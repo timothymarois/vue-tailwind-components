@@ -10,15 +10,36 @@
                                 v-model="selectedAll"
                                 @input="toggleAll"
                             />
-                            <div class="-mt-1" v-if="!selectOne && selectOptions.length > 0">
-                                <t-menu :items="selectOptionsComputed" v-model="menuOpen" @change="changeSelectAllOption">
+                            <div v-if="!selectOne && selectOptions.length > 0" id="select-all-options">
+                                <t-menu v-model="menuOpen">
                                     <template v-slot:opener>
-                                        <t-icon
-                                            value="chevron-down"
-                                            size="4"
+                                        <t-button
+                                            icon="chevron-down"
+                                            iconSize="4"
+                                            text
+                                            :padding="0.5"
                                             @click.native="menuOpen =! menuOpen"
-                                            class="cursor-pointer select-none"
+                                            class="select-none"
                                         />
+                                    </template>
+                                    <template v-slot:content>
+                                        <ul class="bg-white text-sm p-2 rounded shadow-2xl border border-gray-200 w-52 text-left text-gray-500 font-medium">
+                                            <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_all')">
+                                                Select All
+                                            </li>
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_none'); deselectAll()">
+                                                Select None
+                                            </li>
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_visible')">
+                                                Select Visible
+                                            </li>
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded flex flex-row" @click="">
+                                                Select 
+                                                <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-12 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 mx-1 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
+                                                Records
+                                                <t-button icon="arrow-right" iconSize="4" :padding="0.5" class="ml-2 -mt-0.5" @click="changeSelectAllOption('select_control')" />
+                                            </li>
+                                        </ul>
                                     </template>
 			                    </t-menu>
                             </div>
@@ -120,7 +141,7 @@ import TCheckbox from "../Forms/TCheckbox.vue";
 import TProgressBar from "../Elements/TProgressBar.vue";
 import TIcon from "../Elements/TIcon.vue";
 import TMenu from "../Elements/TMenu.vue";
-// import TButton from "../Elements/TButton.vue";
+import TButton from "../Elements/TButton.vue";
 export default {
     name: 'TTableSimple',
     data () {
@@ -134,8 +155,8 @@ export default {
         TCheckbox,
         TProgressBar,
         TIcon,
-        TMenu
-        // TButton
+        TMenu,
+        TButton
     },
     props: {
         headers: {
@@ -210,16 +231,6 @@ export default {
         },
         headerItems() {
             return this.headers.filter(item => !item.hide)
-        },
-        selectOptionsComputed() {
-            if(this.selectOptions) {
-                return this.selectOptions.map((i) => {
-                    return {
-                        value: i,
-                        label: i.replace('_', ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase())
-                    }
-                })
-            }
         }
     },
     methods: {
@@ -254,6 +265,9 @@ export default {
             else {
                 this.selection = [...Array(this.items.length).keys()];
             }
+        },
+        deselectAll() {
+            this.selection = [];
         },
         toggleRow(i, origin) {
             if(!this.selectFromRow || origin === 'selectRow') {
@@ -297,10 +311,12 @@ export default {
             this.selectedAll = e;
         },
         changeSelectAllOption(v) {
+            this.menuOpen = !this.menuOpen;
+
             if(v !== 'select_control') {
                 this.$emit('select-all-change', v);
             } else {
-
+                this.$emit('select-all-change', this.$refs.rows_to_select.value)
             }
         }
     },
@@ -355,5 +371,11 @@ table.t-table>thead>tr>th.sortable:not(.sorted) span.sort-icon {
 }
 table.t-table>thead>tr>th.sortable:hover span.sort-icon {
     opacity: 1;
+}
+
+#select-all-options input::-webkit-outer-spin-button,
+#select-all-options input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 </style>
