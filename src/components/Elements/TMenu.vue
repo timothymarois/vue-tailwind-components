@@ -7,7 +7,7 @@
                 :loading="loading"
                 :disabled="disabled"
                 :label="label"
-                :shadow="shadow"
+                :shadow="buttonShadow"
                 :rounded="rounded"
                 :text="text"
                 :outlined="outlined"
@@ -107,6 +107,10 @@ export default {
             default: false
         },
         shadow: {
+            type: Boolean,
+            default: true
+        },
+        buttonShadow: {
             type: Boolean,
             default: false
         },
@@ -231,7 +235,11 @@ export default {
             ];
 
             if (!this.$slots.content) {
-                c = c.concat(['bg-white','shadow-lg','rounded','text-sm','w-52','border border-gray-200']);
+                c = c.concat(['bg-white','rounded','text-sm','w-52','border border-gray-200']);
+            }
+
+            if(this.shadow) {
+                c = c.concat(['shadow-lg']);
             }
 
             if (this.dropdownSide === 'left') {
