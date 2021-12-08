@@ -2,13 +2,13 @@
     <table :class="`t-table min-w-full h-full divide-y divide-gray-200 ${outlined ? 'ring-1 ring-gray-200' : ''}`">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800" :style="fixedHeader ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
             <tr>
-                <th v-if="select" :class="`w-${selectOptions.length > 0 ? '14' : '12'}`">
+                <th v-if="select" :class="`w-${selectOptions.length > 0 ? '16' : '12'}`">
                     <slot name="hselect">
                         <div class="flex justify-evenly w-full">
                             <t-checkbox 
                                 v-if="!selectOne"
                                 v-model="selectedAll"
-                                @input="toggleAll"
+                                @input="changeSelectAllOption('select_visible'); toggleAll();"
                             />
                             <div v-if="!selectOne && selectOptions.length > 0" id="select-all-options">
                                 <t-menu v-model="menuOpen">
@@ -24,20 +24,22 @@
                                     </template>
                                     <template v-slot:content>
                                         <ul class="bg-white text-sm p-2 rounded shadow-2xl border border-gray-200 w-52 text-left text-gray-500 font-medium">
-                                            <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_all')">
+                                            <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_all'); selectAll()">
                                                 Select All
                                             </li>
                                             <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_none'); deselectAll()">
                                                 Select None
                                             </li>
-                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_visible')">
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_visible'); selectAll()">
                                                 Select Visible
                                             </li>
-                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded flex flex-row" @click="">
-                                                Select 
-                                                <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-12 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 mx-1 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
-                                                Records
-                                                <t-button icon="arrow-right" iconSize="4" :padding="0.5" class="ml-2 -mt-0.5" @click="changeSelectAllOption('select_control')" />
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="">
+                                                <form class=" flex flex-row" @submit.prevent="changeSelectAllOption('select_control'); selectRows($refs.rows_to_select.value);">
+                                                    Select 
+                                                    <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-12 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 mx-1 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
+                                                    Records
+                                                    <t-button type="submit" icon="arrow-right" iconSize="4" :padding="0.5" class="ml-2 -mt-0.5" />
+                                                </form>
                                             </li>
                                         </ul>
                                     </template>
@@ -99,10 +101,10 @@
             >
                 <td 
                     v-if="select"
-                    class="px-4 py-2 border-0 relative text-center w-12"
+                    class="px-2 py-2 border-0 relative text-center w-12"
                 >
                     <slot name="column.select">
-                        <div class="flex justify-center w-full">
+                        <div :class="`flex ${selectOptions.length > 0 ? 'justify-start' : 'justify-center'} w-full`">
                             <TCheckbox 
                                 :value="selection.includes(i)" 
                                 @input="toggleRow(i)"
@@ -258,13 +260,19 @@ export default {
                 this.$emit('change-sort',h,sortUpdate)
             }
         },
-        toggleAll(v) {
+        toggleAll() {
             if (!this.selectedAll) {
-                this.selection = [];
+                this.deselectAll();
             } 
             else {
-                this.selection = [...Array(this.items.length).keys()];
+                this.selectAll();
             }
+        },
+        selectAll() {
+            this.selection = [...Array(this.items.length).keys()];
+        },
+        selectRows(i) {
+            this.selection = [...Array(+i).keys()];
         },
         deselectAll() {
             this.selection = [];
@@ -272,8 +280,8 @@ export default {
         toggleRow(i, origin) {
             if(!this.selectFromRow || origin === 'selectRow') {
                 if (!this.selection.includes(i)) {
-                    if (this.selectOne===true) {
-                        this.selection = [i]
+                    if (this.selectOne === true) {
+                        this.selection = [i];
                     }
                     else {
                         this.selection.push(i)
@@ -311,7 +319,7 @@ export default {
             this.selectedAll = e;
         },
         changeSelectAllOption(v) {
-            this.menuOpen = !this.menuOpen;
+            this.menuOpen = false;
 
             if(v !== 'select_control') {
                 this.$emit('select-all-change', v);
