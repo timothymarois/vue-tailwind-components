@@ -30,7 +30,7 @@ export default {
 			default: null
 		},
 		iconSize: {
-			type: String,
+			type: [Number, String],
 			default: 6
 		},
 		iconColor: {
