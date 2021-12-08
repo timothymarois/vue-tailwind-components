@@ -36,7 +36,7 @@
                                             <li class="p-2 mt-1 rounded" v-if="selectOptionCustom">
                                                 <form class="flex flex-row" @submit.prevent="changeSelectControl('number'); selectRows($refs.rows_to_select.value);">
                                                     Select 
-                                                    <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-16 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 ml-2 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
+                                                    <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-24 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 ml-1.5 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
                                                     <t-button type="submit" icon="arrow-right" iconSize="4" :padding="1" class="ml-auto -mt-1" />
                                                 </form>
                                             </li>
