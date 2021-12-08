@@ -2,15 +2,15 @@
     <table :class="`t-table min-w-full h-full divide-y divide-gray-200 ${outlined ? 'ring-1 ring-gray-200' : ''}`">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800" :style="fixedHeader ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
             <tr>
-                <th v-if="select" :class="`w-${selectOptions.length > 0 ? '16' : '12'}`">
+                <th v-if="select" :class="`w-${selectOptions ? '16' : '12'}`">
                     <slot name="hselect">
                         <div class="flex justify-evenly w-full">
                             <t-checkbox 
                                 v-if="!selectOne"
                                 v-model="selectedAll"
-                                @input="changeSelectAllOption('select_visible'); toggleAll();"
+                                @input="changeSelectControl('select_visible'); toggleAll();"
                             />
-                            <div v-if="!selectOne && selectOptions.length > 0" id="select-all-options">
+                            <div v-if="!selectOne && selectOptions" id="select-all-options">
                                 <t-menu v-model="menuOpen">
                                     <template v-slot:opener>
                                         <t-button
@@ -24,17 +24,17 @@
                                     </template>
                                     <template v-slot:content>
                                         <ul class="bg-white text-sm p-2 rounded shadow-2xl border border-gray-200 w-52 text-left text-gray-500 font-medium">
-                                            <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_all'); selectAll()">
+                                            <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('select_all'); selectAll()">
                                                 Select All
                                             </li>
-                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_none'); deselectAll()">
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('select_none'); deselectAll()">
                                                 Select None
                                             </li>
-                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectAllOption('select_visible'); selectAll()">
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('select_visible'); selectAll()">
                                                 Select Visible
                                             </li>
                                             <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="">
-                                                <form class=" flex flex-row" @submit.prevent="changeSelectAllOption('select_control'); selectRows($refs.rows_to_select.value);">
+                                                <form class="flex flex-row" @submit.prevent="changeSelectControl('select_number'); selectRows($refs.rows_to_select.value);">
                                                     Select 
                                                     <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-12 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 mx-1 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
                                                     Records
@@ -104,7 +104,7 @@
                     class="px-2 py-2 border-0 relative text-center w-12"
                 >
                     <slot name="column.select">
-                        <div :class="`flex ${selectOptions.length > 0 ? 'justify-start' : 'justify-center'} w-full`">
+                        <div :class="`flex ${selectOptions ? 'justify-start' : 'justify-center'} w-full`">
                             <TCheckbox 
                                 :value="selection.includes(i)" 
                                 @input="toggleRow(i)"
@@ -222,8 +222,8 @@ export default {
             default: false
         },
         selectOptions: {
-            type: Array,
-            default: () => []
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -318,13 +318,13 @@ export default {
         checkedAll(e) {
             this.selectedAll = e;
         },
-        changeSelectAllOption(v) {
+        changeSelectControl(v) {
             this.menuOpen = false;
 
-            if(v !== 'select_control') {
-                this.$emit('select-all-change', v);
+            if(v !== 'select_number') {
+                this.$emit('select-control', v);
             } else {
-                this.$emit('select-all-change', this.$refs.rows_to_select.value)
+                this.$emit('select-control', +this.$refs.rows_to_select.value)
             }
         }
     },

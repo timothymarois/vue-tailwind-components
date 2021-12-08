@@ -548,7 +548,7 @@ export const SelectAllOptions = () => ({
 
             this.headers = newHeaders;
         },
-        updateSelectAllOption(v) {
+        updateSelectControl(v) {
             this.selectAllOption = v;
         }
     },
@@ -615,12 +615,6 @@ export const SelectAllOptions = () => ({
                 full_name: 'April Lane',
                 email: 'email@gmail.com'
             }
-        ],
-        selectOptions: [
-            'select_all',
-            'select_visible',
-            'select_none',
-            'select_control'
         ]
     }),
 	template: 
@@ -638,8 +632,8 @@ export const SelectAllOptions = () => ({
                         select
                         selectFromRow
                         :selectOne="false"
-                        :selectOptions="selectOptions"
-                        @select-all-change="updateSelectAllOption"
+                        selectOptions
+                        @select-control="updateSelectControl"
                     />
                 </t-card>
             </div>
