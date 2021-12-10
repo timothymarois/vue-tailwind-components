@@ -43,7 +43,7 @@
                         </span>
                         <span v-else>
                             <t-icon v-if="item.icon && !item.divider" :value="item.icon" size="5" class="mr-2" />
-                            <span class="font-medium">{{ item.label }}</span>
+                            <span class="font-medium">{{ item[labelName] }}</span>
                         </span>
                     </li>
                 </ul>
@@ -165,6 +165,10 @@ export default {
         label: {
             type: String,
             default: null
+        },
+        labelName: {
+            type: String,
+            default: "label"
         },
         value: {
             type: Boolean,
