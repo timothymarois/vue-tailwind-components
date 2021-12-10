@@ -173,6 +173,10 @@ export default {
         value: {
             type: Boolean,
             default: false
+        },
+        valueName: {
+            type: String,
+            default: "value"
         }
     },
      data() {
@@ -287,7 +291,7 @@ export default {
             this.menu = !this.menu;
         },
         selectItem(item) {
-            this.$emit('change', item.value);
+            this.$emit('change', item[this.valueName]);
             if (this.closeOnClick) this.menu = false;
         },
         close(e) {
