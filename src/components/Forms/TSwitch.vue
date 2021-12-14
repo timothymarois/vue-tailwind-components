@@ -21,11 +21,11 @@
 				@change="onChange($event)"
 			/>
 			<div 
-				:class="`w-${inset ? '12' : '10'} h-${inset ? '6' : '4'} bg-${color}-800 rounded-full shadow-inner`"
+				:class="`w-${inset ? '12' : '10'} h-${inset ? '6' : '4'} bg-${color}-${colorLevel} rounded-full shadow-inner`"
 				id="background" 
 			/>
 			<div 
-				:class="`absolute w-6 h-6 bg-white border-2 border-${color}-800 rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`"
+				:class="`absolute w-6 h-6 bg-white border-2 border-${color}-${colorLevel} rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`"
 				id="dot"
 			/>
 		</div>
@@ -60,6 +60,10 @@ export default {
 		color: {
 			type: String,
 			default: 'indigo'
+		},
+		colorLevel: {
+			type: [String, Number],
+			default: '800'
 		},
 		inset: {
 			type: Boolean,
