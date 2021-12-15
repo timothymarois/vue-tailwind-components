@@ -145,6 +145,14 @@ export const MultipleValues = () => ({
 				{{ testValueDefault }}
 			</t-card>
 
+			<t-card title="Disabled state" class="mb-4">
+				<t-switch 
+					v-model="testValueDefault"
+					disabled
+					
+				/>
+			</t-card>
+
 		</div>
 		
 		`,

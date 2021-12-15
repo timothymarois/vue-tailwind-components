@@ -11,7 +11,7 @@
 				{{ beforeLabel }}
 			</t-label>
 		</div>
-		<div class="relative cursor-pointer" @click="switchState('toggle')">
+		<div class="relative cursor-pointer" @click="switchState('toggle')" v-if="!disabled">
 			<input 
 				:id="id"
 				type="checkbox"
@@ -28,6 +28,10 @@
 				:class="`absolute w-6 h-6 bg-white border-2 border-${color}-${colorLevel} rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`"
 				id="dot"
 			/>
+		</div>
+		<div class="relative cursor-not-allowed" v-else>
+			<div :class="`w-${inset ? '12' : '10'} h-${inset ? '6' : '4'} bg-gray-100 rounded-full shadow-inner`" />
+			<div :class="`absolute w-6 h-6 bg-white border-2 rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`" />
 		</div>
 		<div class="ml-3 text-sm">
 			<t-label 
@@ -85,6 +89,10 @@ export default {
 			type: [String, Boolean],
 			default: false
 		},
+		disabled: {
+			type: Boolean,
+			default: false
+		}
 	},
 	methods: {
 		switchState(side) {
