@@ -130,13 +130,13 @@ export default {
 		arrowOffset() {
 			switch(this.position) {
 				case 'top':
-					return ['left-1/2', '-bottom-1.5', 'transform', 'rotate-45', '-translate-x-1/2'];
+					return ['left-1/2', '-bottom-1.5', 'rotate-45', '-translate-x-1/2'];
 				case 'bottom':
-					return ['left-1/2', '-top-1.5', 'transform', 'rotate-45', '-translate-x-1/2'];
+					return ['left-1/2', '-top-1.5', 'rotate-45', '-translate-x-1/2'];
 				case 'left':
-					return ['top-1/2', '-right-1.5', 'transform', 'rotate-45', '-translate-y-1/2'];
+					return ['top-1/2', '-right-1.5', 'rotate-45', '-translate-y-1/2'];
 				case 'right':
-					return ['top-1/2', '-left-1.5', 'transform', 'rotate-45', '-translate-y-1/2'];
+					return ['top-1/2', '-left-1.5', 'rotate-45', '-translate-y-1/2'];
 			}
 		}
 	}

@@ -93,8 +93,9 @@ export const Warning = (args, { argTypes }) => ({
 });
 
 Warning.args = {
-	color: 'yellow',
-	textColor: 'yellow-600',
+	color: 'amber',
+	colorLevel: '600',
+	textColor: 'yellow',
 	icon: 'exclamation-circle',
 	iconSize: 5,
 	outlined: true,
