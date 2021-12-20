@@ -1,38 +1,34 @@
 <template>
-	<div class="fixed inset-0 flex items-end pointer-events-none sm:p-6 sm:items-start notify-padding" :style="`padding-top: calc(1.5rem ${offsetValue ? `+ ${offsetValue}px` : ''});`">
-		<div class="w-full flex flex-col items-center space-y-4 sm:items-end">
-			<transition name="pop" appear>
-				<div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50" v-if="localShowing">
-					<div class="p-4">
-						<div class="flex items-start">
-							<div :class="`flex-shrink-0 text-${iconColor}`">
-								<t-icon :value="icon" :size="iconSize" />
-							</div>
-							<div class="ml-3 w-0 flex-1 pt-0.5">
-								<p :class="`text-sm font-medium text-${titleColor}`">
-									{{ title }}
-								</p>
-								<p :class="`mt-1 text-sm text-${descColor}`" v-if="description">
-									{{ description }}
-								</p>
-							</div>
-							<div class="ml-4 flex-shrink-0 flex" v-if="closeable">
-								<button 
-									class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-									@click="close"
-								>
-									<span class="sr-only">
-										Close
-									</span>
-									<t-icon value="close" :size="iconSize" />
-								</button>
-							</div>
-						</div>
+	<transition name="pop" appear>
+		<div class="w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50" v-if="localShowing">
+			<div class="p-4">
+				<div class="flex items-start">
+					<div :class="`flex-shrink-0 text-${iconColor}`">
+						<t-icon :value="icon" :size="iconSize" />
+					</div>
+					<div class="ml-3 w-0 flex-1 pt-0.5">
+						<p :class="`text-sm font-medium text-${titleColor}`">
+							{{ title }}
+						</p>
+						<p :class="`mt-1 text-sm text-${descColor}`" v-if="description">
+							{{ description }}
+						</p>
+					</div>
+					<div class="ml-4 flex-shrink-0 flex" v-if="closeable">
+						<button 
+							class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+							@click="close"
+						>
+							<span class="sr-only">
+								Close
+							</span>
+							<t-icon value="close" :size="iconSize" />
+						</button>
 					</div>
 				</div>
-			</transition>
+			</div>
 		</div>
-	</div>
+	</transition>	
 </template>
 
 <script> 
@@ -120,7 +116,7 @@ export default {
 }
 .pop-enter {
 	opacity: 0;
-	transform: translateY(-50%);
+	transform: translateY(50%);
 }
 
 .pop-leave-to {

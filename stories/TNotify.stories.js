@@ -46,9 +46,11 @@ export const Standard = (args, { argTypes }) => ({
 			<div class="mt-72">Scroll down</div>
 			<div class="mt-72">Scroll down</div>
 			<t-button @click="showing = true" label="Show notification" />
-			<t-notify v-if="showing" @end="showing = false" v-bind="$props">
-				A notification component
-			</t-notify>
+			<div class="absolute right-4 top-4 flex flex-col">
+				<t-notify v-if="showing" @end="showing = false" v-bind="$props">
+					A notification component
+				</t-notify>
+			</div>
 		</div>
 		`
 });
@@ -63,9 +65,11 @@ export const CloseButton = (args, { argTypes }) => ({
 		`
 		<div>
 			<t-button @click="showing = true" label="Show notification" />
-			<t-notify v-if="showing" @end="showing = false" closeable v-bind="$props">
-				A notification component
-			</t-notify>
+			<div class="flex flex-col max-w-xl w-full absolute right-4 top-4 z-50">
+				<t-notify v-if="showing" @end="showing = false" closeable v-bind="$props">
+					A notification component
+				</t-notify>
+			</div>
 		</div>
 		`
 });
