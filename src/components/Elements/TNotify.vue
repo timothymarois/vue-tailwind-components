@@ -1,34 +1,32 @@
 <template>
-	<transition name="pop" appear>
-		<div class="relative bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50">
-			<div class="p-4">
-				<div class="inline-flex items-start">
-					<div :class="`flex-shrink-0 text-${iconColor}`">
-						<t-icon :value="icon" :size="iconSize" />
-					</div>
-					<div class="ml-3 pt-0.5">
-						<p :class="`text-sm font-medium text-${titleColor}`">
-							{{ title }}
-						</p>
-						<p :class="`mt-1 text-sm text-${descColor}`" v-if="description">
-							{{ description }}
-						</p>
-					</div>
-					<div class="ml-4 flex-shrink-0 flex" v-if="closeable">
-						<button 
-							class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-							@click="close"
-						>
-							<span class="sr-only">
-								Close
-							</span>
-							<t-icon value="close" :size="iconSize" />
-						</button>
-					</div>
+	<div class="relative bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50">
+		<div class="p-4">
+			<div class="inline-flex items-start">
+				<div :class="`flex-shrink-0 text-${iconColor}`">
+					<t-icon :value="icon" :size="iconSize" />
+				</div>
+				<div class="ml-3 pt-0.5">
+					<p :class="`text-sm font-medium text-${titleColor}`">
+						{{ title }}
+					</p>
+					<p :class="`mt-1 text-sm text-${descColor}`" v-if="description">
+						{{ description }}
+					</p>
+				</div>
+				<div class="ml-4 flex-shrink-0 flex" v-if="closeable">
+					<button 
+						class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+						@click="close"
+					>
+						<span class="sr-only">
+							Close
+						</span>
+						<t-icon value="close" :size="iconSize" />
+					</button>
 				</div>
 			</div>
 		</div>
-	</transition>	
+	</div>	
 </template>
 
 <script> 
