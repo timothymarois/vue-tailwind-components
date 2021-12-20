@@ -86,6 +86,10 @@ export default {
 		description: {
 			type: String,
 			required: false
+		},
+		index: {
+			type: Number,
+			required: false
 		}
 	},
 	data() {
@@ -101,9 +105,9 @@ export default {
 	methods: {
 		close() {
 			this.localShowing = false;
-			this.$emit('close');
+			this.$emit('close', this.index);
 			setTimeout(() => {
-				return this.$emit('end');
+				return this.$emit('end', this.index);
 			}, 200)
 		}
 	}
