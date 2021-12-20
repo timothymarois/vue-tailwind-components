@@ -1,12 +1,12 @@
 <template>
 	<transition name="pop" appear>
-		<div class="w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50" v-if="localShowing">
+		<div class="relative bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50">
 			<div class="p-4">
-				<div class="flex items-start">
+				<div class="inline-flex items-start">
 					<div :class="`flex-shrink-0 text-${iconColor}`">
 						<t-icon :value="icon" :size="iconSize" />
 					</div>
-					<div class="ml-3 w-0 flex-1 pt-0.5">
+					<div class="ml-3 pt-0.5">
 						<p :class="`text-sm font-medium text-${titleColor}`">
 							{{ title }}
 						</p>
@@ -92,40 +92,20 @@ export default {
 			required: false
 		}
 	},
-	data() {
-		return {
-			localShowing: true
-		}
-	},
 	mounted() {
 		if(this.duration) {
-			setTimeout(this.close, this.duration);
+			setTimeout(this.close(), this.duration);
 		}
 	},
 	methods: {
 		close() {
-			this.localShowing = false;
 			this.$emit('close', this.index);
-			setTimeout(() => {
-				return this.$emit('end', this.index);
-			}, 200)
 		}
 	}
 }
 </script>
 
 <style scoped>
-.pop-enter-active, .pop-leave-active {
-	transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.pop-enter {
-	opacity: 0;
-	transform: translateY(50%);
-}
-
-.pop-leave-to {
-	opacity: 0;
-}
 @media only screen and (max-width: 640px) {
 	.notify-padding {
 		padding-left: 1rem!important;

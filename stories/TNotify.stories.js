@@ -65,7 +65,7 @@ export const CloseButton = (args, { argTypes }) => ({
 		`
 		<div>
 			<t-button @click="showing = true" label="Show notification" />
-			<div class="flex flex-col max-w-xl w-full absolute right-4 top-4 z-50">
+			<div class="inline-flex flex-col max-w-xl absolute right-4 top-4 z-50">
 				<t-notify v-if="showing" @end="showing = false" closeable v-bind="$props">
 					A notification component
 				</t-notify>
