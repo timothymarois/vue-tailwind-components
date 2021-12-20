@@ -87,8 +87,8 @@ export default {
 			type: String,
 			required: false
 		},
-		index: {
-			type: Number,
+		id: {
+			type: String,
 			required: false
 		}
 	},
@@ -99,7 +99,7 @@ export default {
 	},
 	methods: {
 		close() {
-			this.$emit('close', this.index);
+			this.$emit('close', this.id);
 		}
 	}
 }

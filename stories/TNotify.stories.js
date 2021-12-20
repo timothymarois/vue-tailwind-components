@@ -92,6 +92,44 @@ export const Offset = (args, { argTypes }) => ({
 });
 
 
+export const TransitionGroup = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TNotify, TButton },
+	data: () => ({
+        notifications: []
+    }),
+	methods: {
+		createNotification(args) {
+			this.notifications.unshift({
+				...args,
+				id: Math.random().toString(36).substring(7) //uniqid function
+			});
+		},
+		removeNotification(id) {
+			const i = this.notifications.indexOf((obj) => obj.id === id);
+			this.notifications.splice(i, 1);
+		}
+	},
+	template:
+		`
+		<div>
+			<t-button @click="createNotification({title: 'Test Title', description: 'Test Description', duration: 5000})" label="Show notification" />
+			<transition-group>
+				<t-notify
+					v-for="n of notifications" :key="'notification-' + n.id"
+					:id="n.id"
+					:title="n.title"
+					:description="n.description"
+					:duration="n.duration"
+					@close="removeNotification"
+				/>
+			</transition-group>
+		</div>
+		`
+});
+
+
+
 Standard.args = {
 	iconSize: 5,
 	duration: 3000,
