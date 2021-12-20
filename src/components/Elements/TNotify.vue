@@ -94,7 +94,7 @@ export default {
 	},
 	mounted() {
 		if(this.duration) {
-			setTimeout(this.close(), this.duration);
+			setTimeout(this.close, this.duration);
 		}
 	},
 	methods: {
