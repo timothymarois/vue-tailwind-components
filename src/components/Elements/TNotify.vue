@@ -67,7 +67,7 @@ export default {
 		duration: {
 			type: [String, Number],
 			required: false,
-			default: null
+			default: 4000
 		},
 		closeable: {
 			type: Boolean,
