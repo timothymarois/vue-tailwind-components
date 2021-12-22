@@ -29,7 +29,7 @@
     "vue": "^2.6.14"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
+    "@babel/core": "^7.16.5",
     "@storybook/addon-actions": "^6.4.8",
     "@storybook/addon-essentials": "^6.4.8",
     "@storybook/addon-links": "^6.4.8",
@@ -39,9 +39,9 @@
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.4.0",
     "babel-loader": "^8.2.3",
-    "postcss": "^8.4.4",
+    "postcss": "^8.4.5",
     "tailwindcss": "^2.2.19",
-    "vite": "^2.7.0",
+    "vite": "^2.7.6",
     "vite-plugin-vue2": "^1.9.0",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14"
