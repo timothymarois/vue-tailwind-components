@@ -279,7 +279,7 @@ export default {
 		},
 		bTheme(c) {
 
-			let colorLevelSecondary = parseInt(this.colorLevel)+100;
+			let colorLevelSecondary = +this.colorLevel + 100;
 			
 			c = c.concat(['border-2', 'border-transparent', 'focus:outline-none']);
 

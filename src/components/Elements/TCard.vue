@@ -60,7 +60,7 @@ export default {
         contentClasses() {
             let c = ['w-full'];
             if (this.contentPadding) {
-                c = c.concat(['p-'+this.contentPadding]);
+                c = c.concat([`p-${this.contentPadding}`]);
             }
             return c;
         },
@@ -77,7 +77,7 @@ export default {
 
             if (this.border) {
                 c = c.concat(['border']);
-                c = c.concat(['border-'+this.borderColor+'-200']);
+                c = c.concat([`border-${this.borderColor}-200`]);
             }
 
             return c;

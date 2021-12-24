@@ -93,12 +93,12 @@ export default {
 	watch: {
 		show(v) {
 			if (v !== this.localShowing) {
-				if (v===false) {
-					this.close()
+				if (v === false) {
+					this.close();
 				}
 				else {
-					this.localShowing = v
-					this.updateDivOffset()
+					this.localShowing = v;
+					this.updateDivOffset();
 				}
 			}
 		},
@@ -231,7 +231,7 @@ export default {
 		offsetCalculation() {
 			if (this.relativeOffsetPx) {
 				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right') || this.type === 'center') return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
-				else return `right: 1em;`;
+				else return 'right: 1em;';
 			} 
 			else if(this.offsetDirection && this.offsetValue > 0) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
@@ -242,10 +242,10 @@ export default {
 				return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
 			} 
 			else if(this.type === 'full') {
-				return `width: calc(100% - 2em);`;
+				return 'width: calc(100% - 2em);';
 			} 
 			else {
-				return `width: fit-content;`;
+				return 'width: fit-content;';
 			}
 		},
 		transitionName() {

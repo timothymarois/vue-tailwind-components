@@ -21,7 +21,7 @@
 							</span>
 						</div>
 						<div 
-							class="absolute text-center mt-2 w-40 left-1/2 transform -translate-x-1/2"
+							class="absolute text-center mt-2 w-40 left-1/2 -translate-x-1/2"
 							:class="[nameColor(i), simple ? 'font-semibold' : '', allowBack(i) ? 'cursor-pointer hover:underline' : '']"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>{{ step.title }}</div>
@@ -166,13 +166,13 @@ export default {
 		stepColor(i) {
 			if(!this.simple) {
 				if(this.currentStep === i + 1 && !this.finished) {
-					return `bg-${this.color} text-${this.textColor}`
+					return `bg-${this.color} text-${this.textColor}`;
 				} 
 				else if(this.currentStep > i + 1 || this.finished) {
-					return `bg-green-500 text-white`
+					return 'bg-green-500 text-white';
 				} 
 				else {
-					return `bg-gray-400 text-white`
+					return 'bg-gray-400 text-white';
 				}
 			} 
 			else {
@@ -180,20 +180,20 @@ export default {
 					return `bg-${this.color} border-2 border-${this.color} ring-2 ring-${this.color}`;
 				} 
 				else if(this.currentStep === i + 1) {
-					return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`
+					return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`;
 				} 
 				else {
-					return `ring-2 ring-gray-300`
+					return 'ring-2 ring-gray-300';
 				}
 			}
 		},
 		nameColor(i) {
 			if(!this.simple) {
 				if(i + 1 > this.currentStep) {
-					return `text-gray-400`;
+					return 'text-gray-400';
 				} 
 				else {
-					return `text-black`;
+					return 'text-black';
 				}
 			} 
 			else {
@@ -201,20 +201,20 @@ export default {
 					return `text-${this.color}`;
 				} 
 				else {
-					return `text-gray-400`;
+					return 'text-gray-400';
 				}
 			}
 		},
 		dividerColor(i) {
 			if(!this.simple) {
-				return `h-0.5 bg-gray-300 mx-4`;
+				return 'h-0.5 bg-gray-300 mx-4';
 			} 
 			else {
 				if(i < this.currentStep) {
 					return `h-1 bg-${this.color}`;
 				} 
 				else {
-					return `h-0.5 bg-gray-300`;
+					return 'h-0.5 bg-gray-300';
 				}
 			}
 		},
