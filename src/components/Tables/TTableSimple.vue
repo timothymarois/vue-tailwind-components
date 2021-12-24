@@ -2,7 +2,7 @@
     <table :class="`t-table min-w-full h-full divide-y divide-gray-200 ${outlined ? 'ring-1 ring-gray-200' : ''}`">
         <thead v-if="!hideHeader" class="bg-white text-indigo-800" :style="fixedHeader ? 'width: calc(100% - 1em); display: table; table-layout: fixed;' : ''">
             <tr>
-                <th v-if="select" :class="`w-${selectOptions ? '16' : '12'}`">
+                <th v-if="select" :class="selectOptions ? 'w-16' : 'w-12'">
                     <slot name="hselect">
                         <div class="flex justify-evenly w-full">
                             <t-checkbox 
@@ -18,7 +18,7 @@
                                             iconSize="4"
                                             text
                                             :padding="0.5"
-                                            @click.native="menuOpen =! menuOpen"
+                                            @click.native="menuOpen = !menuOpen"
                                             class="select-none"
                                         />
                                     </template>
@@ -52,16 +52,16 @@
                     class="my-auto py-1 px-2 lg:px-4 lg:py-2 text-sm font-normal whitespace-nowrap capitalize"
                     :key="hindex"
                     :class="{
-                        'text-left' : !h.align,
-                        'text-right' : (h.align=='right'),
-                        'text-center' : (h.align=='center'),
-                        'sortable cursor-pointer hover:bg-indigo-50' : h.sorting,
-                        'sorted' : h.sorted
+                        'text-left': !h.align,
+                        'text-right': (h.align == 'right'),
+                        'text-center': (h.align == 'center'),
+                        'sortable cursor-pointer hover:bg-indigo-50': h.sorting,
+                        'sorted': h.sorted
                     }"
-                    :style="(h.width) ? 'width:'+h.width+';' : ''"
-                    @click="sortClicked(h,hindex)"
+                    :style="h.width ? `width: ${h.width};` : ''"
+                    @click="sortClicked(h, hindex)"
                 >
-                    <slot :name="'header.'+h.value" v-bind:header="h">
+                    <slot :name="`header.${h.value}`" v-bind:header="h">
                         <div class="my-auto truncate">
                             <span class="font-bold">{{ h.title }}</span>
                             <span v-if="h.sorting" class="sort-icon">
@@ -96,7 +96,7 @@
                     (selection.includes(i) ? `bg-${selectedColor}-100` : ''),
                     (selectFromRow || rowCursor) ? 'cursor-pointer' : ''
                 ]"
-                @click="selectRow(i,item,$event)"
+                @click="selectRow(i, item, $event)"
             >
                 <td 
                     v-if="select"
@@ -123,9 +123,9 @@
                         (h.align=='center') ? 'text-center' : '',
                         (item.class) ? item.class : ''
                     ]"
-                    :style="(h.width) ? 'width:'+h.width+';' : ''"
+                    :style="h.width ? `width: ${h.width};` : ''"
                 >
-                    <slot :name="'column.'+h.value" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
+                    <slot :name="`column.${h.value}`" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
             </tr>
         </tbody>
@@ -235,11 +235,11 @@ export default {
     },
     computed: {
         messageText() {
-            if (this.loading) return this.loadingText
-            return this.nodata
+            if (this.loading) return this.loadingText;
+            return this.nodata;
         },
         headerItems() {
-            return this.headers.filter(item => !item.hide)
+            return this.headers.filter(item => !item.hide);
         }
     },
     methods: {
@@ -254,7 +254,7 @@ export default {
                 }
                 else if (!h.sorted) {
                     if (h.sortDefault) {
-                        sortUpdate = h.sortDefault
+                        sortUpdate = h.sortDefault;
                     }
                     else {
                         sortUpdate = 'ASC';
@@ -264,7 +264,7 @@ export default {
                     sortUpdate = null;
                 }
 
-                this.$emit('change-sort',h,sortUpdate)
+                this.$emit('change-sort', h, sortUpdate);
             }
         },
         toggleAll() {
@@ -306,7 +306,7 @@ export default {
 
             // let $event.target.cellIndex
             if (this.selectFromRow) {
-                this.toggleRow(i,'selectRow');
+                this.toggleRow(i, 'selectRow');
             }
             
             // we do not want to send this event
@@ -314,12 +314,12 @@ export default {
             if (this.select) {
                 // prevent input clicks
                 // prevent first cell checkbox clicks
-                if ($event.target.nodeName==='INPUT') return;
-                if ($event.target.nodeName=='TD' && $event.target.cellIndex===0) return
-                this.$emit('click-row',item)
+                if ($event.target.nodeName === 'INPUT') return;
+                if ($event.target.nodeName === 'TD' && $event.target.cellIndex === 0) return;
+                this.$emit('click-row', item);
             }
             else {
-                this.$emit('click-row',item)
+                this.$emit('click-row', item);
             }
         },
         checkedAll(e) {
@@ -331,7 +331,7 @@ export default {
             if(v !== 'number') {
                 this.$emit('select-control', v);
             } else {
-                this.$emit('select-control', +this.$refs.rows_to_select.value)
+                this.$emit('select-control', +this.$refs.rows_to_select.value);
             }
         }
     },
@@ -349,7 +349,7 @@ export default {
                 // if the selected items equal the total items
                 // lets make sure to check the selected all
                 // however, if they do not match, then uncheck select all
-                if (this.selection.length===this.items.length) {
+                if (this.selection.length === this.items.length) {
                     this.selectedAll = true;
                 }
                 else {

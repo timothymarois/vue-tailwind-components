@@ -21,7 +21,7 @@
 				@change="onChange($event)"
 			/>
 			<div 
-				:class="`w-${inset ? '12' : '10'} h-${inset ? '6' : '4'} bg-${color}-${colorLevel} rounded-full shadow-inner`"
+				:class="`${inset ? 'w-12' : 'w-10'} ${inset ? 'h-6' : 'h-4'} bg-${color}-${colorLevel} rounded-full shadow-inner`"
 				id="background" 
 			/>
 			<div 
@@ -30,7 +30,7 @@
 			/>
 		</div>
 		<div class="relative cursor-not-allowed" v-else>
-			<div :class="`w-${inset ? '12' : '10'} h-${inset ? '6' : '4'} bg-gray-100 rounded-full shadow-inner`" />
+			<div :class="`${inset ? 'w-12' : 'w-10'} ${inset ? 'h-6' : 'h-4'} bg-gray-100 rounded-full shadow-inner`" />
 			<div :class="`absolute w-6 h-6 bg-white border-2 rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`" />
 		</div>
 		<div class="ml-3 text-sm">
@@ -111,12 +111,6 @@ export default {
 			}
 		},
 		valueComparator: (a, b) => a === b,
-		onChange(e) {
-			// const value = this.value;
-			// let input = this.internalValue
-			// input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
-			// this.internalValue = input
-		}
 	},
 	computed: {
 		id() {
@@ -140,7 +134,7 @@ export default {
 				return this.value; 
 			},
 			set: function(val) { 
-				this.$emit('input',val);
+				this.$emit('input', val);
 			}
 		},
 		isChecked() {

@@ -86,7 +86,7 @@
             <ul
                 :class="dropdownClasses"
                 v-show="menu"
-                :id="'dropdown-'+this.id"
+                :id="`dropdown-${this.id}`"
             >
                 <li 
                     v-if="loading" 
@@ -127,7 +127,7 @@
                     <div v-for="(group, j) of options" :key="group.groupName">
                         <div
                             v-if="groupedItems(group.items).length > 0" 
-                            :class="`font-bold text-gray-800 border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`" style="border-bottom-width: 1px;">
+                            :class="`font-bold text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`">
                             {{group.groupName}}
                         </div>
                         <li
@@ -155,8 +155,7 @@
                 </div>
                 <div 
                     v-if="create && (localsearch || !searchable)"
-                    :class="`text-${color}-600 font-medium pt-2 pb-2 px-4 border-gray-102 cursor-pointer hover:underline hover:text-${color}-500`"
-                    style="border-top-width: 1px;"
+                    :class="`text-${color}-600 font-medium pt-2 pb-2 px-4 border-t border-gray-100 cursor-pointer hover:underline hover:text-${color}-500`"
                     @click="createNew"
                 >
                     {{ createText }}
@@ -308,7 +307,7 @@ export default {
         menu: function(value) {
             if (value===true) {
                 this.$nextTick(() => {
-                    this.viewport = viewportHelper('#dropdown-'+this.id);
+                    this.viewport = viewportHelper(`#dropdown-${this.id}`);
                 });
             }
             else {
@@ -332,8 +331,8 @@ export default {
            return uniqid();
         },
         menuIcon() {
-            if (this.menu) return 'chevron-up'
-            return 'selector'
+            if (this.menu) return 'chevron-up';
+            return 'selector';
             // return 'chevron-down'
         },
         dropdownClasses() {
@@ -436,20 +435,20 @@ export default {
             item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
 
             if(!this.multiple) {
-                this.selected = item
-                let i = this.searchableOptions.indexOf(item)
-                this.selectedIndex = i
-                this.menu = false
-                this.isSearching = false
+                this.selected = item;
+                let i = this.searchableOptions.indexOf(item);
+                this.selectedIndex = i;
+                this.menu = false;
+                this.isSearching = false;
                 // make sure we clear search out after we have selected an item
-                this.localsearch = null
+                this.localsearch = null;
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
-                    this.selected.push(item)
+                    this.selected.push(item);
                 }  else {
                     let i = this.selected.findIndex(obj => obj[this.itemValue] === item[this.itemValue])
-                    this.selected.splice(i, 1)
+                    this.selected.splice(i, 1);
                 }
             }
 
@@ -545,7 +544,7 @@ export default {
         clearField() {
             this.localsearch = null;
             this.selected = [];
-            this.$emit('input',null); 
+            this.$emit('input', null); 
         },
         createNew() {
             this.$emit('create-new', this.localsearch);
@@ -560,10 +559,10 @@ export default {
             }
         }
 
-        document.addEventListener('click', this.close)
+        document.addEventListener('click', this.close);
     },
     beforeDestroy() {
-        document.removeEventListener('click', this.close)
+        document.removeEventListener('click', this.close);
     }
 };
 </script> 

@@ -19,7 +19,7 @@
 			<div :class="`hidden bg-${color}-${colorLevel} w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] ${radio ? 'rounded-full' : 'rounded-sm'} pointer-events-none`" v-else />
 		</div>
 		<div class="ml-2 text-sm" v-if="label">
-			<t-label :id="id" :color="labelColor" >{{ label }}</t-label>
+			<t-label :id="id" :color="labelColor">{{ label }}</t-label>
 		</div>
 	</div>
 </template>
@@ -88,25 +88,25 @@ export default {
 		valueComparator: (a, b) => a === b,
 		onChange(e) {
 			const value = this.value;
-			let input = this.internalValue
-			input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
-			this.internalValue = input
+			let input = this.internalValue;
+			input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue;
+			this.internalValue = input;
 		}
 	},
 	computed: {
 		id() {
-			return uniqid()
+			return uniqid();
 		},
 		internalValue: {
 			get: function() {
 				return this.value; 
 			},
 			set: function(val) { 
-				this.$emit('input',val);
+				this.$emit('input', val);
 			}
 		},
 		isChecked() {
-			return this.valueComparator(this.value, this.trueValue) ? true : false
+			return this.valueComparator(this.value, this.trueValue) ? true : false;
 		}
 	}
 };

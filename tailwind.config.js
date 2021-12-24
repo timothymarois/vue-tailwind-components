@@ -9,7 +9,7 @@ module.exports = {
     },
     {
       pattern: /border-[a-z]{2,}-[0-9]{2,}/, // Border color
-      variants: ['hover']
+      variants: ['hover', 'focus']
     },
     {
       pattern: /text-[a-z]{2,}-[0-9]{2,}/, // Text color

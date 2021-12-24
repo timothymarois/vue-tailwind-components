@@ -169,11 +169,11 @@ export default {
     },
     methods: {
         validateValue(value) {
-            if (value===null || value==='') return null
-            if (this.type=='number') {
-                value = Number(value)
-                if (this.max && value > Number(this.max)) value = Number(this.max)
-                if (this.min && value < Number(this.min)) value = Number(this.min)
+            if (value === null || value === '') return null;
+            if (this.type == 'number') {
+                value = +value;
+                if (this.max && value > +this.max) value = +this.max;
+                if (this.min && value < +this.min) value = +this.min;
             }
             return value
         },
