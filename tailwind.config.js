@@ -29,8 +29,7 @@ module.exports = {
       variants: ['hover', 'active']
     },
     {
-      pattern: /h-[0-9]{1,}.?[0-9]?/, // Height
-      variants: ['hover']
+      pattern: /h-[0-9]{1,}.?[0-9]?/  // Height
     },
     {
       pattern: /w-[0-9]{1,}.?[0-9]?/ // Width

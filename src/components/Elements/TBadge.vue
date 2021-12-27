@@ -1,7 +1,6 @@
 <template>
     <span 
         :class="contentClasses" 
-        style="border-width: 1px;"
     >
         <div v-if="icon">
             <t-icon
@@ -14,7 +13,7 @@
         <div
             v-if="removeable"
             @click="close"
-            class="rounded-full hover:bg-red-500 cursor-pointer ml-1 mr-0.5 hover:h-4 hover:text-white" 
+            class="rounded-full hover:bg-red-500 cursor-pointer ml-1 mr-0.5 hover:h-5 hover:text-white" 
         >
             <t-icon 
                 class="px-2.5 mt-1 align-text-top"
@@ -65,7 +64,7 @@ export default {
     },
     computed: {
         contentClasses() {
-            let c = ['inline-flex items-center py-0.5 text-sm font-medium'];
+            let c = ['border inline-flex items-center py-0.5 text-sm font-medium'];
 
             if (this.removeable) {
                 c = c.concat(['pl-2','pr-0.5']);
