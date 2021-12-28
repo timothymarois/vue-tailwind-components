@@ -278,12 +278,12 @@ export default {
 			}
 		},
 		bTheme(c) {
-
 			let colorLevelSecondary = +this.colorLevel + 100;
 			
-			c = c.concat(['border-2', 'border-transparent', 'focus:outline-none']);
+			c = c.concat(['border-2', 'focus:outline-none']);
 
 			if (this.text) {
+				c = c.concat(['border-transparent']);
 				if (this.disabled) {
 					c = c.concat(['text-gray-400', 'bg-gray-50']);
 				}
@@ -292,7 +292,6 @@ export default {
 				}
 			} 
 			else {
-				c = c.concat(['text-white']);
 				if (this.outlined) {
 					if (this.disabled) {
 						c = c.concat(['text-gray-400','border-gray-200']);
@@ -307,6 +306,7 @@ export default {
 					}
 				}
 				else {
+					c = c.concat(['border-transparent']);
 					if (this.disabled) {
 						c = c.concat(['text-gray-400','bg-gray-200']);
 					} 
@@ -315,7 +315,7 @@ export default {
 							c = c.concat([`bg-white text-indigo-${this.colorLevel} hover:bg-indigo-100`]);
 						} 
 						else {
-							c = c.concat([`bg-${this.color}-${this.colorLevel} hover:bg-${this.color}-${colorLevelSecondary}`]);
+							c = c.concat([`text-white bg-${this.color}-${this.colorLevel} hover:bg-${this.color}-${colorLevelSecondary}`]);
 						}
 					}
 				}
