@@ -132,6 +132,13 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card class="mt-5" title="Read-only">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-text-field v-model="value" readonly />
+						<t-text-field v-model="value" placeholder="placeholder" readonly />
+					</div>
+				</t-card>
+
 			</div>
 		</div>
 		`,

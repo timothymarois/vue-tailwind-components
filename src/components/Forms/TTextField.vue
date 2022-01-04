@@ -34,7 +34,7 @@
                     :style="(width ? `width: ${width}px` : '')"
                 />
                 <div 
-                    v-if="clearable && internalValue"
+                    v-if="clearable && internalValue && !readonly"
                     class="cursor-pointer absolute inset-y-0 right-0 p-2 flex items-center"
                     @click="clearField"
                 >
@@ -149,7 +149,7 @@ export default {
             return uniqid();
         },
         fieldClasses() {
-            let c = [`block w-full h-10 rounded text-sm hover:bg-${this.color}-100 focus:outline-none focus:ring-0`];
+            let c = [`block w-full h-10 rounded text-sm focus:outline-none focus:ring-0`];
 
             if (this.icon) {
                 c = c.concat(['pl-8']);
@@ -159,12 +159,16 @@ export default {
                 c = c.concat([this.inputClasses]);
             }
 
-            if(this.errorState) {
-                c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
+            if(this.readonly) {
+                c = c.concat(['cursor-default bg-gray-200 border-gray-300 hover:border-gray-400 focus:border-gray-400']);
             } else {
-                c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
+                if(this.errorState) {
+                    c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
+                } else {
+                    c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
+                }
             }
-
+            
             return c;
         }
     },
