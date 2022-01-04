@@ -19,6 +19,7 @@
                     :name="name" 
                     :placeholder="placeholder" 
                     :readonly="readonly"
+                    :required="required"
                     :maxlength="maxlength"
                     :autocomplete="`new-${id}`"
                     :value="internalValue"
