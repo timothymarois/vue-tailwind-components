@@ -4,7 +4,7 @@
 			<transition :name="transitionName" appear>
 				<div
 					v-if="localShowing"
-					class="bg-white z-50 shadow-lg rounded overflow-x-hidden transition-all duration-300 ease-in-out"
+					class="bg-white z-50 shadow-lg rounded transition-all duration-300 ease-in-out"
 					:class="containerClasses"
 					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : `max-height: calc(100vh - ${type === 'center' ? '4em' : '2em'});`} ${widthCalculation} ${offsetCalculation};`"
 				>
@@ -211,14 +211,9 @@ export default {
 				]);
 			}
 
-			if (this.scrolling) {
+			if (!this.scrolling) {
 				c = c.concat([
-					'overflow-y-auto'
-				]);
-			} 
-			else {
-				c = c.concat([
-					'overflow-y-hidden'
+					'overflow-hidden',
 				]);
 			}
 
