@@ -38,7 +38,7 @@
                     ref="dsearchb"
                     v-else
                     v-model="localsearch"
-                    @keydown="searchLocal($event, localsearch)"
+                    @keyup="searchLocal($event, localsearch)"
                     :disabled="disabled"
                     @click="menuToggle('input')"
                     type="text"
