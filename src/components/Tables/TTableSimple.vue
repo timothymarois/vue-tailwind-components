@@ -121,7 +121,8 @@
                         (!h.align) ? 'text-left' : '',
                         (h.align === 'right') ? 'text-right' : '',
                         (h.align === 'center') ? 'text-center' : '',
-                        (item.class) ? item.class : ''
+                        (item.class) ? item.class : '',
+                        (h.class) ? h.class : ''
                     ]"
                     :style="h.width ? `width: ${h.width};` : ''"
                 >
