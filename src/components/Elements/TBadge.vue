@@ -77,7 +77,7 @@ export default {
                 c = c.concat([`border-${this.color}-800 bg-${this.color}-100 text-${this.color}-800`]);
             } 
             else {
-                c = c.concat([`border-${this.color}-100 bg-${this.color}-100' text-${this.color}-800`]);
+                c = c.concat([`border-${this.color}-100 bg-${this.color}-100 text-${this.color}-800`]);
             }
 
             if (this.rounded) {

@@ -5,7 +5,7 @@
 				<template v-for="(step, i) of stepOptions">
 					<hr 
 						v-if="i != 0" 
-						class="flex-grow" 
+						class="grow" 
 						:class="dividerColor(i)"
 						:key="i" 
 					/>
@@ -56,9 +56,8 @@
 						>{{ step.title }}</div>
 					</div>
 					<div 
-						class="px-8 pt-2 pb-6"
+						class="px-8 pt-2 pb-6 min-h-[2rem]"
 						:class="[{'border-l-2': i + 1 !== stepOptions.length}, (simple && i + 1 < currentStep) ? `border-${color}` : 'border-gray-300', `ml-${size / 2}`, simple ? '' : 'my-2']"
-						style="min-height: 2rem;"
 					>
 						<transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
 							<div v-show="(currentStep - 1) == i && !finished">

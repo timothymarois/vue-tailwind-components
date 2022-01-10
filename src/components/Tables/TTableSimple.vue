@@ -119,8 +119,8 @@
                     class="px-4 py-3 border-0 relative font-normal"
                     :class="[
                         (!h.align) ? 'text-left' : '',
-                        (h.align=='right') ? 'text-right' : '',
-                        (h.align=='center') ? 'text-center' : '',
+                        (h.align === 'right') ? 'text-right' : '',
+                        (h.align === 'center') ? 'text-center' : '',
                         (item.class) ? item.class : ''
                     ]"
                     :style="h.width ? `width: ${h.width};` : ''"
