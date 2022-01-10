@@ -4,13 +4,13 @@
             <tr>
                 <th v-if="select" :class="selectOptions ? 'w-16' : 'w-12'">
                     <slot name="hselect">
-                        <div class="flex justify-evenly w-full">
+                        <div class="flex justify-evenly w-full px-0.5">
                             <t-checkbox 
                                 v-if="!selectOne"
                                 v-model="selectedAll"
                                 @input="changeSelectControl('visible'); toggleAll();"
                             />
-                            <div v-if="!selectOne && selectOptions" id="select-all-options">
+                            <div v-if="!selectOne && selectOptions" id="select-all-options" class="ml-0.5">
                                 <t-menu v-model="menuOpen">
                                     <template v-slot:opener>
                                         <t-button
