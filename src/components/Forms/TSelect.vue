@@ -56,7 +56,7 @@
 
                 <div 
                     v-if="clearable && (localsearch || selected.length || selected[itemValue])"
-                    :class="`cursor-pointer absolute inset-y-0 ${searchable ? 'right-8' : 'right-6'} p-2 flex items-center`"
+                    class="cursor-pointer absolute inset-y-0 right-6 p-2 flex items-center"
                     @click="clearField"
                 >
                     <t-icon value="close" size="5" />
