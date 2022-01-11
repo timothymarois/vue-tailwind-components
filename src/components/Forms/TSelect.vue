@@ -305,7 +305,7 @@ export default {
             }
         },
         menu: function(value) {
-            if (value===true) {
+            if (value === true) {
                 this.$nextTick(() => {
                     this.viewport = viewportHelper(`#dropdown-${this.id}`);
                 });
@@ -544,7 +544,7 @@ export default {
         clearField() {
             this.localsearch = null;
             this.selected = [];
-            this.$emit('input', null); 
+            this.$emit('input', this.multiple ? [] : null); // For multiple selects, return empty array instead
         },
         createNew() {
             this.$emit('create-new', this.localsearch);
