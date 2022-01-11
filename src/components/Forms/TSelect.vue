@@ -352,7 +352,7 @@ export default {
         searchableOptions() {
             if (this.localsearch && this.searchable && this.isSearching && !this.external) {
                 return JSON.parse(JSON.stringify(this.computedOptions)).filter(option => {
-                    let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase());
+                    let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase().replace(/\\/g, "\\\\"));
                     if (o) {
                         option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), function(matchedText, a, b){
                             return (`<u>${matchedText}</u>`);
