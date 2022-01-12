@@ -1,29 +1,19 @@
 <template>
 	<div class="relative bg-white shadow-lg rounded-lg pointer-events-auto ring-2 ring-black ring-opacity-5 overflow-hidden z-50">
-		<div class="p-4">
-			<div class="inline-flex items-start">
-				<div :class="`flex-shrink-0 text-${iconColor}`">
-					<t-icon :value="icon" :size="iconSize" />
-				</div>
-				<div class="ml-3 pt-0.5">
-					<p :class="`text-sm font-medium text-${titleColor}`">
-						{{ title }}
-					</p>
-					<p :class="`mt-1 text-sm text-${descColor}`" v-if="description">
-						{{ description }}
-					</p>
-				</div>
-				<div class="ml-4 flex-shrink-0 flex" v-if="closeable">
-					<button 
-						class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-						@click="close"
-					>
-						<span class="sr-only">
-							Close
-						</span>
-						<t-icon value="close" :size="iconSize" />
-					</button>
-				</div>
+		<div class="flex flex-row h-full">
+			<div :class="`flex-shrink-0 pl-3 py-2 text-${iconColor}`">
+				<t-icon :value="icon" :size="iconSize" />
+			</div>
+			<div class="ml-3 py-3 pr-3 border-r border-gray-200">
+				<p :class="`text-sm font-medium text-${titleColor}`">
+					{{ title }}
+				</p>
+				<p :class="`mt-1 text-sm text-${descColor}`" v-if="description">
+					{{ description }}
+				</p>
+			</div>
+			<div class="flex-shrink-0 flex items-center cursor-pointer px-3 text-gray-600 font-medium text-sm hover:text-gray-900 " @click="close">
+				Close
 			</div>
 		</div>
 	</div>	

@@ -43,10 +43,11 @@ export const Standard = (args, { argTypes }) => ({
 		newNotification() {
 			this.addNotification({
 				title: `Profile Saved`,
-				description: 'Your profile settings have been saved. Your profile settings have been saved. Your profile settings have been saved. Your profile settings have been saved.',
+				description: 'Your profile settings have been saved. Your profile',
 				icon: "check",
 				iconColor: "green-600",
-				closeable: true
+				closeable: true,
+				duration: null
 			});
 		},
 		addNotification(args) {
@@ -63,7 +64,7 @@ export const Standard = (args, { argTypes }) => ({
 	template:
 		`
 		<div>
-			<div class="max-w-xl overflow-hidden max-h-screen absolute right-4 top-4 z-50 px-2 pb-4 pt-1 -mr-2">
+			<div class="max-w-md overflow-hidden max-h-screen absolute right-4 top-4 z-50 px-2 pb-4 pt-1 -mr-2">
 				<transition-group name="pop" class="flex flex-col space-y-2">
 					<t-notify 
 						v-for="n of notifications" :key="n.id"
