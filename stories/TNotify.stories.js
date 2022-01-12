@@ -37,117 +37,51 @@ export const Standard = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TNotify, TButton },
 	data: () => ({
-        showing: false
-    }),
-	template:
-		`
-		<div>
-			<div class="mt-72">Scroll down</div>
-			<div class="mt-72">Scroll down</div>
-			<div class="mt-72">Scroll down</div>
-			<t-button @click="showing = true" label="Show notification" />
-			<div class="absolute right-4 top-4 flex flex-col">
-				<t-notify v-if="showing" @end="showing = false" v-bind="$props">
-					A notification component
-				</t-notify>
-			</div>
-		</div>
-		`
-});
-
-export const CloseButton = (args, { argTypes }) => ({
-	props: Object.keys(argTypes),
-	components: { TNotify, TButton },
-	data: () => ({
-        showing: false
-    }),
-	template:
-		`
-		<div>
-			<t-button @click="showing = true" label="Show notification" />
-			<div class="inline-flex flex-col max-w-xl absolute right-4 top-4 z-50">
-				<t-notify v-if="showing" @end="showing = false" closeable v-bind="$props">
-					A notification component
-				</t-notify>
-			</div>
-		</div>
-		`
-});
-
-export const Offset = (args, { argTypes }) => ({
-	props: Object.keys(argTypes),
-	components: { TNotify, TButton },
-	data: () => ({
-        showing: false
-    }),
-	template:
-		`
-		<div>
-			<t-button @click="showing = true" label="Show notification" />
-			<t-notify v-if="showing" @end="showing = false" closeable v-bind="$props">
-				A notification component
-			</t-notify>
-		</div>
-		`
-});
-
-
-export const TransitionGroup = (args, { argTypes }) => ({
-	props: Object.keys(argTypes),
-	components: { TNotify, TButton },
-	data: () => ({
         notifications: []
     }),
 	methods: {
-		createNotification(args) {
+		newNotification() {
+			this.addNotification({
+				title: `Profile Saved`,
+				description: 'Your profile settings have been saved. Your profile settings have been saved. Your profile settings have been saved. Your profile settings have been saved.',
+				icon: "check",
+				iconColor: "green-600",
+				closeable: true
+			});
+		},
+		addNotification(args) {
 			this.notifications.unshift({
 				...args,
 				id: Math.random().toString(36).substring(7) //uniqid function
-			});
+			})
 		},
 		removeNotification(id) {
-			const i = this.notifications.indexOf((obj) => obj.id === id);
+			const i = this.notifications.findIndex((obj) => obj.id === id);
 			this.notifications.splice(i, 1);
 		}
 	},
 	template:
 		`
 		<div>
-			<t-button @click="createNotification({title: 'Test Title', description: 'Test Description', duration: 5000})" label="Show notification" />
-			<transition-group>
-				<t-notify
-					v-for="n of notifications" :key="'notification-' + n.id"
-					:id="n.id"
-					:title="n.title"
-					:description="n.description"
-					:duration="n.duration"
-					@close="removeNotification"
-				/>
-			</transition-group>
+			<div class="max-w-xl overflow-hidden max-h-screen absolute right-4 top-4 z-50 px-2 pb-4 pt-1 -mr-2">
+				<transition-group name="pop" class="flex flex-col space-y-2">
+					<t-notify 
+						v-for="n of notifications" :key="n.id"
+						:id="n.id"
+						:title="n.title"
+						:description="n.description"
+						:icon="n.icon || null"
+						:iconSize="n.iconSize"
+						:iconColor="n.iconColor"
+						:titleColor="n.titleColor"
+						:descColor="n.descColor"
+						:duration="n.duration"
+						:closeable="n.closeable"
+						@close="removeNotification"
+					/>
+				</transition-group>
+			</div>
+			<t-button @click="newNotification" label="New notification" />
 		</div>
 		`
 });
-
-
-
-Standard.args = {
-	iconSize: 5,
-	duration: 3000,
-	iconColor: 'green-500',
-	title: 'Successfully saved!'
-};
-
-CloseButton.args = {
-	iconSize: 5,
-	iconColor: 'green-500',
-	title: 'Successfully saved!',
-	description: 'Anyone with a link can now view this file.'
-}
-
-Offset.args = {
-	iconSize: 5,
-	iconColor: 'green-500',
-	title: 'Successfully saved!',
-	description: 'Anyone with a link can now view this file.',
-	offsetValue: 400
-}

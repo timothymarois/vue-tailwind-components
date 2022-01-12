@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.pop-enter-active {
+	transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.pop-leave-active {
+	transition: all .2s cubic-bezier(.4,1.19,.99,.79);
+}
+.pop-enter {
+	opacity: 0;
+	transform: translateY(-50%);
+}
+
+.pop-leave-to {
+	opacity: 0;
+}
