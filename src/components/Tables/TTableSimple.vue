@@ -87,7 +87,8 @@
         </thead>
         <tbody v-if="items && items.length" class="tbody bg-white" :style="fixedHeader ? `height: calc(100% - 36px); overflow-y: scroll; display: block;` : ''">
             <tr 
-                v-for="(item, i) in items" :key="i" 
+                v-for="(item, i) in items"
+                :key="i" 
                 :class="[
                     `hover:bg-${hoverColor}-50 transition duration-150 text-gray-800 hover:text-indigo-900 text-sm trow`,
                     (fixedHeader ? 'table table-fixed w-full' : ''),

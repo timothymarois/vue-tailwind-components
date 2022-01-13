@@ -6,12 +6,32 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? 'max-width:'+maxWidth+'px;' : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : `max-height: calc(100vh - ${type === 'center' ? '4em' : '2em'});`} ${widthCalculation} ${offsetCalculation};`"
+					:style="`${maxWidth ? `max-width:${maxWidth}px;` : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : `max-height: calc(100vh - ${type === 'center' ? '4em' : '2em'});`} ${widthCalculation} ${offsetCalculation};`"
+				
 				>
-					<div v-if="closeButton" class="z-50 absolute top-0 right-0 m-2">
-						<t-button icon="close" @click="close" text />
+					<div class="flex flex-col h-full relative">
+						<div v-if="$slots.header" class="shrink-0">
+							<slot name="header"></slot>
+							<div v-if="closeButton" class="z-50 absolute top-0 right-0 ml-2 mb-2">
+								<t-button icon="close" @click="close" text />
+							</div>
+						</div>
+						<div v-else-if="!$slots.header && closeButton" class="z-50 absolute top-0 right-0 m-2">
+							<t-button icon="close" @click="close" text />
+						</div>
+
+						<div v-if="$slots.header || $slots.footer" :class="`grow overflow-auto p-${padding}`">
+							<slot name="content"></slot>
+						</div>
+						<div v-else :class="`grow p-${padding}`">
+							<slot></slot>
+						</div>
+
+						<div v-if="$slots.footer" class="mt-auto shrink-0" style="width: calc(100%)">
+							<slot name="footer"></slot>
+						</div>
+						<div></div>
 					</div>
-					<slot></slot>
 				</div>
 			</transition>
 		</div>
@@ -123,7 +143,7 @@ export default {
 			this.$emit('close');
 			setTimeout(() => {
 				return this.$emit('end');
-			}, 200)
+			}, 200);
 		},
 		oppositeOf(v) {
 			if(v === 'right') {
@@ -142,7 +162,7 @@ export default {
 					mainDivOffset = mainDiv.offsetWidth;
 				}
 				let appDiv  = document.getElementById('app').offsetWidth;
-				let offset  = +(appDiv-mainDivOffset);
+				let offset  = +(appDiv - mainDivOffset);
 				if (offset) {
 					this.relativeOffsetPx = offset;
 				}
@@ -164,7 +184,8 @@ export default {
 						'sm:inset-y-4',
 						'sm:left-4',
 						'card-width'
-					])
+					]);
+					break;
 				case 'right': 
 					c = c.concat([
 						'max-w-xl',
@@ -199,13 +220,11 @@ export default {
 				c = c.concat([
 					'absolute'
 				]);
-			} 
-			else if(!this.relative && this.scroll) {
+			} else if((!this.relative && this.scroll)) {
 				c = c.concat([
 					'relative'
 				]);
-			} 
-			else {
+			} else {
 				c = c.concat([
 					'fixed'
 				]);
@@ -216,10 +235,6 @@ export default {
 					'overflow-hidden',
 				]);
 			}
-
-			c = c.concat([
-				`p-${this.padding}`
-			]);
 
 			return c;
 		},

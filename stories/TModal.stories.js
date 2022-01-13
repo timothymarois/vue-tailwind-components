@@ -306,3 +306,41 @@ export const RightToFullOffset = (argTypes) => ({
 			</div>
 		`,
 });
+
+export const Slotted = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TModal, TButton },
+    data: () => ({
+        showing: false,
+		showModal: false,
+		modalType: 'right'
+    }),
+	methods: {
+		close() {
+			this.showing=false
+			this.showModal=false
+		}
+	},
+	template: 
+		`
+		<div>
+			<t-button @click="showing = true;showModal=true" label="Show Modal" />
+			<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType">
+				<template slot="header">
+					<div class="p-2 border-b border-gray-300">
+						HEADER CONTENT
+					</div>
+				</template>
+				<template slot="content">
+					<div style="height:2000px;">This is my modal.  It can be used for many things, but I use it for this.</div>
+				</template>
+				<template slot="footer">
+					<div class="p-2 border-t border-gray-300">
+						Action bar actions
+						<div class="block bg-indigo-500">div</div>
+					</div>
+				</template>
+			</t-modal>
+		</div>
+		`,
+});
