@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div v-if="horizontal">
-			<div class="flex flex-row justify-between items-center">
+			<div class="flex flex-row justify-between items-center" :class="centerProgress ? 'mx-auto' : ''" :style="maxWidth ? `max-width: ${maxWidth}px;` : ''">
 				<template v-for="(step, i) of stepOptions">
 					<hr 
 						v-if="i != 0" 
@@ -112,7 +112,7 @@ export default {
 		},
 		finished: {
 			type: Boolean,
-			required: true,
+			required: false,
 			default: false
 		},
 		simple: {
@@ -124,6 +124,16 @@ export default {
 			type: [String, Number],
 			required: false,
 			default: 12
+		},
+		maxWidth: {
+			type: [String, Number],
+			required: false,
+			default: null
+		},
+		centerProgress: {
+			type: Boolean,
+			required: false,
+			default: false
 		}
 	},
 	methods: {
