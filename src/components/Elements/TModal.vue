@@ -10,9 +10,9 @@
 				
 				>
 					<div class="flex flex-col h-full relative">
-						<div v-if="$slots.header" class="shrink-0">
+						<div v-if="$slots.header" class="shrink-0 border-b border-gray-200 relative">
 							<slot name="header"></slot>
-							<div v-if="closeButton" class="z-50 absolute top-0 right-0 ml-2 mb-2">
+							<div v-if="closeButton" class="z-50 absolute top-1/2 right-2 -translate-y-1/2">
 								<t-button icon="close" @click="close" text />
 							</div>
 						</div>
@@ -27,7 +27,7 @@
 							<slot></slot>
 						</div>
 
-						<div v-if="$slots.footer" class="mt-auto shrink-0" style="width: calc(100%)">
+						<div v-if="$slots.footer" class="w-full mt-auto shrink-0 bg-gray-50 border-t border-gray-200">
 							<slot name="footer"></slot>
 						</div>
 						<div></div>

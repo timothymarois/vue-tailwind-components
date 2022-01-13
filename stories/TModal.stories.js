@@ -327,7 +327,7 @@ export const Slotted = (argTypes) => ({
 			<t-button @click="showing = true;showModal=true" label="Show Modal" />
 			<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType">
 				<template slot="header">
-					<div class="p-2 border-b border-gray-300">
+					<div class="p-4 text-indigo-800 text-lg font-semibold">
 						HEADER CONTENT
 					</div>
 				</template>
@@ -335,10 +335,10 @@ export const Slotted = (argTypes) => ({
 					<div style="height:2000px;">This is my modal.  It can be used for many things, but I use it for this.</div>
 				</template>
 				<template slot="footer">
-					<div class="p-2 border-t border-gray-300">
-						Action bar actions
-						<div class="block bg-indigo-500">div</div>
-					</div>
+					<div class="p-4 flex justify-between">
+						<t-button icon="check" @click="save()">Save</t-button>
+						<t-button icon="close" @click="showModal=false" outlined>Cancel</t-button>
+					</div>  
 				</template>
 			</t-modal>
 		</div>
