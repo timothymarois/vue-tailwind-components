@@ -23,7 +23,7 @@
 						<div v-if="$slots.header || $slots.footer" :class="`grow overflow-auto p-${padding}`">
 							<slot name="content"></slot>
 						</div>
-						<div v-else :class="`grow p-${padding}`">
+						<div v-else :class="`h-full grow p-${padding}`">
 							<slot></slot>
 						</div>
 
