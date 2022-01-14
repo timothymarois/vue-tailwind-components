@@ -20,7 +20,7 @@
 							<t-button icon="close" @click="close" text />
 						</div>
 
-						<div v-if="$slots.header || $slots.footer" :class="`grow overflow-auto p-${padding}`">
+						<div v-if="$slots.header || $slots.footer" :class="`grow ${noOverflow ? '' : 'overflow-auto'} p-${padding}`">
 							<slot name="content"></slot>
 						</div>
 						<div v-else :class="`h-full grow p-${padding}`">
@@ -99,6 +99,10 @@ export default {
 			default: false
 		},
 		scroll: {
+			type: Boolean,
+			default: false
+		},
+		noOverflow: {
 			type: Boolean,
 			default: false
 		}
