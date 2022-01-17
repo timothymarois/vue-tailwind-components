@@ -1,9 +1,7 @@
 <template>
-	<div class="relative inline-flex">
-		<div :id="`tooltip__wrap-${id}`" @mouseenter="showTooltip(true)" @mouseleave="showTooltip(false)">
-			<slot>Text</slot>
-		</div>
-	</div>
+	<span :id="`tooltip__wrap-${id}`" @mouseenter="showTooltip(true)" @mouseleave="showTooltip(false)">
+		<slot>Text</slot>
+	</span>
 </template>
 
 <script>
