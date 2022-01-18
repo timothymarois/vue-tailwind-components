@@ -16,6 +16,7 @@ import TTabContent from './Elements/TTabContent.vue'
 import TAvatar from './Elements/TAvatar.vue';
 import TNotify from './Elements/TNotify.vue';
 import TStepper from './Elements/TStepper.vue';
+import TProgressBar from './Elements/TProgressBar.vue';
 
 /**
  * Forms
@@ -48,6 +49,7 @@ export {
     TAvatar,
     TNotify,
     TStepper,
+    TProgressBar,
 
     TLabel,
     TTextField,
