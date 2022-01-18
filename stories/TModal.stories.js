@@ -307,7 +307,7 @@ export const RightToFullOffset = (argTypes) => ({
 		`,
 });
 
-export const Slotted = (argTypes) => ({
+export const SlottedRight = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TModal, TButton },
     data: () => ({
@@ -326,6 +326,44 @@ export const Slotted = (argTypes) => ({
 		<div>
 			<t-button @click="showing = true;showModal=true" label="Show Modal" />
 			<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType">
+				<template slot="header">
+					<div class="p-4 text-indigo-800 text-lg font-semibold">
+						HEADER CONTENT
+					</div>
+				</template>
+				<template slot="content">
+					<div style="height:2000px;">This is my modal.  It can be used for many things, but I use it for this.</div>
+				</template>
+				<template slot="footer">
+					<div class="p-4 flex justify-between">
+						<t-button icon="check" @click="save()">Save</t-button>
+						<t-button icon="close" @click="showModal=false" outlined>Cancel</t-button>
+					</div>  
+				</template>
+			</t-modal>
+		</div>
+		`,
+});
+
+export const SlottedCenter = (argTypes) => ({
+	props: Object.keys(argTypes),
+	components: { TModal, TButton },
+    data: () => ({
+        showing: false,
+		showModal: false,
+		modalType: 'center'
+    }),
+	methods: {
+		close() {
+			this.showing=false
+			this.showModal=false
+		}
+	},
+	template: 
+		`
+		<div>
+			<t-button @click="showing = true;showModal=true" label="Show Modal" />
+			<t-modal v-if="showing" :show="showModal" @end="close" :type="modalType" centerOverflow>
 				<template slot="header">
 					<div class="p-4 text-indigo-800 text-lg font-semibold">
 						HEADER CONTENT

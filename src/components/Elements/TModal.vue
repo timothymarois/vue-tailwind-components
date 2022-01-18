@@ -105,6 +105,10 @@ export default {
 		noOverflow: {
 			type: Boolean,
 			default: false
+		},
+		centerOverflow: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -206,7 +210,8 @@ export default {
 					c = c.concat([
 						'max-w-xl',
 						'mx-auto',
-						'inset-x-0'
+						`${this.centerOverflow ? 'my-auto inset-0' : 'inset-x-0'}`,
+						'block',
 					]);
 					break;
 				case 'full':
