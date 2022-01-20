@@ -6,7 +6,7 @@
 					v-if="localShowing"
 					class="bg-white z-50 shadow-lg rounded transition-all duration-300 ease-in-out"
 					:class="containerClasses"
-					:style="`${maxWidth ? `max-width:${maxWidth}px;` : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : `max-height: calc(100vh - ${type === 'center' ? '4em' : '2em'});`} ${widthCalculation} ${offsetCalculation};`"
+					:style="`${maxWidth ? `max-width:${maxWidth}px;` : ''} min-width: 300px; ${scroll ? 'margin-top: 1em; margin-bottom: 1em;' : 'max-height: calc(100vh - 2em);'} ${widthCalculation} ${offsetCalculation};`"
 				
 				>
 					<div class="flex flex-col h-full relative">
@@ -123,8 +123,7 @@ export default {
 			if (v !== this.localShowing) {
 				if (v === false) {
 					this.close();
-				}
-				else {
+				} else {
 					this.localShowing = v;
 					this.updateDivOffset();
 				}
@@ -154,12 +153,9 @@ export default {
 			}, 200);
 		},
 		oppositeOf(v) {
-			if(v === 'right') {
-				return 'left';
-			} 
-			else {
-				return 'right';
-			}
+			if(v === 'right') return 'left';
+	
+			return 'right';
 		},
 		updateDivOffset() {
 			this.relativeOffsetPx = null
@@ -184,43 +180,47 @@ export default {
 			switch(this.type) {
 				case 'left':
 					c = c.concat([
+						'max-w-xl',
 						'block',
-						'h-full',
-						'left-0',
-						'sm:max-w-xl',
-						'sm:h-auto',
+						'inset-2',
+						'mt-2',
 						'sm:inset-y-4',
 						'sm:left-4',
-						'card-width'
+						'sm:right-auto',
+						'sm:m-0'
 					]);
 					break;
 				case 'right': 
 					c = c.concat([
 						'max-w-xl',
-						'block',
-						'h-full',
-						'right-0',
-						'sm:h-auto',
+						'block',	
+						'inset-2',
+						'mt-2',
 						'sm:inset-y-4',
 						'sm:right-4',
-						'card-width'
+						'sm:left-auto',
+						'sm:m-0',
 					]);
 					break;
 				case 'center': 
 					c = c.concat([
 						'max-w-xl',
-						'mx-auto',
-						`${this.centerOverflow ? 'my-auto inset-0' : 'inset-x-0'}`,
 						'block',
+						'mx-auto',
+						'inset-x-2',
+						'mt-2',
+						'sm:mt-0',
+						`${this.centerOverflow ? 'sm:my-auto sm:inset-4' : ''}`
 					]);
 					break;
 				case 'full':
 					c = c.concat([
 						'max-w-full',
-						'inset-y-0',
-						`md:${this.previousType || 'left'}-4`,
-						'md:inset-y-4',
-						'card-width'
+						'inset-y-2',
+						'mt-2',
+						`${this.previousType || 'left'}-4`,
+						'sm:inset-y-4',
+						'sm:m-0'
 					]);
 					break; 
 			}
@@ -251,32 +251,27 @@ export default {
 			if (this.relativeOffsetPx) {
 				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right') || this.type === 'center') return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
 				else return 'right: 1em;';
-			} 
-			else if(this.offsetDirection && this.offsetValue > 0) {
+			} else if(this.offsetDirection && this.offsetValue > 0) {
 				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
 			}
 		},
 		widthCalculation() {
 			if(this.offsetValue || this.relativeOffsetPx) {
 				return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
-			} 
-			else if(this.type === 'full') {
-				return 'width: calc(100% - 2em);';
-			} 
-			else {
-				return 'width: fit-content;';
+			} else if(this.centerOverflow || this.type === 'full') {
+				return `width: calc(100% - 2em);`;
 			}
+			
+			return 'width: auto;';
 		},
 		transitionName() {
 			if(this.type === 'right') {
 				return 'slide-right';
-			} 
-			else if (this.type === 'left') {
+			} else if (this.type === 'left') {
 				return 'slide-left';
-			} 
-			else {
-				return 'pop';
 			}
+			
+			return 'pop';
 		}
 	},
 	created() {
@@ -310,11 +305,4 @@ export default {
 	z-index: 50;
 	transform: translateX(-120%);
 }
-
-@media only screen and (max-width: 640px) {
-	.card-width {
-		width: 100%!important;
-	}
-}
-
 </style>
