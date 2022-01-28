@@ -9,7 +9,7 @@
 						:class="dividerColor(i)"
 						:key="i" 
 					/>
-					<div class="relative" :key="step.id">
+					<div class="relative">
 						<div 
 							class="flex items-center justify-center rounded-full text-lg select-none"
 							:class="[stepColor(i), allowBack(i) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
@@ -174,57 +174,30 @@ export default {
 		},
 		stepColor(i) {
 			if(!this.simple) {
-				if(this.currentStep === i + 1 && !this.finished) {
-					return `bg-${this.color} text-${this.textColor}`;
-				} 
-				else if(this.currentStep > i + 1 || this.finished) {
-					return 'bg-green-500 text-white';
-				} 
-				else {
-					return 'bg-gray-400 text-white';
-				}
+				if(this.currentStep === i + 1 && !this.finished) return `bg-${this.color} text-${this.textColor}`;
+				else if(this.currentStep > i + 1 || this.finished) return 'bg-green-500 text-white';
+				return 'bg-gray-400 text-white';
 			} 
 			else {
-				if(this.currentStep > i + 1 || this.finished) {
-					return `bg-${this.color} border-2 border-${this.color} ring-2 ring-${this.color}`;
-				} 
-				else if(this.currentStep === i + 1) {
-					return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`;
-				} 
-				else {
-					return 'ring-2 ring-gray-300';
-				}
+				if(this.currentStep > i + 1 || this.finished) return `bg-${this.color} border-2 border-${this.color} ring-2 ring-${this.color}`;
+				else if(this.currentStep === i + 1) return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`;
+				return 'ring-2 ring-gray-300';
 			}
 		},
 		nameColor(i) {
 			if(!this.simple) {
-				if(i + 1 > this.currentStep) {
-					return 'text-gray-400';
-				} 
-				else {
-					return 'text-black';
-				}
-			} 
-			else {
-				if(i + 1 <= this.currentStep) {
-					return `text-${this.color}`;
-				} 
-				else {
-					return 'text-gray-400';
-				}
+				if(i + 1 > this.currentStep) return 'text-gray-400';
+				return 'text-black';
+			} else {
+				if(i + 1 <= this.currentStep) return `text-${this.color}`;
+				return 'text-gray-400';
 			}
 		},
 		dividerColor(i) {
-			if(!this.simple) {
-				return 'h-0.5 bg-gray-300 mx-4';
-			} 
+			if(!this.simple) return 'h-0.5 bg-gray-300 mx-4';
 			else {
-				if(i < this.currentStep) {
-					return `h-1 bg-${this.color}`;
-				} 
-				else {
-					return 'h-0.5 bg-gray-300';
-				}
+				if(i < this.currentStep) return `h-1 bg-${this.color}`;
+				return 'h-0.5 bg-gray-300';
 			}
 		},
 		allowBack(i) {
