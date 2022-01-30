@@ -160,7 +160,7 @@ export default {
             }
 
             if(this.readonly) {
-                c = c.concat(['cursor-default bg-gray-200 border-gray-300 hover:border-gray-400 focus:border-gray-400']);
+                c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-400']);
             } else {
                 if(this.errorState) {
                     c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
