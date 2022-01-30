@@ -134,6 +134,10 @@ export default {
         errorState: {
             type: Boolean,
             default: false
+        },
+        customStyle: {
+            type: String,
+            default: null
         }
     },
     computed: {
@@ -149,27 +153,31 @@ export default {
             return uniqid();
         },
         fieldClasses() {
-            let c = [`block w-full h-10 rounded text-sm focus:outline-none focus:ring-0`];
+            if(!this.customStyle) {
+                let c = [`block w-full h-10 rounded text-sm focus:outline-none focus:ring-0`];
 
-            if (this.icon) {
-                c = c.concat(['pl-8']);
-            }
-
-            if (this.inputClasses) {
-                c = c.concat([this.inputClasses]);
-            }
-
-            if(this.readonly) {
-                c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-400']);
-            } else {
-                if(this.errorState) {
-                    c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
-                } else {
-                    c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
+                if (this.icon) {
+                    c = c.concat(['pl-8']);
                 }
+
+                if (this.inputClasses) {
+                    c = c.concat([this.inputClasses]);
+                }
+
+                if(this.readonly) {
+                    c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-400']);
+                } else {
+                    if(this.errorState) {
+                        c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
+                    } else {
+                        c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
+                    }
+                }
+                
+                return c;
             }
-            
-            return c;
+
+            else return this.customStyle;
         }
     },
     methods: {
