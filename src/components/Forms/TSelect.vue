@@ -549,6 +549,7 @@ export default {
         createNew() {
             this.$emit('create-new', this.localsearch);
             this.localsearch = null;
+            this.menu = false;
         }
     },
     mounted() {
