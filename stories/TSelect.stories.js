@@ -440,8 +440,15 @@ export const MultipleStates = (argTypes) => ({
 
 				<t-card title="Multiple (Array Options)" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-select multiple clearable v-model="multipleValue" label="Standard" :options="options" :options="optionsArray" placeholder="Select Many" />
-						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" :options="optionsArray" placeholder="Select Many" />
+						<t-select multiple clearable v-model="multipleValue" label="Standard" :options="options" placeholder="Select Many" />
+						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" placeholder="Select Many" />
+					</div>
+				</t-card>
+
+				<t-card title="Multiple (No Options + Create)" class="mt-4">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-select multiple clearable v-model="multipleValue" label="Standard" :options="options" create placeholder="Select Many" />
+						<t-select multiple searchable v-model="multipleValue" label="Searchable" :options="options" create placeholder="Select Many" />
 					</div>
 				</t-card>
 
