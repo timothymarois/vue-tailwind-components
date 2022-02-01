@@ -40,7 +40,7 @@
     "autoprefixer": "^10.4.2",
     "axios": "^0.25.0",
     "babel-loader": "^8.2.3",
-    "postcss": "^8.4.5",
+    "postcss": "^8.4.6",
     "tailwindcss": "^3.0.18",
     "vite": "^2.7.13",
     "vite-plugin-vue2": "^1.9.3",

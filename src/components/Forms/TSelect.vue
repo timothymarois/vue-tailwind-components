@@ -154,7 +154,7 @@
                     </div>
                 </div>
                 <div 
-                    v-if="create && (localsearch || !searchable || searchable && !searchableOptions.length)"
+                    v-if="create && (localsearch || !searchable)"
                     :class="`text-${color}-600 font-medium pt-2 pb-2 px-4 border-t border-gray-100 cursor-pointer hover:underline hover:text-${color}-500`"
                     @click="createNew"
                 >
