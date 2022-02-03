@@ -17,6 +17,7 @@
                 @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
                 @keydown.up.prevent="cycleOptions('up')"
                 @keydown.down.prevent="cycleOptions('down')"
+                @keydown.tab="menu = false"
                 @click.self="menuToggle('button')"
             >
                 <span 
