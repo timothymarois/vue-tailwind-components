@@ -439,7 +439,7 @@ export default {
                 this.selected = item;
                 let i = this.searchableOptions.indexOf(item);
                 this.selectedIndex = i;
-                if(!item.entries) this.menu = false;
+                this.menu = false;
                 this.isSearching = false;
                 // make sure we clear search out after we have selected an item
                 this.localsearch = null;
@@ -459,7 +459,7 @@ export default {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
-            if (this.external && this.searchable && !this.localsearch) {
+            if (this.external && this.searchable && !this.localsearch && !this.computedOptions.length) {
                 return this.menu = false;
             }
 
