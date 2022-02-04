@@ -233,7 +233,7 @@ export default {
             type: String,
             default: 'bottom'
         },
-        hideicon : {
+        hideicon: {
             type: Boolean,
             default: false
         },
@@ -241,7 +241,7 @@ export default {
             type: String,
             default: 'No Results Found'
         },
-        returnObject : {
+        returnObject: {
             type: Boolean,
             default: false
         },
@@ -459,7 +459,7 @@ export default {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
-            if (this.external && this.searchable && !this.localsearch && !this.computedOptions.length) {
+            if (this.external && this.searchable && !this.localsearch) {
                 return this.menu = false;
             }
 
