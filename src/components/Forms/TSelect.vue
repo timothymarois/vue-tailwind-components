@@ -439,7 +439,7 @@ export default {
                 this.selected = item;
                 let i = this.searchableOptions.indexOf(item);
                 this.selectedIndex = i;
-                this.menu = false;
+                if(!item.entries) this.menu = false;
                 this.isSearching = false;
                 // make sure we clear search out after we have selected an item
                 this.localsearch = null;
