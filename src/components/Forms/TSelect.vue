@@ -546,6 +546,7 @@ export default {
             this.localsearch = null;
             this.selected = [];
             this.$emit('input', this.multiple ? [] : null); // For multiple selects, return empty array instead
+            this.$emit('cleared');
         },
         createNew() {
             this.$emit('create-new', this.localsearch);
