@@ -108,7 +108,7 @@
                         class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
                         :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : equalsSearch(item[itemValue])}]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
-                        @click="selectItem(item)"
+                        @click.stop="selectItem(item)"
                     >  
                         <t-checkbox 
                             v-if="multiple"
@@ -137,7 +137,7 @@
                             class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
                             :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : equalsSearch(item[itemValue])}]"
                             :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
-                            @click="selectItem(item)"
+                            @click.stop="selectItem(item)"
                         >  
                             <t-checkbox 
                                 v-if="multiple"
@@ -443,7 +443,6 @@ export default {
                 if(!item.select || !item.select.length) this.isSearching = false;
                 // make sure we clear search out after we have selected an item
                 if(!item.select || !item.select.length) this.localsearch = null;
-                if(item.select && item.select.length) this.menu = true;
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
@@ -563,7 +562,7 @@ export default {
             }
         }
 
-        document.addEventListener('click', this.close);
+        document.addEventListener('click', this.close, false);
     },
     beforeDestroy() {
         document.removeEventListener('click', this.close);
