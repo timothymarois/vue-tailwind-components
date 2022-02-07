@@ -439,10 +439,10 @@ export default {
                 this.selected = item;
                 let i = this.searchableOptions.indexOf(item);
                 this.selectedIndex = i;
-                this.menu = false;
-                this.isSearching = false;
+                if(!item.select || !item.select.length) this.menu = false;
+                if(!item.select || !item.select.length) this.isSearching = false;
                 // make sure we clear search out after we have selected an item
-                this.localsearch = null;
+                if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
