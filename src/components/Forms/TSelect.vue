@@ -443,6 +443,7 @@ export default {
                 if(!item.select || !item.select.length) this.isSearching = false;
                 // make sure we clear search out after we have selected an item
                 if(!item.select || !item.select.length) this.localsearch = null;
+                if(item.select && item.select.length) this.menu = true;
             } 
             else {
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
