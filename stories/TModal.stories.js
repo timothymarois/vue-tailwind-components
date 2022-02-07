@@ -332,7 +332,7 @@ export const SlottedRight = (argTypes) => ({
 					</div>
 				</template>
 				<template slot="content">
-					<div style="height:2000px;">This is my modal.  It can be used for many things, but I use it for this.</div>
+					<div style="height:200px;">This is my modal.  It can be used for many things, but I use it for this.</div>
 				</template>
 				<template slot="footer">
 					<div class="p-4 flex justify-between">
