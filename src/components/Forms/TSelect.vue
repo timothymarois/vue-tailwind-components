@@ -19,6 +19,7 @@
                 @keydown.down.prevent="cycleOptions('down')"
                 @keydown.tab="menu = false"
                 @click.self="menuToggle('button')"
+                :tabindex="searchable && !disabled ? '-1' : '0'"
             >
                 <span 
                     v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
