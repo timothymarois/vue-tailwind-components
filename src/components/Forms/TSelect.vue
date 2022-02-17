@@ -290,11 +290,9 @@ export default {
         value: {
             handler: function (value) { 
                 if (value) {
-                    if((!this.grouped || !this.multiple) && !this.returnObject) {
-                        let items = this.getItemsByValue(value, this.multiple);
-                        if (items) {
-                            this.selected = items;
-                        }
+                    let items = this.getItemsByValue(value, this.multiple);
+                    if (items) {
+                        this.selected = items;
                     }
                 } 
                 else {
@@ -417,18 +415,17 @@ export default {
         getItemsByValue(values, multiple) {
             let found = [];
 
+            console.log(values);
+
             if(multiple) {
                 for(const item of values) {
                     this.computedOptions.find(obj => {
-                        if(obj[this.itemValue] === item) return found.push(obj);
-                    })
+                        if(obj[this.itemValue] === (this.returnObject ? item[this.itemValue] : item)) return found.push(obj);
+                    });
                 }
-            } 
-            else {
+            } else {
                 this.computedOptions.find(obj => {
-                    if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) {
-                        return found = obj;
-                    }
+                    if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) return found = obj;
                 });
             }
             
@@ -450,11 +447,8 @@ export default {
             else {
                 console.log(item);
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
-                    console.log('option 1');
                     this.selected.push(item);
-                    console.log(this.selected);
                 }  else {
-                    console.log('option 2');
                     let i = this.selected.findIndex(obj => obj[this.itemValue] === item[this.itemValue]);
                     this.selected.splice(i, 1);
                 }
