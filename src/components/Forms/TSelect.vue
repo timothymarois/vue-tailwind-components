@@ -290,9 +290,11 @@ export default {
         value: {
             handler: function (value) { 
                 if (value) {
-                    let items = this.getItemsByValue(value, this.multiple);
-                    if (items) {
-                        this.selected = items;
+                    if((!this.grouped || !this.multiple) && !this.returnObject) {
+                        let items = this.getItemsByValue(value, this.multiple);
+                        if (items) {
+                            this.selected = items;
+                        }
                     }
                 } 
                 else {
@@ -446,10 +448,14 @@ export default {
                 if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
+                console.log(item);
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
+                    console.log('option 1');
                     this.selected.push(item);
+                    console.log(this.selected);
                 }  else {
-                    let i = this.selected.findIndex(obj => obj[this.itemValue] === item[this.itemValue])
+                    console.log('option 2');
+                    let i = this.selected.findIndex(obj => obj[this.itemValue] === item[this.itemValue]);
                     this.selected.splice(i, 1);
                 }
             }
