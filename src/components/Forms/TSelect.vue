@@ -6,9 +6,10 @@
             :id="`search-${id}`"
             :label="label"
             :required="required"
+            class="mb-1"
         />
 
-        <div class="relative mt-1 w-full">
+        <div class="relative w-full">
 
             <button
                 type="button"
