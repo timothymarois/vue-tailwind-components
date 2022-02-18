@@ -416,8 +416,6 @@ export default {
         getItemsByValue(values, multiple) {
             let found = [];
 
-            console.log(values);
-
             if(multiple) {
                 for(const item of values) {
                     this.computedOptions.find(obj => {
@@ -446,7 +444,6 @@ export default {
                 if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
-                console.log(item);
                 if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
                     this.selected.push(item);
                 }  else {
