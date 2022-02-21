@@ -430,7 +430,7 @@ export default {
                 }
             } else {
                 this.computedOptions.find((obj) => {
-                    if(obj[this.itemValue] === values) return found = obj;
+                    if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) return found = obj;
                 });
             }
             
