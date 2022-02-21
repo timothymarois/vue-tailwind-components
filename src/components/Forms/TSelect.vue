@@ -98,6 +98,12 @@
                     Searching...
                 </li>
                 <li 
+                    v-else-if="!loading && searchable && searchableOptions.length === 0 && !localsearch" 
+                    class="flex items-center justify-between rounded m-4 font-medium"
+                >
+                    Start typing to search for results
+                </li>
+                <li 
                     v-else-if="!loading && searchableOptions.length === 0" 
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
@@ -453,6 +459,7 @@ export default {
             }
 
             this.$emit('input', this.returnValue);
+            this.$emit('change', this.returnValue); // emit both to v-model and to @change depending on what's easier in its context
         },
         menuToggle(source) {
             // if our options are external
