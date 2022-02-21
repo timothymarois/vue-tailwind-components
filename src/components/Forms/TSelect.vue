@@ -131,7 +131,7 @@
                         <div
                             v-if="groupedItems(group.items).length > 0" 
                             :class="`font-bold text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`">
-                            {{group.groupName}}
+                            {{ group.groupName }}
                         </div>
                         <li
                             v-for="(item, i) of groupedItems(group.items)"
@@ -418,13 +418,13 @@ export default {
 
             if(multiple) {
                 for(const item of values) {
-                    this.computedOptions.find(obj => {
+                    this.computedOptions.find((obj) => {
                         if(obj[this.itemValue] === (this.returnObject ? item[this.itemValue] : item)) return found.push(obj);
                     });
                 }
             } else {
-                this.computedOptions.find(obj => {
-                    if(obj[this.itemValue] === (this.returnObject ? values[this.itemValue] : values)) return found = obj;
+                this.computedOptions.find((obj) => {
+                    if(obj[this.itemValue] === values) return found = obj;
                 });
             }
             
