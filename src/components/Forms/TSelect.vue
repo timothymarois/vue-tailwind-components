@@ -101,7 +101,7 @@
                     v-else-if="!loading && searchable && searchableOptions.length === 0 && !localsearch" 
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
-                    Start typing to search for results
+                    {{ searchText }}
                 </li>
                 <li 
                     v-else-if="!loading && searchableOptions.length === 0" 
@@ -222,13 +222,18 @@ export default {
             required: false,
             default: 'Add new'
         },
+        searchText: {
+            type: String,
+            required: false,
+            default: 'Start typing to search for results'
+        },
         label: {
             type: String,
             default: null
         },
         placeholder: {
             type: String,
-            default: "Select One"
+            default: 'Select One'
         },
         value: {
             type: [String, Object, Number, Array]
