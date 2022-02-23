@@ -51,6 +51,9 @@ export default {
 			else {
 				document.getElementById(this.id).classList.add("opacity-0");
 			}
+		},
+		content(value) {
+			if(value) this.element.innerHTML = value;
 		}
 	},
 	mounted() {
