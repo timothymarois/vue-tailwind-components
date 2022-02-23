@@ -56,11 +56,20 @@ export const Button = (args, { argTypes }) => ({
 export const Text = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TTooltip, TButton },
+	data: () => ({
+		content: "Yes"
+	}),
+	methods: {
+		changeContent() {
+			this.content = "No";
+		}
+	},
 	template: `
 		<div class="ml-64 mt-20">
-			<t-tooltip v-bind="$props" content="Some tooltip">
+			<t-tooltip :content="content">
 				Some text
 			</t-tooltip>
+			<t-button @click="changeContent">Change Tooltip Content</t-button>
 		</div>
 	`
 })

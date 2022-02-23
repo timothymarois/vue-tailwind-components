@@ -53,7 +53,10 @@ export default {
 			}
 		},
 		content(value) {
-			if(value) this.element.innerHTML = value;
+			if(value) {
+				this.element.innerHTML = value;
+				this.element.appendChild(this.arrowElement);
+			}
 		}
 	},
 	mounted() {
