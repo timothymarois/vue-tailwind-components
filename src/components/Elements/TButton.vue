@@ -288,7 +288,7 @@ export default {
 					c = c.concat(['text-gray-400', 'bg-gray-50']);
 				}
 				else {
-					c = c.concat([`text-${this.color}-800`, `hover:text-${this.color}-900`, `hover:bg-${this.color}-100`]);
+					c = c.concat([`text-${this.color}-${this.colorLevel}`, `hover:text-${this.color}-${colorLevelSecondary}`, `hover:bg-${this.color}-100`]);
 				}
 			} 
 			else {
