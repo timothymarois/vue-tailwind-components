@@ -6,7 +6,7 @@
             :label="label"
             :required="required"
             :icon="iconLabel"
-            :color="errorState ? 'text-red-700' : 'text-gray-800'"
+            :color="errorState ? 'red-700' : 'gray-800'"
         />
         <div :class="{'mt-1':label}">
             <div class="relative text-gray-500">
