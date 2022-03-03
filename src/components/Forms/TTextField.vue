@@ -32,6 +32,7 @@
                     :max="max"
                     :class="fieldClasses"
                     :style="(width ? `width: ${width}px` : '')"
+                    :ref="id"
                 />
                 <div 
                     v-if="clearable && internalValue && !readonly"
@@ -209,6 +210,9 @@ export default {
         clearField() {
             this.internalValue = null;
             this.$emit('cleared');
+        },
+        blur() {
+            this.$refs[this.id].blur();
         }
     }
 };
