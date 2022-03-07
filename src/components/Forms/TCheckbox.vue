@@ -3,21 +3,21 @@
 		<input 
 			:id="id"
 			:type="radio ? 'radio' : 'checkbox'" 
-			:class="`opacity-0 h-${size} w-${size} absolute ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} z-20`" 
+			:class="`opacity-0 h-${size} w-${size} absolute ${disabled ? 'cursor-default' : 'cursor-pointer'} z-20`" 
 			:checked="isChecked"
 			:value="value"
 			:disabled="disabled"
 			@change="onChange($event)"
 		/>
-		<div :class="`bg-white border-2 ${radio ? 'rounded-full' : 'rounded'} relative border-${borderColor}-${borderColorLevel} w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
-			<div :class="`hidden bg-${color}-${colorLevel} w-${size} h-${size} flex justify-center items-center rounded`" v-if="check && !radio">
+		<div :class="outlineClassesComputed">
+			<div :class="checkClassesComputed" v-if="check && !radio">
 				<TIcon 
 					value="check"
 					:size="size"
 					class="text-white absolute left-0 top-0"
 				/>
 			</div>
-			<div :class="`hidden bg-${color}-${colorLevel} w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] ${radio ? 'rounded-full' : 'rounded-sm'} pointer-events-none`" v-else />
+			<div :class="solidClassesComputed" v-else />
 		</div>
 		<div class="ml-2 text-sm" v-if="label">
 			<t-label :id="id" :color="labelColor" :disabled="disabled">{{ label }}</t-label>
@@ -112,6 +112,36 @@ export default {
 		},
 		isChecked() {
 			return this.valueComparator(this.value, this.trueValue) ? true : false;
+		},
+		outlineClassesComputed() {
+			let c = [`bg-white border-2 relative flex flex-shrink-0 justify-center items-center w-${this.size} h-${this.size}`];
+
+			if(this.radio) c = c.concat(['rounded-full'])
+			else c = c.concat(['rounded']);
+
+			if(this.disabled) c = c.concat(['border-gray-700'])
+			else c = c.concat([`border-${this.borderColor}-${this.borderColorLevel}`]);
+
+			return c;
+		},
+		checkClassesComputed() {
+			let c = [`hidden w-${this.size} h-${this.size} flex justify-center items-center rounded`];
+			
+			if(this.disabled) c = c.concat(['bg-gray-300']);
+			else c = c.concat([`bg-${this.color}-${this.colorLevel}`]);
+
+			return c;
+		},
+		solidClassesComputed() {
+			let c = [`hidden w-${this.size - 2} h-${this.size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] pointer-events-none`]
+			
+			if(this.disabled) c = c.concat(['bg-gray-600']);
+			else c = c.concat([`bg-${this.color}-${this.colorLevel}`]);
+			
+			if(this.radio) c = c.concat(['rounded-full']);
+			else c = c.concat(['rounded-sm']);
+
+			return c;
 		}
 	}
 };

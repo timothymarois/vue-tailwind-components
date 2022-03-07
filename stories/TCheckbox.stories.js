@@ -66,26 +66,21 @@ export const MultipleValues = (argTypes) => ({
 	props: Object.keys(argTypes),
 	components: { TCheckbox, TCard },
     data: () => ({
-        value: false,
+        value: true,
 		valueTwo: false,
 		valueThree: 'Inactive'
     }),
-	computed: {
-		firstValue() {
-			return this.value.toString(); 
-		}
-	},
 	template: 
 		`
         <div>
 
             <t-card title="Default State (checked = true) (disabled)">
-				<t-checkbox v-model="value" label="Boolean True/false" disabled />
-				value: {{ firstValue }}
+				<t-checkbox v-model="value" label="Boolean True/false" />
+				value: {{ value.toString() }}
 			</t-card>
 
 			<t-card title="Reverse (checked = false)" subtitle="You can reverse the true/false state values" class="mt-2">
-				<t-checkbox v-model="valueTwo" label="Boolean True/false" :trueValue="false" :falseValue="true" />
+				<t-checkbox v-model="valueTwo" label="Boolean True/false" :trueValue="false" :falseValue="true" disabled check />
 				value: {{ valueTwo.toString() }}
 			</t-card>
 
