@@ -3,9 +3,10 @@
 		<input 
 			:id="id"
 			:type="radio ? 'radio' : 'checkbox'" 
-			:class="`opacity-0 h-${size} w-${size} absolute cursor-pointer z-20`" 
+			:class="`opacity-0 h-${size} w-${size} absolute ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} z-20`" 
 			:checked="isChecked"
 			:value="value"
+			:disabled="disabled"
 			@change="onChange($event)"
 		/>
 		<div :class="`bg-white border-2 ${radio ? 'rounded-full' : 'rounded'} relative border-${borderColor}-${borderColorLevel} w-${size} h-${size} flex flex-shrink-0 justify-center items-center`">
@@ -19,7 +20,7 @@
 			<div :class="`hidden bg-${color}-${colorLevel} w-${size - 2} h-${size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] ${radio ? 'rounded-full' : 'rounded-sm'} pointer-events-none`" v-else />
 		</div>
 		<div class="ml-2 text-sm" v-if="label">
-			<t-label :id="id" :color="labelColor">{{ label }}</t-label>
+			<t-label :id="id" :color="labelColor" :disabled="disabled">{{ label }}</t-label>
 		</div>
 	</div>
 </template>
@@ -82,6 +83,10 @@ export default {
 		labelColor: {
 			type: String,
 			default: 'gray-800'
+		},
+		disabled: {
+			type: Boolean,
+			default: false
 		}
 	},
 	methods: {

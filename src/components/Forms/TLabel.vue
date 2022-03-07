@@ -1,7 +1,7 @@
 <template>
     <label 
         :for="id"
-        :class="`cursor-pointer block text-sm font-medium text-${color} transition-colors duration-150`"
+        :class="`${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} block text-sm font-medium text-${color} transition-colors duration-150`"
     >
         <slot>
             <t-icon v-if="icon" :value="icon" class="mr-1" />
@@ -38,6 +38,10 @@ export default {
         icon: {
             type: String,
             default: null
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     }
 };

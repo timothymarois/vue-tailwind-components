@@ -75,15 +75,12 @@ export const MultipleValues = (argTypes) => ({
 			return this.value.toString(); 
 		}
 	},
-	methods: {
-
-	},
 	template: 
 		`
         <div>
 
-            <t-card title="Default State (checked = true)">
-				<t-checkbox v-model="value" label="Boolean True/false" />
+            <t-card title="Default State (checked = true) (disabled)">
+				<t-checkbox v-model="value" label="Boolean True/false" disabled />
 				value: {{ firstValue }}
 			</t-card>
 
@@ -111,9 +108,6 @@ export const Radio = (argTypes) => ({
 		firstValue() {
 			return this.value.toString(); 
 		}
-	},
-	methods: {
-
 	},
 	template: 
 		`
