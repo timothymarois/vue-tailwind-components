@@ -119,7 +119,7 @@ export default {
 			if(this.radio) c = c.concat(['rounded-full'])
 			else c = c.concat(['rounded']);
 
-			if(this.disabled) c = c.concat(['border-gray-700'])
+			if(this.disabled) c = c.concat(['border-gray-500'])
 			else c = c.concat([`border-${this.borderColor}-${this.borderColorLevel}`]);
 
 			return c;
@@ -135,7 +135,7 @@ export default {
 		solidClassesComputed() {
 			let c = [`hidden w-${this.size - 2} h-${this.size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] pointer-events-none`]
 			
-			if(this.disabled) c = c.concat(['bg-gray-600']);
+			if(this.disabled) c = c.concat(['bg-gray-400']);
 			else c = c.concat([`bg-${this.color}-${this.colorLevel}`]);
 			
 			if(this.radio) c = c.concat(['rounded-full']);

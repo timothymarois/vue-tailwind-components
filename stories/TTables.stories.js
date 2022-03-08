@@ -231,6 +231,7 @@ export const AdvancedTables = () => ({
                         select
                         selectFromRow
                         :selectOne="false"
+                        loading
                     />
                 </t-card>
             </div>

@@ -9,6 +9,7 @@
                                 v-if="!selectOne"
                                 v-model="selectedAll"
                                 @input="changeSelectControl('visible'); toggleAll();"
+                                :disabled="loading"
                             />
                             <div v-if="!selectOne && selectOptions" id="select-all-options" class="ml-0.5">
                                 <t-menu v-model="menuOpen">
@@ -109,6 +110,7 @@
                                 :value="selection.includes(i)"
                                 @input="toggleRow(i)"
                                 @click.prevent=""
+                                :disabled="loading"
                             />
                         </div>
                     </slot>

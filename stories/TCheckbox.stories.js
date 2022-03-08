@@ -80,7 +80,7 @@ export const MultipleValues = (argTypes) => ({
 			</t-card>
 
 			<t-card title="Reverse (checked = false)" subtitle="You can reverse the true/false state values" class="mt-2">
-				<t-checkbox v-model="valueTwo" label="Boolean True/false" :trueValue="false" :falseValue="true" disabled check />
+				<t-checkbox v-model="valueTwo" label="Boolean True/false" :trueValue="false" :falseValue="true" disabled />
 				value: {{ valueTwo.toString() }}
 			</t-card>
 
