@@ -115,7 +115,7 @@ export default {
             return (this.icon !== true && this.icon !== false);
         },
 		iconOnly() {
-			if (this.icon && (this.$slots.default || this.$slots.icon)) return true;
+			if (this.icon === true && (this.$slots.default || this.$slots.icon)) return true;
 			if (typeof this.icon === 'string' && !this.$slots.default && !this.label) return true;
 			return false;
 		}
