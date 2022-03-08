@@ -2,22 +2,22 @@
     <div class="w-full">
         <div class="flex flex-wrap text-gray-500"
             :class="{
-                'justify-between' : grow,
-                'gap-4 mb-4' : !dense,
-                'gap-2 mb-2' : dense,
+                'justify-between': grow,
+                'gap-4 mb-4': !dense,
+                'gap-2 mb-2': dense,
             }"
         >
             <button
                 class="relative flex items-center justify-center rounded bg-gray-100 focus:outline-none font-semibold"
                 :class="{
                     'bg-indigo-800 text-white ': value == item.id,
-                    'px-4 py-2 text-sm' : !dense,
-                    'px-2 py-1 text-xs' : dense,
-                    'flex-grow' : grow,
-                    'flex-1' : even,
-                    'hover:bg-indigo-900 hover:text-white' : (value == item.id) && !item.disabled,
-                    'hover:bg-indigo-100 hover:text-indigo-900' : (value != item.id) && !item.disabled,
-                    'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300' : item.disabled,
+                    'px-4 py-2 text-sm': !dense,
+                    'px-2 py-1 text-xs': dense,
+                    'flex-grow': grow,
+                    'flex-1': even,
+                    'hover:bg-indigo-900 hover:text-white': (value == item.id) && !item.disabled,
+                    'hover:bg-indigo-100 hover:text-indigo-900': (value != item.id) && !item.disabled,
+                    'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300': item.disabled,
                 }"
                 @click="update(item)"
                 v-for="item of items"
@@ -28,7 +28,7 @@
             </button>
         </div>
         <div v-for="(slot,index) in $slots" :key="index">
-            <div v-show="value==index">
+            <div v-show="value == index">
                 <slot :name="index" />
             </div>
         </div>
@@ -47,15 +47,15 @@ export default {
             type: Array,
             default: () => []
         },
-        dense : {
+        dense: {
             type: Boolean,
             default: false
         },
-        grow : {
+        grow: {
             type: Boolean,
             default: false
         },
-        even : {
+        even: {
           type: Boolean,
           default: false
         },
@@ -63,7 +63,7 @@ export default {
     methods:{
         update(item) {
             if (item.disabled) return;
-            this.$emit('input',item.id)
+            this.$emit('input', item.id);
         }
     }
 };

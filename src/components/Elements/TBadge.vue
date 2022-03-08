@@ -1,7 +1,5 @@
 <template>
-    <span 
-        :class="contentClasses" 
-    >
+    <span :class="contentClasses">
         <div v-if="icon">
             <t-icon
                 class="mr-1"
@@ -66,26 +64,14 @@ export default {
         contentClasses() {
             let c = ['border inline-flex items-center py-0.5 text-sm font-medium'];
 
-            if (this.removeable) {
-                c = c.concat(['pl-2','pr-0.5']);
-            } 
-            else {
-                c = c.concat(['px-2']);
-            }
+            if (this.removeable) c = c.concat(['pl-2','pr-0.5']);
+            else c = c.concat(['px-2']);
 
-            if (this.outlined) {
-                c = c.concat([`border-${this.color}-800 bg-${this.color}-100 text-${this.color}-800`]);
-            } 
-            else {
-                c = c.concat([`border-${this.color}-100 bg-${this.color}-100 text-${this.color}-800`]);
-            }
+            if (this.outlined) c = c.concat([`border-${this.color}-800 bg-${this.color}-100 text-${this.color}-800`]);
+            else c = c.concat([`border-${this.color}-100 bg-${this.color}-100 text-${this.color}-800`]);
 
-            if (this.rounded) {
-                c = c.concat(['rounded-full']);
-            } 
-            else {
-                c = c.concat(['rounded'])
-            }
+            if (this.rounded) c = c.concat(['rounded-full']);
+            else c = c.concat(['rounded']);
 
             return c;
         }

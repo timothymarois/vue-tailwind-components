@@ -1,6 +1,5 @@
 <template>
     <div class="relative w-full">
-
         <t-label 
             v-if="label"
             :id="`search-${id}`"
@@ -98,18 +97,18 @@
                     Searching...
                 </li>
                 <li 
-                    v-else-if="!loading && searchable && searchableOptions.length === 0 && !localsearch" 
+                    v-else-if="!loading && searchable && !searchableOptions.length && !localsearch" 
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
                     {{ searchText }}
                 </li>
                 <li 
-                    v-else-if="!loading && searchableOptions.length === 0" 
+                    v-else-if="!loading && !searchableOptions.length" 
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
                     {{ nodata }}
                 </li>
-                <div v-else-if="!loading && computedOptions.length > 0 && !grouped">
+                <div v-else-if="!loading && computedOptions.length && !grouped">
                     <li
                         v-for="(item, i) of searchableOptions"
                         :key="i"
@@ -132,10 +131,10 @@
                         />    
                     </li>
                 </div>
-                <div v-else-if="!loading && computedOptions.length > 0 && grouped">
+                <div v-else-if="!loading && computedOptions.length && grouped">
                     <div v-for="(group, j) of options" :key="group.groupName">
                         <div
-                            v-if="groupedItems(group.items).length > 0" 
+                            v-if="groupedItems(group.items).length" 
                             :class="`font-bold text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`">
                             {{ group.groupName }}
                         </div>
@@ -143,7 +142,7 @@
                             v-for="(item, i) of groupedItems(group.items)"
                             :key="i"
                             class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                            :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : equalsSearch(item[itemValue])}]"
+                            :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : equalsSearch(item[itemValue]) }]"
                             :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
                             @click.stop="selectItem(item)"
                         >  
@@ -303,34 +302,22 @@ export default {
             handler: function (value) { 
                 if (value) {
                     let items = this.getItemsByValue(value, this.multiple);
-                    if (items) {
-                        this.selected = items;
-                    }
-                } 
-                else {
+                    if (items) this.selected = items;
+                } else {
                     this.selected = [];
                     this.localsearch = null;
                 }
             }
         },
-        localsearch: {
-            handler: function(value) {
-                this.cycleIndex = -1;
-            }
+        localsearch() {
+            this.cycleIndex = -1;
         },
-        menu: function(value) {
+        menu(value) {
             if (value === true) {
-                this.$nextTick(() => {
-                    this.viewport = viewportHelper(`#dropdown-${this.id}`);
-                });
-            }
-            else {
-                if(this.multiple || this.searchable) {
-                    this.cycleIndex = -1;
-                }
-                else {
-                    this.cycleIndex = this.selectedIndex || -1;
-                }
+                this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
+            } else {
+                if(this.multiple || this.searchable) this.cycleIndex = -1;
+                else this.cycleIndex = this.selectedIndex || -1;
                 this.viewport = [];
             }            
         }
@@ -350,16 +337,10 @@ export default {
             // return 'chevron-down'
         },
         dropdownClasses() {
-            let c = [
-                'absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none z-10 border border-gray-200'
-            ];
+            let c = ['absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none z-10 border border-gray-200'];
 
-            if (this.dropdownDirection === 'top') {
-                c = c.concat(['bottom-10']);
-            }
-            else {
-                c = c.concat(['top-10']);
-            }
+            if (this.dropdownDirection === 'top') c = c.concat(['bottom-10']);
+            else c = c.concat(['top-10']);
 
             return c;
         },
@@ -368,42 +349,33 @@ export default {
                 return JSON.parse(JSON.stringify(this.computedOptions)).filter(option => {
                     let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase().replace(/\\/g, "\\\\"));
                     if (o) {
-                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), function(matchedText, a, b){
+                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), (matchedText) => {
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
                     }
                 });
-            } else {
-                return this.computedOptions;
-            }
+            } else return this.computedOptions;
         },
         selectPlaceholder() { 
-            if(this.multiple && this.selected.length > 0) {
-                return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            } 
-            else if(!this.multiple && this.selected[this.itemValue]) {
-                return this.selected[this.itemLabel];
-            }
+            if(this.multiple && this.selected.length) return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+            else if(!this.multiple && this.selected[this.itemValue]) return this.selected[this.itemLabel];
+
             return this.placeholder;
         },
         returnValue() {
             if(this.multiple) {
-                if(this.returnObject) {
-                    return this.selected;
-                }
+                if(this.returnObject) return this.selected;
                 return this.selected.map(obj => obj[this.itemValue]);
             } 
             else {
-                if(this.returnObject) {
-                    return this.selected;
-                }
+                if(this.returnObject) return this.selected;
                 return this.selected[this.itemValue];
             }
         },
         computedOptions() {
-            if(this.options.length > 0 && !this.options[0][this.itemValue] && !this.grouped) {
-                return this.options.map(key => {
+            if(this.options.length && !this.options[0][this.itemValue] && !this.grouped) {
+                return this.options.map((key) => {
                     return {
                         label: key,
                         value: key
@@ -418,9 +390,7 @@ export default {
 
                 return returnItems;
             }
-            else {
-                return this.options;
-            }
+            else return this.options;
         }
     },
     methods: {
@@ -455,9 +425,8 @@ export default {
                 if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
-                if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
-                    this.selected.push(item);
-                }  else {
+                if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) this.selected.push(item);
+                else {
                     let i = this.selected.findIndex(obj => obj[this.itemValue] === item[this.itemValue]);
                     this.selected.splice(i, 1);
                 }
@@ -470,23 +439,15 @@ export default {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
-            if (this.external && this.searchable && !this.localsearch && !this.computedOptions.length) {
-                return this.menu = false;
-            }
+            if (this.external && this.searchable && !this.localsearch && !this.computedOptions.length) return this.menu = false;
 
             if (!this.disabled) {
-                if (this.searchable && source !== 'arrow') {
-                    this.menu = true;
-                }
-                else {
-                    this.menu = !this.menu;
-                }
+                if (this.searchable && source !== 'arrow') this.menu = true;
+                else this.menu = !this.menu;
             }
         },
         menuOn() {
-            if (!this.disabled) {
-                this.menu = true;
-            }
+            if (!this.disabled) this.menu = true;
         },
         searchLocal(event, value) {
             // lets ignore these events since they are not searches
@@ -500,57 +461,40 @@ export default {
             return this.searchableOptions?.[this.cycleIndex]?.[this.itemValue] === item;
         },
         cycleOptions(key) {
-            if(this.searchableOptions.length > 0) {
-                if(key === 'up' && this.cycleIndex > 0) {
-                    this.cycleIndex -= 1;
-                    this.$nextTick(() => {
-                        const el = document.getElementById(`focus-${this.id}`);
-                        if (el) {
-                            el.scrollIntoView({block: "nearest", inline: "nearest"});
-                        }
-                    });
-                } 
-                else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) {
-                    this.cycleIndex += 1;
-                    this.$nextTick(() => {
-                        const el = document.getElementById(`focus-${this.id}`);
-                        if (el) {
-                            el.scrollIntoView({block: "nearest", inline: "nearest"});
-                        }
-                    });
-                }
+            if(this.searchableOptions.length) {
+                if(key === 'up' && this.cycleIndex > 0) this.cycleIndex -= 1;
+                else if(key === 'down' && this.cycleIndex + 1 !== this.searchableOptions.length) this.cycleIndex += 1;
+
+                this.$nextTick(() => {
+                    const el = document.getElementById(`focus-${this.id}`);
+                    if (el) el.scrollIntoView({ block: "nearest", inline: "nearest" });
+                });
             }
         },
         groupedItems(group) {
             if(this.localsearch && this.searchable && this.isSearching && !this.external) {
-                return JSON.parse(JSON.stringify(group)).filter(option => {
+                return JSON.parse(JSON.stringify(group)).filter((option) => {
                     let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase());
                     if (o) {
-                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), function(matchedText, a, b){
+                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), function(matchedText) {
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
                     }
                 });
-            } else {
-                return group;
-            }
+            } else return group;
         },
         close(e) {
             if (!this.$el.contains(e.target)) {
                 this.menu = false;
-                if (this.searchable && !this.selected) {
-                    this.localsearch = null;
-                }
+                if (this.searchable && !this.selected) this.localsearch = null;
             }
         },
         refocus() {
             this.$refs.dsearchb.focus();
         },
         isChecked(item) {
-            if(this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) {
-                return true;
-            }
+            if(this.selected.some((obj) => obj[this.itemValue] === item[this.itemValue])) return true;
             return false;
         },
         clearField() {
@@ -568,9 +512,7 @@ export default {
     mounted() {
         if (this.value) {
             let items = this.getItemsByValue(this.value, this.multiple);
-            if (items) {
-                this.selected = items;
-            }
+            if (items) this.selected = items;
         }
 
         document.addEventListener('click', this.close, false);

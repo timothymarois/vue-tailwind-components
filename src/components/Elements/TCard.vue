@@ -59,22 +59,15 @@ export default {
     computed: {
         contentClasses() {
             let c = ['w-full'];
-            if (this.contentPadding) {
-                c = c.concat([`p-${this.contentPadding}`]);
-            }
+            if (this.contentPadding) c = c.concat([`p-${this.contentPadding}`]);
             return c;
         },
         cardClasses() {
             let c = ['bg-white w-full'];
 
-            if (!this.flat) {
-                c = c.concat(['shadow']);
-            }
-
-            if (!this.tile) {
-                c = c.concat(['rounded']);
-            }
-
+            if (!this.flat) c = c.concat(['shadow']);
+            if (!this.tile) c = c.concat(['rounded']);
+            
             if (this.border) {
                 c = c.concat(['border']);
                 c = c.concat([`border-${this.borderColor}-200`]);

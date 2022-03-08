@@ -33,9 +33,7 @@
                 :key="page"
                 class="relative flex space-x-1"
             >
-                <div 
-                    @click="goToPage(page)"
-                >
+                <div @click="goToPage(page)">
                     <a
                         class="cursor-pointer w-10 min-w-min relative inline-flex items-center justify-center px-2 py-2 rounded bg-white text-sm font-medium text-gray-500 hover:bg-indigo-100 hover:text-indigo-900 border border-gray-200 hover:border-indigo-900"
                         :class="{'z-10 bg-indigo-100 border-indigo-800 text-indigo-800' : currentPage === page}"
@@ -88,41 +86,26 @@ export default {
             return this.currentPage === 1;
         },
         nextDisabled() {
-            return this.currentPage === this.totalPages;
+            return this.currentPage === this.totalPages || this.totalItems === 0;
         },
         totalPages() {
             return Math.ceil(this.totalItems / this.currentPerPage);
         },
         pagesArray() {
-			if(this.totalPages <= 5) {
-				return (this.totalPages);
-			} else if (this.totalPages > 5 && this.currentPage === 1) {
-				return [1, this.currentPage + 1, this.currentPage + 2, this.currentPage + 3, this.totalPages];
-			} else if (this.totalPages > 5 && this.currentPage === 2) {
-				return [1, this.currentPage, this.currentPage + 1, this.currentPage + 2, this.totalPages];
-			} else if (this.totalPages > 5 && this.currentPage < this.totalPages - 1) {
-				return [1, this.currentPage - 1, this.currentPage, this.currentPage + 1, this.totalPages];
-			} else if (this.totalPages > 5 && this.currentPage === this.totalPages - 1) {
-                return [1, this.currentPage - 2, this.currentPage - 1, this.currentPage, this.totalPages];
-            } else if (this.totalPages > 5 && this.currentPage === this.totalPages) {
-                return [1, this.currentPage - 3, this.currentPage - 2, this.currentPage - 1, this.currentPage];
-            }
+			if(this.totalPages <= 5) return (this.totalPages === 0 ? 1 : this.totalPages);
+			else if (this.totalPages > 5 && this.currentPage === 1) return [1, this.currentPage + 1, this.currentPage + 2, this.currentPage + 3, this.totalPages];
+			else if (this.totalPages > 5 && this.currentPage === 2) return [1, this.currentPage, this.currentPage + 1, this.currentPage + 2, this.totalPages];
+			else if (this.totalPages > 5 && this.currentPage < this.totalPages - 1) return [1, this.currentPage - 1, this.currentPage, this.currentPage + 1, this.totalPages];
+			else if (this.totalPages > 5 && this.currentPage === this.totalPages - 1) return [1, this.currentPage - 2, this.currentPage - 1, this.currentPage, this.totalPages];
+            else if (this.totalPages > 5 && this.currentPage === this.totalPages) return [1, this.currentPage - 3, this.currentPage - 2, this.currentPage - 1, this.currentPage];
         },
         fromItem() {
-            if (this.currentPage === 1) {
-                return 1;
-            }
-            else {
-                return (this.currentPerPage * (this.currentPage - 1)) + 1;
-            }
+            if (this.currentPage === 1) return 1;
+            else return (this.currentPerPage * (this.currentPage - 1)) + 1;
         },
         toItem() {
-            if (this.currentPage === this.totalPages) {
-                return this.totalItems;
-            }
-            else {
-                return (this.currentPage) * this.currentPerPage;
-            }
+            if (this.currentPage === this.totalPages) return this.totalItems;
+            else return (this.currentPage) * this.currentPerPage;
         }
     },
     methods: {
@@ -131,15 +114,15 @@ export default {
                 this.$emit('change', {
                     page: +page,
                     perPage: +this.currentPerPage
-                })
+                });
             }
         },
         changePerPage(e) {
             this.$emit('change', {
                 page: +this.currentPage,
                 perPage: +e.target.value
-            })
+            });
         }
-    },
+    }
 };
 </script>

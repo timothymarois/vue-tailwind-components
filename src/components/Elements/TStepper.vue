@@ -4,7 +4,7 @@
 			<div class="flex flex-row justify-between items-center" :class="centerProgress ? 'mx-auto' : ''" :style="maxWidth ? `max-width: ${maxWidth}px;` : ''">
 				<template v-for="(step, i) of stepOptions">
 					<hr 
-						v-if="i != 0" 
+						v-if="i !== 0" 
 						class="grow" 
 						:class="dividerColor(i)"
 						:key="i" 
@@ -154,9 +154,7 @@ export default {
 
 			getComputedStyle(element).height;
 
-			requestAnimationFrame(() => {
-				element.style.height = height;
-			});
+			requestAnimationFrame(() => element.style.height = height);
 		},
 		afterEnter(element) {
 			element.style.height = 'auto';
@@ -168,9 +166,7 @@ export default {
 
 			getComputedStyle(element).height;
 
-			requestAnimationFrame(() => {
-				element.style.height = 0;
-			});
+			requestAnimationFrame(() => element.style.height = 0);
 		},
 		stepColor(i) {
 			if(!this.simple) {

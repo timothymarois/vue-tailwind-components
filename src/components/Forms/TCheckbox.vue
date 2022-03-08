@@ -91,7 +91,7 @@ export default {
 	},
 	methods: {
 		valueComparator: (a, b) => a === b,
-		onChange(e) {
+		onChange() {
 			const value = this.value;
 			let input = this.internalValue;
 			input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue;

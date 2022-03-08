@@ -45,12 +45,8 @@ export default {
 	},
 	watch: {
 		show(value) {
-			if(value && this.active) {
-				document.getElementById(this.id).classList.remove("opacity-0");
-			} 
-			else {
-				document.getElementById(this.id).classList.add("opacity-0");
-			}
+			if(value && this.active) document.getElementById(this.id).classList.remove("opacity-0");
+			else document.getElementById(this.id).classList.add("opacity-0");
 		},
 		content(value) {
 			if(value) {

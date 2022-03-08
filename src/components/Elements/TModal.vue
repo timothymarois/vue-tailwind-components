@@ -125,18 +125,15 @@ export default {
 	watch: {
 		show(v) {
 			if (v !== this.localShowing) {
-				if (v === false) {
-					this.close();
-				} else {
+				if (v === false) this.close();
+				else {
 					this.localShowing = v;
 					this.updateDivOffset();
 				}
 			}
 		},
 		type(newValue, oldValue) {
-			if(newValue !== oldValue) {
-				this.previousType = oldValue;
-			}
+			if(newValue !== oldValue) this.previousType = oldValue;
 		},
 		offsetValue() {
 			this.updateDivOffset();
@@ -166,14 +163,10 @@ export default {
 			if (this.offsetDiv) {
 				let mainDivOffset = 0;
 				let mainDiv = document.getElementById(this.offsetDiv);
-				if (mainDiv) {
-					mainDivOffset = mainDiv.offsetWidth;
-				}
+				if (mainDiv) mainDivOffset = mainDiv.offsetWidth;
 				let appDiv  = document.getElementById('app').offsetWidth;
 				let offset  = +(appDiv - mainDivOffset);
-				if (offset) {
-					this.relativeOffsetPx = offset;
-				}
+				if (offset) this.relativeOffsetPx = offset;
 			}
 		}
 	},
@@ -222,32 +215,17 @@ export default {
 						'max-w-full',
 						'inset-y-2',
 						'mt-2',
-						`${this.previousType || 'left'}-4`,
+						`${this.previousType + '-4' || 'left-4'}`,
 						'sm:inset-y-4',
 						'sm:m-0'
 					]);
 					break; 
 			}
 
-			if (this.relative) {
-				c = c.concat([
-					'absolute'
-				]);
-			} else if((!this.relative && this.scroll)) {
-				c = c.concat([
-					'relative'
-				]);
-			} else {
-				c = c.concat([
-					'fixed'
-				]);
-			}
-
-			if (!this.scrolling) {
-				c = c.concat([
-					'overflow-hidden',
-				]);
-			}
+			if (this.relative) c = c.concat(['absolute']);
+			else if((!this.relative && this.scroll)) c = c.concat(['relative']);
+			else c = c.concat(['fixed']);
+			if (!this.scrolling) c = c.concat(['overflow-hidden']);
 
 			return c;
 		},
@@ -255,37 +233,23 @@ export default {
 			if (this.relativeOffsetPx) {
 				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right') || this.type === 'center') return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
 				else return 'right: 1em;';
-			} else if(this.offsetDirection && this.offsetValue > 0) {
-				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
-			}
+			} else if(this.offsetDirection && this.offsetValue > 0) return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
 		},
 		widthCalculation() {
-			if(this.offsetValue || this.relativeOffsetPx) {
-				return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
-			} else if(this.centerOverflow || this.type === 'full') {
-				return `width: calc(100% - 2em);`;
-			}
+			if(this.offsetValue || this.relativeOffsetPx) return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
+			else if(this.centerOverflow || this.type === 'full') return `width: calc(100% - 2em);`;
 			
 			return 'width: auto;';
 		},
 		transitionName() {
-			if(this.type === 'right') {
-				return 'slide-right';
-			} else if (this.type === 'left') {
-				return 'slide-left';
-			}
+			if(this.type === 'right') return 'slide-right';
+			else if (this.type === 'left') return 'slide-left';
 			
 			return 'pop';
 		}
 	},
 	created() {
 		this.updateDivOffset();
-	},
-	beforeDestroy() {
-		// if (this.offsetDiv) {
-		// 	let mainDiv = document.getElementById(this.offsetDiv).offsetWidth;
-		// 	mainDiv.classList.add("overflow-y-hidden");
-		// }
 	}
 };
 </script>

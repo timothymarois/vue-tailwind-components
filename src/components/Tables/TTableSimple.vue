@@ -53,20 +53,20 @@
                     :key="hindex"
                     :class="{
                         'text-left': !h.align,
-                        'text-right': (h.align == 'right'),
-                        'text-center': (h.align == 'center'),
+                        'text-right': h.align === 'right',
+                        'text-center': h.align === 'center',
                         'sortable cursor-pointer hover:bg-indigo-50': h.sorting,
                         'sorted': h.sorted
                     }"
                     :style="h.width ? `width: ${h.width};` : ''"
-                    @click="sortClicked(h, hindex)"
+                    @click="sortClicked(h)"
                 >
                     <slot :name="`header.${h.value}`" v-bind:header="h">
                         <div class="my-auto truncate">
                             <span class="font-bold">{{ h.title }}</span>
                             <span v-if="h.sorting" class="sort-icon">
-                                <t-icon v-if="h.sorted=='ASC'" size="4" value="arrow-sm-up" />
-                                <t-icon v-else-if="h.sorted=='DESC'" size="4" value="arrow-sm-down" />
+                                <t-icon v-if="h.sorted === 'ASC'" size="4" value="arrow-sm-up" />
+                                <t-icon v-else-if="h.sorted === 'DESC'" size="4" value="arrow-sm-down" />
                                 <t-icon v-else size="4" value="switch-vertical" />
                             </span>
                         </div>
@@ -99,14 +99,14 @@
                 ]"
                 @click="selectRow(i, item, $event)"
             >
-                <td 
+                <td
                     v-if="select"
                     class="px-2 py-2 border-0 relative text-center w-12"
                 >
                     <slot name="column.select">
                         <div :class="`flex ${selectOptions ? 'justify-start' : 'justify-center'} w-full`">
-                            <TCheckbox 
-                                :value="selection.includes(i)" 
+                            <TCheckbox
+                                :value="selection.includes(i)"
                                 @input="toggleRow(i)"
                                 @click.prevent=""
                             />
@@ -115,8 +115,8 @@
                 </td>
 
                 <td 
-                    v-for="(h) in headerItems" 
-                    :key="h.value" 
+                    v-for="(h) in headerItems"
+                    :key="h.value"
                     class="px-4 py-3 border-0 relative font-normal"
                     :class="[
                         (!h.align) ? 'text-left' : '',
@@ -245,37 +245,23 @@ export default {
         }
     },
     methods: {
-        sortClicked(h,i) {
-            if (h.sorting===true) {
+        sortClicked(h) {
+            if (h.sorting === true) {
                 let sortUpdate = null;
-                if (h.sorted=='ASC') {
-                    sortUpdate = 'DESC';
-                }
-                else if (h.sorted=='DESC') {
-                    sortUpdate = 'ASC';
-                }
+                if (h.sorted === 'ASC') sortUpdate = 'DESC';
+                else if (h.sorted === 'DESC') sortUpdate = 'ASC';
                 else if (!h.sorted) {
-                    if (h.sortDefault) {
-                        sortUpdate = h.sortDefault;
-                    }
-                    else {
-                        sortUpdate = 'ASC';
-                    }
+                    if (h.sortDefault) sortUpdate = h.sortDefault;
+                    else sortUpdate = 'ASC';
                 }
-                else {
-                    sortUpdate = null;
-                }
+                else sortUpdate = null;
 
                 this.$emit('change-sort', h, sortUpdate);
             }
         },
         toggleAll() {
-            if (!this.selectedAll) {
-                this.deselectAll();
-            } 
-            else {
-                this.selectAll();
-            }
+            if (!this.selectedAll) this.deselectAll();
+            else this.selectAll();
         },
         selectAll() {
             this.selection = [...Array(this.items.length).keys()];
@@ -289,27 +275,17 @@ export default {
         toggleRow(i, origin) {
             if(!this.selectFromRow || origin === 'selectRow') {
                 if (!this.selection.includes(i)) {
-                    if (this.selectOne === true) {
-                        this.selection = [i];
-                    }
-                    else {
-                        this.selection.push(i)
-                    }
-                } 
-                else {
+                    if (this.selectOne === true) this.selection = [i];
+                    else this.selection.push(i)
+                } else {
                     const index = this.selection.indexOf(i);
-                    if (index > -1) {
-                        this.selection.splice(index, 1);
-                    }
+                    if (index !== -1) this.selection.splice(index, 1);
                 }
             }
         },
-        selectRow(i,item,$event) {
-
+        selectRow(i, item, $event) {
             // let $event.target.cellIndex
-            if (this.selectFromRow) {
-                this.toggleRow(i, 'selectRow');
-            }
+            if (this.selectFromRow) this.toggleRow(i, 'selectRow');
             
             // we do not want to send this event
             // if we are also checking the box
@@ -319,10 +295,7 @@ export default {
                 if ($event.target.nodeName === 'INPUT') return;
                 if ($event.target.nodeName === 'TD' && $event.target.cellIndex === 0) return;
                 this.$emit('click-row', item);
-            }
-            else {
-                this.$emit('click-row', item);
-            }
+            } else this.$emit('click-row', item);
         },
         checkedAll(e) {
             this.selectedAll = e;
@@ -330,11 +303,8 @@ export default {
         changeSelectControl(v) {
             this.menuOpen = false;
 
-            if(v !== 'number') {
-                this.$emit('select-control', v);
-            } else {
-                this.$emit('select-control', +this.$refs.rows_to_select.value);
-            }
+            if(v !== 'number') this.$emit('select-control', v);
+            else this.$emit('select-control', +this.$refs.rows_to_select.value);
         }
     },
     watch: {
@@ -343,20 +313,14 @@ export default {
 
             if (this.selection.length) {
                 for(let i = 0; i < this.items.length; i++) {
-                    if(this.selection.includes(i)) {
-                        selectedItems.push(this.items[i]);
-                    }
+                    if(this.selection.includes(i)) selectedItems.push(this.items[i]);
                 }
 
                 // if the selected items equal the total items
                 // lets make sure to check the selected all
                 // however, if they do not match, then uncheck select all
-                if (this.selection.length === this.items.length) {
-                    this.selectedAll = true;
-                }
-                else {
-                    this.selectedAll = false;
-                }
+                if (this.selection.length === this.items.length) this.selectedAll = true;
+                else this.selectedAll = false;
             } 
             else {
                 // if the selection is empty, 

@@ -87,22 +87,15 @@ export default {
 			let c = []
 
 			if(!this.text) {
-				if(this.outlined) {
-					c = c.concat([`border-2 border-${this.borderColor}-${this.colorLevel}`])
-				} 
-				else {
-					c = c.concat([`bg-${this.color}-${this.colorLevel}`])
-				}
-			} 
-			else {
-				if(this.outlined) {
-					c = c.concat([`border-2 border-${this.borderColor}-${this.colorLevel}`]);
-				}
+				if(this.outlined) c = c.concat([`border-2 border-${this.borderColor}-${this.colorLevel}`]);
+				else c = c.concat([`bg-${this.color}-${this.colorLevel}`]);
+			} else {
+				if(this.outlined) c = c.concat([`border-2 border-${this.borderColor}-${this.colorLevel}`]);
 			}
 
 			if(this.borderPosition && !this.outlined) {
 				const position = this.borderPosition.substring(0, 1);
-				c = c.concat([`border-${position}-${this.borderWidth} border-${this.borderColor}`])
+				c = c.concat([`border-${position}-${this.borderWidth} border-${this.borderColor}`]);
 			}
 
 			return c;

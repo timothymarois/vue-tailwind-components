@@ -112,11 +112,11 @@ export default {
 			return c;
 		},
 		iconText() {
-            return (this.icon!==true && this.icon!==false);
+            return (this.icon !== true && this.icon !== false);
         },
 		iconOnly() {
-			if (this.icon===true && (this.$slots.default || this.$slots.icon)) return true;
-			if (typeof this.icon==='string' && !this.$slots.default && !this.label) return true;
+			if (this.icon && (this.$slots.default || this.$slots.icon)) return true;
+			if (typeof this.icon === 'string' && !this.$slots.default && !this.label) return true;
 			return false;
 		}
 	},
@@ -139,13 +139,12 @@ export default {
 				Object.assign(data.props, {
 					to: this.to
 				});
-			} 
-			else {
+			} else {
 				tag = (this.href && 'a') || this.tag || 'div';
-				if (tag === 'a' && this.href) { data.attrs.href = this.href; }
+				if (tag === 'a' && this.href) data.attrs.href = this.href;
 			}
 
-			if (this.target) { data.attrs.target = this.target }
+			if (this.target) data.attrs.target = this.target;
 
 			return { tag, data };
 		},
@@ -170,9 +169,7 @@ export default {
 						sz = 5;
 				}
 
-				if (this.iconSize) {
-					sz = this.iconSize;
-				}
+				if (this.iconSize) sz = this.iconSize;
 
 				return this.$createElement(TIcon, {
 					props: {
@@ -186,16 +183,11 @@ export default {
 		},
 		genBaseLoader() {
 			let color = 'white';
-			if(this.disabled) {
-				color = 'gray-500'
-			}
+			if(this.disabled) color = 'gray-500'
+			
 			else {
-				if(this.outlined) {
-					color = this.color;
-				} 
-				else {
-					color = 'white';
-				}
+				if(this.outlined) color = this.color; 
+				else color = 'white';
 			}
 
 			let sz = 5;
@@ -216,9 +208,7 @@ export default {
 					sz = 5;
 			}
 
-			if (this.iconSize) {
-				sz = this.iconSize;
-			}
+			if (this.iconSize) sz = this.iconSize;
 
 			return this.$createElement(TLoader, {
 				props: {
@@ -229,14 +219,10 @@ export default {
 		},
 		genIcon() {
             if ((this.iconOnly && this.$slots.default) || this.$slots.icon || this.icon) {
+				let icon = null;
 
-				let icon = null
-				if (this.iconOnly && this.$slots.default) {
-					icon = this.$slots.default
-				}
-				else {
-					icon = this.$slots.icon ? this.$slots.icon : this.buildIcon(this.icon)
-				}
+				if (this.iconOnly && this.$slots.default) icon = this.$slots.default;
+				else icon = this.$slots.icon ? this.$slots.icon : this.buildIcon(this.icon)
 
                 return this.$createElement('span',{
                     staticClass:'btn__icon flex align-center',
@@ -273,9 +259,7 @@ export default {
             }
         },
 		click(e) {
-			if (!this.disabled) {
-				this.$emit('click', e);
-			}
+			if (!this.disabled) this.$emit('click', e);
 		},
 		bTheme(c) {
 			let colorLevelSecondary = +this.colorLevel + 100;
@@ -284,49 +268,28 @@ export default {
 
 			if (this.text) {
 				c = c.concat(['border-transparent']);
-				if (this.disabled) {
-					c = c.concat(['text-gray-400', 'bg-gray-50']);
-				}
-				else {
-					c = c.concat([`text-${this.color}-${this.colorLevel}`, `hover:text-${this.color}-${colorLevelSecondary}`, `hover:bg-${this.color}-100`]);
-				}
-			} 
-			else {
+				
+				if (this.disabled) c = c.concat(['text-gray-400', 'bg-gray-50']);
+				else c = c.concat([`text-${this.color}-${this.colorLevel}`, `hover:text-${this.color}-${colorLevelSecondary}`, `hover:bg-${this.color}-100`]);
+			} else {
 				if (this.outlined) {
-					if (this.disabled) {
-						c = c.concat(['text-gray-400','border-gray-200']);
-					}
+					if (this.disabled) c = c.concat(['text-gray-400','border-gray-200']);
 					else {
-						if (this.color=='white') {
-							c = c.concat([`border-${this.color} text-${this.color} hover:bg-${this.color} hover:text-indigo-${this.colorLevel}`]);
-						}
-						else {
-							c = c.concat([`border-${this.color}-${this.colorLevel} hover:border-${this.color}-${colorLevelSecondary} text-${this.color}-${this.colorLevel} hover:bg-${this.color}-100`]);
-						}
+						if (this.color === 'white') c = c.concat([`border-${this.color} text-${this.color} hover:bg-${this.color} hover:text-indigo-${this.colorLevel}`]);
+						else c = c.concat([`border-${this.color}-${this.colorLevel} hover:border-${this.color}-${colorLevelSecondary} text-${this.color}-${this.colorLevel} hover:bg-${this.color}-100`]);
 					}
-				}
-				else {
+				} else {
 					c = c.concat(['border-transparent']);
-					if (this.disabled) {
-						c = c.concat(['text-gray-400','bg-gray-200']);
-					} 
+					if (this.disabled) c = c.concat(['text-gray-400','bg-gray-200']); 
 					else {
-						if (this.color=='white') {
-							c = c.concat([`bg-white text-indigo-${this.colorLevel} hover:bg-indigo-100`]);
-						} 
-						else {
-							c = c.concat([`text-white bg-${this.color}-${this.colorLevel} hover:bg-${this.color}-${colorLevelSecondary}`]);
-						}
+						if (this.color === 'white') c = c.concat([`bg-white text-indigo-${this.colorLevel} hover:bg-indigo-100`]);
+						else c = c.concat([`text-white bg-${this.color}-${this.colorLevel} hover:bg-${this.color}-${colorLevelSecondary}`]);
 					}
 				}
 			}
 
-			if (this.rounded) {
-				c = c.concat(['rounded-full']);
-			} 
-			else {
-				c = c.concat(['rounded']);
-			}
+			if (this.rounded) c = c.concat(['rounded-full']);
+			else c = c.concat(['rounded']);
 
 			return c;
 		},
@@ -341,12 +304,8 @@ export default {
 			return c;
 		},
 		bDisabled(c) {
-			if (this.disabled===true) {
-				c = c.concat(['cursor-not-allowed']);
-			} 
-			else {
-				c = c.concat(['cursor-pointer']);
-			}
+			if (this.disabled) c = c.concat(['cursor-not-allowed']);
+			else c = c.concat(['cursor-pointer']);
 			return c;
 		},
 		bShadow(c) {
@@ -367,17 +326,12 @@ export default {
 			return c;
 		},
 		bIcon(c) {
-			if (this.icon === true) {
-				this.block = false;
-			}
+			if (this.icon === true) this.block = false;
 			return c;
 		},
 		bSize(c) {
-
-			if (this.padding || this.padding===0) {
-				c = c.concat([`px-${this.padding} py-${this.padding}`]);
-			}
-			else{
+			if (this.padding || this.padding === 0) c = c.concat([`px-${this.padding} py-${this.padding}`]);
+			else {
 				switch(this.size) {
 					case 'xs': 
 						c = c.concat(['text-xs']);
@@ -407,7 +361,7 @@ export default {
 			}
 
 			return c;
-		},
+		}
 	},
 	render(h) {
 		const children = [
@@ -422,9 +376,7 @@ export default {
 
 		// if we are a button
 		// lets add the disabled state (if we're disabled)
-		if (tag === 'button') {
-			data.attrs.disabled = this.disabled;
-		}
+		if (tag === 'button') data.attrs.disabled = this.disabled;
 
 		return h(tag, { ...(!this.disabled ? data : {}), class: this.classes }, children)
 	}

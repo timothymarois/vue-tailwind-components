@@ -17,7 +17,9 @@
                 :icon="icon"
                 :iconSize="iconSize"
                 :iconSolid="iconSolid"
-            ><slot></slot></t-button>
+            >
+                <slot></slot>
+            </t-button>
         </div>
         <div :id="`slot-container-${id}`" v-else>
             <slot name="opener"></slot>
@@ -187,45 +189,31 @@ export default {
     },
     watch: {
         value(v) {
-            this.menu = v
+            this.menu = v;
         },
         menu(v) {
-
-            if (v===true) {
-                this.$emit("input", true);
-            }
-            else {
-                this.$emit("input", false);
-            }
-
-            if (v===true) {
-                this.$nextTick(() => {
-                    this.viewport = viewportHelper('#dropdown-'+this.id);
-                });
-            }
-            else {
-                this.viewport = []
-            }
+            if (v === true) this.$emit("input", true);
+            else this.$emit("input", false);
+            if (v === true) this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
+            else this.viewport = [];
         }
     },
     computed: {
         dropdownSide() {
             if(this.viewport.includes('left')) return 'left';
             if(this.viewport.includes('right')) return 'right';
-            return this.side
+            return this.side;
         },
         dropdownDirection() {
             if(this.viewport.includes('bottom')) return 'top';
             if(this.viewport.includes('top')) return 'bottom';
-            return this.direction
+            return this.direction;
         },
         id() {
             return uniqid();
         },
         iconOnly() {
-            if ((typeof this.icon==='string' && !this.$slots.default) || this.icon===true) {
-                return true;
-            }
+            if ((typeof this.icon === 'string' && !this.$slots.default) || this.icon === true) return true;
             return false;
         },
         menuIcon() {
@@ -242,24 +230,12 @@ export default {
                 'focus:outline-none',
             ];
 
-            if (!this.$slots.content) {
-                c = c.concat(['bg-white','rounded','text-sm','w-52','border border-gray-200']);
-            }
+            if (!this.$slots.content) c = c.concat(['bg-white','rounded','text-sm','w-52','border border-gray-200']);
+            if(this.shadow) c = c.concat(['shadow-lg']);
+            if (this.dropdownSide === 'left') c = c.concat(['left-0']);
+            else c = c.concat(['right-0']);
 
-            if(this.shadow) {
-                c = c.concat(['shadow-lg']);
-            }
-
-            if (this.dropdownSide === 'left') {
-                c = c.concat(['left-0']);
-            } 
-            else {
-                c = c.concat(['right-0']);
-            }
-
-            if (this.maxHeight) {
-                c = c.concat(['overflow-y-auto'])
-            }
+            if (this.maxHeight) c = c.concat(['overflow-y-auto'])
 
             return c;
         },
@@ -268,18 +244,12 @@ export default {
                 const el = document.getElementById(`slot-container-${this.id}`);
                 if (!el) return;
                 
-                if(this.dropdownDirection === 'top') {
-                    return `bottom: ${el.clientHeight + 5}px`;
-                } 
-                else {
-                    return `top: ${el.clientHeight + 5}px`;
-                }
+                if(this.dropdownDirection === 'top') return `bottom: ${el.clientHeight + 5}px`;
+                else return `top: ${el.clientHeight + 5}px`;
             }
         },
         openerSlotEmpty() {
-            if(!this.$slots.opener) {
-                return true;
-            }
+            if(!this.$slots.opener) return true;
             return false;
         }
     },
@@ -295,9 +265,7 @@ export default {
             if (this.closeOnClick) this.menu = false;
         },
         close(e) {
-            if (!this.$el.contains(e.target)) {
-                this.menu = false;
-            }
+            if (!this.$el.contains(e.target)) this.menu = false;
         },
         
     },

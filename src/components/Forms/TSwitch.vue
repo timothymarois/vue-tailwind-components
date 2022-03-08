@@ -96,12 +96,8 @@ export default {
 	},
 	methods: {
 		switchState(side) {
-			if(side === 'aft' && this.falseLabel) {
-				this.internalValue = this.trueValue;
-			} 
-			else if(side === 'before') {
-				this.internalValue = this.falseValue;
-			} 
+			if(side === 'aft' && this.falseLabel) this.internalValue = this.trueValue;
+			else if(side === 'before') this.internalValue = this.falseValue;
 			else {
 				// this.internalValue = !this.internalValue;
 				const value = this.value;
@@ -114,26 +110,20 @@ export default {
 	},
 	computed: {
 		id() {
-			return uniqid()
+			return uniqid();
 		},
 		aftLabel() {
-			if ((this.trueLabel && this.isChecked === true) || (this.trueLabel && this.falseLabel)) {
-				return this.trueLabel;
-			} 
-			else {
-				return this.label;
-			}
+			if ((this.trueLabel && this.isChecked === true) || (this.trueLabel && this.falseLabel)) return this.trueLabel;
+			else return this.label;
 		},
 		beforeLabel() {
-			if(this.falseLabel) {
-				return this.falseLabel;
-			}
+			if(this.falseLabel) return this.falseLabel;
 		},
 		internalValue: {
-			get: function() {
+			get() {
 				return this.value; 
 			},
-			set: function(val) { 
+			set(val) { 
 				this.$emit('input', val);
 			}
 		},

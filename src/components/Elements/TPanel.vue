@@ -45,12 +45,8 @@ export default {
 	watch: {
 		show(v) {
 			if (v !== this.localShowing) {
-				if (v===false) {
-					this.close()
-				}
-				else {
-					this.localShowing = v
-				}
+				if (v === false) this.close();
+				else this.localShowing = v;
 			}
 		}
 	},
@@ -93,9 +89,7 @@ export default {
 		close() {
 			this.localShowing = false;
 			this.$emit('close');
-			setTimeout(() => {
-				return this.$emit('end');
-			}, 200);
+			setTimeout(() => this.$emit('end'), 200);
 		}
 	},
 	computed: {
@@ -108,30 +102,17 @@ export default {
 			
 			switch(this.type) {
 				case 'right': 
-					c = c.concat([
-						'right-0'
-					]);
+					c = c.concat(['right-0']);
 					break;
 				case 'left': 
-					c = c.concat([
-						'left-0'
-					]);
+					c = c.concat(['left-0']);
 					break;
 			}
 
-			if (this.scrolling) {
-				c = c.concat([
-					'overflow-y-auto'
-				]);
-			} else {
-				c = c.concat([
-					'overflow-y-hidden'
-				]);
-			}
+			if (this.scrolling) c = c.concat(['overflow-y-auto']);
+			else c = c.concat(['overflow-y-hidden']);
 
-			c = c.concat([
-				`p-${this.padding}`
-			]);
+			c = c.concat([`p-${this.padding}`]);
 
 			return c;
 		}

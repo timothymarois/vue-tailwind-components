@@ -8,16 +8,16 @@
             :icon="iconLabel"
             :color="errorState ? 'red-700' : 'gray-800'"
         />
-        <div :class="{'mt-1':label}">
+        <div :class="{'mt-1': label}">
             <div class="relative text-gray-500">
                 <div v-if="icon" class="pointer-events-none absolute inset-y-0 left-0 p-2 flex items-center">
                     <t-icon :value="icon" size="5" />
                 </div>
                 <input 
                     :id="id"
-                    :type="type" 
-                    :name="name" 
-                    :placeholder="placeholder" 
+                    :type="type"
+                    :name="name"
+                    :placeholder="placeholder"
                     :readonly="readonly"
                     :required="required"
                     :maxlength="maxlength"
@@ -144,7 +144,7 @@ export default {
     computed: {
         internalValue: {
             get() {
-                return this.value
+                return this.value;
             },
             set(v) {
                 this.$emit('input', v);
@@ -157,22 +157,14 @@ export default {
             if(!this.customStyle) {
                 let c = [`block w-full h-10 rounded text-sm focus:outline-none focus:ring-0`];
 
-                if (this.icon) {
-                    c = c.concat(['pl-8']);
-                }
+                if (this.icon) c = c.concat(['pl-8']);
 
-                if (this.inputClasses) {
-                    c = c.concat([this.inputClasses]);
-                }
+                if (this.inputClasses) c = c.concat([this.inputClasses]);
 
-                if(this.readonly) {
-                    c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-400']);
-                } else {
-                    if(this.errorState) {
-                        c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
-                    } else {
-                        c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
-                    }
+                if(this.readonly) c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-400']);
+                else {
+                    if(this.errorState) c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
+                    else c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
                 }
                 
                 return c;
@@ -189,10 +181,10 @@ export default {
                 if (this.max && value > +this.max) value = +this.max;
                 if (this.min && value < +this.min) value = +this.min;
             }
-            return value
+            return value;
         },
         input(e) {
-            e.target.value = this.validateValue(e.target.value)
+            e.target.value = this.validateValue(e.target.value);
             this.$emit('input', e.target.value);
         },
         keyup(e) {
