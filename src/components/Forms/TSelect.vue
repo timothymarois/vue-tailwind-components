@@ -9,7 +9,6 @@
         />
 
         <div class="relative w-full">
-
             <button
                 type="button"
                 class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
@@ -284,6 +283,10 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        zIndex: {
+            type: [Number, String],
+            default: "10"
         }
     },
     data() {
@@ -313,9 +316,8 @@ export default {
             this.cycleIndex = -1;
         },
         menu(value) {
-            if (value === true) {
-                this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
-            } else {
+            if (value === true) this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
+            else {
                 if(this.multiple || this.searchable) this.cycleIndex = -1;
                 else this.cycleIndex = this.selectedIndex || -1;
                 this.viewport = [];
@@ -337,7 +339,7 @@ export default {
             // return 'chevron-down'
         },
         dropdownClasses() {
-            let c = ['absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none z-10 border border-gray-200'];
+            let c = [`absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none border border-gray-200 z-${this.zIndex}`];
 
             if (this.dropdownDirection === 'top') c = c.concat(['bottom-10']);
             else c = c.concat(['top-10']);
