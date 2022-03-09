@@ -5,7 +5,7 @@
                 <th v-if="select" :class="selectOptions ? 'w-16' : 'w-12'">
                     <slot name="hselect">
                         <div class="flex justify-evenly w-full px-0.5">
-                            <t-checkbox 
+                            <t-checkbox
                                 v-if="!selectOne"
                                 v-model="selectedAll"
                                 @input="changeSelectControl('visible'); toggleAll();"

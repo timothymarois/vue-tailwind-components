@@ -223,8 +223,9 @@ export default {
 			}
 
 			if (this.relative) c = c.concat(['absolute']);
-			else if((!this.relative && this.scroll)) c = c.concat(['relative']);
+			else if(!this.relative && this.scroll) c = c.concat(['relative']);
 			else c = c.concat(['fixed']);
+
 			if (!this.scrolling) c = c.concat(['overflow-hidden']);
 
 			return c;
@@ -233,11 +234,16 @@ export default {
 			if (this.relativeOffsetPx) {
 				if(this.type === 'left' || (this.previousType === 'left' && this.type !== 'right') || this.type === 'center') return `left: calc(${this.relativeOffsetPx}px + 1em); right: 1em;`;
 				else return 'right: 1em;';
-			} else if(this.offsetDirection && this.offsetValue > 0) return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
+			} else if(this.offsetDirection && this.offsetValue > 0) {
+				return `${this.offsetDirection}: ${this.offsetValue}px; ${this.oppositeOf(this.offsetDirection)}: 0;`;
+			}
 		},
 		widthCalculation() {
-			if(this.offsetValue || this.relativeOffsetPx) return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
-			else if(this.centerOverflow || this.type === 'full') return `width: calc(100% - 2em);`;
+			if(this.offsetValue || this.relativeOffsetPx) {
+				return `width: calc(100% - 2em ${this.offsetValue || this.relativeOffsetPx ? `- ${this.offsetValue || this.relativeOffsetPx}px` : ''});`;
+			} else if(this.centerOverflow || this.type === 'full') {
+				return `width: calc(100% - 2em);`;
+			}
 			
 			return 'width: auto;';
 		},
