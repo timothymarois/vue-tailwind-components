@@ -59,7 +59,7 @@
                         'sortable cursor-pointer hover:bg-indigo-50': h.sorting,
                         'sorted': h.sorted
                     }"
-                    :style="h.width ? `width: ${h.width};` : ''"
+                    :style="h.width ? `min-width: ${h.width};` : ''"
                     @click="sortClicked(h)"
                 >
                     <slot :name="`header.${h.value}`" v-bind:header="h">
@@ -127,7 +127,7 @@
                         (item.class) ? item.class : '',
                         (h.class) ? h.class : ''
                     ]"
-                    :style="h.width ? `width: ${h.width};` : ''"
+                    :style="h.width ? `min-width: ${h.width};` : ''"
                 >
                     <slot :name="`column.${h.value}`" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
