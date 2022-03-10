@@ -59,7 +59,7 @@
                         'sortable cursor-pointer hover:bg-indigo-50': h.sorting,
                         'sorted': h.sorted
                     }"
-                    :style="h.width ? `min-width: ${h.width};` : ''"
+                    :style="`${h.minWidth ? `min-width: ${h.minWidth}` : ''} ${h.width ? `width: ${h.width};` : ''}`"
                     @click="sortClicked(h)"
                 >
                     <slot :name="`header.${h.value}`" v-bind:header="h">
@@ -127,7 +127,7 @@
                         (item.class) ? item.class : '',
                         (h.class) ? h.class : ''
                     ]"
-                    :style="h.width ? `min-width: ${h.width};` : ''"
+                    :style="`${h.minWidth ? `min-width: ${h.minWidth}` : ''} ${h.width ? `width: ${h.width};` : ''}`"
                 >
                     <slot :name="`column.${h.value}`" v-bind:column="item" v-bind:index="i">{{ item[h.value] }}</slot>
                 </td>
@@ -243,7 +243,10 @@ export default {
             return this.nodata;
         },
         headerItems() {
-            return this.headers.filter(item => !item.hide);
+            return this.headers.filter((item) => !item.hide);
+        },
+        computedItems() {
+            
         }
     },
     methods: {

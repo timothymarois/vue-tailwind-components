@@ -310,6 +310,27 @@ export const FixedHeaderTable = () => ({
                 sorting: false,
                 hide: false,
                 sorted: false,
+            },
+            {
+                title: 'Email 2',
+                value: 'email_2',
+                sorting: false,
+                hide: false,
+                sorted: false,
+            },
+            {
+                title: 'Email 3',
+                value: 'email_3',
+                sorting: false,
+                hide: false,
+                sorted: false,
+            },
+            {
+                title: 'Email 4',
+                value: 'email_4',
+                sorting: false,
+                hide: false,
+                sorted: false,
             }
         ],
         items: [
@@ -318,56 +339,80 @@ export const FixedHeaderTable = () => ({
                 property_address: '845 NY Ave',
                 mail_address: '845 NY Ave',
                 full_name: 'Timothy Marois',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             },
             {
                 id: 214,
                 property_address: '210 W Trade st',
                 mail_address: '210 W Trade st',
                 full_name: 'Jason Gordon',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             },
             {
                 id: 788,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             },
             {
                 id: 888,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             },
             {
                 id: 1234,
                 property_address: '845 NY Ave',
                 mail_address: '845 NY Ave',
                 full_name: 'Timothy Marois',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             },
             {
                 id: 2144,
                 property_address: '210 W Trade st',
                 mail_address: '210 W Trade st',
                 full_name: 'Jason Gordon',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             },
             {
                 id: 7884,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             },
             {
                 id: 8884,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
             }
         ]
     }),
@@ -375,7 +420,7 @@ export const FixedHeaderTable = () => ({
 	`
         <div class="p-6 bg-gray-100">
             <t-card title="Selection (prop: select)" contentPadding="0">
-                <div class="h-72 overflow-y-hidden">
+                <div class="h-72 relative">
                     <t-table-simple 
                         :headers="headers"
                         :items="items"
@@ -386,7 +431,6 @@ export const FixedHeaderTable = () => ({
                         selectFromRow
                         :selectOne="false"
                         fixedHeader
-
                     />
                 </div>
             </t-card>
@@ -649,6 +693,190 @@ export const SelectAllOptions = () => ({
                 SELECT OPTION: <p>{{JSON.stringify(selectAllOption)}}</p>
             </div>
 
+        </div>
+	`,
+});
+
+export const ItemsWithObjects = () => ({
+	// props: Object.keys(argTypes),
+	components: { TTableSimple, TCard },
+    methods: {
+        rowClicked(item) {
+            this.clickedRow = item;
+        },
+        updateSelection(val) {
+            this.selected = val;
+        },
+        updateSorting(item, sortUpdate) {
+            // this is simple logic to change sorting
+            let newHeaders = [];
+            this.headers.forEach(h => {
+                if (h.value==item.value) {
+                    h.sorted = sortUpdate
+                    newHeaders.push(h);
+                }
+                else {
+                    h.sorted = null
+                    newHeaders.push(h);
+                }
+            });
+
+            this.headers = newHeaders;
+        }
+    },
+    data: () => ({
+        selected: [],
+        clickedRow: {},
+        headers: [
+            {
+                title: 'Property Address',
+                value: 'property_address',
+                sorting: true,
+                sorted: 'DESC',
+                sortDefault: 'DESC'
+            },
+            {
+                title: 'Full Name',
+                value: 'full_name',
+                sorting: true,
+                sorted: false,
+            },
+            {
+                title: 'Mailing Address',
+                value: 'mail_address',
+                sorting: true,
+                hide: true,
+                sorted: false,
+            },
+            {
+                title: 'Email',
+                value: 'email',
+                sorting: false,
+                hide: false,
+                sorted: false,
+            },
+            {
+                title: 'Email 2',
+                value: 'email_2',
+                sorting: false,
+                hide: false,
+                sorted: false,
+            },
+            {
+                title: 'Email 3',
+                value: 'email_3',
+                sorting: false,
+                hide: false,
+                sorted: false,
+            },
+            {
+                title: 'Email 4',
+                value: 'email_4',
+                sorting: false,
+                hide: false,
+                sorted: false,
+            }
+        ],
+        items: [
+            {
+                id: 123,
+                property_address: '845 NY Ave',
+                mail_address: '845 NY Ave',
+                full_name: 'Timothy Marois',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            },
+            {
+                id: 214,
+                property_address: '210 W Trade st',
+                mail_address: '210 W Trade st',
+                full_name: 'Jason Gordon',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            },
+            {
+                id: 788,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            },
+            {
+                id: 888,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            },
+            {
+                id: 1234,
+                property_address: '845 NY Ave',
+                mail_address: '845 NY Ave',
+                full_name: 'Timothy Marois',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            },
+            {
+                id: 2144,
+                property_address: '210 W Trade st',
+                mail_address: '210 W Trade st',
+                full_name: 'Jason Gordon',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            },
+            {
+                id: 7884,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            },
+            {
+                id: 8884,
+                property_address: '425 N Church st',
+                mail_address: '425 N Church st',
+                full_name: 'April Lane',
+                email: 'email@gmail.com',
+                email_2: 'email2@gmail.com',
+                email_3: 'email3@gmail.com',
+                email_4: 'email4@gmail.com'
+            }
+        ]
+    }),
+	template: 
+	`
+        <div class="p-6 bg-gray-100">
+            <t-card title="Selection (prop: select)" contentPadding="0">
+                <div class="h-72 relative">
+                    <t-table-simple 
+                        :headers="headers"
+                        :items="items"
+                        @click-row="rowClicked"
+                        @change-selected="updateSelection"
+                        @change-sort="updateSorting"
+                        select
+                        selectFromRow
+                        :selectOne="false"
+                    />
+                </div>
+            </t-card>
         </div>
 	`,
 });
