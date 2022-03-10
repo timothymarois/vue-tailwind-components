@@ -749,29 +749,29 @@ export const ItemsWithObjects = () => ({
                 sorted: false,
             },
             {
-                title: 'Email',
-                value: 'email',
+                title: 'Property Info',
+                value: 'property.info',
                 sorting: false,
                 hide: false,
                 sorted: false,
             },
             {
-                title: 'Email 2',
-                value: 'email_2',
+                title: 'Property Cost',
+                value: 'property.cost',
                 sorting: false,
                 hide: false,
                 sorted: false,
             },
             {
-                title: 'Email 3',
-                value: 'email_3',
+                title: 'Property Date',
+                value: 'property.date',
                 sorting: false,
                 hide: false,
                 sorted: false,
             },
             {
-                title: 'Email 4',
-                value: 'email_4',
+                title: 'Property Type',
+                value: 'property.type',
                 sorting: false,
                 hide: false,
                 sorted: false,
@@ -783,80 +783,96 @@ export const ItemsWithObjects = () => ({
                 property_address: '845 NY Ave',
                 mail_address: '845 NY Ave',
                 full_name: 'Timothy Marois',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost",
+                    date: "Date",
+                    type: "Type"
+                }
             },
             {
                 id: 214,
                 property_address: '210 W Trade st',
                 mail_address: '210 W Trade st',
                 full_name: 'Jason Gordon',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost 2",
+                    date: "Date",
+                    type: "Type"
+                }
             },
             {
                 id: 788,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost",
+                    date: "Date",
+                    type: "Type"
+                }
             },
             {
                 id: 888,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost",
+                    date: "Date",
+                    type: "Type"
+                }
             },
             {
                 id: 1234,
                 property_address: '845 NY Ave',
                 mail_address: '845 NY Ave',
                 full_name: 'Timothy Marois',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost",
+                    date: "Date",
+                    type: "Type"
+                }
             },
             {
                 id: 2144,
                 property_address: '210 W Trade st',
                 mail_address: '210 W Trade st',
                 full_name: 'Jason Gordon',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost",
+                    date: "Date",
+                    type: "Type"
+                }
             },
             {
                 id: 7884,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost",
+                    date: "Date",
+                    type: "Type"
+                }
             },
             {
                 id: 8884,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
                 full_name: 'April Lane',
-                email: 'email@gmail.com',
-                email_2: 'email2@gmail.com',
-                email_3: 'email3@gmail.com',
-                email_4: 'email4@gmail.com'
+                property: {
+                    info: "Info",
+                    cost: "Cost",
+                    date: "Date",
+                    type: "Type"
+                }
             }
         ]
     }),
