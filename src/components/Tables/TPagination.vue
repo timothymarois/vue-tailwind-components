@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col sm:flex-row justify-between mt-2 text-sm">
-        <div class="flex flex-row items-center mb-2 sm:mb-0">
+        <div class="flex flex-row items-center mt-2 sm:mt-0 order-2 sm:order-1">
             <select 
                 name="currentPerPage" 
                 class="cursor-pointer flex w-16 pl-2 pr-4 py-2 bg-white border-gray-200 text-gray-500 hover:bg-indigo-100 hover:border-indigo-900 hover:text-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring-0 text-sm font-medium rounded"
@@ -17,7 +17,7 @@
             </select>
             <label for="perPage" class="mt-0 ml-4 text-gray-500 text-left">Showing {{ fromItem }} to {{ toItem }} of {{ totalItems }} results</label>
         </div>
-        <div class="relative flex space-x-1">
+        <div class="relative flex space-x-1 order-1 sm:order-2">
             <div @click="prevDisabled ? '' : goToPage(currentPage - 1)">
                 <a :class="[prevDisabled ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 bg-white text-gray-500', 'relative inline-flex items-center px-2 py-2 rounded text-sm font-medium border border-gray-200']">
                     <span class="sr-only">
