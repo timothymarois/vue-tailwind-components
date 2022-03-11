@@ -118,7 +118,7 @@
 
                 <td 
                     v-for="(h) in headerItems"
-                    :key="h.value.includes('.') ? item[h.value.split('.')[0]][h.value.split('.')[1]] : item[h.value]"
+                    :key="h.value"
                     class="px-4 py-3 border-0 relative font-normal"
                     :class="[
                         (!h.align) ? 'text-left' : '',
@@ -129,7 +129,9 @@
                     ]"
                     :style="`${h.minWidth ? `min-width: ${h.minWidth}` : ''} ${h.width ? `width: ${h.width};` : ''}`"
                 >
-                    <slot :name="`column.${h.value.includes('.') ? item[h.value.split('.')[0]][h.value.split('.')[1]] : item[h.value]}`" v-bind:column="item" v-bind:index="i">{{ h.value.includes('.') ? item[h.value.split('.')[0]][h.value.split('.')[1]] : item[h.value] }}</slot>
+                    <slot :name="`column.${h.value}`" v-bind:column="item" v-bind:index="i">
+                        {{ h.value.includes('.') ? item[h.value.split('.')[0]][h.value.split('.')[1]] : item[h.value] }}
+                    </slot>
                 </td>
             </tr>
         </tbody>
