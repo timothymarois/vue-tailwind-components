@@ -320,6 +320,51 @@ export const MultipleStates = () => ({
                 </t-card>
             </div>
 
+            <div class="w-full mt-5" style="width: 400px;">
+                <t-card title="Tabs with overflow">
+                    <div class="overflow-y-auto" style="height: 400px;">
+                        <t-tabs
+                            grow
+                            sticky
+                            v-model="tabs1"
+                            :items="[
+                                {
+                                    name: 'Tab 1',
+                                    id: 'tab1'
+                                },
+                                {
+                                    name: 'Tab 2',
+                                    id: 'tab2'
+                                },
+                                {
+                                    name: 'Tab 3',
+                                    id: 'tab3'
+                                },
+                                {
+                                    name: 'Tab 4',
+                                    id: 'tab4'
+                                }
+                            ]"
+                        >
+                            <template slot="tab1">
+                                <div style="height: 1000px;">
+                                    This is tab 1 content
+                                </div>
+                            </template>
+                            <template slot="tab2">
+                                This is tab 2 content
+                            </template>
+                            <template slot="tab3">
+                                This is tab 3 content
+                            </template>
+                            <template slot="tab4">
+                                This is tab 4 content
+                            </template>
+                        </t-tabs>
+                    </div>
+                </t-card>
+            </div>
+
 
 
 

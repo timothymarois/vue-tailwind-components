@@ -5,6 +5,7 @@
                 'justify-between': grow,
                 'gap-4 mb-4': !dense,
                 'gap-2 mb-2': dense,
+                'sticky top-0 bg-white pb-2': sticky
             }"
         >
             <button
@@ -17,7 +18,7 @@
                     'flex-1': even,
                     'hover:bg-indigo-900 hover:text-white': (value == item.id) && !item.disabled,
                     'hover:bg-indigo-100 hover:text-indigo-900': (value != item.id) && !item.disabled,
-                    'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300': item.disabled,
+                    'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300': item.disabled
                 }"
                 @click="update(item)"
                 v-for="item of items"
@@ -27,7 +28,7 @@
                 <span>{{ item.name }}</span>
             </button>
         </div>
-        <div v-for="(slot,index) in $slots" :key="index">
+        <div v-for="(slot, index) in $slots" :key="index">
             <div v-show="value == index">
                 <slot :name="index" />
             </div>
@@ -59,6 +60,10 @@ export default {
           type: Boolean,
           default: false
         },
+        sticky: {
+            type: Boolean,
+            default: false
+        }
     },
     methods:{
         update(item) {
