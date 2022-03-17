@@ -113,6 +113,7 @@
                         :class="[
                             {'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) }, 
                             { 'focused': equalsSearch(item[itemValue]) },
+                            { 'capitalize': capitalize },
                             item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
                         ]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
@@ -147,6 +148,7 @@
                             :class="[
                                 { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
                                 { 'focused': equalsSearch(item[itemValue]) },
+                                { 'capitalize': capitalize },
                                 item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
                             ]"
                             :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
@@ -281,6 +283,10 @@ export default {
             type: String,
             required: false,
             default: 'indigo'
+        },
+        capitalize: {
+            type: Boolean,
+            default: false
         },
         clearable: {
             type: Boolean,
