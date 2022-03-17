@@ -369,7 +369,7 @@ export default {
         },
         selectPlaceholder() { 
             if(this.multiple && this.selected.length) return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            else if(!this.multiple && this.selected[this.itemValue] !== null) return this.selected[this.itemLabel];
+            else if(!this.multiple && (this.selected[this.itemValue] || this.selected[this.itemValue] === false)) return this.selected[this.itemLabel];
 
             return this.placeholder;
         },
