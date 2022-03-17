@@ -21,14 +21,14 @@
                 :tabindex="searchable && !disabled ? '-1' : '0'"
             >
                 <span 
-                    v-if="(!searchable && !selected.length) || (searchable && disabled && !selected)" 
+                    v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
                     @click="menuToggle('label')"
                 >{{ placeholder }}</span>
                 
                 <span 
-                    v-else-if="!searchable && selected.length" 
+                    v-else-if="!searchable && selected.length !== 0" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
                     :class="{ 'text-gray-500 cursor-not-allowed': disabled, 'text-indigo-800': !disabled }"
@@ -369,7 +369,7 @@ export default {
         },
         selectPlaceholder() { 
             if(this.multiple && this.selected.length) return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            else if(!this.multiple && (this.selected[this.itemValue] || this.selected[this.itemValue] === false)) return this.selected[this.itemLabel];
+            else if(!this.multiple && this.selected[this.itemValue]) return this.selected[this.itemLabel];
 
             return this.placeholder;
         },
