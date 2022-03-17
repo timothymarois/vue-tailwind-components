@@ -49,14 +49,14 @@
                     :placeholder="selectPlaceholder"
                     class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
                     :class="{
-                        'text-gray-500 cursor-not-allowed' : disabled, 
-                        'text-indigo-800' : !disabled,
-                        'placeholder-indigo-800' : selected.length > 0 || selected[itemValue] ,                        
+                        'text-gray-500 cursor-not-allowed': disabled, 
+                        'text-indigo-800': !disabled,
+                        'placeholder-indigo-800': selected.length > 0 || selected[itemValue] || selected[itemValue] === false,                        
                     }"
                 />
 
                 <div 
-                    v-if="clearable && (localsearch || selected.length || selected[itemValue])"
+                    v-if="clearable && (localsearch || selected.length || selected[itemValue] || selected[itemValue] === false)"
                     class="cursor-pointer absolute inset-y-0 right-6 p-2 flex items-center"
                     @click="clearField"
                 >
@@ -242,7 +242,7 @@ export default {
             default: 'Select One'
         },
         value: {
-            type: [String, Object, Number, Array]
+            type: [String, Object, Number, Array, Boolean]
         },
         options: {
             type: Array,
@@ -311,7 +311,7 @@ export default {
     watch: {
         value: {
             handler: function (value) { 
-                if (value) {
+                if (value || value === false) {
                     let items = this.getItemsByValue(value, this.multiple);
                     if (items) this.selected = items;
                 } else {
@@ -369,21 +369,21 @@ export default {
         },
         selectPlaceholder() { 
             if(this.multiple && this.selected.length) return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            else if(!this.multiple && this.selected[this.itemValue]) return this.selected[this.itemLabel];
+            else if(!this.multiple && (this.selected[this.itemValue] || this.selected[this.itemValue] === false)) return this.selected[this.itemLabel];
 
             return this.placeholder;
         },
         returnValue() {
             if(this.multiple) {
                 if(this.returnObject) return this.selected;
-                return this.selected.map(obj => obj[this.itemValue]);
+                return this.selected.map((obj) => obj[this.itemValue]);
             } else {
                 if(this.returnObject) return this.selected;
                 return this.selected[this.itemValue];
             }
         },
         computedOptions() {
-            if(this.options.length && !this.options[0][this.itemValue] && !this.grouped) {
+            if(this.options.length && (!this.options[0][this.itemValue] && this.options[0][this.itemValue] !== false) && !this.grouped) {
                 return this.options.map((key) => {
                     return {
                         label: key,
@@ -434,9 +434,9 @@ export default {
                 if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
-                if(!this.selected.some(obj => obj[this.itemValue] === item[this.itemValue])) this.selected.push(item);
+                if(!this.selected.some((obj) => obj[this.itemValue] === item[this.itemValue])) this.selected.push(item);
                 else {
-                    let i = this.selected.findIndex(obj => obj[this.itemValue] === item[this.itemValue]);
+                    let i = this.selected.findIndex((obj) => obj[this.itemValue] === item[this.itemValue]);
                     this.selected.splice(i, 1);
                 }
             }
