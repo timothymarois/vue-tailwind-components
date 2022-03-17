@@ -369,7 +369,7 @@ export default {
         },
         selectPlaceholder() { 
             if(this.multiple && this.selected.length) return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            else if(!this.multiple && this.selected[this.itemValue]) return this.selected[this.itemLabel];
+            else if(!this.multiple && this.selected[this.itemValue] !== null) return this.selected[this.itemLabel];
 
             return this.placeholder;
         },
@@ -377,8 +377,7 @@ export default {
             if(this.multiple) {
                 if(this.returnObject) return this.selected;
                 return this.selected.map(obj => obj[this.itemValue]);
-            } 
-            else {
+            } else {
                 if(this.returnObject) return this.selected;
                 return this.selected[this.itemValue];
             }
