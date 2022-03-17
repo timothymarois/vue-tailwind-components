@@ -81,9 +81,7 @@
                 >
                     <t-loader size="5" />
                 </div>
-
             </button>
-
             <ul
                 :class="dropdownClasses"
                 v-show="menu"
@@ -111,22 +109,27 @@
                     <li
                         v-for="(item, i) of searchableOptions"
                         :key="i"
-                        class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                        :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : equalsSearch(item[itemValue])}]"
+                        class="relative flex items-center rounded m-2 transition duration-150"
+                        :class="[
+                            {'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) }, 
+                            { 'focused': equalsSearch(item[itemValue]) },
+                            item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
+                        ]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
-                        @click.stop="selectItem(item)"
+                        @click.stop="item.disabled ? '' : selectItem(item)"
                     >  
                         <t-checkbox 
                             v-if="multiple"
                             :color="color"
                             :value="isChecked(item)"
                             :check="true"
+                            :disabled="item.disabled"
                             size="4"
                             class="ml-2"
                         />
-                        <span 
+                        <div 
                             class="font-normal m-2" 
-                            v-html="item[itemLabel]"
+                            v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
                         />    
                     </li>
                 </div>
@@ -140,22 +143,27 @@
                         <li
                             v-for="(item, i) of groupedItems(group.items)"
                             :key="i"
-                            class="relative cursor-pointer flex items-center rounded m-2 hover:bg-indigo-100 hover:text-indigo-900 transition duration-150"
-                            :class="[{ 'text-white bg-indigo-800' : (!multiple && selected[itemValue] === item[itemValue]) }, { 'focused' : equalsSearch(item[itemValue]) }]"
+                            class="relative flex items-center rounded m-2 transition duration-150"
+                            :class="[
+                                { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
+                                { 'focused': equalsSearch(item[itemValue]) },
+                                item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
+                            ]"
                             :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
-                            @click.stop="selectItem(item)"
+                            @click.stop="item.disabled ? '' : selectItem(item)"
                         >  
                             <t-checkbox 
                                 v-if="multiple"
                                 :color="color"
                                 :value="isChecked(item)"
                                 :check="true"
+                                :disabled="item.disabled"
                                 size="4"
                                 class="ml-2"
                             />
-                            <span 
+                            <div 
                                 class="font-normal m-2" 
-                                v-html="item[itemLabel]"
+                                v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
                             />    
                         </li>
                     </div>

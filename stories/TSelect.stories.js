@@ -212,7 +212,8 @@ export const StandardStates = (argTypes) => ({
 			},
 			{
 				label: 'option 4',
-				value: 'option_4'
+				value: 'option_4',
+				disabled: true
 			},
 			{
 				label: 'option 5',
@@ -237,6 +238,12 @@ export const StandardStates = (argTypes) => ({
 		],
 		optionsWithKey: [
 			{
+				optionListLabel: `
+					<div class="flex">
+						<div class="h-6 w-6 rounded-full bg-indigo-700 text-white flex items-center justify-center font-2xl font-semibold mr-2">DL</div>
+						option 1
+					</div>
+				`,
 				label: 'option 1',
 				key: 'option_1'
 			},
@@ -272,7 +279,7 @@ export const StandardStates = (argTypes) => ({
 				<t-card title="Standard with Different itemValue" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select itemValue="key" v-model="empty" label="Standard" :options="optionsWithKey" placeholder="Select One" />
-						<t-select itemValue="key" searchable v-model="empty" label="Searchable" :options="optionsWithKey" placeholder="Select One" />
+						<t-select itemValue="key" searchable v-model="empty" label="Searchable" :options="optionsWithKey" multiple placeholder="Select One" />
 					</div>
 				</t-card>
 
@@ -300,7 +307,7 @@ export const StandardStates = (argTypes) => ({
 				<t-card title="Standard with scroll bar" class="mt-4">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-select v-model="maxHeightValue" label="Standard" :options="options2" placeholder="Select One" />
-						<t-select searchable v-model="maxHeightValue" label="Searchable" :options="options2" placeholder="Select One" />
+						<t-select searchable v-model="maxHeightValue" label="Searchable" multiple :options="options2" placeholder="Select One" />
 					</div>
 				</t-card>
 
