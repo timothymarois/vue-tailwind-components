@@ -21,17 +21,17 @@
                 :tabindex="searchable && !disabled ? '-1' : '0'"
             >
                 <span 
-                    v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
+                    v-if="(!searchable && !selected.length) || (searchable && disabled && !selected)" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
                     @click="menuToggle('label')"
                 >{{ placeholder }}</span>
                 
                 <span 
-                    v-else-if="!searchable && selected.length !== 0" 
+                    v-else-if="!searchable && selected.length" 
                     :placeholder="placeholder" 
                     class="truncate pl-3 font-medium"
-                    :class="{ 'text-gray-500 cursor-not-allowed' : disabled, 'text-indigo-800' : !disabled }"
+                    :class="{ 'text-gray-500 cursor-not-allowed': disabled, 'text-indigo-800': !disabled, 'capitalize': capitalize }"
                     @click="menuToggle('label')"
                 >{{ selectPlaceholder }}</span>
 
