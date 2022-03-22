@@ -1,6 +1,6 @@
 <template>
     <div class="relative w-full">
-        <t-label 
+        <t-label
             v-if="label"
             :id="`search-${id}`"
             :label="label"
@@ -9,98 +9,104 @@
         />
 
         <div class="relative w-full">
-            <button
-                type="button"
-                class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
-                :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
-                @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
-                @keydown.up.prevent="cycleOptions('up')"
-                @keydown.down.prevent="cycleOptions('down')"
-                @keydown.tab="menu = false"
-                @click.self="menuToggle('button')"
-                :tabindex="searchable && !disabled ? '-1' : '0'"
+            <div 
+                @click="$slots.opener ? menuToggle('button') : ''"
             >
-                <span 
-                    v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
-                    :placeholder="placeholder" 
-                    class="truncate pl-3 font-medium"
-                    @click="menuToggle('label')"
-                >{{ placeholder }}</span>
-                
-                <span 
-                    v-else-if="!searchable && selected.length !== 0" 
-                    :placeholder="placeholder" 
-                    class="truncate pl-3 font-medium"
-                    :class="{ 'text-gray-500 cursor-not-allowed': disabled, 'text-indigo-800': !disabled }"
-                    @click="menuToggle('label')"
-                >{{ selectPlaceholder }}</span>
+                <slot name="opener">
+                    <button
+                        type="button"
+                        class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
+                        :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
+                        @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
+                        @keydown.up.prevent="cycleOptions('up')"
+                        @keydown.down.prevent="cycleOptions('down')"
+                        @keydown.tab="menu = false"
+                        @click.self="menuToggle('button')"
+                        :tabindex="searchable && !disabled ? '-1' : '0'"
+                    >
+                        <span
+                            v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
+                            :placeholder="placeholder" 
+                            class="truncate pl-3 font-medium"
+                            @click="menuToggle('label')"
+                        >{{ placeholder }}</span>
+                        
+                        <span
+                            v-else-if="!searchable && selected.length !== 0" 
+                            :placeholder="placeholder" 
+                            class="truncate pl-3 font-medium"
+                            :class="{ 'text-gray-500 cursor-not-allowed': disabled, 'text-indigo-800': !disabled }"
+                            @click="menuToggle('label')"
+                        >{{ selectPlaceholder }}</span>
 
-                <input
-                    ref="dsearchb"
-                    v-else
-                    v-model="localsearch"
-                    @keyup="searchLocal($event, localsearch)"
-                    :disabled="disabled"
-                    @click="menuToggle('input')"
-                    type="text"
-                    :autocomplete="`new-search-${id}`"
-                    :id="`search-${id}`"
-                    :name="`n[${id}]`"
-                    :placeholder="selectPlaceholder"
-                    class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
-                    :class="{
-                        'text-gray-500 cursor-not-allowed': disabled, 
-                        'text-indigo-800': !disabled,
-                        'placeholder-indigo-800': selected.length > 0 || selected[itemValue] || selected[itemValue] === false,                        
-                    }"
-                />
+                        <input
+                            v-else
+                            ref="dsearchb"
+                            v-model="localsearch"
+                            @keyup="searchLocal($event, localsearch)"
+                            :disabled="disabled"
+                            @click="menuToggle('input')"
+                            type="text"
+                            :autocomplete="`new-search-${id}`"
+                            :id="`search-${id}`"
+                            :name="`n[${id}]`"
+                            :placeholder="selectPlaceholder"
+                            class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
+                            :class="{
+                                'text-gray-500 cursor-not-allowed': disabled,
+                                'text-indigo-800': !disabled,
+                                'placeholder-indigo-800': selected.length > 0 || selected[itemValue] || selected[itemValue] === false,
+                            }"
+                        />
 
-                <div 
-                    v-if="clearable && (localsearch || selected.length || selected[itemValue] || selected[itemValue] === false)"
-                    class="cursor-pointer absolute inset-y-0 right-6 p-2 flex items-center"
-                    @click="clearField"
-                >
-                    <t-icon value="close" size="5" />
-                </div>
+                        <div
+                            v-if="clearable && (localsearch || selected.length || selected[itemValue] || selected[itemValue] === false)"
+                            class="cursor-pointer absolute inset-y-0 right-6 p-2 flex items-center"
+                            @click="clearField"
+                        >
+                            <t-icon value="close" size="5" />
+                        </div>
 
-                <div 
-                    v-if="!hideicon && !loading"
-                    @click="menuToggle('arrow')"
-                    class="p-2 h-full"
-                >
-                    <t-icon 
-                        v-if="!hideicon && !loading" 
-                        :value="menuIcon" 
-                        size="5" 
-                    />
-                </div>
+                        <div
+                            v-if="!hideicon && !loading"
+                            @click="menuToggle('arrow')"
+                            class="p-2 h-full"
+                        >
+                            <t-icon
+                                v-if="!hideicon && !loading"
+                                :value="menuIcon"
+                                size="5"
+                            />
+                        </div>
 
-                <div 
-                    v-if="loading"
-                    class="p-2 h-full"
-                >
-                    <t-loader size="5" />
-                </div>
-            </button>
+                        <div 
+                            v-if="loading"
+                            class="p-2 h-full"
+                        >
+                            <t-loader size="5" />
+                        </div>
+                    </button>
+                </slot>
+            </div>
             <ul
                 :class="dropdownClasses"
                 v-show="menu"
                 :id="`dropdown-${this.id}`"
             >
-                <li 
-                    v-if="loading" 
+                <li
+                    v-if="loading"
                     class="flex items-center rounded m-4 font-medium"
                 >
                     Searching...
                 </li>
-                <li 
-                    v-else-if="!loading && searchable && !searchableOptions.length && !localsearch" 
+                <li
+                    v-else-if="!loading && searchable && !searchableOptions.length && !localsearch"
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
                     {{ searchText }}
                 </li>
-                <li 
-                    v-else-if="!loading && !searchableOptions.length" 
+                <li
+                    v-else-if="!loading && !searchableOptions.length"
                     class="flex items-center justify-between rounded m-4 font-medium"
                 >
                     {{ nodata }}
@@ -111,14 +117,14 @@
                         :key="i"
                         class="relative flex items-center rounded m-2 transition duration-150"
                         :class="[
-                            {'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) }, 
+                            {'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
                             { 'focused': equalsSearch(item[itemValue]) },
                             item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
                         ]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
                         @click.stop="item.disabled ? '' : selectItem(item)"
                     >  
-                        <t-checkbox 
+                        <t-checkbox
                             v-if="multiple"
                             :color="color"
                             :value="isChecked(item)"
@@ -127,17 +133,18 @@
                             size="4"
                             class="ml-2"
                         />
-                        <div 
-                            class="font-normal m-2" 
+                        <div
+                            class="font-normal m-2"
                             v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
-                        />    
+                        />
                     </li>
                 </div>
                 <div v-else-if="!loading && computedOptions.length && grouped">
                     <div v-for="(group, j) of options" :key="group.groupName">
                         <div
-                            v-if="groupedItems(group.items).length" 
-                            :class="`font-bold text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`">
+                            v-if="groupedItems(group.items).length"
+                            :class="`font-bold text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`
+                        ">
                             {{ group.groupName }}
                         </div>
                         <li
@@ -151,8 +158,8 @@
                             ]"
                             :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
                             @click.stop="item.disabled ? '' : selectItem(item)"
-                        >  
-                            <t-checkbox 
+                        >
+                            <t-checkbox
                                 v-if="multiple"
                                 :color="color"
                                 :value="isChecked(item)"
@@ -161,8 +168,8 @@
                                 size="4"
                                 class="ml-2"
                             />
-                            <div 
-                                class="font-normal m-2" 
+                            <div
+                                class="font-normal m-2"
                                 v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
                             />    
                         </li>

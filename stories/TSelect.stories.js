@@ -84,6 +84,44 @@ MultipleSelect.args = {
 	value: ["option_1", "option_3"] // Selected option(s) by default
 };
 
+export const SlotOpener = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TSelect },
+	template: 
+		`
+		<div>
+			<div class="w-1/2">
+				<t-select label="Select an option" v-model="value" required v-bind="$props">
+					<template slot="opener">
+						{{ value.join(", ") }}
+					</template>
+				</t-select>
+			</div>
+			<div class="mt-16">returnObject is set to <b>{{ returnObject }}</b>, so v-model equals: <br> {{ value }}</div>
+		</div>
+		`,
+});
+
+SlotOpener.args = {
+	color: 'indigo',
+	options: [
+        {
+            label: 'option 1',
+            value: 'option_1'
+        },
+        {
+            label: 'option 2',
+            value: 'option_2'
+        },
+        {
+            label: 'option 3',
+            value: 'option_3'
+        }
+    ],
+	returnObject: false,
+	multiple: true,
+	value: ["option_1", "option_3"] // Selected option(s) by default
+};
 
 export const GroupedSelect = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
@@ -341,9 +379,9 @@ export const MultipleStates = (argTypes) => ({
 		}
 	},
 	mounted() {
-		setTimeout(()=>{
+		setTimeout(() => {
 			this.optionsArrayDefault2 = 'option_3'
-		},5000)
+		}, 5000);
 	},
     data: () => ({
 		empty: null,
