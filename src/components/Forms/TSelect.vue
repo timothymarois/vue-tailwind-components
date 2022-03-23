@@ -374,9 +374,9 @@ export default {
         searchableOptions() {
             if (this.localsearch && this.searchable && this.isSearching && !this.external) {
                 return JSON.parse(JSON.stringify(this.computedOptions)).filter(option => {
-                    let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase().replace(/\\/g, "\\\\"));
+                    let o = String(option[this.itemLabel]).toLowerCase().match(this.localsearch.toLowerCase().replace(/\\/g, "\\\\"));
                     if (o) {
-                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), (matchedText) => {
+                        option[this.itemLabel] = String(option[this.itemLabel]).replace((new RegExp(this.localsearch, "ig")), (matchedText) => {
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
@@ -439,7 +439,7 @@ export default {
         },
         selectItem(item) {
             // remove possible underline from search select
-            item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
+            item[this.itemLabel] = String(item[this.itemLabel]).replace(/(<([^>]+)>)/ig, '');
 
             if(this.textField) {
                 let i = this.searchableOptions.indexOf(item);
@@ -508,9 +508,9 @@ export default {
         groupedItems(group) {
             if(this.localsearch && this.searchable && this.isSearching && !this.external) {
                 return JSON.parse(JSON.stringify(group)).filter((option) => {
-                    let o = option[this.itemLabel].toLowerCase().match(this.localsearch.toLowerCase());
+                    let o = String(option[this.itemLabel]).toLowerCase().match(this.localsearch.toLowerCase());
                     if (o) {
-                        option[this.itemLabel] = option[this.itemLabel].toString().replace((new RegExp(this.localsearch, "ig")), function(matchedText) {
+                        option[this.itemLabel] = String(option[this.itemLabel]).replace((new RegExp(this.localsearch, "ig")), function(matchedText) {
                             return (`<u>${matchedText}</u>`);
                         });
                         return o;
