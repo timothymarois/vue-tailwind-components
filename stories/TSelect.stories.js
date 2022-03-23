@@ -49,6 +49,35 @@ Standard.args = {
 	returnObject: false,
 };
 
+export const TextFieldSelectCombination = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	components: { TSelect },
+	data: () => ({
+		search: null
+	}),
+	methods: {
+		setSearch(v) {
+			this.search = v;
+		}
+	},
+	template: 
+		`
+		<div>
+			<div class="w-1/2">
+				<t-select label="Select an option" searchable textField @search="setSearch" placeholder="Start typing" required v-bind="$props" />
+			</div>
+			<div class="mt-16">returnObject is set to <b>{{ returnObject }}</b>, so search equals: <br> {{ search }}</div>
+		</div>
+		`,
+});
+
+TextFieldSelectCombination.args = {
+	color: 'indigo',
+	options: ['exclude', 'include'],
+	returnObject: false,
+};
+
+
 export const MultipleSelect = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
 	components: { TSelect },

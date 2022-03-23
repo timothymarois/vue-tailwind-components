@@ -32,7 +32,7 @@
                         >{{ placeholder }}</span>
                         
                         <span
-                            v-else-if="!searchable && selected.length !== 0" 
+                            v-else-if="(!searchable || textField) && selected.length !== 0" 
                             :placeholder="placeholder" 
                             class="truncate pl-3 font-medium"
                             :class="{ 'text-gray-500 cursor-not-allowed': disabled, 'text-indigo-800': !disabled }"
@@ -68,12 +68,11 @@
                         </div>
 
                         <div
-                            v-if="!hideicon && !loading"
+                            v-if="!hideicon && !loading && !textField"
                             @click="menuToggle('arrow')"
                             class="p-2 h-full"
                         >
                             <t-icon
-                                v-if="!hideicon && !loading"
                                 :value="menuIcon"
                                 size="5"
                             />
@@ -302,6 +301,10 @@ export default {
         zIndex: {
             type: [Number, String],
             default: "10"
+        },
+        textField: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -327,8 +330,9 @@ export default {
                 }
             }
         },
-        localsearch() {
+        localsearch(v) {
             this.cycleIndex = -1;
+            this.$emit('search', v);
         },
         menu(value) {
             if (value === true) this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
@@ -337,7 +341,13 @@ export default {
                 else this.cycleIndex = this.selectedIndex || -1;
                 this.viewport = [];
             }            
-        }
+        },
+        searchableOptions(v) {
+            console.log(v);
+            if(this.searchable && this.textField) {
+                if(!v.length) this.menu = false;
+            }
+        } 
     },
     computed: {
         dropdownDirection() {
@@ -431,6 +441,14 @@ export default {
             // remove possible underline from search select
             item[this.itemLabel] = item[this.itemLabel].replace(/(<([^>]+)>)/ig, '');
 
+            if(this.textField) {
+                let i = this.searchableOptions.indexOf(item);
+                this.selectedIndex = i;
+                this.menu = false;
+                this.isSearching = false;
+                return this.localsearch = item[this.itemLabel];
+            }
+
             if(!this.multiple) {
                 this.selected = item;
                 let i = this.searchableOptions.indexOf(item);
@@ -455,6 +473,7 @@ export default {
             // if our options are external
             // and there are no options and we have not searched yet
             // then we dont want to show it until the user actually does a search
+            if (this.textField) return;
             if (this.external && this.searchable && !this.localsearch && !this.computedOptions.length) return this.menu = false;
 
             if (!this.disabled) {
@@ -469,9 +488,8 @@ export default {
             // lets ignore these events since they are not searches
             if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Enter') return false;
             
-            this.menu = true;
+            if(!this.textField || (this.textField && this.searchableOptions.length)) this.menu = true;
             this.isSearching = true;
-            this.$emit('search', value);
         },
         equalsSearch(item) { // Work-around because vue 2 doesn't support optional chaining in the template
             return this.searchableOptions?.[this.cycleIndex]?.[this.itemValue] === item;
