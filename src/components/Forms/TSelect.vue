@@ -61,7 +61,7 @@
 
                         <div
                             v-if="clearable && (localsearch || selected.length || selected[itemValue] || selected[itemValue] === false)"
-                            class="cursor-pointer absolute inset-y-0 right-6 p-2 flex items-center"
+                            class="cursor-pointer absolute right-6 p-2 flex items-center"
                             @click="clearField"
                         >
                             <t-icon value="close" size="5" />
@@ -70,7 +70,7 @@
                         <div
                             v-if="!hideicon && !loading && !textField"
                             @click="menuToggle('arrow')"
-                            class="p-2 h-full"
+                            class="p-2 h-full flex items-center"
                         >
                             <t-icon
                                 :value="menuIcon"
@@ -80,7 +80,7 @@
 
                         <div 
                             v-if="loading"
-                            class="p-2 h-full"
+                            class="p-2 h-full flex items-center"
                         >
                             <t-loader size="5" />
                         </div>
