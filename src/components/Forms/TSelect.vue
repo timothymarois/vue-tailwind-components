@@ -332,7 +332,7 @@ export default {
         },
         localsearch(v) {
             this.cycleIndex = -1;
-            this.$emit('search', v);
+            if(v !== null) this.$emit('search', v);
         },
         menu(value) {
             if (value === true) this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
@@ -343,7 +343,6 @@ export default {
             }            
         },
         searchableOptions(v) {
-            console.log(v);
             if(this.searchable && this.textField) {
                 if(!v.length) this.menu = false;
             }
