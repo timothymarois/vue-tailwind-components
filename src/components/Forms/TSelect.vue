@@ -343,9 +343,7 @@ export default {
             }            
         },
         searchableOptions(v) {
-            if(this.searchable && this.textField) {
-                if(!v.length) this.menu = false;
-            }
+            if(this.searchable && this.textField && !v.length) this.menu = false;
         } 
     },
     computed: {

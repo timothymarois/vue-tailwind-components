@@ -6,7 +6,7 @@
 		>
 			<t-label 
 				@click.native="switchState('before')"
-				:color="`${isChecked ? 'text-gray-400' : ''}`"
+				:color="`${isChecked ? 'gray-500' : ''}`"
 			>
 				{{ beforeLabel }}
 			</t-label>
@@ -36,7 +36,7 @@
 		<div class="ml-3 text-sm">
 			<t-label 
 				@click.native="switchState('aft')"
-				:color="`${!isChecked ? 'text-gray-400' : ''}`"
+				:color="`${!isChecked ? 'gray-500' : ''}`"
 			>
 				{{ aftLabel }}
 			</t-label>
