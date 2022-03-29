@@ -108,6 +108,7 @@ export default {
 			},
 			set: function(val) { 
 				this.$emit('input', val);
+				this.$emit('change', val);
 			}
 		},
 		isChecked() {
