@@ -88,6 +88,10 @@ export default {
 		colorLevel: {
 			type: [String,Number],
 			default: 800
+		},
+		textColor: {
+			type: String,
+			default: null
 		}
 	},
 	computed: {
@@ -275,15 +279,15 @@ export default {
 				if (this.outlined) {
 					if (this.disabled) c = c.concat(['text-gray-400','border-gray-200']);
 					else {
-						if (this.color === 'white') c = c.concat([`border-${this.color} text-${this.color} hover:bg-${this.color} hover:text-indigo-${this.colorLevel}`]);
-						else c = c.concat([`border-${this.color}-${this.colorLevel} hover:border-${this.color}-${colorLevelSecondary} text-${this.color}-${this.colorLevel} hover:bg-${this.color}-100`]);
+						if (this.color === 'white') c = c.concat([`border-${this.color} text-${this.textColor || this.color} hover:bg-${this.color} hover:text-${this.color}-${this.colorLevel}`]);
+						else c = c.concat([`border-${this.color}-${this.colorLevel} hover:border-${this.color}-${colorLevelSecondary} ${this.textColor ? this.textColor : `text-${this.color}-${this.colorLevel}`} hover:bg-${this.color}-100`]);
 					}
 				} else {
 					c = c.concat(['border-transparent']);
 					if (this.disabled) c = c.concat(['text-gray-400','bg-gray-200']); 
 					else {
-						if (this.color === 'white') c = c.concat([`bg-white text-indigo-${this.colorLevel} hover:bg-indigo-100`]);
-						else c = c.concat([`text-white bg-${this.color}-${this.colorLevel} hover:bg-${this.color}-${colorLevelSecondary}`]);
+						if (this.color === 'white') c = c.concat([`bg-white text-${this.textColor ? this.textColor : `${this.color}-${this.colorLevel}`} hover:bg-indigo-100`]);
+						else c = c.concat([`text-${this.textColor ? this.textColor : 'white'} bg-${this.color}-${this.colorLevel} hover:bg-${this.color}-${colorLevelSecondary}`]);
 					}
 				}
 			}
