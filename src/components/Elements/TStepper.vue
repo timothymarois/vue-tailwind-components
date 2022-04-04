@@ -2,7 +2,7 @@
 	<div>
 		<div v-if="horizontal">
 			<div class="flex flex-row justify-between items-center" :class="centerProgress ? 'mx-auto' : ''" :style="maxWidth ? `max-width: ${maxWidth}px;` : ''">
-				<template v-for="(step, i) of stepOptions">
+				<template v-for="(step, i) of stepOptionsComputed">
 					<hr 
 						v-if="i !== 0" 
 						class="grow" 
@@ -28,7 +28,7 @@
 					</div>
 				</template>
 			</div>
-			<div class="mt-20" v-for="(step, i) of stepOptions" :key="step.id">
+			<div class="mt-20" v-for="(step, i) of stepOptionsComputed" :key="step.id">
 				<div v-show="(currentStep - 1) == i && !finished">
 					<slot :name="step.id" />
 				</div>
@@ -37,7 +37,7 @@
 		</div>
 		<div v-else>
 			<div class="flex flex-col justify-between">
-				<div v-for="(step, i) of stepOptions" :key="step.id">
+				<div v-for="(step, i) of stepOptionsComputed" :key="step.id">
 					<div class="relative flex flex-row items-center">
 						<div 
 							class="flex items-center justify-center rounded-full text-lg select-none"
@@ -57,7 +57,7 @@
 					</div>
 					<div 
 						class="px-8 pt-2 pb-6 min-h-[2rem]"
-						:class="[{'border-l-2': i + 1 !== stepOptions.length}, (simple && i + 1 < currentStep) ? `border-${color}` : 'border-gray-300', `ml-${size / 2}`, simple ? '' : 'my-2']"
+						:class="[{'border-l-2': i + 1 !== stepOptionsComputed.length}, (simple && i + 1 < currentStep) ? `border-${color}` : 'border-gray-300', `ml-${size / 2}`, simple ? '' : 'my-2']"
 					>
 						<transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
 							<div v-show="(currentStep - 1) == i && !finished">
@@ -136,6 +136,11 @@ export default {
 			default: false
 		}
 	},
+	computed: {
+		stepOptionsComputed() {
+			return this.stepOptions.filter((x) => !x.hide);
+		}
+	},
 	methods: {
 		enter(element) {
 			const width = getComputedStyle(element).width;
@@ -200,7 +205,7 @@ export default {
 			if (i + 1 < this.currentStep && !this.disableBack && !this.finished) return true;
 			else return false;
 		}
-	},
+	}
 }
 </script>
 
