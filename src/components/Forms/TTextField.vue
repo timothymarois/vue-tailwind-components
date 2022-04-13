@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="characterCounter && internalValue && !readonly" class="text-right text-[11px] text-gray-600 mt-0.5 mr-0.5">
+        <div v-if="characterCounter && internalValue && !readonly" class="absolute text-right text-[11px] text-gray-600 right-0.5 -bottom-[18px]">
             {{ internalValue.length }}<span v-if="maxlength">/{{ maxlength }}</span>
         </div>
     </div>
