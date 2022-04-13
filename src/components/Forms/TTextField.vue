@@ -43,6 +43,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="characterCounter" class="text-right text-[11px] text-gray-600 mt-0.5 mr-0.5">
+            {{ internalValue.length }}<span v-if="maxlength">/{{ maxlength }}</span>
+        </div>
     </div>
 </template>
 
@@ -139,6 +142,10 @@ export default {
         customStyle: {
             type: String,
             default: null
+        },
+        characterCounter: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
