@@ -545,7 +545,7 @@ export default {
         }
     },
     mounted() {
-        if (this.value) {
+        if (this.value || this.value === false) {
             let items = this.getItemsByValue(this.value, this.multiple);
             if (items) this.selected = items;
         }

@@ -36,7 +36,7 @@ export const Standard = (args, { argTypes }) => ({
 		`
 		<div>
 			<div class="w-1/2">
-				<t-select label="Select an option" v-model="value" required v-bind="$props" />
+				<t-select label="Select an option" v-model="value" required :options="[{label:'Yes',value:true},{label:'No',value:false}]" v-bind="$props" />
 			</div>
 			<div class="mt-16">returnObject is set to <b>{{ returnObject }}</b>, so v-model equals: <br> {{ value }}</div>
 		</div>
@@ -45,7 +45,8 @@ export const Standard = (args, { argTypes }) => ({
 
 Standard.args = {
 	color: 'indigo',
-	options: ['exclude', 'include'],
+	value: false,
+	// options: ['exclude', 'include'],
 	returnObject: false,
 };
 
