@@ -96,14 +96,16 @@ export default {
 	},
 	methods: {
 		switchState(side) {
-			if(side === 'aft' && this.falseLabel) this.internalValue = this.trueValue;
-			else if(side === 'before') this.internalValue = this.falseValue;
-			else {
-				// this.internalValue = !this.internalValue;
-				const value = this.value;
-				let input = this.internalValue
-				input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
-				this.internalValue = input
+			if(!this.disabled) {
+				if(side === 'aft' && this.falseLabel) this.internalValue = this.trueValue;
+				else if(side === 'before') this.internalValue = this.falseValue;
+				else {
+					// this.internalValue = !this.internalValue;
+					const value = this.value;
+					let input = this.internalValue
+					input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
+					this.internalValue = input
+				}
 			}
 		},
 		valueComparator: (a, b) => a === b,
