@@ -149,7 +149,10 @@ export const MultipleValues = () => ({
 				<t-switch 
 					v-model="testValueDefault"
 					disabled
-					
+					trueLabel="Active"
+					falseLabel="Deactive"
+					trueValue="active"
+					falseValue="deactive"
 				/>
 			</t-card>
 

@@ -12,7 +12,7 @@
 					<div class="flex flex-col h-full relative">
 						<div v-if="$slots.header" class="shrink-0 border-b border-gray-200 relative">
 							<slot name="header"></slot>
-							<div v-if="closeButton" class="z-50 absolute top-1/2 right-2 -translate-y-1/2">
+							<div v-if="closeButton" class="z-50 absolute top-2 right-2">
 								<t-button icon="close" @click="close" text />
 							</div>
 						</div>
