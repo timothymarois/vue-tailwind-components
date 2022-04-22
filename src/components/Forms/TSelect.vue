@@ -417,7 +417,7 @@ export default {
 
                 return returnItems;
             }
-            else return this.options;
+            else return this.options.filter((x) => !x.hide);
         }
     },
     methods: {
