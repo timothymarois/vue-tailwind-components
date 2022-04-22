@@ -47,6 +47,7 @@
 <script>
 import uniqid from "../../utils/uniqid.js";
 import TLabel from "./TLabel.vue";
+
 export default { 
 	name: 'TSwitch',
 	components: {
@@ -127,6 +128,7 @@ export default {
 			},
 			set(val) { 
 				this.$emit('input', val);
+				this.$emit('change', val);
 			}
 		},
 		isChecked() {
