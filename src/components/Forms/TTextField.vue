@@ -183,7 +183,7 @@ export default {
     methods: {
         validateValue(value) {
             if (value === null || value === '') return null;
-            if (this.type == 'number') {
+            if (this.type === 'number') {
                 value = +value;
                 if (this.max && value > +this.max) value = +this.max;
                 if (this.min && value < +this.min) value = +this.min;
@@ -191,7 +191,7 @@ export default {
             return value;
         },
         input(e) {
-            e.target.value = this.validateValue(e.target.value);
+            if(this.type !== 'number') e.target.value = this.validateValue(e.target.value);
             this.$emit('input', e.target.value);
         },
         keyup(e) {
@@ -204,6 +204,7 @@ export default {
             this.$emit('focusin', e);
         },
         focusout(e) {
+            e.target.value = this.validateValue(e.target.value);
             this.$emit('focusout', e);
         },
         clearField() {

@@ -136,6 +136,25 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card class="mt-5" title="50 Minimum">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+
+						<t-text-field 
+							v-model="limitValue" 
+							label="Enter Value" 
+							type="number"
+							min="50"
+						/>
+
+						<t-text-field 
+							v-model="noLimts" 
+							label="No Minimum" 
+							type="number"
+						/>
+
+					</div>
+				</t-card>
+
 				<t-card class="mt-5" title="Read-only">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field v-model="value" readonly />
