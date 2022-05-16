@@ -39,6 +39,7 @@
                         :class="((item.divider) ? '' : 'p-2 flex items-center rounded m-2 transition duration-150 ')+' '+((!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`)"
                         :disabled="item.disabled"
                         @click="!item.disabled && selectItem(item)"
+                        @click.middle="!item.disabled && selectItem(item, '_blank')"
                     >
                         <span v-if="item.divider">
                             <hr class="border-gray-200" />
@@ -260,8 +261,8 @@ export default {
         menuToggle() {
             this.menu = !this.menu;
         },
-        selectItem(item) {
-            this.$emit('change', item[this.valueName]);
+        selectItem(item, target) {
+            this.$emit('change', item[this.valueName], target);
             if (this.closeOnClick) this.menu = false;
         },
         close(e) {
