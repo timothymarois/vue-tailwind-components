@@ -263,7 +263,7 @@ export default {
         },
         selectItem(item, target) {
             this.$emit('change', item[this.valueName], target);
-            if (this.closeOnClick) this.menu = false;
+            if (this.closeOnClick && !target) this.menu = false;
         },
         close(e) {
             if (!this.$el.contains(e.target)) this.menu = false;
