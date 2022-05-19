@@ -325,18 +325,15 @@ export default {
     watch: {
         value: {
             handler: function (value) { 
-                if (value || value === false) {
-                    let items = this.getItemsByValue(value, this.multiple);
-                    if (items) this.selected = items;
-                } else {
-                    this.selected = [];
-                    this.localsearch = null;
-                }
+                this.checkValue(value)
             }
         },
         localsearch(v) {
             this.cycleIndex = -1;
             if(v !== null) this.$emit('search', v);
+        },
+        options(v) {
+            if(v !== null) this.checkValue(this.value);
         },
         menu(value) {
             if (value === true) this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
@@ -421,6 +418,15 @@ export default {
         }
     },
     methods: {
+        checkValue(value) {
+            if (value || value === false) {
+                let items = this.getItemsByValue(value, this.multiple);
+                if (items) this.selected = items;
+            } else {
+                this.selected = [];
+                this.localsearch = null;
+            }
+        },
         getItemsByValue(values, multiple) {
             let found = [];
 
