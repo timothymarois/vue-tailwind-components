@@ -53,6 +53,7 @@
                             :placeholder="selectPlaceholder"
                             class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
                             :class="{
+                                'cursor-pointer': menu === false,
                                 'text-gray-500 cursor-not-allowed': disabled,
                                 'text-indigo-800': !disabled,
                                 'placeholder-indigo-800': selected.length > 0 || selected[itemValue] || selected[itemValue] === false,
@@ -333,7 +334,7 @@ export default {
             if(v !== null) this.$emit('search', v);
         },
         options(v) {
-            if(v !== null) this.checkValue(this.value);
+            if(v !== null) this.checkValueOptions(this.value);
         },
         menu(value) {
             if (value === true) this.$nextTick(() => this.viewport = viewportHelper(`#dropdown-${this.id}`));
@@ -425,6 +426,12 @@ export default {
             } else {
                 this.selected = [];
                 this.localsearch = null;
+            }
+        },
+        checkValueOptions(value) {
+            if (value || value === false) {
+                let items = this.getItemsByValue(value, this.multiple);
+                if (items) this.selected = items;
             }
         },
         getItemsByValue(values, multiple) {
