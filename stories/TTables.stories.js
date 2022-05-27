@@ -106,7 +106,7 @@ export const BasicTables = () => ({
                     <t-table-simple 
                         :headers="headers"
                         :items="[]"
-                        nodata="There was no items found"
+                        nodata="There were no items found"
                     />
                 </t-card>
             </div>
@@ -204,7 +204,7 @@ export const AdvancedTables = () => ({
                 id: 788,
                 property_address: '425 N Church st',
                 mail_address: '425 N Church st',
-                full_name: 'April Lane',
+                full_name: null,
                 email: 'email@gmail.com'
             },
             {
@@ -232,6 +232,7 @@ export const AdvancedTables = () => ({
                         selectFromRow
                         :selectOne="false"
                         loading
+                        emptyCellMessage="Not Available"
                     />
                 </t-card>
             </div>

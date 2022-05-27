@@ -50,14 +50,8 @@ export const Standard = Template.bind({});
 Standard.args = {
 	value: null,
 	placeholder: 'Placeholder',
-	label: 'Label',
-	errorState: true
+	label: 'Label'
 };
-
-
-
-
-
 
 export const DifferentStates = (argTypes) => ({
 	props: Object.keys(argTypes),

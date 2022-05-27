@@ -1,4 +1,5 @@
 import TSelect from '../src/components/Forms/TSelect';
+import TButton from '../src/components/Elements/TButton.vue';
 import TCard from '../src/components/Elements/TCard';
 
 
@@ -31,22 +32,39 @@ export default {
 
 export const Standard = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TSelect },
+	components: { TSelect, TButton },
+	data: () => ({
+		options: null
+	}),
 	template: 
-		`
+	`
 		<div>
 			<div class="w-1/2">
-				<t-select label="Select an option" v-model="value" required :options="[{label:'Yes',value:true},{label:'No',value:false}]" v-bind="$props" />
+				<t-select label="Select an option" v-model="value" required :options="options" searchable v-bind="$props" />
 			</div>
 			<div class="mt-16">returnObject is set to <b>{{ returnObject }}</b>, so v-model equals: <br> {{ value }}</div>
+			<t-button @click="loadOptions">Load Options</t-button>
 		</div>
-		`,
+	`,
+	methods: {
+		loadOptions() {
+			this.options = [
+				{
+					label:'daanj33@gmail.com',
+					value:'12332-4592dz-dsdfs'
+				},
+				{
+					label:'example@example.com',
+					value:'9234923s-32jidsf-34234'
+				}
+			];
+		}
+	},
 });
 
 Standard.args = {
 	color: 'indigo',
-	value: false,
-	// options: ['exclude', 'include'],
+	value: '12332-4592dz-dsdfs',
 	returnObject: false,
 };
 

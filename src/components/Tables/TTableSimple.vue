@@ -130,7 +130,8 @@
                     :style="`${h.minWidth ? `min-width: ${h.minWidth}` : ''} ${h.width ? `width: ${h.width};` : ''}`"
                 >
                     <slot :name="`column.${h.value}`" v-bind:column="item" v-bind:index="i">
-                        {{ h.value.includes('.') ? item[h.value.split('.')[0]][h.value.split('.')[1]] : item[h.value] }}
+                        <span v-if="item[h.value]">{{ h.value.includes('.') ? item[h.value.split('.')[0]][h.value.split('.')[1]] : item[h.value] }}</span>
+                        <span v-else-if="emptyCellMessage" class="text-gray-400">{{ emptyCellMessage }}</span>
                     </slot>
                 </td>
             </tr>
@@ -236,6 +237,10 @@ export default {
         },
         totalCount: {
             type: [String, Number],
+            default: null
+        },
+        emptyCellMessage: {
+            type: String,
             default: null
         }
     },
