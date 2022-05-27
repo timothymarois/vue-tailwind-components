@@ -209,7 +209,11 @@ export default {
             this.$emit('focusin', e);
         },
         focusout(e) {
-            e.target.value = this.validateValue(e.target.value);
+            if(this.type === 'number') {
+                e.target.value = this.validateValue(e.target.value);
+                this.$emit('input', e.target.value);
+            }
+            
             this.$emit('focusout', e);
         },
         clearField() {
