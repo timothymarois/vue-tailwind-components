@@ -22,6 +22,7 @@
                     :required="required"
                     :maxlength="maxlength"
                     :autocomplete="`new-${id}`"
+                    :pattern="pattern"
                     :value="internalValue"
                     @input="input($event)"
                     @keyup="keyup($event)"
@@ -133,6 +134,10 @@ export default {
         },
         max: {
             type: [String, Number],
+            default: null
+        },
+        pattern: {
+            type: String,
             default: null
         },
         errorState: {
