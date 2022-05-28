@@ -46,11 +46,11 @@ const Component = Vue.extend({
             type: [String, Array, Object],
             default: undefined,
         },
-        replaceFixedClasses: {
+        replacedFixedClasses: {
             type: [String, Array, Object],
             default: undefined,
         },
-        replaceClasses: {
+        replacedClasses: {
             type: [String, Array, Object],
             default: undefined,
         }
@@ -66,12 +66,12 @@ const Component = Vue.extend({
 
             if (elementName) 
             {
-                classes = get(this.replaceClasses, elementName, defaultClasses);
+                classes = get(this.replacedClasses, elementName, defaultClasses);
                 if (!classes) {
                     classes = get(this.classes, elementName, defaultClasses);
                 }
 
-                fixedClasses = get(this.replaceFixedClasses, elementName);
+                fixedClasses = get(this.replacedFixedClasses, elementName);
                 if (!fixedClasses) {
                     fixedClasses = get(this.fixedClasses, elementName);
                 }

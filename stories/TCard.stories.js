@@ -46,7 +46,7 @@ export const MultipleStates = () => ({
 	components: { TCard, TButton, TApp },
 	template: 
 	`
-		<t-app :replaceClasses="{wrapper: 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white'}">
+		<t-app :replacedClasses="{wrapper: 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white'}">
 			<div class="p-6 ">
 
 				<div class="max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
