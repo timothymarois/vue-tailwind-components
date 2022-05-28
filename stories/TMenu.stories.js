@@ -292,6 +292,9 @@ export const MultipleStates = (argTypes) => ({
 
 			<t-card title="Testing menu">
 				<t-menu 
+					:classes="{
+						item: 'p-2'
+					}"
 					outlined
 					direction="top"
 					side="left"

@@ -36,7 +36,7 @@
                     <li 
                         v-for="(item,index) in items"
                         :key="index"
-                        :class="((item.divider) ? '' : 'p-2 flex items-center rounded m-2 transition duration-150 ')+' '+((!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`)"
+                        :class="((item.divider) ? '' : classes.item+' '+fixedClasses.item)+' '+((!item.disabled) ? `cursor-pointer text-${item.color||'gray'}-500 hover:bg-${item.hover||'indigo'}-100 hover:text-${item.hover||'indigo'}-900` : `cursor-not-allowed text-gray-300 hover:bg-white hover:text-gray-300`)"
                         :disabled="item.disabled"
                         @click="!item.disabled && selectItem(item)"
                         @click.middle="!item.disabled && selectItem(item, '_blank')"
@@ -180,7 +180,24 @@ export default {
         valueName: {
             type: String,
             default: "value"
+        },
+        fixedClasses: {
+            type: Object,
+            default() {
+                return {
+                    item: 'flex items-center transition duration-150',
+                }
+            }
+        },
+        classes: {
+            type: Object,
+            default() {
+                return {
+                    item: 'p-2 m-2 rounded',
+                }
+            }
         }
+
     },
      data() {
         return {
