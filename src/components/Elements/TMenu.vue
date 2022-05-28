@@ -185,6 +185,7 @@ export default {
             type: Object,
             default() {
                 return {
+                    dropdown: '',
                     item: 'flex items-center transition duration-150',
                 }
             }

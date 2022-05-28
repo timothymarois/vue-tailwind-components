@@ -1,0 +1,99 @@
+
+<script>
+import Vue from 'vue';
+import get from 'lodash.get';
+
+const mergeClasses = (classesA, classesB) => {
+  let a = classesA;
+  let b = classesB;
+
+  // Convert array of string classes to a single string
+  if (Array.isArray(classesA) && classesA.every((className) => typeof className === 'string' || !!className)) {
+    a = classesA.filter((className) => !!className).join(' ');
+  }
+
+  // Convert array of string classes to a single string
+  if (Array.isArray(classesB) && classesB.every((className) => typeof className === 'string' || !!className)) {
+    b = classesB.filter((className) => !!className).join(' ');
+  }
+
+  if (typeof a === 'string' && typeof b === 'string') {
+    return `${a} ${b}`;
+  }
+
+  if (typeof a === 'string' && Array.isArray(b)) {
+    return [a].concat(b);
+  }
+
+  if (typeof b === 'string' && Array.isArray(a)) {
+    return a.concat([b]);
+  }
+
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.concat(b);
+  }
+
+  return [a, b];
+};
+
+const Component = Vue.extend({
+    props: {
+        classes: {
+            type: [String, Array, Object],
+            default: undefined,
+        },
+        fixedClasses: {
+            type: [String, Array, Object],
+            default: undefined,
+        },
+        replaceFixedClasses: {
+            type: [String, Array, Object],
+            default: undefined,
+        },
+        replaceClasses: {
+            type: [String, Array, Object],
+            default: undefined,
+        }
+    },
+    computed: {
+        componentClass() {
+            return this.getCssClass();
+        },
+    },
+    methods: {
+        getCssClass(elementName, defaultClasses) {
+            let classes, fixedClasses;
+
+            if (elementName) 
+            {
+                classes = get(this.replaceClasses, elementName, defaultClasses);
+                if (!classes) {
+                    classes = get(this.classes, elementName, defaultClasses);
+                }
+
+                fixedClasses = get(this.replaceFixedClasses, elementName);
+                if (!fixedClasses) {
+                    fixedClasses = get(this.fixedClasses, elementName);
+                }
+
+                if (fixedClasses) {
+                    return mergeClasses(fixedClasses, classes);
+                }
+
+                return classes;
+            }
+
+            classes = this.classes === undefined ? defaultClasses : this.classes;
+
+            if (this.fixedClasses) {
+                return mergeClasses(this.fixedClasses, classes);
+            }
+
+            return classes;
+        },
+    },
+    
+});
+
+export default Component;
+</script>

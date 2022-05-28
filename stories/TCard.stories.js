@@ -1,5 +1,6 @@
 import TCard from '../src/components/Elements/TCard';
 import TButton from '../src/components/Elements/TButton';
+import TApp from '../src/components/Application/TApp';
 
 export default {
 	title: 'Elements/TCard',
@@ -42,62 +43,64 @@ export const Primary = (args, { argTypes }) => ({
 
 export const MultipleStates = () => ({
 	// props: Object.keys(argTypes),
-	components: { TCard, TButton },
+	components: { TCard, TButton, TApp },
 	template: 
 	`
-		<div class="p-6 bg-gray-100">
+		<t-app :replaceClasses="{wrapper: 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white'}">
+			<div class="p-6 ">
 
-			<div class="max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card>Card (Default)</t-card>
+				<div class="max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card>Card (Default)</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card flat>Card (Flat)</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card flat border>Card (flat with border)</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card flat border border-color="red">Card (flat with border red)</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card title="Header Title">
+						Card with only title
+					</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card title="Header Title" subtitle="The header subtitle content">
+						Card with title and subtitle
+					</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card title="Header Title" subtitle="The header subtitle content">
+						<template slot="actions">
+							<t-button>Edit</t-button>
+							<t-button outlined>Delete</t-button>
+						</template>
+						Card with action buttons
+					</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card title="Header Title" subtitle="The header subtitle content" contentPadding="0">
+						Card with no content padding, useful for content like tables that look better when full width
+					</t-card>
+				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card title="Card Title" subtitle="The card subtitle content">
+						....
+						<template slot="footer">Card footer</template>
+					</t-card>
+				</div>
+
 			</div>
-
-            <div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card flat>Card (Flat)</t-card>
-			</div>
-
-			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card flat border>Card (flat with border)</t-card>
-			</div>
-
-			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card flat border border-color="red">Card (flat with border red)</t-card>
-			</div>
-
-            <div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card title="Header Title">
-                    Card with only title
-                </t-card>
-			</div>
-
-            <div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card title="Header Title" subtitle="The header subtitle content">
-                    Card with title and subtitle
-                </t-card>
-			</div>
-
-            <div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card title="Header Title" subtitle="The header subtitle content">
-                    <template slot="actions">
-                        <t-button>Edit</t-button>
-                        <t-button outlined>Delete</t-button>
-                    </template>
-                    Card with action buttons
-                </t-card>
-			</div>
-
-            <div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card title="Header Title" subtitle="The header subtitle content" contentPadding="0">
-                    Card with no content padding, useful for content like tables that look better when full width
-                </t-card>
-			</div>
-
-            <div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-				<t-card title="Card Title" subtitle="The card subtitle content">
-                    ....
-                    <template slot="footer">Card footer</template>
-                </t-card>
-			</div>
-
-		</div>
+		</t-app>
 	`,
 });
