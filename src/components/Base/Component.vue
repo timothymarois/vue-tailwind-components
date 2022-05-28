@@ -55,11 +55,6 @@ const Component = Vue.extend({
             default: undefined,
         }
     },
-    computed: {
-        componentClass() {
-            return this.getCssClass();
-        },
-    },
     methods: {
         getCssClass(elementName, defaultClasses) {
             let classes, fixedClasses;
