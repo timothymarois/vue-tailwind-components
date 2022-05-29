@@ -38,6 +38,66 @@ import TSwitch from './Forms/TSwitch.vue'
 import TTableSimple from './Tables/TTableSimple.vue'
 import TPagination from './Tables/TPagination.vue'
 
+
+const configure = (component, props) => {
+    const componentProps = component?.options?.props;
+    const componentName = component?.options?.name;
+
+    if (!props || !componentProps) {
+        return component;
+    }
+
+    const customProps = {};
+
+    Object.keys(props).forEach((customPropName) => {
+        const defaultProp = componentProps[customPropName];
+
+        if (!defaultProp) {
+            return;
+        }
+        const newDefaultValue = props[customPropName];
+
+        customProps[customPropName] = {
+            type: defaultProp?.type,
+            default: ['object', 'function'].includes(typeof newDefaultValue)
+                ? () => newDefaultValue
+                : newDefaultValue,
+        };
+    });
+
+    return component.extend({
+        props: customProps,
+    });
+};
+  
+
+const install = function installVueComponents(vueInstance, settings) {      
+    if (install.installed) return;
+    install.installed = true;
+
+    if (!settings) {
+      return;
+    }
+  
+    Object.keys(settings).forEach((componentName) => {
+        const componentSettings = settings[componentName];
+
+        if (typeof componentSettings === 'function' && typeof componentSettings.extend !== undefined) {
+            const component = componentSettings;
+            vueInstance.component(componentName, configure(component));
+            return;
+        }
+
+        const { component, props } = componentSettings;
+
+        vueInstance.component(componentName, configure(component, props));
+    });
+};
+
+const plugin = {
+    install
+};
+
 export {
     TApp,
     
@@ -68,4 +128,4 @@ export {
     TPagination
 }
 
-export default { }
+export default plugin;
