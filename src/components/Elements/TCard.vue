@@ -1,12 +1,12 @@
 <template>
-    <div :class="cardClasses">
+    <div :class="getCssClass('root')">
         <div v-if="title || $slots.title">
-            <div class="flex justify-between items-center flex-wrap sm:flex-nowrap border-b border-gray-200 p-4" v-if="!$slots.title">
+            <div :class="getCssClass('header')" v-if="!$slots.title">
                 <div>
-                    <h3 class="text-lg leading-none font-medium text-indigo-800">{{ title }}</h3>
-                    <p v-if="subtitle" class="mt-1 text-sm text-gray-500">{{ subtitle }}</p>
+                    <h3 :class="getCssClass('headerTitle')">{{ title }}</h3>
+                    <p v-if="subtitle" :class="getCssClass('headerSubtitle')">{{ subtitle }}</p>
                 </div>
-                <div v-if="$slots.actions" class="flex justify-between items-center flex-nowrap space-x-2">
+                <div v-if="$slots.actions" :class="getCssClass('actions')">
                     <slot name="actions"></slot>
                 </div>
             </div>
@@ -14,17 +14,18 @@
                 <slot name="title"></slot>
             </div>
         </div>
-        <div :class="contentClasses">
+        <div :class="getCssClass('body')">
             <slot></slot>
         </div>
-        <div v-if="$slots.footer" :class="contentClasses" class="border-t border-gray-200">
+        <div v-if="$slots.footer" :class="getCssClass('footer')">
             <slot name="footer"></slot>
         </div>
     </div>
 </template>
 
 <script>
-export default { 
+import Component from '../Base/Component';
+const TCard = Component.extend({
     name: 'TCard',
     props: {
         title: {
@@ -54,6 +55,34 @@ export default {
         contentPadding: {
             type: [Number, String],
             default: 4
+        },
+        fixedClasses: {
+            type: Object,
+            default() {
+                return {
+                    root: 'w-full',
+                    header: 'flex justify-between items-center flex-wrap sm:flex-nowrap p-4',
+                    headerTitle: 'leading-none font-medium text-lg',
+                    headerSubtitle: 'mt-1 text-sm',
+                    actions: 'flex justify-between items-center flex-nowrap space-x-2',
+                    body: 'w-full p-4',
+                    footer: 'w-full p-4'
+                }
+            }
+        },
+        classes: {
+            type: Object,
+            default() {
+                return {
+                    root: 'shadow bg-white',
+                    header: 'border-b border-gray-200',
+                    headerTitle: 'text-indigo-800',
+                    headerSubtitle: 'text-gray-500',
+                    actions: '',
+                    body: '',
+                    footer: 'border-t border-gray-200'
+                }
+            }
         }
     },
     computed: {
@@ -76,5 +105,7 @@ export default {
             return c;
         }
     }
-};
+});
+
+export default TCard;
 </script> 

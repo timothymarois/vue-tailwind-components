@@ -1,10 +1,46 @@
-import TCard from '../src/components/Elements/TCard';
-import TButton from '../src/components/Elements/TButton';
-import TApp from '../src/components/Application/TApp';
+import Vue from 'vue'
+
+import {
+	TCard,
+	TButton,
+	TApp
+} from '../src/components';
+
+import VueComponents from '../src/components/index.js';
+
+const settings = {
+	't-app': {
+		component: TApp,
+		props: {
+			replacedClasses: {
+				wrapper: 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-10'
+			}
+		}
+	},
+	't-card': {
+		component: TCard,
+		props: {
+			variants: {
+				red: {
+					root: 'bg-red-300 border-2 border-red-600'
+				}
+			}
+		}
+	},
+	't-button': {
+		component: TButton,
+		props: {
+			
+		}
+	}
+}
+
+Vue.use(VueComponents, settings);
+
+
 
 export default {
 	title: 'Elements/TCard',
-	component: TCard,
 	argTypes: { 
 		title: {
 			name: 'title',
@@ -37,24 +73,21 @@ export default {
 
 export const Primary = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TCard },
 	template: `<t-card v-bind="$props">This is the content of the card</t-card>`
 });
 
 export const MultipleStates = () => ({
 	// props: Object.keys(argTypes),
-	components: { TCard, TButton, TApp },
 	template: 
 	`
-		<t-app :replacedClasses="{wrapper: 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white'}">
-			<div class="p-6 ">
+		<t-app>
 
 				<div class="max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
 					<t-card>Card (Default)</t-card>
 				</div>
 
 				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-					<t-card flat>Card (Flat)</t-card>
+					<t-card variant="red">Card (Red Variant)</t-card>
 				</div>
 
 				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
@@ -100,7 +133,6 @@ export const MultipleStates = () => ({
 					</t-card>
 				</div>
 
-			</div>
 		</t-app>
 	`,
 });
