@@ -46,6 +46,14 @@ const Component = Vue.extend({
             type: [String, Array, Object],
             default: undefined,
         },
+        variants: {
+            type: Object,
+            default: undefined,
+        },
+        variant: {
+            type: [String, Object],
+            default: undefined,
+        },
         replacedFixedClasses: {
             type: [String, Array, Object],
             default: undefined,
@@ -55,15 +63,44 @@ const Component = Vue.extend({
             default: undefined,
         }
     },
+    computed: {
+         activeVariant() {
+            if (!this.variant) {
+                return undefined;
+            }
+
+            if (typeof this.variant === 'object') {
+                const myVariant = Object.keys(this.variant).find((variant) => !!this.variant[variant]);
+                return myVariant || undefined;
+            }
+
+            return this.variant;
+        }
+    },
     methods: {
         getCssClass(elementName, defaultClasses) {
             let classes, fixedClasses;
 
             if (elementName) 
             {
-                classes = get(this.replacedClasses, elementName, defaultClasses);
-                if (!classes) {
-                    classes = get(this.classes, elementName, defaultClasses);
+                if (this.activeVariant) {
+                    const elementVariant = get(this.variants, `${this.activeVariant}.${elementName}`);
+                    // If the variant exists but not for the element fallback to the default
+                    if (elementVariant === undefined && get(this.variants, this.activeVariant) !== undefined) {
+                        classes = get(this.replacedClasses, elementName, defaultClasses);
+                        if (!classes) {
+                            classes = get(this.classes, elementName, defaultClasses);
+                        }
+                    } 
+                    else {
+                        classes = elementVariant === undefined ? defaultClasses : elementVariant;
+                    }
+                }
+                else {
+                    classes = get(this.replacedClasses, elementName, defaultClasses);
+                    if (!classes) {
+                        classes = get(this.classes, elementName, defaultClasses);
+                    }
                 }
 
                 fixedClasses = get(this.replacedFixedClasses, elementName);
