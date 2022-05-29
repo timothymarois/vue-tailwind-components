@@ -1,4 +1,9 @@
 /**
+ * Application
+ */
+import TApp from './Application/TApp.vue'
+
+/**
  * Elements
  */
 import TAlert from './Elements/TAlert.vue'
@@ -34,6 +39,8 @@ import TTableSimple from './Tables/TTableSimple.vue'
 import TPagination from './Tables/TPagination.vue'
 
 export {
+    TApp,
+    
     TAlert,
     TIcon,
     TLoader,
