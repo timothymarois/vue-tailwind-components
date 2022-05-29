@@ -36,37 +36,17 @@ const TCard = Component.extend({
             type: String,
             default: null
         },
-        flat: {
-            type: Boolean,
-            defualt: false
-        },
-        tile: {
-            type: Boolean,
-            defualt: false
-        },
-        border: {
-            type: Boolean,
-            defualt: false
-        },
-        borderColor: {
-            type: String,
-            defualt: 'gray'
-        },
-        contentPadding: {
-            type: [Number, String],
-            default: 4
-        },
         fixedClasses: {
             type: Object,
             default() {
                 return {
                     root: 'w-full',
-                    header: 'flex justify-between items-center flex-wrap sm:flex-nowrap p-4',
-                    headerTitle: 'leading-none font-medium text-lg',
-                    headerSubtitle: 'mt-1 text-sm',
+                    header: 'flex justify-between items-center flex-wrap sm:flex-nowrap',
+                    headerTitle: '',
+                    headerSubtitle: 'mt-1',
                     actions: 'flex justify-between items-center flex-nowrap space-x-2',
-                    body: 'w-full p-4',
-                    footer: 'w-full p-4'
+                    body: 'w-full',
+                    footer: 'w-full'
                 }
             }
         },
@@ -75,34 +55,14 @@ const TCard = Component.extend({
             default() {
                 return {
                     root: 'shadow bg-white',
-                    header: 'border-b border-gray-200',
-                    headerTitle: 'text-indigo-800',
-                    headerSubtitle: 'text-gray-500',
+                    header: 'p-4 border-b border-gray-200',
+                    headerTitle: 'leading-none font-medium text-lg text-indigo-800',
+                    headerSubtitle: 'text-sm text-gray-500',
                     actions: '',
-                    body: '',
-                    footer: 'border-t border-gray-200'
+                    body: 'p-4',
+                    footer: 'p-4 border-t border-gray-200'
                 }
             }
-        }
-    },
-    computed: {
-        contentClasses() {
-            let c = ['w-full'];
-            if (this.contentPadding) c = c.concat([`p-${this.contentPadding}`]);
-            return c;
-        },
-        cardClasses() {
-            let c = ['bg-white w-full'];
-
-            if (!this.flat) c = c.concat(['shadow']);
-            if (!this.tile) c = c.concat(['rounded']);
-            
-            if (this.border) {
-                c = c.concat(['border']);
-                c = c.concat([`border-${this.borderColor}-200`]);
-            }
-
-            return c;
         }
     }
 });

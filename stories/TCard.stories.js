@@ -23,6 +23,9 @@ const settings = {
 			variants: {
 				red: {
 					root: 'bg-red-300 border-2 border-red-600'
+				},
+				fullRound: {
+					root: 'bg-white shadow rounded-full'
 				}
 			}
 		}
@@ -87,8 +90,13 @@ export const MultipleStates = () => ({
 				</div>
 
 				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
-					<t-card variant="red">Card (Red Variant)</t-card>
+					<t-card variant="fullRound">Card (custom variant = fullRound)</t-card>
 				</div>
+
+				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+					<t-card variant="red">Card (custom variant = red)</t-card>
+				</div>
+				
 
 				<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
 					<t-card flat border>Card (flat with border)</t-card>
