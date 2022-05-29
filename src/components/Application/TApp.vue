@@ -24,7 +24,7 @@ const TApp = Component.extend({
             default() {
                 return {
                     root: 'flex relative',
-                    wrapper: 'flex relative w-full h-full',
+                    wrapper: 'relative w-full h-full',
                 }
             }
         },
