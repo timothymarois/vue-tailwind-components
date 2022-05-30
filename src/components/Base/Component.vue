@@ -93,7 +93,7 @@ const Component = Vue.extend({
                         }
                     } 
                     else {
-                        classes = elementVariant === undefined ? defaultClasses : elementVariant;
+                        classes = (elementVariant === undefined) ? defaultClasses : elementVariant;
                     }
                 }
                 else {
@@ -115,7 +115,13 @@ const Component = Vue.extend({
                 return classes;
             }
 
-            classes = this.classes === undefined ? defaultClasses : this.classes;
+            if (this.activeVariant) {
+                classes = get(this.variants, this.activeVariant, defaultClasses);
+            }
+
+            if (!classes) {
+                classes = this.classes === undefined ? defaultClasses : this.classes;
+            }
 
             if (this.fixedClasses) {
                 return mergeClasses(this.fixedClasses, classes);

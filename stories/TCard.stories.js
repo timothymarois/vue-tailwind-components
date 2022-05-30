@@ -1,47 +1,3 @@
-import Vue from 'vue'
-
-import {
-	TCard,
-	TButton,
-	TApp
-} from '../src/components';
-
-import VueComponents from '../src/components/index.js';
-
-const settings = {
-	't-app': {
-		component: TApp,
-		props: {
-			replacedClasses: {
-				wrapper: 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-10'
-			}
-		}
-	},
-	't-card': {
-		component: TCard,
-		props: {
-			variants: {
-				red: {
-					root: 'bg-red-300 border-2 border-red-600'
-				},
-				fullRound: {
-					root: 'bg-white shadow rounded-full'
-				}
-			}
-		}
-	},
-	't-button': {
-		component: TButton,
-		props: {
-			
-		}
-	}
-}
-
-Vue.use(VueComponents, settings);
-
-
-
 export default {
 	title: 'Elements/TCard',
 	argTypes: { 
@@ -62,17 +18,6 @@ export default {
 		},
 	},
 };
-
-// const Template = (args, { argTypes }) => ({
-// 	props: Object.keys(argTypes),
-// 	components: { TCard },
-// 	template: 
-// 		`
-//             <t-card v-bind="$props">
-//                 This is the content of the card
-//             </t-card>
-//         `,
-// });
 
 export const Primary = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),

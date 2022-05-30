@@ -1,24 +1,25 @@
-import TIcon from '../src/components/Elements/TIcon';
-
 export default {
 	title: 'ELEMENTS/TIcon',
-	component: TIcon,
 	argTypes: { 
 		value: {
 			name: 'value',
-			description: 'Icon to display'
+			description: 'Icon to display',
+			defaultValue:'check'
 		}
-	},
+	}
 };
 
-const Template = (args, { argTypes }) => ({
+export const Default = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TIcon },
-	template: 
-		`<t-icon v-bind="$props" />`,
+	template: `<t-app><t-icon v-bind="$props" /></t-app>`
 });
 
-export const Standard = Template.bind({});
-Standard.args = {
-	value: 'check'
-};
+export const VariantLarge = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	template: `<t-app><t-icon v-bind="$props" variant="large" /></t-app>`
+});
+
+export const VariantLargeGreen = (args, { argTypes }) => ({
+	props: Object.keys(argTypes),
+	template: `<t-app><t-icon v-bind="$props" variant="largeGreen" /></t-app>`
+});

@@ -40,13 +40,13 @@ const TCard = Component.extend({
             type: Object,
             default() {
                 return {
-                    root: 'w-full',
+                    root: '',
                     header: 'flex justify-between items-center flex-wrap sm:flex-nowrap',
                     headerTitle: '',
                     headerSubtitle: 'mt-1',
                     actions: 'flex justify-between items-center flex-nowrap space-x-2',
-                    body: 'w-full',
-                    footer: 'w-full'
+                    body: '',
+                    footer: ''
                 }
             }
         },
@@ -54,13 +54,13 @@ const TCard = Component.extend({
             type: Object,
             default() {
                 return {
-                    root: 'shadow bg-white',
+                    root: 'w-full shadow bg-white',
                     header: 'p-4 border-b border-gray-200',
                     headerTitle: 'leading-none font-medium text-lg text-indigo-800',
                     headerSubtitle: 'text-sm text-gray-500',
                     actions: '',
-                    body: 'p-4',
-                    footer: 'p-4 border-t border-gray-200'
+                    body: 'w-full p-4',
+                    footer: 'w-full p-4 border-t border-gray-200'
                 }
             }
         }
