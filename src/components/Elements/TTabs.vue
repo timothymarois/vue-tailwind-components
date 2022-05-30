@@ -69,6 +69,7 @@ export default {
         update(item) {
             if (item.disabled) return;
             this.$emit('input', item.id);
+            this.$emit('change', item.id);
         }
     }
 };
