@@ -1,63 +1,49 @@
 <template>
-	<div class="relative flex items-center">
+	<div :class="getCssClass('root')">
 		<input 
 			:id="id"
 			:type="radio ? 'radio' : 'checkbox'" 
-			:class="`opacity-0 h-${size} w-${size} absolute ${disabled ? 'cursor-default' : 'cursor-pointer'} z-20`" 
+			:class="getCssClass('input')" 
 			:checked="isChecked"
 			:value="value"
 			:disabled="disabled"
 			@change="onChange($event)"
 		/>
-		<div :class="outlineClassesComputed">
-			<div :class="checkClassesComputed" v-if="check && !radio">
-				<TIcon 
-					value="check"
-					:size="size"
-					class="text-white absolute left-0 top-0"
-				/>
+		<div :class="[getCssClass('iconWrapper'),((disabled)?getCssClass('disabledWrapper'):null)]">
+			<div v-if="check && !radio" :class="[getCssClass('iconCheck'),((disabled)?getCssClass('disabled'):null)]">
+				<t-icon value="check" :class="getCssClass('icon')" />
 			</div>
-			<div :class="solidClassesComputed" v-else />
+			<div v-else :class="[getCssClass('iconSolid'),((disabled)?getCssClass('disabled'):null)]" />
 		</div>
-		<div class="ml-2 text-sm" v-if="label">
-			<t-label :id="id" :color="labelColor" :disabled="disabled">{{ label }}</t-label>
+		<div v-if="label" :class="getCssClass('labelWrapper')">
+			<t-label :id="id" :disabled="disabled">{{ label }}</t-label>
 		</div>
 	</div>
 </template>
 
+<style scoped>
+input:checked + div div {
+	display: block;
+}
+</style>
+
 <script>
 import uniqid from "../../utils/uniqid.js";
 import TLabel from "./TLabel.vue";
-import TIcon from "../Elements/TIcon.vue";
-export default { 
+
+import Component from '../Base/Component';
+const TCheckbox = Component.extend({
 	name: 'TCheckbox',
 	components: {
-		TLabel,
-		TIcon
+		TLabel
 	},
 	props: {
-		value: {
-			type: [String, Boolean],
-			default: false
-		},
-		color: {
-			type: String,
-			default: 'indigo'
-		},
-		colorLevel: {
-			type: [String, Number],
-			default: '800'
-		},
 		label: {
 			type: String,
 			default: null
 		},
-		size: {
-			type: [String, Number],
-			default: 5
-		},
-		check: {
-			type: Boolean,
+		value: {
+			type: [String, Boolean],
 			default: false
 		},
 		trueValue: {
@@ -68,26 +54,50 @@ export default {
 			type: [String, Boolean],
 			default: false
 		},
+		check: {
+			type: Boolean,
+			default: false
+		},
 		radio: {
 			type: Boolean,
 			default: false
 		},
-		borderColor: {
-			type: String,
-			default: 'indigo'
-		},
-		borderColorLevel: {
-			type: [String, Number],
-			default: '800'
-		},
-		labelColor: {
-			type: String,
-			default: 'gray-800'
-		},
 		disabled: {
 			type: Boolean,
 			default: false
-		}
+		},
+		fixedClasses: {
+            type: Object,
+            default() {
+                return {
+                    root: 'relative flex items-center',
+					disabled: '',
+					disabledWrapper: '',
+                    input: 'opacity-0 absolute z-20 cursor-pointer disabled:cursor-default',
+					iconWrapper: 'relative flex flex-shrink-0 justify-center items-center',
+					iconCheck: 'hidden flex justify-center items-center',
+					iconSolid: 'hidden absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] pointer-events-none',
+					icon: 'absolute left-0 top-0',
+					labelWrapper: ''
+                }
+            }
+        },
+        classes: {
+            type: Object,
+            default() {
+                return {
+                    root: '',
+                    input: 'h-5 w-5',
+					disabled: '!bg-gray-300',
+					disabledWrapper: '!border-gray-300',
+					iconWrapper: 'bg-white h-5 w-5 border-2 border-indigo-800 rounded',
+					iconCheck: 'h-5 w-5 bg-indigo-800 rounded',
+					iconSolid: 'h-3 w-3 bg-indigo-800 rounded-sm',
+					icon: 'text-white',
+					labelWrapper: 'ml-2 text-sm'
+                }
+            }
+        }
 	},
 	methods: {
 		valueComparator: (a, b) => a === b,
@@ -113,43 +123,9 @@ export default {
 		},
 		isChecked() {
 			return this.valueComparator(this.value, this.trueValue) ? true : false;
-		},
-		outlineClassesComputed() {
-			let c = [`bg-white border-2 relative flex flex-shrink-0 justify-center items-center w-${this.size} h-${this.size}`];
-
-			if(this.radio) c = c.concat(['rounded-full'])
-			else c = c.concat(['rounded']);
-
-			if(this.disabled) c = c.concat(['border-gray-500'])
-			else c = c.concat([`border-${this.borderColor}-${this.borderColorLevel}`]);
-
-			return c;
-		},
-		checkClassesComputed() {
-			let c = [`hidden w-${this.size} h-${this.size} flex justify-center items-center rounded`];
-			
-			if(this.disabled) c = c.concat(['bg-gray-300']);
-			else c = c.concat([`bg-${this.color}-${this.colorLevel}`]);
-
-			return c;
-		},
-		solidClassesComputed() {
-			let c = [`hidden w-${this.size - 2} h-${this.size - 2} absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] pointer-events-none`]
-			
-			if(this.disabled) c = c.concat(['bg-gray-400']);
-			else c = c.concat([`bg-${this.color}-${this.colorLevel}`]);
-			
-			if(this.radio) c = c.concat(['rounded-full']);
-			else c = c.concat(['rounded-sm']);
-
-			return c;
 		}
 	}
-};
-</script> 
+});
 
-<style scoped>
-input:checked + div div {
-  display: block;
-}
-</style>
+export default TCheckbox;
+</script>

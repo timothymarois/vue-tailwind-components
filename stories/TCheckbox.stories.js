@@ -1,9 +1,5 @@
-import TCheckbox from '../src/components/Forms/TCheckbox.vue';
-import TCard from '../src/components/Elements/TCard.vue';
-
 export default {
 	title: 'Forms/TCheckbox',
-	component: TCheckbox,
 	argTypes: { 
 		color: {
 			name: 'color',
@@ -40,7 +36,6 @@ export default {
 
 const Template = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TCheckbox },
 	template: 
 		`<t-checkbox v-bind="$props" />`,
 });
@@ -64,7 +59,6 @@ Check.args = {
 
 export const MultipleValues = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TCheckbox, TCard },
     data: () => ({
         value: true,
 		valueTwo: false,
@@ -95,7 +89,6 @@ export const MultipleValues = (argTypes) => ({
 
 export const Radio = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TCheckbox, TCard },
     data: () => ({
         value: 'option_1'
     }),

@@ -6,7 +6,8 @@ import {
     TCard,
     TButton,
     TApp,
-    TIcon
+    TIcon,
+	TCheckbox
 } from '../src/components';
 
 let settings = {
@@ -33,6 +34,9 @@ let settings = {
 	},
 	't-button': {
 		component: TButton
+	},
+	't-checkbox': {
+		component: TCheckbox
 	},
     't-icon': {
 		component: TIcon,
