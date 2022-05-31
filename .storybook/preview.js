@@ -40,7 +40,19 @@ let settings = {
 		component: TLabel
 	}, 
 	't-checkbox': {
-		component: TCheckbox
+		component: TCheckbox,
+		props: {
+			variants: {
+				red: {
+					iconWrapper: 'bg-white h-5 w-5 border-2 border-red-800 rounded',
+					iconSolid: 'h-3 w-3 bg-red-800 rounded-sm'
+				},
+				redRound: {
+					iconWrapper: 'bg-white h-5 w-5 border-2 border-red-800 rounded-full',
+					iconSolid: 'h-3 w-3 bg-red-800 rounded-full'
+				}
+			}
+		}
 	},
     't-icon': {
 		component: TIcon,
