@@ -82,6 +82,13 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card class="mt-5" title="Default Value + Labels">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-text-field v-model="defaultValue" label="My Label" required error />
+						<t-text-field v-model="defaultValue" placeholder="placeholder" label="My Label" required error />
+					</div>
+				</t-card>
+
 				<t-card class="mt-5" title="Default Value + Labels + Character Counter">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around pb-4">
 						<t-text-field v-model="defaultValue" label="My Label" characterCounter required />

@@ -1,7 +1,7 @@
 <template>
     <label 
         :for="id"
-        :class="[getCssClass('label'),((disabled)?getCssClass('disabledLabel'):null)]"
+        :class="[getCssClass('label'),((disabled)?getCssClass('disabledLabel'):null),((error)?getCssClass('erroredLabel'):null)]"
     >
         <slot>
             <t-icon v-if="icon" :value="icon" :class="getCssClass('icon')" />
@@ -36,12 +36,17 @@ const TLabel = Component.extend({
             type: Boolean,
             default: false
         },
+        error: {
+            type: Boolean,
+            default: false
+        },
         fixedClasses: {
             type: Object,
             default() {
                 return {
                     label: 'block transition-colors duration-150',
                     disabledLabel: '',
+                    erroredLabel: '',
                     textLabel: 'inline-block',
                     icon: '',
                     required: 'inline-block'
@@ -53,7 +58,8 @@ const TLabel = Component.extend({
             default() {
                 return {
                     label: 'text-sm font-medium text-gray-800 cursor-pointer',
-                    disabledLabel: 'cursor-default',
+                    disabledLabel: 'cursor-default !text-gray-600',
+                    erroredLabel: '!text-red-700',
                     textLabel: '',
                     icon: 'mr-1',
                     required: 'text-red-600'

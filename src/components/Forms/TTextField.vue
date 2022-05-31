@@ -6,12 +6,12 @@
             :label="label"
             :required="required"
             :icon="iconLabel"
-            :color="errorState ? 'red-700' : 'gray-800'"
+            :error="error"
         />
         <div :class="{'mt-1': label}">
             <div class="relative text-gray-500">
                 <div v-if="icon" class="pointer-events-none absolute inset-y-0 left-0 p-2 flex items-center">
-                    <t-icon :value="icon" size="5" />
+                    <t-icon :value="icon" />
                 </div>
                 <input 
                     :id="id"
@@ -19,6 +19,7 @@
                     :name="name"
                     :placeholder="placeholder"
                     :readonly="readonly"
+                    :disabled="disabled"
                     :required="required"
                     :maxlength="maxlength"
                     :autocomplete="`new-${id}`"
@@ -52,16 +53,18 @@
 
 <script>
 import uniqid from "../../utils/uniqid.js";
-import TIcon from "../Elements/TIcon.vue";
-import TLabel from "./TLabel.vue";
 export default { 
     name: 'TTextField',
-    components: {
-        TLabel,
-        TIcon
-    },
     props: {
         required: {
+            type: Boolean,
+            default: false
+        },
+        readonly: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         },
@@ -100,10 +103,6 @@ export default {
             type: String,
             default: 'text'
         },
-        readonly: {
-            type: Boolean,
-            default: false
-        },
         maxlength: {
             type: Number,
             default: 255
@@ -140,7 +139,7 @@ export default {
             type: String,
             default: null
         },
-        errorState: {
+        error: {
             type: Boolean,
             default: false
         },
@@ -175,7 +174,7 @@ export default {
 
                 if(this.readonly) c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-200']);
                 else {
-                    if(this.errorState) c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
+                    if(this.error) c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
                     else c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
                 }
                 
