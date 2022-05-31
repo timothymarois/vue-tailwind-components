@@ -100,7 +100,7 @@ const plugin = {
 
 export {
     TApp,
-    
+
     TAlert,
     TIcon,
     TLoader,

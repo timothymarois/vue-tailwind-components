@@ -29,14 +29,9 @@ input:checked + div div {
 
 <script>
 import uniqid from "../../utils/uniqid.js";
-import TLabel from "./TLabel.vue";
-
 import Component from '../Base/Component';
 const TCheckbox = Component.extend({
 	name: 'TCheckbox',
-	components: {
-		TLabel
-	},
 	props: {
 		label: {
 			type: String,

@@ -60,8 +60,9 @@ Check.args = {
 export const MultipleValues = (argTypes) => ({
 	props: Object.keys(argTypes),
     data: () => ({
-        value: true,
+        valueOne: true,
 		valueTwo: false,
+		valueDisabled: true,
 		valueThree: 'Inactive'
     }),
 	template: 
@@ -69,13 +70,18 @@ export const MultipleValues = (argTypes) => ({
         <div>
 
             <t-card title="Default State (checked = true) (disabled)">
-				<t-checkbox v-model="value" label="Boolean True/false" />
-				value: {{ value.toString() }}
+				<t-checkbox v-model="valueOne" label="Boolean True/false" />
+				value: {{ valueOne.toString() }}
 			</t-card>
 
 			<t-card title="Reverse (checked = false)" subtitle="You can reverse the true/false state values" class="mt-2">
-				<t-checkbox v-model="valueTwo" label="Boolean True/false" :trueValue="false" :falseValue="true" disabled />
+				<t-checkbox v-model="valueTwo" label="Boolean True/false" :trueValue="false" :falseValue="true" />
 				value: {{ valueTwo.toString() }}
+			</t-card>
+
+			<t-card title="Disabled (checked = false)" subtitle="Disabled checkbox true" class="mt-2">
+				<t-checkbox v-model="valueDisabled" label="Boolean True/false" disabled />
+				value: {{ valueDisabled.toString() }}
 			</t-card>
 
 			<t-card title="String (checked = 'Active')" subtitle="You can use a string for true/false state values" class="mt-2">
@@ -90,11 +96,11 @@ export const MultipleValues = (argTypes) => ({
 export const Radio = (argTypes) => ({
 	props: Object.keys(argTypes),
     data: () => ({
-        value: 'option_1'
+        valueOptions: 'option_1'
     }),
 	computed: {
 		firstValue() {
-			return this.value.toString(); 
+			return this.valueOptions.toString(); 
 		}
 	},
 	template: 
@@ -102,10 +108,10 @@ export const Radio = (argTypes) => ({
         <div>
             <t-card title="Radio group">
 				<div class="flex flex-col space-y-3">
-					<t-checkbox v-model="value" label="Option 1" trueValue="option_1" :radio="true" />
-					<t-checkbox v-model="value" label="Option 2" trueValue="option_2" :radio="true" />
-					<t-checkbox v-model="value" label="Option 3" trueValue="option_3" :radio="true" />
-					<t-checkbox v-model="value" label="Option 4" trueValue="option_4" :radio="true" />
+					<t-checkbox v-model="valueOptions" label="Option 1" trueValue="option_1" :radio="true" />
+					<t-checkbox v-model="valueOptions" label="Option 2" trueValue="option_2" :radio="true" />
+					<t-checkbox v-model="valueOptions" label="Option 3" trueValue="option_3" :radio="true" />
+					<t-checkbox v-model="valueOptions" label="Option 4" trueValue="option_4" :radio="true" />
 					value: {{ firstValue }}
 				</div>
 			</t-card>

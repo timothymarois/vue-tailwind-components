@@ -7,7 +7,8 @@ import {
     TButton,
     TApp,
     TIcon,
-	TCheckbox
+	TCheckbox,
+	TLabel
 } from '../src/components';
 
 let settings = {
@@ -35,6 +36,9 @@ let settings = {
 	't-button': {
 		component: TButton
 	},
+	't-label': {
+		component: TLabel
+	}, 
 	't-checkbox': {
 		component: TCheckbox
 	},

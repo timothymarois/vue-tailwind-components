@@ -1,23 +1,21 @@
 <template>
     <label 
         :for="id"
-        :class="`${disabled ? 'cursor-default' : 'cursor-pointer'} block text-sm font-medium text-${color} transition-colors duration-150`"
+        class="cursor-pointer"
+        :class="getCssClass('label')"
     >
         <slot>
-            <t-icon v-if="icon" :value="icon" class="mr-1" />
-            <span v-if="label" class="inline-block">{{ label }}</span>
+            <t-icon v-if="icon" :value="icon" :class="getCssClass('icon')" />
+            <span v-if="label" :class="getCssClass('text')">{{ label }}</span>
         </slot>
-        <span class="inline-block text-red-600" v-if="required">*</span>
+        <span v-if="required" :class="getCssClass('required')">*</span>
     </label>
 </template>
 
 <script>
-import TIcon from "../Elements/TIcon.vue";
-export default { 
+import Component from '../Base/Component';
+const TLabel = Component.extend({
     name: 'TLabel',
-    components: {
-        TIcon
-    }, 
     props: {
         required: {
             type: Boolean,
@@ -31,10 +29,6 @@ export default {
             type: String,
             default: null
         },
-        color: {
-            type: String,
-            default: 'gray-800'
-        },
         icon: {
             type: String,
             default: null
@@ -42,7 +36,31 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        fixedClasses: {
+            type: Object,
+            default() {
+                return {
+                    label: 'block transition-colors duration-150',
+                    text: 'inline-block',
+                    icon: '',
+                    required: 'inline-block'
+                }
+            }
+        },
+        classes: {
+            type: Object,
+            default() {
+                return {
+                    label: 'block text-sm font-medium text-gray-800',
+                    text: '',
+                    icon: 'mr-1',
+                    required: 'text-red-600'
+                }
+            }
         }
     }
-};
+});
+
+export default TLabel;
 </script> 
