@@ -3,19 +3,24 @@
         <div
             v-if="show"
             @click="close"
-            class="top-0 left-0 bottom-0 right-0 bg-gray-400 bg-opacity-60 z-40"
-            :class="{
-                'cursor-pointer': !freeze,
-                'fixed': !relative,
-                'absolute': relative
-            }"
+            :class="overlayClasses"
         ></div>
     </transition>
 </template>
 
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+	transition: .3s cubic-bezier(.25,.8,.8,1) opacity;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+</style>
+
 <script>
-export default { 
-    name: 'BaseOverlay',
+import Component from '../Base/Component';
+const TOverlay = Component.extend({
+    name: 'TOverlay',
     props: {
         freeze: {
             type: Boolean,
@@ -28,21 +33,31 @@ export default {
         show: {
             type: Boolean,
             default: true
-        }
+        },
+        fixedClasses: {
+            type: String,
+            default() {
+                return 'top-0 left-0 bottom-0 right-0'
+            }
+        },
+        classes: {
+            type: String,
+            default() {
+                return 'bg-gray-400 bg-opacity-60 z-40'
+            }
+        },
     },
     methods: {
         close() {
             if (this.freeze === false) this.$emit('close');
         }
+    },
+    computed: {
+        overlayClasses() {
+            return [this.getCssClass(),(this.freeze?'':'cursor-pointer'),(this.relative?'absolute':'fixed')];
+        }
     }
-};
-</script> 
+});
 
-<style scoped>
-.fade-enter-active, .fade-leave-active {
-	transition: .3s cubic-bezier(.25,.8,.8,1) opacity;
-}
-.fade-enter, .fade-leave-to {
-	opacity: 0;
-}
-</style>
+export default TOverlay;
+</script> 
