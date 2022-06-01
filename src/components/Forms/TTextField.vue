@@ -1,5 +1,5 @@
 <template>
-    <div class="relative w-full">
+    <div :class="getCssClass('root')">
         <t-label 
             v-if="label"
             :id="id"
@@ -9,8 +9,8 @@
             :error="error"
         />
         <div :class="{'mt-1': label}">
-            <div class="relative text-gray-500">
-                <div v-if="icon" class="pointer-events-none absolute inset-y-0 left-0 p-2 flex items-center">
+            <div :class="getCssClass('inputWrapper')">
+                <div v-if="icon" :class="getCssClass('icon')">
                     <t-icon :value="icon" />
                 </div>
                 <input 
@@ -32,20 +32,20 @@
                     @focus="focusin($event)"
                     :min="min"
                     :max="max"
-                    :class="fieldClasses"
+                    :class="inputClasses"
                     :style="(width ? `width: ${width}px` : '')"
                     :ref="id"
                 />
                 <div 
                     v-if="clearable && internalValue && !readonly"
-                    class="cursor-pointer absolute inset-y-0 right-0 p-2 flex items-center"
+                    :class="getCssClass('clearable')"
                     @click="clearField"
                 >
-                    <t-icon value="close" size="5" />
+                    <t-icon value="close" />
                 </div>
             </div>
         </div>
-        <div v-if="characterCounter && internalValue && !readonly" class="absolute text-right text-[11px] text-gray-600 right-0.5 -bottom-[18px]">
+        <div v-if="characterCounter && internalValue && !readonly" :class="getCssClass('characterCount')">
             {{ internalValue.length }}<span v-if="maxlength">/{{ maxlength }}</span>
         </div>
     </div>
@@ -53,7 +53,8 @@
 
 <script>
 import uniqid from "../../utils/uniqid.js";
-export default { 
+import Component from '../Base/Component';
+const TTextField = Component.extend({
     name: 'TTextField',
     props: {
         required: {
@@ -72,28 +73,9 @@ export default {
             type: String,
             default: null
         },
-        inputClasses: {
-            type: String,
-            default: null
-        },
         placeholder: {
             type: String,
             default: null
-        },
-        color: {
-            type: String,
-            required: false,
-            default: 'indigo'
-        },
-        textColor: {
-            type: String,
-            required: false,
-            default: 'black'
-        },
-        borderColor: {
-            type: String,
-            required: false,
-            default: 'gray-200'
         },
         name: {
             type: String,
@@ -143,13 +125,38 @@ export default {
             type: Boolean,
             default: false
         },
-        customStyle: {
-            type: String,
-            default: null
-        },
         characterCounter: {
             type: Boolean,
             default: false
+        },
+        fixedClasses: {
+            type: String,
+            default() {
+                return {
+                    root: 'relative',
+                    characterCount: 'absolute right-0.5 -bottom-[18px]',
+                    clearable: 'cursor-pointer absolute inset-y-0 right-0 p-2 flex items-center',
+                    icon: 'pointer-events-none absolute inset-y-0 left-0 p-2 flex items-center',
+                    inputWrapper: 'relative',
+                    input: 'block'
+                }
+            }
+        },
+        classes: {
+            type: String,
+            default() {
+                return {
+                    root: 'w-full',
+                    characterCount: 'text-right text-[11px] text-gray-600',
+                    clearable: 'text-gray-500',
+                    icon: 'text-gray-500',
+                    inputWrapper: '',
+                    input: 'w-full h-10 rounded text-sm focus:outline-none focus:ring-0 text-black border-gray-300 hover:bg-indigo-100 hover:border-indigo-900 focus:border-indigo-800 hover:text-indigo-900',
+                    inputReadonlyState: 'cursor-default bg-gray-100 border-gray-200 focus:border-gray-200 hover:!border-gray-200 hover:!bg-gray-100',
+                    inputDisabledState: 'cursor-default bg-gray-100 border-gray-200 focus:border-gray-200 hover:!border-gray-200 hover:!bg-gray-100',
+                    inputErrorState: '!border-red-400 focus:!border-red-400 !text-red-700 hover:!text-red-800 hover:!bg-red-50'
+                }
+            }
         }
     },
     computed: {
@@ -164,24 +171,11 @@ export default {
         id() {
             return uniqid();
         },
-        fieldClasses() {
-            if(!this.customStyle) {
-                let c = [`block w-full h-10 rounded text-sm focus:outline-none focus:ring-0`];
-
-                if (this.icon) c = c.concat(['pl-8']);
-
-                if (this.inputClasses) c = c.concat([this.inputClasses]);
-
-                if(this.readonly) c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-200']);
-                else {
-                    if(this.error) c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
-                    else c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
-                }
-                
-                return c;
-            }
-
-            else return this.customStyle;
+        inputClasses() {
+            if (this.disabled) return [this.getCssClass('input'),this.getCssClass('inputDisabledState')];
+            if (this.readonly) return [this.getCssClass('input'),this.getCssClass('inputReadonlyState')];
+            if (this.error) return [this.getCssClass('input'),this.getCssClass('inputErrorState')];
+            return this.getCssClass('input');
         }
     },
     methods: {
@@ -212,7 +206,6 @@ export default {
                 e.target.value = this.validateValue(e.target.value);
                 this.$emit('input', e.target.value);
             }
-            
             this.$emit('focusout', e);
         },
         clearField() {
@@ -223,5 +216,7 @@ export default {
             this.$refs[this.id].blur();
         }
     }
-};
+});
+
+export default TTextField;
 </script>

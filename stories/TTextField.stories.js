@@ -1,9 +1,5 @@
-import TTextField from '../src/components/Forms/TTextField';
-import TCard from '../src/components/Elements/TCard';
-
 export default {
 	title: 'FORMS/TTextField',
-	component: TTextField,
 	argTypes: { 
 		value: {
 			name: 'value',
@@ -31,7 +27,6 @@ export default {
 
 const Template = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TTextField },
 	data: () => ({
 		cleared: false
 	}),
@@ -55,7 +50,6 @@ Standard.args = {
 
 export const DifferentStates = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TTextField, TCard },
     data: () => ({
 		defaultValue: 'Default Value',
         value: null,
@@ -82,7 +76,7 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
-				<t-card class="mt-5" title="Default Value + Labels">
+				<t-card class="mt-5" title="Error Labels">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
 						<t-text-field v-model="defaultValue" label="My Label" required error />
 						<t-text-field v-model="defaultValue" placeholder="placeholder" label="My Label" required error />
@@ -103,10 +97,10 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
-				<t-card class="mt-5" title="Clearable + Icons">
+				<t-card class="mt-5" title="Clearable + Icons (Variant = icon)">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-text-field icon="check" v-model="anotherValue" label="My Label" required clearable />
-						<t-text-field icon="check" v-model="anotherValue" placeholder="placeholder" label="My Label" required clearable />
+						<t-text-field variant="icon" icon="check" v-model="anotherValue" label="My Label" required clearable />
+						<t-text-field variant="icon" icon="check" v-model="anotherValue" placeholder="placeholder" label="My Label" required clearable />
 					</div>
 				</t-card>
 
@@ -163,6 +157,13 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
+				<t-card class="mt-5" title="Disabled">
+					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
+						<t-text-field v-model="value" disabled />
+						<t-text-field v-model="value" placeholder="placeholder" disabled />
+					</div>
+				</t-card>
+
 			</div>
 		</div>
 		`,
@@ -170,7 +171,6 @@ export const DifferentStates = (argTypes) => ({
 
 export const CustomStyle = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TTextField, TCard },
     data: () => ({
 		defaultValue: 'Default Value',
         value: null,
@@ -182,10 +182,10 @@ export const CustomStyle = (argTypes) => ({
 		`
         <div class="p-6 bg-gray-100">
             <div class="max-w-2xl">
-                <t-card class="mt-5" title="Standard">
+                <t-card class="mt-5" title="Custom Variant">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-						<t-text-field v-model="value" type="number" min="5" max="200" customStyle="w-20 appearance-none py-0 pl-2 -mt-1 ml-0.5 border-t-0 border-r-0 border-l-0 border-gray-400 mr-1 font-semibold text-indigo-800 focus:ring-0 focus:border-indigo-700 focus:text-indigo-800" />
-						<t-text-field v-model="value" placeholder="placeholder" />
+						<t-text-field v-model="value" type="number" min="5" max="200" variant="custom" />
+						<t-text-field v-model="value" placeholder="no variant" />
 					</div>
 				</t-card>
 			</div>
