@@ -28,6 +28,7 @@ import TProgressBar from './Elements/TProgressBar.vue';
  */
 import TLabel from './Forms/TLabel.vue'
 import TTextField from './Forms/TTextField.vue'
+import TTextArea from './Forms/TTextArea.vue'
 import TSelect from './Forms/TSelect.vue'
 import TCheckbox from './Forms/TCheckbox.vue'
 import TSwitch from './Forms/TSwitch.vue'
@@ -120,6 +121,7 @@ export {
 
     TLabel,
     TTextField,
+    TTextArea,
     TSelect,
     TCheckbox,
     TSwitch,

@@ -10,10 +10,7 @@
         />
         <div :class="{'mt-1': label}">
             <div :class="getCssClass('inputWrapper')">
-                <div v-if="icon" :class="getCssClass('icon')">
-                    <t-icon :value="icon" />
-                </div>
-                <input 
+                <textarea 
                     :id="id"
                     :type="type"
                     :name="name"
@@ -23,26 +20,17 @@
                     :required="required"
                     :maxlength="maxlength"
                     :autocomplete="`new-${id}`"
-                    :pattern="pattern"
                     :value="internalValue"
                     @input="input($event)"
                     @keyup="keyup($event)"
                     @keydown="keydown($event)"
                     @focusout="focusout($event)"
                     @focus="focusin($event)"
-                    :min="min"
-                    :max="max"
                     :class="inputClasses"
-                    :style="(width ? `width: ${width}px` : '')"
                     :ref="id"
+                    rows="4"
+                    cols="4"
                 />
-                <div 
-                    v-if="clearable && internalValue && !readonly"
-                    :class="getCssClass('clearable')"
-                    @click="clearField"
-                >
-                    <t-icon value="close" />
-                </div>
             </div>
         </div>
         <div v-if="showCount && internalValue && !readonly" :class="getCssClass('characterCount')">
@@ -57,8 +45,8 @@
 <script>
 import uniqid from "../../utils/uniqid.js";
 import Component from '../Base/Component';
-const TTextField = Component.extend({
-    name: 'TTextField',
+const TTextArea = Component.extend({
+    name: 'TTextArea',
     props: {
         required: {
             type: Boolean,
@@ -162,7 +150,7 @@ const TTextField = Component.extend({
                     clearable: 'text-gray-500',
                     icon: 'text-gray-500',
                     inputWrapper: '',
-                    input: 'w-full h-10 rounded text-sm focus:outline-none focus:ring-0 text-black border-gray-300 hover:bg-indigo-100 hover:border-indigo-900 focus:border-indigo-800 hover:text-indigo-900',
+                    input: 'block w-full px-3 py-2 text-black placeholder-gray-400 transition duration-100 ease-in-out bg-white border border-gray-300 rounded shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50  disabled:opacity-50 disabled:cursor-not-allowed',
                     inputReadonlyState: 'cursor-default bg-gray-100 border-gray-200 focus:border-gray-200 hover:!border-gray-200 hover:!bg-gray-100',
                     inputDisabledState: 'cursor-default bg-gray-100 border-gray-200 focus:border-gray-200 hover:!border-gray-200 hover:!bg-gray-100',
                     inputErrorState: '!border-red-400 focus:!border-red-400 !text-red-700 hover:!text-red-800 hover:!bg-red-50'
@@ -233,5 +221,5 @@ const TTextField = Component.extend({
     }
 });
 
-export default TTextField;
+export default TTextArea;
 </script>

@@ -24,6 +24,7 @@ import {
 
     TLabel,
     TTextField,
+	TTextArea,
     TSelect,
     TCheckbox,
     TSwitch,
@@ -98,6 +99,12 @@ let settings = {
 					input: 'w-full h-10 rounded text-sm focus:outline-none focus:ring-0 text-black border-gray-300 hover:bg-indigo-100 hover:border-indigo-900 focus:border-indigo-800 hover:text-indigo-900 pl-8'
 				}
             }
+        }
+	},
+	't-text-area': {
+		component: TTextArea,
+        props: {
+           
         }
 	}
 }
