@@ -46,9 +46,9 @@
             </div>
         </div>
         <div v-if="showCount && internalValue && !readonly" :class="getCssClass('characterCount')">
-            {{ maxLengthNumber }} <span v-if="maxlength">
-                <span v-if="maxLengthText">{{ maxLengthText }}</span>
-                <span v-else>/ {{ maxlength }}</span>
+            {{ maxLengthNumber }} <span>
+                <span v-if="lengthText">{{ lengthText }}</span>
+                <span v-if="maxLength && !lengthText">/ {{ maxLength }}</span>
             </span>
         </div>
     </div>
@@ -88,7 +88,7 @@ const TTextField = Component.extend({
             type: String,
             default: 'text'
         },
-        maxlength: {
+        maxLength: {
             type: Number,
             default: 255
         },
@@ -136,7 +136,7 @@ const TTextField = Component.extend({
             type: Boolean,
             default: false
         },
-        maxLengthText: {
+        lengthText: {
             type: String,
             default: null
         },
@@ -189,7 +189,7 @@ const TTextField = Component.extend({
             return this.getCssClass('input');
         },
         maxLengthNumber() {
-            if (this.maxLengthRemaining && this.maxlength) return (this.maxlength-this.internalValue.length);
+            if (this.maxLengthRemaining && this.maxLength) return (this.maxLength-this.internalValue.length);
             return this.internalValue.length;
         }
     },

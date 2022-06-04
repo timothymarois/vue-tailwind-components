@@ -71,21 +71,21 @@ export const DifferentStates = (argTypes) => ({
 					</div>
 				</t-card>
 
-                <t-card class="mt-5" title="Standard">
+                <t-card class="mt-5" title="Standard Maxlength 255">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-                        <t-text-area maxLength="255" showCount label="With Label" v-model="value" placeholder="placeholder" />
+                        <t-text-area :maxLength="255" showCount label="With Label" v-model="value" placeholder="placeholder" />
 					</div>
 				</t-card>
 
 				<t-card class="mt-5" title="Standard">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-                        <t-text-area maxLength="255" showCount label="With Label" v-model="value" placeholder="placeholder" maxLengthText="Character Length" />
+                        <t-text-area showCount label="With Label" v-model="value" placeholder="placeholder" lengthText="Character Length" />
 					</div>
 				</t-card>
 
 				<t-card class="mt-5" title="Standard">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around">
-                        <t-text-area maxLength="255" showCount label="With Label" v-model="value" placeholder="placeholder" maxLengthText="Characters Remaining" maxLengthRemaining maxlength="100" />
+                        <t-text-area showCount label="With Label" v-model="value" placeholder="placeholder" lengthText="Characters Remaining" maxLengthRemaining :maxLength="100" />
 					</div>
 				</t-card>
 

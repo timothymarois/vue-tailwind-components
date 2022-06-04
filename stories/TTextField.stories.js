@@ -92,8 +92,8 @@ export const DifferentStates = (argTypes) => ({
 
 				<t-card class="mt-5" title="Default Value + Labels + Character Counter + Text">
 					<div class="w-full mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:space-x-2 sm:flex-row sm:items-end sm:justify-around pb-4">
-						<t-text-field v-model="defaultValue" label="My Label" showCount required maxLengthText="Character Length"  />
-						<t-text-field v-model="defaultValue" placeholder="placeholder" showCount maxlength="100" label="My Label" required maxLengthText="Characters Remaining" maxLengthRemaining />
+						<t-text-field v-model="defaultValue" label="My Label" showCount required lengthText="Character Length"  />
+						<t-text-field v-model="defaultValue" placeholder="placeholder" showCount maxlength="100" label="My Label" required lengthText="Characters Remaining" maxLengthRemaining />
 					</div>
 				</t-card>
 
