@@ -88,18 +88,6 @@ const TTextArea = Component.extend({
             type: [String, Number],
             default : null
         },
-        icon: {
-            type: String,
-            default: null
-        },
-        iconLabel: {
-            type: String,
-            default: null
-        },
-        clearable: {
-            type: Boolean,
-            default: false
-        },
         min: {
             type: [String, Number],
             default: null
@@ -134,8 +122,6 @@ const TTextArea = Component.extend({
                 return {
                     root: 'relative',
                     characterCount: 'absolute right-0.5 -bottom-[18px]',
-                    clearable: 'cursor-pointer absolute inset-y-0 right-0 p-2 flex items-center',
-                    icon: 'pointer-events-none absolute inset-y-0 left-0 p-2 flex items-center',
                     inputWrapper: 'relative',
                     input: 'block'
                 }
@@ -147,8 +133,6 @@ const TTextArea = Component.extend({
                 return {
                     root: 'w-full',
                     characterCount: 'text-right text-[11px] text-gray-600',
-                    clearable: 'text-gray-500',
-                    icon: 'text-gray-500',
                     inputWrapper: '',
                     input: 'block w-full px-3 py-2 text-black placeholder-gray-400 transition duration-100 ease-in-out bg-white border border-gray-300 rounded shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50  disabled:opacity-50 disabled:cursor-not-allowed',
                     inputReadonlyState: 'cursor-default bg-gray-100 border-gray-200 focus:border-gray-200 hover:!border-gray-200 hover:!bg-gray-100',
