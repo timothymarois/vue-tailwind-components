@@ -41,8 +41,8 @@ import TPagination from './Tables/TPagination.vue'
 
 
 const configure = (component, props) => {
-    const componentProps = component?.options?.props;
-    const componentName = component?.options?.name;
+    const componentProps = component.options.props;
+    const componentName = component.options.name;
 
     if (!props || !componentProps) {
         return component;
@@ -59,7 +59,7 @@ const configure = (component, props) => {
         const newDefaultValue = props[customPropName];
 
         customProps[customPropName] = {
-            type: defaultProp?.type,
+            type: defaultProp.type,
             default: ['object', 'function'].includes(typeof newDefaultValue)
                 ? () => newDefaultValue
                 : newDefaultValue,
