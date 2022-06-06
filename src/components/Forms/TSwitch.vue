@@ -30,8 +30,8 @@
 			/>
 		</div>
 		<div class="relative cursor-not-allowed" v-else>
-			<div :class="`${inset ? 'w-12' : 'w-10'} ${inset ? 'h-6' : 'h-4'} bg-gray-100 rounded-full shadow-inner`" />
-			<div :class="`absolute w-6 h-6 bg-white border-2 rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`" />
+			<div :class="`${inset ? 'w-12' : 'w-10'} ${inset ? 'h-6' : 'h-4'} ${isChecked ? `bg-${color}-300` : 'bg-gray-100'} rounded-full shadow-inner`" />
+			<div :class="`absolute w-6 h-6 bg-white border-2 ${isChecked ? `border-${color}-300 translate-x-full` : ''} rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`" />
 		</div>
 		<div class="ml-3 text-sm">
 			<t-label 
@@ -95,22 +95,6 @@ export default {
 			default: false
 		}
 	},
-	methods: {
-		switchState(side) {
-			if(!this.disabled) {
-				if(side === 'aft' && this.falseLabel) this.internalValue = this.trueValue;
-				else if(side === 'before') this.internalValue = this.falseValue;
-				else {
-					// this.internalValue = !this.internalValue;
-					const value = this.value;
-					let input = this.internalValue
-					input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
-					this.internalValue = input
-				}
-			}
-		},
-		valueComparator: (a, b) => a === b,
-	},
 	computed: {
 		id() {
 			return uniqid();
@@ -134,6 +118,22 @@ export default {
 		isChecked() {
 			return this.valueComparator(this.value, this.trueValue) ? true : false
 		}
+	},
+	methods: {
+		switchState(side) {
+			if(!this.disabled) {
+				if(side === 'aft' && this.falseLabel) this.internalValue = this.trueValue;
+				else if(side === 'before') this.internalValue = this.falseValue;
+				else {
+					// this.internalValue = !this.internalValue;
+					const value = this.value;
+					let input = this.internalValue
+					input = this.valueComparator(value,this.trueValue) ? this.falseValue : this.trueValue
+					this.internalValue = input
+				}
+			}
+		},
+		valueComparator: (a, b) => a === b,
 	}
 };
 </script> 

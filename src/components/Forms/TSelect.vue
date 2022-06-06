@@ -365,6 +365,8 @@ export default {
         dropdownClasses() {
             let c = [`absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none border border-gray-200 z-${this.zIndex}`];
 
+            if(this.$slots.opener) c = c.concat(['min-w-[200px]']);
+
             if (this.dropdownDirection === 'top') c = c.concat(['bottom-10']);
             else c = c.concat(['top-10']);
 
