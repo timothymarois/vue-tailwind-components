@@ -67,6 +67,18 @@ let settings = {
             }
         }
 	},
+	't-overlay': {
+		component: TOverlay,
+        props: {
+           
+        }
+	},
+	't-modal': {
+		component: TModal,
+        props: {
+           
+        }
+	},
 
 	// --------------------------------------------------
 

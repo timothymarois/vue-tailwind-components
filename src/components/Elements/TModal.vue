@@ -47,8 +47,9 @@
 <script>
 import TButton from "./TButton.vue";
 import TOverlay from "./TOverlay.vue";
-export default { 
-	name: 'Modal',
+import Component from '../Base/Component';
+const TModal = Component.extend({
+	name: 'TModal',
 	components: {
 		TButton,
 		TOverlay
@@ -113,7 +114,39 @@ export default {
 		overflowScroll: {
 			type: Boolean,
 			default: false
-		}
+		},
+		fixedClasses: {
+            type: Object,
+            default() {
+                return {
+                    root: 'absolute inset-0 w-full h-full',
+					wrapper: '',
+					container: '',
+					innerContainer: '',
+					header: '',
+					headerClose: '',
+					content: '',
+					slotWrapper: '',
+					footer: ''
+                }
+            }
+        },
+        classes: {
+            type: Object,
+            default() {
+                return {
+                    root: 'overlay-y-scroll',
+					wrapper: '',
+					container: '',
+					innerContainer: '',
+					header: '',
+					headerClose: '',
+					content: '',
+					slotWrapper: '',
+					footer: ''
+                }
+            }
+        }
 	},
 	data() {
 		return {
@@ -257,7 +290,9 @@ export default {
 	created() {
 		this.updateDivOffset();
 	}
-};
+});
+
+export default TModal;
 </script>
 
 <style scoped>

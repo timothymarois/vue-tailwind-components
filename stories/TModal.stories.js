@@ -1,9 +1,8 @@
-import TModal from '../src/components/Elements/TModal';
-import TButton from '../src/components/Elements/TButton';
+// import TModal from '../src/components/Elements/TModal';
+// import TButton from '../src/components/Elements/TButton';
 
 export default {
 	title: 'Elements/TModal',
-	component: TModal,
 	argTypes: { 
 		type: {
 			name: 'type',
@@ -30,7 +29,6 @@ export default {
 
 export const Center = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false
@@ -62,7 +60,6 @@ export const Center = (argTypes) => ({
 
 export const Right = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false
     }),
@@ -83,7 +80,6 @@ Right.args = {
 
 export const Left = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false
     }),
@@ -104,7 +100,6 @@ Left.args = {
 
 export const Full = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false
     }),
@@ -126,11 +121,8 @@ Full.args = {
 	type: 'full'
 }
 
-
-
 export const LongModalScroll = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false
     }),
@@ -146,10 +138,8 @@ export const LongModalScroll = (argTypes) => ({
 		`,
 });
 
-
 export const Contained = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false
     }),
@@ -170,7 +160,6 @@ export const Contained = (argTypes) => ({
 
 export const Offset = (args, { argTypes }) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false
     }),
@@ -196,7 +185,6 @@ Offset.args = {
 
 export const CenterDivOffset = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false
@@ -236,7 +224,6 @@ export const CenterDivOffset = (argTypes) => ({
 
 export const TransitionToFull = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false,
@@ -268,7 +255,6 @@ export const TransitionToFull = (argTypes) => ({
 
 export const RightToFullOffset = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false,
@@ -309,7 +295,6 @@ export const RightToFullOffset = (argTypes) => ({
 
 export const SlottedRight = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false,
@@ -347,7 +332,6 @@ export const SlottedRight = (argTypes) => ({
 
 export const SlottedCenter = (argTypes) => ({
 	props: Object.keys(argTypes),
-	components: { TModal, TButton },
     data: () => ({
         showing: false,
 		showModal: false,
