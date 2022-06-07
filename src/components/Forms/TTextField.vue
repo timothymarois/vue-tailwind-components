@@ -21,7 +21,7 @@
                     :readonly="readonly"
                     :disabled="disabled"
                     :required="required"
-                    :maxlength="maxlength"
+                    :maxlength="maxLength"
                     :autocomplete="`new-${id}`"
                     :pattern="pattern"
                     :value="internalValue"

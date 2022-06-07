@@ -41,8 +41,8 @@ import TPagination from './Tables/TPagination.vue'
 
 
 const configure = (component, props) => {
-    const componentProps = component.options.props;
-    const componentName = component.options.name;
+    const componentProps = (typeof component.options !== 'undefined') ? component.options.props : undefined;
+    // const componentName = component.options.name;
 
     if (!props || !componentProps) {
         return component;
