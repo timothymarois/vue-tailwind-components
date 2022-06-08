@@ -38,7 +38,7 @@ let settings = {
 		component: TApp,
 		props: {
 			replacedClasses: {
-				wrapper: 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-10'
+				wrapper: 'bg-gray-100 text-black dark:text-white dark:bg-gray-600 p-10'
 			}
 		}
 	},
