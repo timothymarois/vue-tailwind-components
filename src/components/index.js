@@ -2,6 +2,8 @@
  * Application
  */
 import TApp from './Application/TApp.vue'
+import TNav from './Application/TNav.vue'
+import TPage from './Application/TPage.vue'
 
 /**
  * Elements
@@ -101,6 +103,8 @@ const plugin = {
 
 export {
     TApp,
+    TNav,
+    TPage,
 
     TAlert,
     TIcon,

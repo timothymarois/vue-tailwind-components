@@ -17,3 +17,12 @@
 .pop-leave-to {
 	opacity: 0;
 }
+
+#root {
+	/* border: 1px solid #000 !important; */
+	padding:0
+}
+
+.sb-show-main.sb-main-padded {
+	padding:0
+}

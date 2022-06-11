@@ -5,7 +5,11 @@ export default {
 export const DefaultState = () => ({
 	template: 
 	`
-		<t-app>this is my app</t-app>
+		<t-app>
+			<div class="p-10">
+				<t-card>this is my app</t-card>
+			</div>
+		</t-app>
 	`,
 });
 
@@ -13,7 +17,9 @@ export const DarkModeOnState = () => ({
 	template: 
 	`
 		<t-app dark>
-            this is my app with dark mode on
+			<div class="p-10">
+				<t-card>this is my app with DARK MODE</t-card>
+			</div>
         </t-app>
 	`,
 });
@@ -23,7 +29,9 @@ export const AutoDarkModeState = () => ({
 	template: 
 	`
 		<t-app autoDarkMode>
-            this is my app with auto dark mode on
+			<div class="p-10">
+				<t-card>this is my app with AUTO DARK MODE</t-card>
+			</div>
         </t-app>
 	`,
 });

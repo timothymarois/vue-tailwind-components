@@ -4,6 +4,8 @@ import Vue from 'vue'
 import VueComponents from '../src/components/index.js';
 import {
     TApp,
+	TNav,
+	TPage,
 
     TAlert,
     TIcon,
@@ -38,8 +40,27 @@ let settings = {
 		component: TApp,
 		props: {
 			replacedClasses: {
-				wrapper: 'bg-gray-100 text-black dark:text-white dark:bg-gray-600 p-10'
+				wrapper: 'bg-gray-100 text-black dark:text-white dark:bg-gray-600'
 			}
+		}
+	},
+	't-nav': {
+		component: TNav,
+		props: {
+			variants: {
+				darkgray : {
+					root: 'bg-gray-800 text-white'
+				},
+				autodark: {
+					root: 'bg-white dark:bg-gray-800 text-black dark:text-white'
+				}
+			}
+		}
+	},
+	't-page': {
+		component: TPage,
+		props: {
+
 		}
 	},
 	't-card': {

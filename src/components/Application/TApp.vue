@@ -6,6 +6,16 @@
 	</div>
 </template>
 
+<style>
+html body {
+    height: 100vh;
+    width: 100vw;
+}
+body {
+    overflow: hidden;
+}
+</style>
+
 <script>
 import Component from '../Base/Component';
 const TApp = Component.extend({
@@ -23,8 +33,8 @@ const TApp = Component.extend({
             type: Object,
             default() {
                 return {
-                    root: 'flex relative',
-                    wrapper: 'relative w-full h-full',
+                    root: 'flex relative w-full h-full',
+                    wrapper: 'relative w-full h-screen overflow-hidden',
                 }
             }
         },

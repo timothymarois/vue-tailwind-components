@@ -54,7 +54,7 @@ const TCard = Component.extend({
             type: Object,
             default() {
                 return {
-                    root: 'w-full shadow bg-white',
+                    root: 'w-full shadow bg-white dark:bg-black',
                     header: 'p-4 border-b border-gray-200',
                     headerTitle: 'leading-none font-medium text-lg text-indigo-800',
                     headerSubtitle: 'text-sm text-gray-500',
