@@ -14,5 +14,9 @@ module.exports = {
         }
       }
     }
-  ]
+  ],
+  framwork: '@storybook/vue',
+  core: {
+    disableTelemetry: true
+  }
 }

@@ -32,7 +32,7 @@
 		</div>
 		<div class="relative cursor-not-allowed" v-else>
 			<div :class="`${inset ? 'w-12' : 'w-10'} ${inset ? 'h-6' : 'h-4'} ${isChecked ? `bg-${color}-300` : 'bg-gray-100'} rounded-full shadow-inner`" />
-			<div :class="`absolute w-6 h-6 bg-white border-2 ${isChecked ? `border-${color}-300` : 'translate-x-0'} translate-x-full rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`" />
+			<div :class="`absolute w-6 h-6 bg-white border-2 ${isChecked ? `border-${color}-300 translate-x-full` : 'translate-x-0'} rounded-full ${inset ? 'left-0 top-0' : '-left-1 -top-1'} transition`" />
 		</div>
 		<div class="ml-3 text-sm">
 			<t-label 
