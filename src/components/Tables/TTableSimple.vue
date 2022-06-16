@@ -25,17 +25,17 @@
                                     </template>
                                     <template v-slot:content>
                                         <ul class="bg-white text-sm p-2 rounded border border-gray-200 w-52 text-left text-gray-500 font-medium">
-                                            <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('all'); selectAll()">
+                                            <li class="p-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="selectAll(); changeSelectControl('all');">
                                                 Select All <span v-if="totalCount">{{ totalCount }}</span>
                                             </li>
-                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('none'); deselectAll()">
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="deselectAll(); changeSelectControl('none');">
                                                 Select None
                                             </li>
-                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="changeSelectControl('visible'); selectAll()">
+                                            <li class="p-2 mt-1 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 rounded" @click="selectAll(); changeSelectControl('visible');">
                                                 Select Visible
                                             </li>
                                             <li class="p-2 mt-1 rounded" v-if="selectOptionCustom">
-                                                <form class="flex flex-row" @submit.prevent="changeSelectControl('number'); selectRows($refs.rows_to_select.value);">
+                                                <form class="flex flex-row" @submit.prevent="selectRows($refs.rows_to_select.value); changeSelectControl('number');">
                                                     Select 
                                                     <input type="number" ref="rows_to_select" onkeydown="return ![69, 109, 110, 189, 190].includes(event.keyCode)" :min="1" class="w-24 h-6 rounded border-gray-300 text-indigo-900 font-medium bg-gray-50 py-0.5 px-1 ml-1.5 -mt-0.5 focus:ring-1 focus:ring-indigo-300" /> 
                                                     <t-button type="submit" icon="arrow-right" iconSize="4" :padding="1" class="ml-auto -mt-1" />
@@ -233,7 +233,7 @@ export default {
         },
         selectOptionCustom: {
             type: Boolean,
-            default: true
+            default: false
         },
         totalCount: {
             type: [String, Number],
