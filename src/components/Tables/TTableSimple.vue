@@ -49,7 +49,7 @@
                     </slot>
                 </th>
 
-                <th v-for="(h,hindex) in headerItems"
+                <th v-for="(h, hindex) in headerItems"
                     class="my-auto py-1 px-2 lg:px-4 lg:py-2 text-sm font-normal whitespace-nowrap capitalize"
                     :key="hindex"
                     :class="{
@@ -156,7 +156,8 @@ export default {
         return {
             selection: [],
             selectedAll: false,
-            menuOpen: false
+            menuOpen: false,
+            selectAllOption: null
         }
     },
     components: {
@@ -286,6 +287,8 @@ export default {
         },
         toggleRow(i, origin) {
             if(!this.selectFromRow || origin === 'selectRow') {
+                this.selectAllOption = null;
+
                 if (!this.selection.includes(i)) {
                     if (this.selectOne === true) this.selection = [i];
                     else this.selection.push(i)
@@ -315,8 +318,10 @@ export default {
         changeSelectControl(v) {
             this.menuOpen = false;
 
-            if(v !== 'number') this.$emit('select-control', v);
-            else this.$emit('select-control', +this.$refs.rows_to_select.value);
+            if(v !== 'number') this.selectAllOption = v;
+            else this.selectAllOption = this.$refs.rows_to_select.value;
+            
+            this.$emit('select-control', this.selectAllOption);
         }
     },
     watch: {
@@ -341,6 +346,7 @@ export default {
             }
 
             this.$emit('change-selected', selectedItems);
+            this.$emit('select-control', this.selectAllOption);
         },
         items() {
             this.selection = [];
