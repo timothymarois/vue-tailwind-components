@@ -592,7 +592,7 @@ export default {
             if(!this.textField || (this.textField && this.searchableOptions.length)) this.menu = true;
             this.isSearching = true;
 
-            this.showAllGroups();
+            if (this.groupSelectable) this.showAllGroups();
         },
         equalsSearch(item) { // Work-around because vue 2 doesn't support optional chaining in the template
             return this.searchableOptions?.[this.cycleIndex]?.[this.itemValue] === item;
@@ -640,7 +640,7 @@ export default {
             this.$emit('input', this.multiple ? [] : null); // For multiple selects, return empty array instead
             this.$emit('cleared');
 
-            this.hideAllGroups();
+            if (this.groupSelectable) this.hideAllGroups();
         },
         createNew() {
             this.$emit('create-new', this.localsearch);
