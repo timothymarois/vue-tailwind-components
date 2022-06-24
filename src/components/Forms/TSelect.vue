@@ -550,7 +550,7 @@ export default {
                 if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
-                if (item.groupName && item.items) {
+                if (this.groupSelectable && item.groupName && item.items) {
                   if(!this.selected.some((obj) => obj[this.groupValue] === item.groupName)) this.selected.push(...item.items);
                   else {
                     item.items.forEach((groupItem) => {
