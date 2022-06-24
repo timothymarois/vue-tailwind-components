@@ -639,6 +639,8 @@ export default {
             this.selected = [];
             this.$emit('input', this.multiple ? [] : null); // For multiple selects, return empty array instead
             this.$emit('cleared');
+
+            this.hideAllGroups();
         },
         createNew() {
             this.$emit('create-new', this.localsearch);
@@ -658,6 +660,9 @@ export default {
         showAllGroups() {
             this.visibleGroups = [];
             this.options.forEach(option => this.visibleGroups.push(option.groupName));
+        },
+        hideAllGroups() {
+            this.visibleGroups = [];
         }
     },
     mounted() {
