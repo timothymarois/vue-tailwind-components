@@ -140,7 +140,7 @@
                     </li>
                 </div>
                 <div v-else-if="!loading && computedOptions.length && grouped">
-                    <div v-for="(group, j) of options" :key="group.groupName">
+                    <div v-if="!groupSelectable" v-for="(group, j) of options" :key="group.groupName">
                         <div
                             v-if="groupedItems(group.items).length"
                             :class="`font-bold text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`
@@ -174,6 +174,58 @@
                             />    
                         </li>
                     </div>
+
+                  <div v-if="groupSelectable" v-for="(group, j) of options" :key="group.groupName">
+                    <div v-if="groupedItems(group.items).length" class="relative flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900" @click.stop="selectItem(group)">
+                      <t-checkbox
+                          :color="color"
+                          :value="isGroupPartiallyChecked(group)"
+                          :check="isGroupFullyChecked(group)"
+                          size="4"
+                          class="ml-2"
+                      />
+                      <div class="font-normal m-2 w-full">{{group.groupName}}</div>
+
+                      <div
+                          @click.stop="toggleGroup(group)"
+                          class="cursor-pointer p-2 flex items-center h-full"
+                      >
+                        <t-icon
+                            :value="isGroupVisible(group) ? 'chevron-up' : 'chevron-down'"
+                            size="5"
+                        />
+                      </div>
+
+                    </div>
+
+                    <li
+                        v-if="isGroupVisible(group)"
+                        v-for="(item, i) of groupedItems(group.items)"
+                        :key="i"
+                        class="relative flex items-center rounded m-2 transition duration-150"
+                        :class="[
+                                { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
+                                { 'focused': equalsSearch(item[itemValue]) },
+                                item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
+                            ]"
+                        :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
+                        @click.stop="item.disabled ? '' : selectItem(item)"
+                    >
+                      <t-checkbox
+                          v-if="multiple"
+                          :color="color"
+                          :value="isChecked(item)"
+                          :check="true"
+                          :disabled="item.disabled"
+                          size="4"
+                          class="ml-2"
+                      />
+                      <div
+                          class="font-normal m-2"
+                          v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
+                      />
+                    </li>
+                  </div>
                 </div>
                 <div 
                     v-if="create && (localsearch || !searchable || createAlways)"
@@ -283,6 +335,10 @@ export default {
             type: String,
             default: 'label'
         },
+        groupValue: {
+          type: String,
+          default: 'value'
+        },
         multiple: {
             type: Boolean,
             required: false,
@@ -310,7 +366,11 @@ export default {
         textField: {
             type: Boolean,
             default: false
-        }
+        },
+        groupSelectable: {
+          type: Boolean,
+          default: false
+        },
     },
     data() {
         return {
@@ -320,7 +380,8 @@ export default {
             isSearching: false,
             viewport: [],
             selectedIndex: -1,
-            cycleIndex: -1
+            cycleIndex: -1,
+            visibleGroups: []
         }
     },
     watch: {
@@ -453,6 +514,20 @@ export default {
             
             return found;
         },
+        isGroupPartiallyChecked(group) {
+            return this.selected.some(obj => obj[this.groupValue] === group.groupName);
+        },
+        isGroupFullyChecked(group) {
+            if (group.items) {
+              for (let groupItem of group.items) {
+                if (!this.selected.some(obj => obj[this.itemValue] === groupItem[this.itemValue])) return false;
+              }
+
+              return true;
+            }
+
+            return false;
+        },
         selectItem(item) {
             // remove possible underline from search select
             item[this.itemLabel] = String(item[this.itemLabel]).replace(/(<([^>]+)>)/ig, '');
@@ -475,10 +550,20 @@ export default {
                 if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
-                if(!this.selected.some((obj) => obj[this.itemValue] === item[this.itemValue])) this.selected.push(item);
-                else {
+                if (item.groupName && item.items) {
+                  if(!this.selected.some((obj) => obj[this.groupValue] === item.groupName)) this.selected.push(...item.items);
+                  else {
+                    item.items.forEach((groupItem) => {
+                      const i = this.selected.findIndex((obj) => obj[this.itemValue] === groupItem[this.itemValue]);
+                      if (i !== -1) this.selected.splice(i, 1);
+                    })
+                  }
+                } else {
+                  if(!this.selected.some((obj) => obj[this.itemValue] === item[this.itemValue])) this.selected.push(item);
+                  else {
                     let i = this.selected.findIndex((obj) => obj[this.itemValue] === item[this.itemValue]);
                     this.selected.splice(i, 1);
+                  }
                 }
             }
 
@@ -506,6 +591,8 @@ export default {
             
             if(!this.textField || (this.textField && this.searchableOptions.length)) this.menu = true;
             this.isSearching = true;
+
+            if (this.groupSelectable) this.showAllGroups();
         },
         equalsSearch(item) { // Work-around because vue 2 doesn't support optional chaining in the template
             return this.searchableOptions?.[this.cycleIndex]?.[this.itemValue] === item;
@@ -552,11 +639,30 @@ export default {
             this.selected = [];
             this.$emit('input', this.multiple ? [] : null); // For multiple selects, return empty array instead
             this.$emit('cleared');
+
+            if (this.groupSelectable) this.hideAllGroups();
         },
         createNew() {
             this.$emit('create-new', this.localsearch);
             this.localsearch = null;
             this.menu = false;
+        },
+        toggleGroup(group) {
+            if (!this.visibleGroups.some(obj => obj === group.groupName)) this.visibleGroups.push(group.groupName);
+            else {
+                const i = this.visibleGroups.indexOf(group.groupName)
+                if (i !== -1) this.visibleGroups.splice(i, 1);
+            }
+        },
+        isGroupVisible(group) {
+            return this.visibleGroups.some(obj => obj === group.groupName);
+        },
+        showAllGroups() {
+            this.visibleGroups = [];
+            this.options.forEach(option => this.visibleGroups.push(option.groupName));
+        },
+        hideAllGroups() {
+            this.visibleGroups = [];
         }
     },
     mounted() {
