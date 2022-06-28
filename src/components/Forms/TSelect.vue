@@ -488,6 +488,8 @@ export default {
                 if (items) this.selected = items;
             } else {
                 this.selected = [];
+                this.selectedIndex = -1;
+                this.cycleIndex = -1;
                 this.localsearch = null;
             }
         },
