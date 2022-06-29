@@ -15,7 +15,7 @@
 							:class="[stepColor(i), allowBack(i) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon value="check" size="6" v-if="(currentStep > i + 1 || finished) && !simple" />
+							<t-icon v-if="(currentStep > i + 1 || finished) && !simple" value="check" size="6" />
 							<span v-else-if="!simple">
 								{{ +i + 1 }}
 							</span>
@@ -28,12 +28,14 @@
 					</div>
 				</template>
 			</div>
-			<div class="mt-20" v-for="(step, i) of stepOptionsComputed" :key="step.id">
-				<div v-show="(currentStep - 1) == i && !finished">
+			<div v-for="(step, i) of stepOptionsComputed" :key="step.id">
+				<div v-show="(currentStep - 1) == i && !finished" class="mt-20">
 					<slot :name="step.id" />
 				</div>
 			</div>
-			<slot class="mt-20" name="finished" v-if="finished" />
+			<div class="mt-20" v-if="finished">
+				<slot class="mt-20" name="finished" />
+			</div>
 		</div>
 		<div v-else>
 			<div class="flex flex-col justify-between">
@@ -44,7 +46,7 @@
 							:class="[stepColor(i), allowBack(i) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
-							<t-icon value="check" size="6" v-if="(currentStep > i + 1 || finished) && !simple" />
+							<t-icon v-if="(currentStep > i + 1 || finished) && !simple" value="check" size="6" />
 							<span v-else-if="!simple">
 								{{ +i + 1 }}
 							</span>
@@ -66,7 +68,9 @@
 						</transition>
 					</div>
 				</div>
-				<slot class="mt-20" name="finished" v-if="finished" />
+				<div v-if="finished" class="mt-20">
+					<slot name="finished" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -178,8 +182,7 @@ export default {
 				if(this.currentStep === i + 1 && !this.finished) return `bg-${this.color} text-${this.textColor}`;
 				else if(this.currentStep > i + 1 || this.finished) return 'bg-green-500 text-white';
 				return 'bg-gray-400 text-white';
-			} 
-			else {
+			} else {
 				if(this.currentStep > i + 1 || this.finished) return `bg-${this.color} border-2 border-${this.color} ring-2 ring-${this.color}`;
 				else if(this.currentStep === i + 1) return `bg-${this.color} border-2 border-white ring-2 ring-${this.color}`;
 				return 'ring-2 ring-gray-300';
