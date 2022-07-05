@@ -29,6 +29,7 @@
                     @keydown="keydown($event)"
                     @focusout="focusout($event)"
                     @focus="focusin($event)"
+                    :role="autofill ? 'textbox' : 'combobox'"
                     :min="min"
                     :max="max"
                     :class="fieldClasses"
@@ -151,6 +152,10 @@ export default {
         characterCounter: {
             type: Boolean,
             default: false
+        },
+        autofill: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
