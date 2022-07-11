@@ -41,8 +41,8 @@
 
                         <input
                             v-else
-                            ref="dsearchb"
                             v-model="localsearch"
+                            ref="dsearchb"
                             @keyup="searchLocal($event, localsearch)"
                             :disabled="disabled"
                             @click="menuToggle('input')"
@@ -89,8 +89,9 @@
                 </slot>
             </div>
             <ul
-                :class="dropdownClasses"
                 v-show="menu"
+                :class="dropdownClasses"
+                :style="`${this.maxHeight ? `max-height: ${this.maxHeight}px` : ''}`"
                 :id="`dropdown-${this.id}`"
             >
                 <li
@@ -175,7 +176,7 @@
                         </li>
                     </div>
 
-                  <div v-if="groupSelectable" v-for="(group, j) of options" :key="group.groupName">
+                  <div v-if="groupSelectable" v-for="group of options" :key="group.groupName">
                     <div v-if="groupedItems(group.items).length" class="relative flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900" @click.stop="selectItem(group)">
                       <t-checkbox
                           :color="color"
@@ -371,6 +372,10 @@ export default {
           type: Boolean,
           default: false
         },
+        maxHeight: {
+            type: [String, Number],
+            default: null
+        }
     },
     data() {
         return {
@@ -424,7 +429,9 @@ export default {
             // return 'chevron-down'
         },
         dropdownClasses() {
-            let c = [`absolute w-full max-h-80 overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none border border-gray-200 z-${this.zIndex}`];
+            let c = [`absolute w-full overflow-y-auto text-sm rounded shadow-lg text-gray-500 bg-white focus:outline-none border border-gray-200 z-${this.zIndex}`];
+
+            if(!this.maxHeight) c = c.concat(['max-h-80']);
 
             if(this.$slots.opener) c = c.concat(['min-w-[200px]']);
 
