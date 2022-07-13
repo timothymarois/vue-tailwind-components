@@ -58,7 +58,7 @@
 						>{{ step.title }}</div>
 					</div>
 					<div 
-						class="px-8 pt-2 pb-6 min-h-[2rem]"
+						class="pl-7 pt-2 pb-6 min-h-[2rem]"
 						:class="[{'border-l-2': i + 1 !== stepOptionsComputed.length}, (simple && i + 1 < currentStep) ? `border-${color}` : 'border-gray-300', `ml-${size / 2}`, simple ? '' : 'my-2']"
 					>
 						<transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
