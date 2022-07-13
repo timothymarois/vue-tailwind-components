@@ -207,7 +207,7 @@ export default {
 						'inset-x-2',
 						'mt-2',
 						'sm:mt-0',
-						`${this.centerOverflow ? 'sm:my-auto sm:inset-4' : ''}`
+						`${this.centerOverflow ? 'my-auto inset-4' : ''}`
 					]);
 					break;
 				case 'full':
