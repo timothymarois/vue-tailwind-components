@@ -31,6 +31,7 @@
                     @focus="focusin($event)"
                     :min="min"
                     :max="max"
+                    :step="step"
                     :class="fieldClasses"
                     :style="(width ? `width: ${width}px` : '')"
                     :ref="id"
@@ -133,6 +134,10 @@ export default {
             default: null
         },
         max: {
+            type: [String, Number],
+            default: null
+        },
+        step: {
             type: [String, Number],
             default: null
         },
