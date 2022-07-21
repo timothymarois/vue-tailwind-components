@@ -184,7 +184,8 @@ export const SimpleHorizontal = (args, { argTypes }) => ({
 			}
 		],
 		currentStep1: 1,
-		finished1: false
+		finished1: false,
+		disableBackOptions: [1, 2]
 	}),
 	methods: {
 		changeStep(e) {
@@ -195,7 +196,7 @@ export const SimpleHorizontal = (args, { argTypes }) => ({
 		`
 		<div>
 			<div class="w-2/3 mx-auto">
-				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="true" @previous-step="changeStep" :finished="finished1" simple size="6" v-bind="$props">
+				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :disableBack="disableBackOptions" :horizontal="true" @previous-step="changeStep" :finished="finished1" simple size="6" v-bind="$props">
 					<template v-slot:step_1>
 						Content for step 1
 						<t-button @click="currentStep1 += 1">Next step</t-button>
@@ -253,7 +254,8 @@ export const SimpleVertical = (args, { argTypes }) => ({
 			}
 		],
 		currentStep1: 1,
-		finished1: false
+		finished1: false,
+		disableBackOptions: [1, 2]
 	}),
 	methods: {
 		changeStep(e) {
@@ -264,7 +266,7 @@ export const SimpleVertical = (args, { argTypes }) => ({
 		`
 		<div>
 			<div class="w-2/3 mx-auto">
-				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :horizontal="false" @previous-step="changeStep" :finished="finished1" simple size="6" v-bind="$props">
+				<t-stepper :stepOptions="stepOptions1" :currentStep="currentStep1" :disableBack="disableBackOptions" :horizontal="false" @previous-step="changeStep" :finished="finished1" simple size="6" v-bind="$props">
 					<template v-slot:step_1>
 						Content for step 1
 						<t-button @click="currentStep1 += 1">Next step</t-button>

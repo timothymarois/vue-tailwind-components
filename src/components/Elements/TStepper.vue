@@ -12,7 +12,7 @@
 					<div class="relative">
 						<div 
 							class="flex items-center justify-center rounded-full text-lg select-none"
-							:class="[stepColor(i), allowBack(i) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
+							:class="[stepColor(i), (allowBack(i) && currentStep > i + 1) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon v-if="(currentStep > i + 1 || finished) && !simple" value="check" size="6" />
@@ -43,7 +43,7 @@
 					<div class="relative flex flex-row items-center">
 						<div 
 							class="flex items-center justify-center rounded-full text-lg select-none"
-							:class="[stepColor(i), allowBack(i) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
+							:class="[stepColor(i), (allowBack(i) && currentStep > i + 1) ? `cursor-pointer ${simple ? `outline-none border-2 border-${color} hover:border-white ring-2 ring-${color}` :''}` : 'cursor-default', `h-${size} w-${size}`]"
 							@click="allowBack(i) ? $emit('previous-step', i + 1) : ''"
 						>
 							<t-icon v-if="(currentStep > i + 1 || finished) && !simple" value="check" size="6" />
@@ -105,7 +105,7 @@ export default {
 			required: true
 		},
 		disableBack: {
-			type: Boolean,
+			type: [Boolean, Array],
 			required: false,
 			default: false
 		},
@@ -206,7 +206,10 @@ export default {
 		},
 		allowBack(i) {
 			if (i + 1 < this.currentStep && !this.disableBack && !this.finished) return true;
-			else return false;
+			else if(Array.isArray(this.disableBack)) {
+				if(this.disableBack.includes(i + 1)) return false;
+				else return true;
+			} else return false;
 		}
 	}
 }
