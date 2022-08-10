@@ -86,7 +86,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody v-if="items && items.length" class="tbody bg-white" :style="fixedHeader ? `height: calc(100% - 36px); overflow-y: scroll; display: block;` : ''">
+        <tbody v-if="items && items.length" class="tbody bg-white" :style="fixedHeader ? `height: calc(100% - 36px); overflow-y: auto; display: block;` : ''">
             <tr 
                 v-for="(item, i) in items"
                 :key="i" 
