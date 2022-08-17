@@ -177,7 +177,6 @@ export default {
 			switch(this.type) {
 				case 'left':
 					c = c.concat([
-						'max-w-xl',
 						'block',
 						'inset-2',
 						'mt-2',
@@ -189,7 +188,6 @@ export default {
 					break;
 				case 'right': 
 					c = c.concat([
-						'max-w-xl',
 						'block',	
 						'inset-2',
 						'mt-2',
@@ -201,7 +199,6 @@ export default {
 					break;
 				case 'center': 
 					c = c.concat([
-						'max-w-xl',
 						'block',
 						'mx-auto',
 						'inset-x-2',
@@ -216,7 +213,7 @@ export default {
 						'inset-y-2',
 						'mt-2',
 						`${this.previousType + '-4' || 'left-4'}`,
-						'sm:inset-y-4',
+						'sm:inset-4',
 						'sm:m-0'
 					]);
 					break; 
