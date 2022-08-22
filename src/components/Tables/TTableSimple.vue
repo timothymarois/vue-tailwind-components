@@ -130,7 +130,8 @@
                     :style="`${h.minWidth ? `min-width: ${h.minWidth}` : ''} ${h.width ? `width: ${h.width};` : ''}`"
                 >
                     <slot :name="`column.${h.value}`" v-bind:column="item" v-bind:index="i">
-                        <span v-if="item[h.value] || item[h.value] === 0">{{ h.value.includes('.') ? item[h.value.split('.')[0]][h.value.split('.')[1]] : item[h.value] }}</span>
+                        <span v-if="getValue(item, h.value) != null">{{ getValue(item, h.value) }}</span>
+                        <span v-else-if="h.hasOwnProperty('emptyString')" class="text-gray-400">{{ h.emptyString }}</span>
                         <span v-else-if="emptyCellMessage" class="text-gray-400">{{ emptyCellMessage }}</span>
                     </slot>
                 </td>
@@ -150,6 +151,7 @@ import TProgressBar from "../Elements/TProgressBar.vue";
 import TIcon from "../Elements/TIcon.vue";
 import TMenu from "../Elements/TMenu.vue";
 import TButton from "../Elements/TButton.vue";
+import objectValueGetter from "../../utils/objectValueGetter.js";
 export default {
     name: 'TTableSimple',
     data () {
@@ -322,7 +324,10 @@ export default {
             else this.selectAllOption = this.$refs.rows_to_select.value;
             
             this.$emit('select-control', this.selectAllOption);
-        }
+        },
+        getValue(obj, path, defaultValue = undefined) {
+            return objectValueGetter(obj, path, defaultValue);
+        },
     },
     watch: {
         selection() {
