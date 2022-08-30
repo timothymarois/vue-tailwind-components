@@ -130,7 +130,10 @@
                     :style="`${h.minWidth ? `min-width: ${h.minWidth}` : ''} ${h.width ? `width: ${h.width};` : ''}`"
                 >
                     <slot :name="`column.${h.value}`" v-bind:column="item" v-bind:index="i">
-                        <span v-if="getValue(item, h.value) != null">{{ getValue(item, h.value) }}</span>
+                        <span v-if="getValue(item, h.value) != null">
+                            <span v-if="typeof h.formatValue === 'function'">{{ h.formatValue(getValue(item, h.value)) }}</span>
+                            <span v-else>{{ getValue(item, h.value) }}</span>
+                        </span>
                         <span v-else-if="h.hasOwnProperty('emptyString')" class="text-gray-400">{{ h.emptyString }}</span>
                         <span v-else-if="emptyCellMessage" class="text-gray-400">{{ emptyCellMessage }}</span>
                     </slot>
