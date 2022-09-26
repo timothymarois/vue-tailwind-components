@@ -20,5 +20,6 @@ const Template = (args, { argTypes }) => ({
 
 export const Standard = Template.bind({});
 Standard.args = {
-	value: 'check'
+	value: 'check',
+	size: 12
 };

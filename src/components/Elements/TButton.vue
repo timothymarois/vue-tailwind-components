@@ -81,6 +81,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		iconMdi: {
+			type: Boolean,
+			default: false
+		},
 		iconRight: {
 			type: String,
 			default: null
@@ -179,7 +183,8 @@ export default {
 					props: {
 						size: sz,
 						value: icon,
-						solid: (this.iconSolid) ? true : false
+						solid: (this.iconSolid) ? true : false,
+						mdi: (this.iconMdi) ? true : false
 					},
 				});
 			}

@@ -241,11 +241,35 @@ export const MultipleStates = () => ({
 			</div>
 
 			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button icon="save" outlined iconMdi iconSolid />
+				<t-button icon="save" outlined iconMdi iconSolid rounded />
+				<t-button icon="save" outlined iconMdi iconSolid loading />
+				<t-button icon="save" outlined iconMdi iconSolid disabled />
+				<t-button icon="save" outlined iconMdi iconSolid loading disabled />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
 				<t-button icon="check" text />
 				<t-button icon="check" text rounded />
 				<t-button icon="check" text loading />
 				<t-button icon="check" text disabled />
 				<t-button icon="check" text loading disabled />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button icon="save" text iconMdi />
+				<t-button icon="save" text iconMdi rounded />
+				<t-button icon="save" text iconMdi loading />
+				<t-button icon="save" text iconMdi disabled />
+				<t-button icon="save" text iconMdi loading disabled />
+			</div>
+
+			<div class="mt-10 max-w-4xl mx-auto space-y-4 flex flex-col items-center justify-start sm:space-y-0 sm:flex-row sm:items-end sm:justify-around">
+				<t-button icon="save" text iconMdi iconSolid />
+				<t-button icon="save" text iconMdi iconSolid rounded />
+				<t-button icon="save" text iconMdi iconSolid loading />
+				<t-button icon="save" text iconMdi iconSolid disabled />
+				<t-button icon="save" text iconMdi iconSolid loading disabled />
 			</div>
 
 
