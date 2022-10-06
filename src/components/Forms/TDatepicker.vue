@@ -20,7 +20,7 @@
                :disabled-date="disableDays"
                :style="(width ? `width: ${width}` : '')">
                   <template #icon-calendar>
-                     <t-icon value="calendar" class="text-gray-500" size="8" />
+                     <t-icon value="calendar" class="text-gray-500" size="5" />
                   </template>
             </date-picker>
          </div>
@@ -122,7 +122,7 @@ export default {
       
       fieldClasses() {
          if(!this.customStyle) {
-            let defaultClasses = [`block w-full h-10 rounded text-sm focus:outline-none focus:ring-0`];
+            let defaultClasses = [`[&_+_i_>_div]:hover:!text-indigo-900 block w-full h-10 rounded text-sm focus:outline-none focus:ring-0`];
             if (this.inputClasses) defaultClasses = defaultClasses.concat([this.inputClasses]);
             if (this.readonly) {
                defaultClasses = defaultClasses.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-200']);
@@ -183,6 +183,16 @@ export default {
 }
 </script>
 <style lang="css">
+   .mx-icon-calendar {
+      right: 12px;
+   }
+   .mx-icon-clear {
+      width: 20px;
+      hight: 20px;
+   }
+   .mx-icon-clear svg {
+      @apply text-indigo-900;
+   }
    .mx-icon-calendar svg {
       fill: transparent;
       width: 20px;
