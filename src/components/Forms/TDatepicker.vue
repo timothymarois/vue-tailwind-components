@@ -8,7 +8,7 @@
          :color="errorState ? 'red-700' : 'gray-800'"
       />
       <div :class="{'mt-1': label}">
-         <div class="relative text-gray-500">
+         <div class="relative text-gray-500 ">
             <date-picker 
                :value="internalValue" 
                @input="changeValue"
@@ -19,6 +19,9 @@
                :input-class="fieldClasses"
                :disabled-date="disableDays"
                :style="(width ? `width: ${width}` : '')">
+                  <template #icon-calendar>
+                     <t-icon value="calendar" class="text-gray-500" size="8" />
+                  </template>
             </date-picker>
          </div>
       </div>
@@ -99,6 +102,14 @@ export default {
       disabledDays: {
          type: Array,
          default: null
+      },
+      disableBefore: {
+         type: String,
+         default: null // yyyy-MM-dd
+      },
+      disableAfter: {
+         type: String,
+         default: null // yyyy-MM-dd
       }
    },
    computed: {
@@ -162,13 +173,32 @@ export default {
                      break;
                }
             })
-            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000);
+            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) ;
          } else {
-            return date < new Date(today.getTime() + 24 * 3600 * 1000)
+            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter);
          }
-         
-      },
+      }
    }
    
 }
 </script>
+<style lang="css">
+   .mx-icon-calendar svg {
+      fill: transparent;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      margin-top: -11px;
+   }  
+   .mx-datepicker-main,
+   .mx-btn {
+      font-family: inherit;
+      color: inherit;
+   }
+   .mx-calendar-content .cell:not(.disabled):hover {
+      @apply text-indigo-900 bg-indigo-100;
+   }
+   .mx-calendar-content .cell.active {
+      @apply rounded bg-indigo-800 !important;
+   }
+</style>

@@ -63,6 +63,16 @@ export default {
          control: { type: 'multi-select' },
          options: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 		},
+		disableBefore: {
+			name: 'disableBefore',
+			description: 'Disable all dates before a specified date',
+         control: { type: 'text' }
+		},
+		disableAfter: {
+			name: 'disableAfter',
+			description: 'Disable all dates after a specified date',
+         control: { type: 'text' }
+		},
 	},
 };
 
