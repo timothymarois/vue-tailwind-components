@@ -24,6 +24,7 @@ import TProgressBar from './Elements/TProgressBar.vue';
 import TLabel from './Forms/TLabel.vue'
 import TTextField from './Forms/TTextField.vue'
 import TSelect from './Forms/TSelect.vue'
+import TDatepicker from './Forms/TDatepicker.vue'
 import TCheckbox from './Forms/TCheckbox.vue'
 import TSwitch from './Forms/TSwitch.vue'
 
@@ -54,6 +55,7 @@ export {
     TLabel,
     TTextField,
     TSelect,
+    TDatepicker,
     TCheckbox,
     TSwitch,
 
