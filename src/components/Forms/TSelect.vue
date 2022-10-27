@@ -58,6 +58,7 @@
                                 'text-indigo-800': !disabled,
                                 'placeholder-indigo-800': selected.length > 0 || selected[itemValue] || selected[itemValue] === false,
                             }"
+                            @keydown="inputFilter"
                         />
 
                         <div
@@ -489,6 +490,12 @@ export default {
         }
     },
     methods: {
+        inputFilter(e) {
+            const filters = '<>/\\'
+            if (filters.includes(e.key)) {
+                e.preventDefault()
+            }
+        },
         checkValue(value) {
             if (value || value === false) {
                 let items = this.getItemsByValue(value, this.multiple);
