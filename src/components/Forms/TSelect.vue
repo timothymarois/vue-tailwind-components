@@ -491,7 +491,7 @@ export default {
     },
     methods: {
         inputFilter(e) {
-            const filters = '<>/\\'
+            const filters = '\<\>\/\\'
             if (filters.includes(e.key)) {
                 e.preventDefault()
             }
