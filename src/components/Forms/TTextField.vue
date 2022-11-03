@@ -182,6 +182,8 @@ export default {
 
                 if (this.inputClasses) c = c.concat([this.inputClasses]);
 
+                if (this.clearable) c = c.concat(['pr-8']);
+
                 if(this.readonly) c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-200']);
                 else {
                     if(this.errorState) c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
