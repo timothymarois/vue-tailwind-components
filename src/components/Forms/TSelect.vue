@@ -125,7 +125,7 @@
                         ]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
                         @click.stop="item.disabled ? '' : selectItem(item)"
-                    >  
+                    >
                         <t-checkbox
                             v-if="multiple"
                             :color="color"
@@ -135,11 +135,12 @@
                             size="4"
                             class="ml-2"
                         />
+                        <slot v-if="$scopedSlots.option" name="option" :option="item" />
                         <div
+                            v-else
                             class="font-normal m-2"
                             v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
                         />
-                        <slot v-if="$scopedSlots.option" :option="item" />
                     </li>
                 </div>
                 <div v-else-if="!loading && computedOptions.length && grouped">
