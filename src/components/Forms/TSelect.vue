@@ -139,6 +139,7 @@
                             class="font-normal m-2"
                             v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
                         />
+                        <slot v-if="$scopedSlots.option" :option="item" />
                     </li>
                 </div>
                 <div v-else-if="!loading && computedOptions.length && grouped">
