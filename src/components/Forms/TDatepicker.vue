@@ -20,7 +20,7 @@
                :disabled-date="disableDays"
                :style="(width ? `width: ${width}` : '')">
                   <template #icon-calendar>
-                     <t-icon value="calendar" class="text-gray-500" size="5" />
+                     <t-icon value="calendar" :class="{'text-gray-500': !errorState, 'text-red-500': errorState}" size="5" />
                   </template>
             </date-picker>
          </div>
@@ -128,7 +128,7 @@ export default {
                defaultClasses = defaultClasses.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-200']);
             } else {
                if(this.errorState) {
-                  defaultClasses = defaultClasses.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
+                  defaultClasses = defaultClasses.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800 placeholder:text-red-400 [&_+_i_>_div]:hover:!text-red-500']);
                } else {
                   defaultClasses = defaultClasses.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
                } 
