@@ -118,6 +118,10 @@ export default {
       disableAfter: {
          type: String,
          default: null // yyyy-MM-dd
+      },
+      disableOn: {
+         type: Array,
+         default: null 
       }
    },
    computed: {
@@ -145,6 +149,16 @@ export default {
          } else {
             return this.customStyle;
          } 
+      }
+   },
+   created() {
+      if (this.disableOn) {
+         this.disabledDates = this.disableOn.map( d => new Date(d));
+      }
+   },
+   data() {
+      return {
+         disabledDates: null
       }
    },
    methods: {
@@ -181,9 +195,9 @@ export default {
                      break;
                }
             })
-            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) ;
+            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || this.disableOn.includes() || ( this.disableOn && this.disableOn.includes(date) ) ;
          } else {
-            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter);
+            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || ( this.disableOn && this.disableOn.includes(date) );
          }
       },
       handleInput (event, update) {
