@@ -153,12 +153,21 @@ export default {
    },
    created() {
       if (this.disableOn) {
+         console.log("🚀 ~ file: TDatepicker.vue ~ line 156 ~ created ~ this.disableOn", typeof this.disableOn)
+         
          this.disabledDates = this.disableOn.map( d => new Date(d));
       }
    },
    data() {
       return {
          disabledDates: null
+      }
+   },
+   watch: {
+      disableOn(newVal) {
+         console.log("🚀 ~ file: TDatepicker.vue ~ line 168 ~ disableOn ~ newVal", newVal);
+         this.disabledDates = this.disableOn.map( d => new Date(d));
+         console.log("🚀 ~ file: TDatepicker.vue ~ line 170 ~ disableOn ~ this.disabledDates", this.disabledDates)
       }
    },
    methods: {
@@ -195,9 +204,9 @@ export default {
                      break;
                }
             })
-            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || this.disableOn.includes() || ( this.disableOn && this.disableOn.includes(date) ) ;
+            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || this.disableOn.includes() || ( this.disabledDates && this.disabledDates.includes(date) ) ;
          } else {
-            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || ( this.disableOn && this.disableOn.includes(date) );
+            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || ( this.disabledDates && this.disabledDates.includes(date) );
          }
       },
       handleInput (event, update) {

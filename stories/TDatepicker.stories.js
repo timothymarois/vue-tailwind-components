@@ -73,6 +73,11 @@ export default {
 			description: 'Disable all dates after a specified date',
          control: { type: 'text' }
 		},
+		disableOn: {
+			name: 'disableOn',
+			description: 'Disable all specific dates',
+         control: { type: 'object' }
+		},
 	},
 };
 
