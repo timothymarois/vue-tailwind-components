@@ -22,6 +22,14 @@
                   <template #icon-calendar>
                      <t-icon value="calendar" :class="{'text-gray-500': !errorState, 'text-red-500': errorState}" size="5" />
                   </template>
+                  <template #input='{ props, events }'>
+                     <input
+                        v-bind='props'
+                        v-on='{
+                           ...events,
+                           input: event => handleInput(event, events.input)
+                        }'>
+                  </template>
             </date-picker>
          </div>
       </div>
@@ -110,6 +118,10 @@ export default {
       disableAfter: {
          type: String,
          default: null // yyyy-MM-dd
+      },
+      disableOn: {
+         type: Array,
+         default: null 
       }
    },
    computed: {
@@ -140,6 +152,16 @@ export default {
       }
    },
    methods: {
+      padTo2Digits(num) {
+         return num.toString().padStart(2, '0');
+      },
+      formatDate(date) {
+         return [
+            date.getFullYear(),
+            this.padTo2Digits(date.getMonth() + 1),
+            this.padTo2Digits(date.getDate()),
+         ].join('-');
+      },
       changeValue(val) {
          this.$emit('input', val);
       },
@@ -173,10 +195,26 @@ export default {
                      break;
                }
             })
-            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) ;
+            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || this.disableOn.includes() || ( this.disableOn && this.disableOn.includes(this.formatDate(date)) ) ;
          } else {
-            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter);
+            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || ( this.disableOn && this.disableOn.includes(this.formatDate(date)) );
          }
+      },
+      handleInput (event, update) {
+         let value = event.target.value.replace(/[^0-9/]/g, '')
+         if (event.target.value.length === 8) {
+            let formatDate = event.target.value.slice(0,4) + '-' + event.target.value.slice(4,6) + '-' + event.target.value.slice(6,8)
+            // force Vue to refresh input after remove some characters
+            this.$forceUpdate()
+            // Apply new value to let vue2-datepicker continue its flow
+            update(formatDate)
+         } else {
+            // force Vue to refresh input after remove some characters
+            this.$forceUpdate()
+            // Apply new value to let vue2-datepicker continue its flow
+            update(value)
+         }
+         
       }
    }
    
@@ -185,13 +223,14 @@ export default {
 <style lang="css">
    .mx-icon-calendar {
       right: 12px;
+      @apply cursor-pointer;
    }
    .mx-icon-clear {
       width: 20px;
       hight: 20px;
    }
    .mx-icon-clear svg {
-      @apply text-indigo-900;
+      @apply text-indigo-900 cursor-pointer;
    }
    .mx-icon-calendar svg {
       fill: transparent;
