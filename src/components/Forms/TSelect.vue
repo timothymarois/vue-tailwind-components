@@ -147,7 +147,7 @@
                     <div v-if="!groupSelectable" v-for="(group, j) of options" :key="group.groupName">
                         <div
                             v-if="groupedItems(group.items).length"
-                            :class="`font-bold text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`
+                            :class="`font-bold capitalize text-gray-800 border-b border-gray-300 mb-2 mx-2 ${j !== 0 ? 'mt-4' : 'mt-2'} px-2 pb-1`
                         ">
                             {{ group.groupName }}
                         </div>
