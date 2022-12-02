@@ -201,20 +201,23 @@ export default {
          }
       },
       handleInput (event, update) {
-         let value = event.target.value.replace(/[^0-9/]/g, '')
-         if (event.target.value.length === 8) {
-            let formatDate = event.target.value.slice(0,4) + '-' + event.target.value.slice(4,6) + '-' + event.target.value.slice(6,8)
-            // force Vue to refresh input after remove some characters
-            this.$forceUpdate()
-            // Apply new value to let vue2-datepicker continue its flow
-            update(formatDate)
-         } else {
-            // force Vue to refresh input after remove some characters
-            this.$forceUpdate()
-            // Apply new value to let vue2-datepicker continue its flow
-            update(value)
+         let value = event.target.value.replace(/[^0-9\-]/g, '');
+         let formatDate = value;
+         if (formatDate.charAt(formatDate.length-1) === '-' && formatDate.charAt(formatDate.length-2) === '-') {
+            formatDate = formatDate.slice(0, formatDate.length - 1);
          }
-         
+         if (value.length > 10) {
+            formatDate = value.slice(0,10);
+            this.$forceUpdate();
+            update(formatDate);
+         } else if ((value.length === 4 || value.length === 7) && event.inputType !== 'deleteContentBackward') {
+            formatDate = formatDate + '-';
+            this.$forceUpdate();
+            update(formatDate);
+         } else {
+            this.$forceUpdate();
+            update(formatDate);
+         }
       }
    }
    
