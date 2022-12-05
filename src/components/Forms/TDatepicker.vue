@@ -93,7 +93,7 @@ export default {
       },
       format: {
          type: String,
-         default: 'YYYY-MM-DD'
+         default: 'MM-DD-YYYY'
       },
       width: {
          type: [String, Number],
@@ -208,16 +208,11 @@ export default {
          }
          if (value.length > 10) {
             formatDate = value.slice(0,10);
-            this.$forceUpdate();
-            update(formatDate);
-         } else if ((value.length === 4 || value.length === 7) && event.inputType !== 'deleteContentBackward') {
+         } else if ((value.length === 2 || value.length === 5) && event.inputType !== 'deleteContentBackward') {
             formatDate = formatDate + '-';
-            this.$forceUpdate();
-            update(formatDate);
-         } else {
-            this.$forceUpdate();
-            update(formatDate);
-         }
+         } 
+         this.$forceUpdate();
+         update(formatDate);
       }
    }
    
