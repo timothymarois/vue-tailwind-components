@@ -60,7 +60,7 @@ export default {
             default: ['w-full']
         },
         cardClasses: {
-            type: String,
+            type: Array,
             default: ['bg-white w-full']
         }
     },
