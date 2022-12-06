@@ -5,7 +5,7 @@
          :id="id"
          :label="label"
          :required="required"
-         :color="errorState ? 'red-700' : 'gray-800'"
+         :color="errorState ? 'red-500' : 'gray-800'"
       />
       <div :class="{'mt-1': label}">
          <div class="relative text-gray-500 ">
@@ -140,7 +140,7 @@ export default {
                defaultClasses = defaultClasses.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-200']);
             } else {
                if(this.errorState) {
-                  defaultClasses = defaultClasses.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800 placeholder:text-red-400 [&_+_i_>_div]:hover:!text-red-500']);
+                  defaultClasses = defaultClasses.concat(['border-red-500 focus:border-red-500 text-red-500 hover:text-red-800 placeholder:text-red-400 [&_+_i_>_div]:hover:!text-red-500']);
                } else {
                   defaultClasses = defaultClasses.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
                } 
@@ -246,6 +246,6 @@ export default {
       @apply text-indigo-900 bg-indigo-100;
    }
    .mx-calendar-content .cell.active {
-      @apply rounded bg-indigo-800 !important;
+      @apply rounded bg-indigo-800 text-white !important;
    }
 </style>

@@ -6,7 +6,7 @@
             :label="label"
             :required="required"
             :icon="iconLabel"
-            :color="errorState ? 'red-700' : 'gray-800'"
+            :color="errorState ? 'red-500' : 'gray-800'"
         />
         <div :class="{'mt-1': label}">
             <div class="relative text-gray-500">
@@ -186,7 +186,7 @@ export default {
 
                 if(this.readonly) c = c.concat(['cursor-default bg-gray-100 border-gray-200 focus:border-gray-200']);
                 else {
-                    if(this.errorState) c = c.concat(['border-red-400 focus:border-red-400 text-red-700 hover:text-red-800']);
+                    if(this.errorState) c = c.concat(['border-red-500 focus:border-red-500 text-red-500 hover:text-red-800']);
                     else c = c.concat([`text-${this.textColor} border-${this.borderColor} hover:bg-${this.color}-100 hover:border-${this.color}-900 focus:border-${this.color}-800 hover:text-${this.color}-900`])
                 }
                 
