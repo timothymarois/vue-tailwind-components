@@ -1,5 +1,5 @@
 <template>
-    <div :class="cardClasses">
+    <div :class="computedCardClasses">
         <div v-if="title || $slots.title">
             <div class="flex justify-between items-center flex-wrap sm:flex-nowrap border-b border-gray-200 p-4" v-if="!$slots.title">
                 <div>
@@ -14,10 +14,10 @@
                 <slot name="title"></slot>
             </div>
         </div>
-        <div :class="contentClasses">
+        <div :class="computedContentClasses">
             <slot></slot>
         </div>
-        <div v-if="$slots.footer" :class="contentClasses" class="border-t border-gray-200">
+        <div v-if="$slots.footer" :class="computedContentClasses" class="border-t border-gray-200">
             <slot name="footer"></slot>
         </div>
     </div>
@@ -37,33 +37,45 @@ export default {
         },
         flat: {
             type: Boolean,
-            defualt: false
+            default: false
         },
         tile: {
             type: Boolean,
-            defualt: false
+            default: false
         },
         border: {
             type: Boolean,
-            defualt: false
+            default: false
         },
         borderColor: {
             type: String,
-            defualt: 'gray'
+            default: 'gray'
         },
         contentPadding: {
             type: [Number, String],
             default: 4
+        },
+        contentClasses: {
+            type: Array,
+            default() {
+               return ['w-full'];
+            } 
+        },
+        cardClasses: {
+            type: Array,
+            default() {
+               return ['bg-white w-full'];
+            } 
         }
     },
     computed: {
-        contentClasses() {
-            let c = ['w-full'];
+        computedContentClasses() {
+            let c = [...this.contentClasses];
             if (this.contentPadding) c = c.concat([`p-${this.contentPadding}`]);
             return c;
         },
-        cardClasses() {
-            let c = ['bg-white w-full'];
+        computedCardClasses() {
+            let c = [...this.cardClasses];
 
             if (!this.flat) c = c.concat(['shadow']);
             if (!this.tile) c = c.concat(['rounded']);
