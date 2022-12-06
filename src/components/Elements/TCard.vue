@@ -57,11 +57,15 @@ export default {
         },
         contentClasses: {
             type: Array,
-            default: ['w-full']
+            default() {
+               return ['w-full'];
+            } 
         },
         cardClasses: {
             type: Array,
-            default: ['bg-white w-full']
+            default() {
+               return ['bg-white w-full'];
+            } 
         }
     },
     computed: {
