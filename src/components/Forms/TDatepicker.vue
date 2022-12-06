@@ -18,6 +18,7 @@
                :format="format"
                :input-class="fieldClasses"
                :disabled-date="disableDays"
+               :title-format="'MM-DD-YYYY'"
                :style="(width ? `width: ${width}` : '')">
                   <template #icon-calendar>
                      <t-icon value="calendar" :class="{'text-gray-500': !errorState, 'text-red-500': errorState}" size="5" />
@@ -246,6 +247,6 @@ export default {
       @apply text-indigo-900 bg-indigo-100;
    }
    .mx-calendar-content .cell.active {
-      @apply rounded bg-indigo-800 !important;
+      @apply rounded bg-indigo-800 text-white !important;
    }
 </style>
