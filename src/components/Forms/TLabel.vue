@@ -7,7 +7,7 @@
             <t-icon v-if="icon" :value="icon" class="mr-1" />
             <span v-if="label" class="inline-block">{{ label }}</span>
         </slot>
-        <span class="inline-block text-red-600" v-if="required">*</span>
+        <span class="inline-block text-red-500" v-if="required">*</span>
     </label>
 </template>
 
