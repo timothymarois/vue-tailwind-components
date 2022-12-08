@@ -246,6 +246,9 @@ export default {
    .mx-calendar-content .cell:not(.disabled):hover {
       @apply text-indigo-900 bg-indigo-100;
    }
+   .mx-calendar-content .cell {
+      @apply rounded;
+   }
    .mx-calendar-content .cell.active {
       @apply rounded bg-indigo-800 text-white !important;
    }
