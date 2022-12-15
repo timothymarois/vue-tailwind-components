@@ -39,6 +39,8 @@
 
 <script>
 import DatePicker from 'vue2-datepicker';
+import { DateTime } from 'luxon';
+
 import 'vue2-datepicker/index.css';
 
 import uniqid from "../../utils/uniqid.js";
@@ -123,6 +125,16 @@ export default {
       disableOn: {
          type: Array,
          default: null 
+      },
+      timezone: {
+         type: String,
+      }
+   },
+   inject: {
+      tConfig: {
+         default: {
+            timezone: undefined,
+         }
       }
    },
    computed: {
@@ -150,6 +162,9 @@ export default {
          } else {
             return this.customStyle;
          } 
+      },
+      getTimezone() {
+         return this.timezone || this.tConfig.timezone;
       }
    },
    methods: {
@@ -164,7 +179,8 @@ export default {
          ].join('-');
       },
       changeValue(val) {
-         this.$emit('input', val);
+         const emitValue = this.getTimezone ? DateTime.fromJSDate(val).setZone(this.getTimezone, { keepLocalTime: true, keepCalendarTime: true }).toJSDate() : val;
+         this.$emit('input', emitValue);
       },
       disableDays(date) {
          const today = new Date();
