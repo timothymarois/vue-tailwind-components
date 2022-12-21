@@ -607,7 +607,7 @@ export default {
             // lets ignore these events since they are not searches
             if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Enter') return false;
             
-            this.localsearch = this.localsearch.replace(/[\<\>//\\]/gi, '')
+            if (this.localsearch && this.localsearch.length) this.localsearch = this.localsearch.replace(/[\<\>//\\]/gi, '')
             if(!this.textField || (this.textField && this.searchableOptions.length)) this.menu = true;
             this.isSearching = true;
 
