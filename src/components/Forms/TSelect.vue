@@ -608,7 +608,7 @@ export default {
             if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Enter') return false;
             
             if (this.localsearch && this.localsearch.length) this.localsearch = this.localsearch.replace(/[\<\>//\\]/gi, '')
-            if(!this.textField || (this.textField && this.searchableOptions.length)) this.menu = true;
+            if (!this.textField || (this.textField && this.searchableOptions.length)) this.menu = true;
             this.isSearching = true;
 
             if (this.groupSelectable) this.showAllGroups();
