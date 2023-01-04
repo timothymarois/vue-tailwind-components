@@ -35,14 +35,14 @@
                         <span
                             v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
                             :placeholder="placeholder" 
-                            class="truncate pl-3 font-medium"
+                            class="truncate pl-2 font-medium"
                             @click="menuToggle('label')"
                         >{{ placeholder }}</span>
                         
                         <span
                             v-else-if="(!searchable || textField) && selected.length !== 0" 
                             :placeholder="placeholder" 
-                            class="truncate pl-3 font-medium"
+                            class="truncate pl-2 font-medium"
                             :class="{ 'text-gray-500 cursor-not-allowed': disabled, 'text-indigo-800': !disabled }"
                             @click="menuToggle('label')"
                         >{{ selectPlaceholder }}</span>
@@ -59,7 +59,7 @@
                             :id="`search-${id}`"
                             :name="`n[${id}]`"
                             :placeholder="selectPlaceholder"
-                            class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
+                            class="w-full bg-transparent font-medium pl-2 text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
                             :class="{
                                 'cursor-pointer': menu === false,
                                 'text-gray-500 cursor-not-allowed': disabled,
