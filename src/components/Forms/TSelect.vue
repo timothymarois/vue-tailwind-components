@@ -15,7 +15,7 @@
                 <slot name="opener">
                     <button
                         type="button"
-                        class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
+                        class="flex justify-start items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
                         :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white group': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
                         @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
                         @keydown.up.prevent="cycleOptions('up')"
@@ -81,7 +81,7 @@
                         <div
                             v-if="!hideicon && !loading && !textField"
                             @click="menuToggle('arrow')"
-                            class="p-2 h-full flex items-center"
+                            class="p-2 h-full flex items-center ml-auto"
                         >
                             <t-icon
                                 :value="menuIcon"
@@ -91,7 +91,7 @@
 
                         <div 
                             v-if="loading"
-                            class="p-2 h-full flex items-center"
+                            class="p-2 h-full flex items-center ml-auto"
                         >
                             <t-loader size="5" />
                         </div>
@@ -479,7 +479,7 @@ export default {
         },
         selectPlaceholder() { 
             if (this.multiple && this.selected.length) {
-                if (this.allSelectedPlaceholder) {
+                if (this.allSelectedPlaceholder && this.selected.length === this.options.length) {
                     return `All ${this.placeholder}`;
                 } else {
                     return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
