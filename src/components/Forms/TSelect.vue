@@ -24,9 +24,8 @@
                         @click.self="menuToggle('button')"
                         :tabindex="searchable && !disabled ? '-1' : '0'"
                     >
-                        <span class="text-gray-300 ml-2 group-hover:text-indigo-300">
+                        <span v-if="showIcon" class="text-gray-300 ml-2 group-hover:text-indigo-300">
                             <t-icon
-                                v-if="showIcon"
                                 :value="iconName"
                                 solid
                                 size="5"
