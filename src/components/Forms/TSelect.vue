@@ -16,7 +16,7 @@
                     <button
                         type="button"
                         class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
-                        :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
+                        :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white group': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
                         @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
                         @keydown.up.prevent="cycleOptions('up')"
                         @keydown.down.prevent="cycleOptions('down')"
@@ -24,6 +24,15 @@
                         @click.self="menuToggle('button')"
                         :tabindex="searchable && !disabled ? '-1' : '0'"
                     >
+                        <span class="text-gray-200 ml-2 group-hover:text-indigo-300">
+                            <t-icon
+                                v-if="showIcon"
+                                :value="iconName"
+                                solid
+                                size="5"
+                            />
+                        </span>    
+                        
                         <span
                             v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
                             :placeholder="placeholder" 
@@ -378,6 +387,18 @@ export default {
         maxHeight: {
             type: [String, Number],
             default: null
+        },
+        allSelectedPlaceholder: {
+            type: Boolean,
+            default: false
+        }, 
+        showIcon: {
+            type: Boolean,
+            dafault: false
+        },
+        iconName: {
+            type: String,
+            default: null
         }
     },
     data() {
@@ -457,9 +478,16 @@ export default {
             } else return this.computedOptions;
         },
         selectPlaceholder() { 
-            if(this.multiple && this.selected.length) return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            else if(!this.multiple && (this.selected[this.itemValue] || this.selected[this.itemValue] === false)) return this.selected[this.itemLabel];
-
+            if (this.multiple && this.selected.length) {
+                if (this.allSelectedPlaceholder) {
+                    return `All ${this.placeholder}`;
+                } else {
+                    return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+                }
+                
+            } else if (!this.multiple && (this.selected[this.itemValue] || this.selected[this.itemValue] === false)) {
+                return this.selected[this.itemLabel];
+            }
             return this.placeholder;
         },
         returnValue() {
