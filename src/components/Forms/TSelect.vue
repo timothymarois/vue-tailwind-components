@@ -534,18 +534,10 @@ export default {
             return found;
         },
         isGroupPartiallyChecked(group) {
-            return this.selected.some(obj => obj[this.groupValue] === group.groupName);
+            return group.items?.some( obj => this.selected.some(s => s.label === obj.label) );
         },
         isGroupFullyChecked(group) {
-            if (group.items) {
-              for (let groupItem of group.items) {
-                if (!this.selected.some(obj => obj[this.itemValue] === groupItem[this.itemValue])) return false;
-              }
-
-              return true;
-            }
-
-            return false;
+            return group.items?.every( obj => this.selected.some(s => s.label === obj.label) );
         },
         selectItem(item) {
             // remove possible underline from search select
@@ -570,19 +562,32 @@ export default {
             } 
             else {
                 if (this.groupSelectable && item.groupName && item.items) {
-                  if(!this.selected.some((obj) => obj[this.groupValue] === item.groupName)) this.selected.push(...item.items);
-                  else {
-                    item.items.forEach((groupItem) => {
-                      const i = this.selected.findIndex((obj) => obj[this.itemValue] === groupItem[this.itemValue]);
-                      if (i !== -1) this.selected.splice(i, 1);
-                    })
-                  }
+                    // if user checked/unchecked an entire group
+                    if (!this.selected.some( (obj) => obj.label === item.groupName) ) {
+                        // if all the child items of the group were already checked, uncheck them all
+                        if (item.items.every(i => this.selected.some(s => s.label === i.label) )) {
+                            for (const i of item.items) {
+                                this.selected = this.selected.filter(s => s.label !== i.label)
+                            }
+                        // if none or only some child items in a group are checked, then check them all
+                        } else {
+                            const uncheckedItems = item.items.filter(i => !this.selected.some( s => s.label === i.label) )
+                            this.selected.push(...uncheckedItems)
+                        }
+                    // if user checked/unchecked a child item of a group
+                    } else {
+                        item.items.forEach((groupItem) => {
+                            const i = this.selected.findIndex( (obj) => obj[this.itemValue] === groupItem[this.itemValue] );
+                            if (i !== -1) this.selected.splice(i, 1);
+                        })
+                    }
                 } else {
-                  if(!this.selected.some((obj) => obj[this.itemValue] === item[this.itemValue])) this.selected.push(item);
-                  else {
-                    let i = this.selected.findIndex((obj) => obj[this.itemValue] === item[this.itemValue]);
-                    this.selected.splice(i, 1);
-                  }
+                    if (!this.selected.some( (obj) => obj[this.itemValue] === item[this.itemValue]) ) {
+                        this.selected.push(item);
+                    } else {
+                        let i = this.selected.findIndex( (obj) => obj[this.itemValue] === item[this.itemValue] );
+                        this.selected.splice(i, 1);
+                    }
                 }
             }
 
