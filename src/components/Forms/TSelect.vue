@@ -189,53 +189,27 @@
 
                   <div v-if="groupSelectable" v-for="group of options" :key="group.groupName">
                     <div v-if="groupedItems(group.items).length" class="relative flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900" @click.stop="selectItem(group)">
-                      <t-checkbox
-                          :color="color"
-                          :value="isGroupPartiallyChecked(group)"
-                          :check="isGroupFullyChecked(group)"
-                          size="4"
-                          class="ml-2"
-                      />
-                      <div class="font-normal m-2 w-full">{{group.groupName}}</div>
-
-                      <div
-                          @click.stop="toggleGroup(group)"
-                          class="cursor-pointer p-2 flex items-center h-full"
-                      >
-                        <t-icon
-                            :value="isGroupVisible(group) ? 'chevron-up' : 'chevron-down'"
-                            size="5"
-                        />
-                      </div>
-
+                        <t-checkbox :color="color" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" size="4" class="ml-2" />
+                        <div class="font-normal m-2 w-full">{{group.groupName}}</div>
+                        <div v-if="groupedItems(group.items).length > 1" @click.stop="toggleGroup(group)" class="cursor-pointer p-2 flex items-center h-full" >
+                            <t-icon :value="isGroupVisible(group) ? 'chevron-up' : 'chevron-down'" size="5" />
+                        </div>
                     </div>
 
-                    <li
-                        v-if="isGroupVisible(group)"
+                    <li v-if="isGroupVisible(group)"
                         v-for="(item, i) of groupedItems(group.items)"
                         :key="i"
                         class="relative flex items-center rounded m-2 transition duration-150"
                         :class="[
-                                { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
-                                { 'focused': equalsSearch(item[itemValue]) },
-                                item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
-                            ]"
+                            { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
+                            { 'focused': equalsSearch(item[itemValue]) },
+                            item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
+                        ]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
                         @click.stop="item.disabled ? '' : selectItem(item)"
                     >
-                      <t-checkbox
-                          v-if="multiple"
-                          :color="color"
-                          :value="isChecked(item)"
-                          :check="true"
-                          :disabled="item.disabled"
-                          size="4"
-                          class="ml-2"
-                      />
-                      <div
-                          class="font-normal m-2"
-                          v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
-                      />
+                        <t-checkbox v-if="multiple" :color="color" :value="isChecked(item)" :check="true" :disabled="item.disabled" size="4" class="ml-2" />
+                        <div class="font-normal m-2" v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]" />
                     </li>
                   </div>
                 </div>
