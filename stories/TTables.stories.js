@@ -69,10 +69,13 @@ export const BasicTables = () => ({
     }),
 	template: 
 	`
-        <div class="p-6 bg-gray-100">
+
+
+        <t-app>
+            <t-page class="p-4">
 
             <div class="w-full">
-                <t-card title="Basic Table" contentPadding="0">
+                <t-card title="Basic Table">
                     <t-table-simple 
                         :headers="headers"
                         :items="items"
@@ -121,7 +124,8 @@ export const BasicTables = () => ({
                 </t-card>
             </div>
 
-        </div>
+            </t-page>
+        </t-app>
 	`,
 });
 

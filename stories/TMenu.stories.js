@@ -171,7 +171,11 @@ export const MultipleStates = (argTypes) => ({
     }),
 	template: 
 	`
-	<div class="p-6 bg-gray-100">
+
+	<t-app>
+		<t-page class="py-4">
+
+	<div class="p-6">
 		<div class="w-full flex flex-col space-y-4">
 		
 			<t-card title="Menu with button">
@@ -307,5 +311,8 @@ export const MultipleStates = (argTypes) => ({
 		
 
 	</div>
+
+		</t-page>	
+	</t-app>
 	`
 });

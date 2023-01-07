@@ -10,7 +10,7 @@
                     <slot name="actions"></slot>
                 </div>
             </div>
-            <div v-else>
+            <div v-else :class="getCssClass('header')">
                 <slot name="title"></slot>
             </div>
         </div>
@@ -54,13 +54,13 @@ const TCard = Component.extend({
             type: Object,
             default() {
                 return {
-                    root: 'w-full shadow bg-white dark:bg-black',
-                    header: 'p-4 border-b border-gray-200',
-                    headerTitle: 'leading-none font-medium text-lg text-indigo-800',
+                    root: 'w-full border border-gray-400 rounded bg-white dark:bg-black',
+                    header: 'p-4 border-b border-gray-400',
+                    headerTitle: 'leading-none font-medium text-lg text-black',
                     headerSubtitle: 'text-sm text-gray-500',
                     actions: '',
                     body: 'w-full p-4',
-                    footer: 'w-full p-4 border-t border-gray-200'
+                    footer: 'w-full p-4 border-t border-gray-400'
                 }
             }
         }

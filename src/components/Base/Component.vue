@@ -68,12 +68,10 @@ const Component = Vue.extend({
             if (!this.variant) {
                 return undefined;
             }
-
             if (typeof this.variant === 'object') {
                 const myVariant = Object.keys(this.variant).find((variant) => !!this.variant[variant]);
                 return myVariant || undefined;
             }
-
             return this.variant;
         }
     },
