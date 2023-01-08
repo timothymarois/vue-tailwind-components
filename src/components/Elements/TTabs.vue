@@ -23,7 +23,8 @@
                 @click="update(item)"
                 v-for="item of items"
                 :key="item.id"
-                :id="item.id" 
+                :id="item.id"
+                :disabled="item.disabled" 
             >
                 <span>{{ item.name }}</span>
             </button>
