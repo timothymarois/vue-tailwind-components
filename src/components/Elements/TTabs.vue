@@ -8,16 +8,14 @@
                 'sticky top-0 bg-white pb-2 z-10': sticky
             }"
         >
-            <span v-for="item of items" class="inline-block relative" :key="item.id">
+            <span v-for="item of items" class="inline-block relative" :class="{'flex-grow': grow, 'flex-1': even}" :key="item.id">
                 <button
-                    class="relative flex items-center justify-center rounded bg-gray-100 focus:outline-none font-semibold"
+                    class="flex items-center justify-center rounded bg-gray-100 focus:outline-none font-semibold w-full"
                     :class="{
                         'bg-indigo-800 text-white ': value == item.id,
                         'px-4 py-2 text-sm': !dense,
                         'px-2 py-1 text-xs': dense,
                         'pr-[24px]': item.disabled,
-                        'flex-grow': grow,
-                        'flex-1': even,
                         'hover:bg-indigo-900 hover:text-white': (value == item.id) && !item.disabled,
                         'hover:bg-indigo-100 hover:text-indigo-900': (value != item.id) && !item.disabled,
                         'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300': item.disabled
