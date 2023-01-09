@@ -1,6 +1,6 @@
 <template>
     <div class="w-full">
-        <div class="flex flex-wrap text-gray-500"
+        <div class="flex text-gray-500 flex-nowrap overflow-x-auto pb-4 scrollbar-thin scrollbar-h-1 scrollbar-thumb-gray-300 scrollbar-track-white"
             :class="{
                 'justify-between': grow,
                 'gap-4 mb-4': !dense,
@@ -43,10 +43,12 @@
 
 <script>
 import TIcon from "./TIcon.vue"; 
+import TTooltip from "./TTooltip.vue"; 
 export default { 
     name: 'TTabs',
     components: {
-        TIcon
+        TIcon,
+        TTooltip
     },
     props: {
         value: {
