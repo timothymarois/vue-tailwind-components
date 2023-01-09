@@ -23,14 +23,12 @@
                         'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300': item.disabled
                     }"
                     @click="update(item)"
-                   
-                    
                     :id="item.id"
                     :disabled="item.disabled" 
                 >
                     <span>{{ item.name }}</span>
                 </button>
-                <t-tooltip v-if="item.comingSoon" content="Coming Soon" position="top" class="absolute -t-[2px] r-[5px]  cursor-pointer text-indigo-800">
+                <t-tooltip v-if="item.comingSoon" content="Coming Soon" position="top" class="absolute -top-[2px] right-[5px]  cursor-pointer text-indigo-800">
 					<t-icon value="question-mark-circle" solid size="4" />
 				</t-tooltip>
             </span>
@@ -44,8 +42,12 @@
 </template>
 
 <script>
+import TIcon from "./TIcon.vue"; 
 export default { 
     name: 'TTabs',
+    components: {
+        TIcon
+    },
     props: {
         value: {
             type: [String, Number],
