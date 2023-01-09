@@ -1,7 +1,8 @@
 <template>
     <div class="w-full">
-        <div class="flex text-gray-500 flex-nowrap overflow-x-auto pb-4 scrollbar-thin scrollbar-h-1 scrollbar-thumb-gray-300 scrollbar-track-white mb-2"
+        <div ref="scrollableElement" class="flex text-gray-500 flex-nowrap overflow-x-auto scrollbar-thin scrollbar-h-1 scrollbar-thumb-gray-300 scrollbar-track-white mb-2"
             :class="{
+                'pb-4': overflowing,
                 'justify-between': grow,
                 'gap-4': !dense,
                 'gap-2': dense,
@@ -74,11 +75,35 @@ export default {
             default: false
         }
     },
+    mounted() {
+        this.$nextTick(() => {
+            this.onResize();
+        });
+        window.addEventListener('resize', () => {
+            // clear the timeout
+            clearTimeout(this.timeout);
+            // start timing for event "completion"
+            this.timeout = setTimeout(this.onResize, 200);
+        });
+    },
+    data() {
+        return {
+            timeout: null,
+            overflowing: false
+        }
+    },
     methods:{
         update(item) {
             if (item.disabled) return;
             this.$emit('input', item.id);
             this.$emit('change', item.id);
+        },
+        onResize() {
+            if (this.$refs.scrollableElement.clientWidth < this.$refs.scrollableElement.scrollWidth) {
+                this.overflowing = true
+            } else {
+                this.overflowing = false
+            }
         }
     }
 };
