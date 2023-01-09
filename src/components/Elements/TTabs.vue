@@ -15,6 +15,7 @@
                         'bg-indigo-800 text-white ': value == item.id,
                         'px-4 py-2 text-sm': !dense,
                         'px-2 py-1 text-xs': dense,
+                        'pr-[24px]': item.disabled,
                         'flex-grow': grow,
                         'flex-1': even,
                         'hover:bg-indigo-900 hover:text-white': (value == item.id) && !item.disabled,
@@ -29,7 +30,7 @@
                 >
                     <span>{{ item.name }}</span>
                 </button>
-                <t-tooltip v-if="item.comingSoon" content="Coming Soon" position="top" class="ml-1.5 -mt-0.5 cursor-pointer text-indigo-800">
+                <t-tooltip v-if="item.comingSoon" content="Coming Soon" position="top" class="absolute -t-[2px] r-[5px]  cursor-pointer text-indigo-800">
 					<t-icon value="question-mark-circle" solid size="4" />
 				</t-tooltip>
             </span>
