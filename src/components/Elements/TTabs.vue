@@ -1,10 +1,10 @@
 <template>
     <div class="w-full">
-        <div class="flex text-gray-500 flex-nowrap overflow-x-auto pb-4 scrollbar-thin scrollbar-h-1 scrollbar-thumb-gray-300 scrollbar-track-white"
+        <div class="flex text-gray-500 flex-nowrap overflow-x-auto pb-4 scrollbar-thin scrollbar-h-1 scrollbar-thumb-gray-300 scrollbar-track-white mb-2"
             :class="{
                 'justify-between': grow,
-                'gap-4 mb-4': !dense,
-                'gap-2 mb-2': dense,
+                'gap-4': !dense,
+                'gap-2': dense,
                 'sticky top-0 bg-white pb-2 z-10': sticky
             }"
         >
