@@ -83,7 +83,7 @@ export default {
             // clear the timeout
             clearTimeout(this.timeout);
             // start timing for event "completion"
-            this.timeout = setTimeout(this.onResize, 200);
+            this.timeout = setTimeout(this.onResize, 80);
         });
     },
     data() {
