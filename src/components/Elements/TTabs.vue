@@ -8,26 +8,31 @@
                 'sticky top-0 bg-white pb-2 z-10': sticky
             }"
         >
-            <button
-                class="relative flex items-center justify-center rounded bg-gray-100 focus:outline-none font-semibold"
-                :class="{
-                    'bg-indigo-800 text-white ': value == item.id,
-                    'px-4 py-2 text-sm': !dense,
-                    'px-2 py-1 text-xs': dense,
-                    'flex-grow': grow,
-                    'flex-1': even,
-                    'hover:bg-indigo-900 hover:text-white': (value == item.id) && !item.disabled,
-                    'hover:bg-indigo-100 hover:text-indigo-900': (value != item.id) && !item.disabled,
-                    'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300': item.disabled
-                }"
-                @click="update(item)"
-                v-for="item of items"
-                :key="item.id"
-                :id="item.id"
-                :disabled="item.disabled" 
-            >
-                <span>{{ item.name }}</span>
-            </button>
+            <span v-for="item of items" class="inline-block relative" :key="item.id">
+                <button
+                    class="relative flex items-center justify-center rounded bg-gray-100 focus:outline-none font-semibold"
+                    :class="{
+                        'bg-indigo-800 text-white ': value == item.id,
+                        'px-4 py-2 text-sm': !dense,
+                        'px-2 py-1 text-xs': dense,
+                        'flex-grow': grow,
+                        'flex-1': even,
+                        'hover:bg-indigo-900 hover:text-white': (value == item.id) && !item.disabled,
+                        'hover:bg-indigo-100 hover:text-indigo-900': (value != item.id) && !item.disabled,
+                        'cursor-not-allowed text-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-300': item.disabled
+                    }"
+                    @click="update(item)"
+                   
+                    
+                    :id="item.id"
+                    :disabled="item.disabled" 
+                >
+                    <span>{{ item.name }}</span>
+                </button>
+                <t-tooltip v-if="item.comingSoon" content="Coming Soon" position="top" class="ml-1.5 -mt-0.5 cursor-pointer text-indigo-800">
+					<t-icon value="question-mark-circle" solid size="4" />
+				</t-tooltip>
+            </span>
         </div>
         <div v-for="(slot, index) in $slots" :key="index">
             <div v-show="value == index">
