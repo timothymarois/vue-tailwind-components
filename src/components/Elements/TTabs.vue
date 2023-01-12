@@ -27,7 +27,7 @@
                 >
                     <span>{{ item.name }}</span>
                 </button>
-                <t-tooltip v-if="item.comingSoon" content="Coming Soon" position="top" class="absolute -top-[2px] right-[5px]  cursor-pointer text-indigo-800">
+                <t-tooltip v-show="item.comingSoon" content="Coming Soon" position="top" class="absolute -top-[2px] right-[5px]  cursor-pointer text-indigo-800">
 					<t-icon value="question-mark-circle" solid size="4" />
 				</t-tooltip>
             </span>
