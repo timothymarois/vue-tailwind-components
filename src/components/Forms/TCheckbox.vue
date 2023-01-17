@@ -3,7 +3,7 @@
 		<input 
 			:id="id"
 			:type="radio ? 'radio' : 'checkbox'" 
-			:class="`opacity-0 h-${size} w-${size} absolute ${disabled ? 'cursor-default' : 'cursor-pointer'} z-20`" 
+			:class="`opacity-0 h-${size} w-${size} absolute ${disabled ? 'cursor-default' : 'cursor-pointer'} z-${zIndex}`" 
 			:checked="isChecked"
 			:value="value"
 			:disabled="disabled"
@@ -48,6 +48,10 @@ export default {
 			type: [String, Number],
 			default: '800'
 		},
+        zIndex: {
+            type: [String, Number],
+			default: '20'
+        },
 		label: {
 			type: String,
 			default: null
