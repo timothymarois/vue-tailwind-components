@@ -15,8 +15,8 @@
                 <slot name="opener">
                     <button
                         type="button"
-                        class="flex justify-between items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
-                        :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
+                        class="flex justify-start items-center border border-gray-200 rounded text-gray-500 text-sm font-medium w-full h-10 focus:outline-none"
+                        :class="{'hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-900 bg-white group': !disabled, 'bg-gray-100 cursor-not-allowed': disabled }"
                         @keydown.enter.prevent="cycleIndex > -1 ? selectItem(searchableOptions[cycleIndex]) : ''"
                         @keydown.up.prevent="cycleOptions('up')"
                         @keydown.down.prevent="cycleOptions('down')"
@@ -24,17 +24,25 @@
                         @click.self="menuToggle('button')"
                         :tabindex="searchable && !disabled ? '-1' : '0'"
                     >
+                        <span v-if="showIcon" class="text-gray-300 ml-2 group-hover:text-indigo-300">
+                            <t-icon
+                                :value="iconName"
+                                solid
+                                size="5"
+                            />
+                        </span>    
+                        
                         <span
                             v-if="(!searchable && selected.length === 0) || (searchable && disabled && !selected)" 
                             :placeholder="placeholder" 
-                            class="truncate pl-3 font-medium"
+                            class="truncate pl-2 font-medium"
                             @click="menuToggle('label')"
                         >{{ placeholder }}</span>
                         
                         <span
                             v-else-if="(!searchable || textField) && selected.length !== 0" 
                             :placeholder="placeholder" 
-                            class="truncate pl-3 font-medium"
+                            class="truncate pl-2 font-medium"
                             :class="{ 'text-gray-500 cursor-not-allowed': disabled, 'text-indigo-800': !disabled }"
                             @click="menuToggle('label')"
                         >{{ selectPlaceholder }}</span>
@@ -51,7 +59,7 @@
                             :id="`search-${id}`"
                             :name="`n[${id}]`"
                             :placeholder="selectPlaceholder"
-                            class="w-full bg-transparent font-medium text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
+                            class="w-full bg-transparent font-medium pl-2 text-sm placeholder-gray-500 my-auto truncate border-0 focus:outline-none focus:ring-0"
                             :class="{
                                 'cursor-pointer': menu === false,
                                 'text-gray-500 cursor-not-allowed': disabled,
@@ -72,7 +80,7 @@
                         <div
                             v-if="!hideicon && !loading && !textField"
                             @click="menuToggle('arrow')"
-                            class="p-2 h-full flex items-center"
+                            class="p-2 h-full flex items-center ml-auto"
                         >
                             <t-icon
                                 :value="menuIcon"
@@ -82,7 +90,7 @@
 
                         <div 
                             v-if="loading"
-                            class="p-2 h-full flex items-center"
+                            class="p-2 h-full flex items-center ml-auto"
                         >
                             <t-loader size="5" />
                         </div>
@@ -95,25 +103,16 @@
                 :style="`${this.maxHeight ? `max-height: ${this.maxHeight}px` : ''}`"
                 :id="`dropdown-${this.id}`"
             >
-                <li
-                    v-if="loading"
-                    class="flex items-center rounded m-4 font-medium"
-                >
+                <li v-if="loading && !computedOptions.length" class="flex items-center rounded m-4 font-medium">
                     Searching...
                 </li>
-                <li
-                    v-else-if="!loading && searchable && !searchableOptions.length && !localsearch"
-                    class="flex items-center justify-between rounded m-4 font-medium"
-                >
+                <li v-else-if="searchable && !searchableOptions.length && !localsearch" class="flex items-center justify-between rounded m-4 font-medium">
                     {{ searchText }}
                 </li>
-                <li
-                    v-else-if="!loading && !searchableOptions.length"
-                    class="flex items-center justify-between rounded m-4 font-medium"
-                >
+                <li v-else-if="!searchableOptions.length" class="flex items-center justify-between rounded m-4 font-medium">
                     {{ nodata }}
                 </li>
-                <div v-else-if="!loading && computedOptions.length && !grouped">
+                <div v-else-if="computedOptions.length && !grouped">
                     <li
                         v-for="(item, i) of searchableOptions"
                         :key="i"
@@ -131,7 +130,7 @@
                             :color="color"
                             :value="isChecked(item)"
                             :check="true"
-                            :disabled="item.disabled"
+                            :disabled="item.disabled || loading"
                             size="4"
                             class="ml-2"
                         />
@@ -143,7 +142,7 @@
                         />
                     </li>
                 </div>
-                <div v-else-if="!loading && computedOptions.length && grouped">
+                <div v-else-if="computedOptions.length && grouped">
                     <div v-if="!groupSelectable" v-for="(group, j) of options" :key="group.groupName">
                         <div
                             v-if="groupedItems(group.items).length"
@@ -168,7 +167,7 @@
                                 :color="color"
                                 :value="isChecked(item)"
                                 :check="true"
-                                :disabled="item.disabled"
+                                :disabled="item.disabled || loading"
                                 size="4"
                                 class="ml-2"
                             />
@@ -181,39 +180,29 @@
 
                   <div v-if="groupSelectable" v-for="group of options" :key="group.groupName">
                     <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 " @click.stop="selectItem(group)">
-                        <t-checkbox :color="color" z-index="0" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" size="4" class="ml-2" />
-                        <div class="font-normal m-2 w-full">{{group.groupName}}</div>
-                        <div v-if="groupedItems(group.items).length > 1" @click.stop="toggleGroup(group)" class="cursor-pointer p-2 flex items-center h-full" >
+                        <t-checkbox :color="color" z-index="0" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" :disabled="loading" size="4" class="ml-2" />
+                        <div class="font-normal p-2 w-full" @click="($event) => { if (groupedItems(group.items).length > 1 || group.expandIfSingleItem) { $event.stopPropagation(); toggleGroup(group);};}">
+                            {{group.groupName}}
+                        </div>
+                        <div v-if="groupedItems(group.items).length > 1 || group.expandIfSingleItem" @click.stop="toggleGroup(group)" class="cursor-pointer p-2 flex items-center h-full" >
                             <t-icon :value="isGroupVisible(group) ? 'chevron-up' : 'chevron-down'" size="5" />
                         </div>
                     </div>
 
-                    <li
-                        v-if="isGroupVisible(group)"
+                    <li v-if="isGroupVisible(group)"
                         v-for="(item, i) of groupedItems(group.items)"
                         :key="i"
                         class="relative flex items-center rounded m-2 transition duration-150"
                         :class="[
-                                { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
-                                { 'focused': equalsSearch(item[itemValue]) },
-                                item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
-                            ]"
+                            { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
+                            { 'focused': equalsSearch(item[itemValue]) },
+                            item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
+                        ]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
                         @click.stop="item.disabled ? '' : selectItem(item)"
                     >
-                      <t-checkbox
-                          v-if="multiple"
-                          :color="color"
-                          :value="isChecked(item)"
-                          :check="true"
-                          :disabled="item.disabled"
-                          size="4"
-                          class="ml-2"
-                      />
-                      <div
-                          class="font-normal m-2"
-                          v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
-                      />
+                        <t-checkbox v-if="multiple" :color="color" :value="isChecked(item)" :check="true" :disabled="item.disabled || loading" size="4" class="ml-2" />
+                        <div class="font-normal m-2" v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]" />
                     </li>
                   </div>
                 </div>
@@ -364,6 +353,18 @@ export default {
         maxHeight: {
             type: [String, Number],
             default: null
+        },
+        allSelectedPlaceholder: {
+            type: Boolean,
+            default: false
+        }, 
+        showIcon: {
+            type: Boolean,
+            dafault: false
+        },
+        iconName: {
+            type: String,
+            default: null
         }
     },
     data() {
@@ -443,9 +444,16 @@ export default {
             } else return this.computedOptions;
         },
         selectPlaceholder() { 
-            if(this.multiple && this.selected.length) return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
-            else if(!this.multiple && (this.selected[this.itemValue] || this.selected[this.itemValue] === false)) return this.selected[this.itemLabel];
-
+            if (this.multiple && this.selected.length) {
+                if (this.allSelectedPlaceholder && this.selected.length === this.options.length) {
+                    return `All ${this.placeholder}`;
+                } else {
+                    return `${this.selected[0][this.itemLabel]}${this.selected.length > 1 ? `, (${this.selected.length - 1} others)` : ''}`
+                }
+                
+            } else if (!this.multiple && (this.selected[this.itemValue] || this.selected[this.itemValue] === false)) {
+                return this.selected[this.itemLabel];
+            }
             return this.placeholder;
         },
         returnValue() {
@@ -519,12 +527,13 @@ export default {
             return found;
         },
         isGroupPartiallyChecked(group) {
-            return group.items?.some( obj => this.selected.some(s => s[this.groupValue] === obj[this.groupValue]) );
+            return group.items?.some( obj => this.selected.some(s => s[this.itemLabel] === obj[this.itemLabel]) );
         },
         isGroupFullyChecked(group) {
-            return group.items?.every( obj => this.selected.some(s => s[this.itemValue] === obj[this.itemValue]) );
+            return group.items?.every( obj => this.selected.some(s => s[this.itemLabel] === obj[this.itemLabel]) );
         },
         selectItem(item) {
+            if (this.loading) return;
             // remove possible underline from search select
             item[this.itemLabel] = String(item[this.itemLabel]).replace(/(<([^>]+)>)/ig, '');
 
@@ -567,11 +576,12 @@ export default {
                         })
                     }
                 } else {
-                  if(!this.selected.some((obj) => obj[this.itemValue] === item[this.itemValue])) this.selected.push(item);
-                  else {
-                    let i = this.selected.findIndex((obj) => obj[this.itemValue] === item[this.itemValue]);
-                    this.selected.splice(i, 1);
-                  }
+                    if (!this.selected.some( (obj) => obj[this.itemValue] === item[this.itemValue]) ) {
+                        this.selected.push(item);
+                    } else {
+                        let i = this.selected.findIndex( (obj) => obj[this.itemValue] === item[this.itemValue] );
+                        this.selected.splice(i, 1);
+                    }
                 }
             }
 

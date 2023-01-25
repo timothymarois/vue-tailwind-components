@@ -20,6 +20,25 @@ export default {
 			name: 'contentPadding',
 			description: 'Change the content padding (default 4)',
             control: { type: 'number', min: 0 }
+        },
+        items: {
+			name: 'items',
+            description: 'Tabs array',
+            control: 'object',
+			defaultValue: [
+                {
+                    name: 'Tab 1',
+                    id: 'tab1'
+                },
+                {
+                    name: 'Tab 2',
+                    id: 'tab2'
+                },
+                {
+                    name: 'Tab 3',
+                    id: 'tab3'
+                }
+            ]
 		},
 	},
 };
@@ -41,15 +60,16 @@ export default {
 // };
 
 
-export const MultipleStates = () => ({
-	// props: Object.keys(argTypes),
+export const MultipleStates = (argTypes) => ({
+	props: Object.keys(argTypes),
 	components: { TTabs, TTabContent, TCard },
     data: () => ({
         tabs0: 'tab1',
         tabs1: 'tab1',
         tabs2: 'tab1',
         tabs3: 'tab1',
-        tabs4: 'tab1'
+        tabs4: 'tab1',
+        tabs5: 'tab1'
     }),
 	template: 
 	`
@@ -59,20 +79,7 @@ export const MultipleStates = () => ({
                 <t-card>
                     <t-tabs
                         v-model="tabs0"
-                        :items="[
-                            {
-                                name: 'Tab 1',
-                                id: 'tab1'
-                            },
-                            {
-                                name: 'Tab 2',
-                                id: 'tab2'
-                            },
-                            {
-                                name: 'Tab 3',
-                                id: 'tab3'
-                            }
-                        ]"
+                        :items="items"
                     ></t-tabs>
                     <div>Tabs with no content</div>
                 </t-card>
@@ -82,20 +89,7 @@ export const MultipleStates = () => ({
                 <t-card>
                     <t-tabs
                         v-model="tabs1"
-                        :items="[
-                            {
-                                name: 'Tab 1',
-                                id: 'tab1'
-                            },
-                            {
-                                name: 'Tab 2',
-                                id: 'tab2'
-                            },
-                            {
-                                name: 'Tab 3',
-                                id: 'tab3'
-                            }
-                        ]"
+                        :items="items"
                     >
                         <template slot="tab1">
                             This is tab 1 content
@@ -113,20 +107,7 @@ export const MultipleStates = () => ({
             <div class="w-full mt-10">
                 <t-tabs
                     v-model="tabs2"
-                    :items="[
-                        {
-                            name: 'Tab 1',
-                            id: 'tab1'
-                        },
-                        {
-                            name: 'Tab 2',
-                            id: 'tab2'
-                        },
-                        {
-                            name: 'Tab 3',
-                            id: 'tab3'
-                        }
-                    ]"
+                    :items="items"
                 >
                     <template slot="tab1">
                         <t-card>This is tab 1 content with cards</t-card>
@@ -144,20 +125,7 @@ export const MultipleStates = () => ({
                 <t-tabs
                     dense
                     v-model="tabs3"
-                    :items="[
-                        {
-                            name: 'Tab 1',
-                            id: 'tab1'
-                        },
-                        {
-                            name: 'Tab 2',
-                            id: 'tab2'
-                        },
-                        {
-                            name: 'Tab 3',
-                            id: 'tab3'
-                        }
-                    ]"
+                    :items="items"
                 >
                     <template slot="tab1">
                         <t-card>This is tab 1 (dense tabs)</t-card>
@@ -314,6 +282,57 @@ export const MultipleStates = () => ({
                             This is tab 3 content
                         </template>
                         <template slot="tab4">
+                            This is tab 4 content
+                        </template>
+                    </t-tabs>
+                </t-card>
+            </div>
+
+            <div class="w-full mt-5">
+                <t-card title="Tabs with coming soon tooltip">
+                    <t-tabs
+                        grow
+                        v-model="tabs1"
+                        :items="[
+                            {
+                                name: 'Tab 1',
+                                id: 'tab1'
+                            },
+                            {
+                                name: 'Tab 2',
+                                id: 'tab2'
+                            },
+                            {
+                                name: 'Tab 3',
+                                id: 'tab3'
+                            },
+                            {
+                                name: 'Tab 4',
+                                id: 'tab4',
+                                disabled: true,
+                                comingSoon: true
+                            },
+                            {
+                                name: 'Tab 5',
+                                id: 'tab5',
+                                disabled: true,
+                                comingSoon: true
+                            }
+                        ]"
+                    >
+                        <template slot="tab1">
+                            This is tab 1 content
+                        </template>
+                        <template slot="tab2">
+                            This is tab 2 content
+                        </template>
+                        <template slot="tab3">
+                            This is tab 3 content
+                        </template>
+                        <template slot="tab4">
+                            This is tab 4 content
+                        </template>
+                        <template slot="tab5">
                             This is tab 4 content
                         </template>
                     </t-tabs>

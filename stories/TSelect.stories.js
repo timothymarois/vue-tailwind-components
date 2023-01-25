@@ -26,7 +26,17 @@ export default {
 			name: 'loading',
 			description: 'Toggle between loading state',
 			control: { type: 'boolean' }
-		}
+        },
+        showIcon: {
+            name: 'showIcon',
+            description: 'Show icon in front of the placeholder',
+            control: { type: 'boolean'}
+        },
+        iconName: {
+            name: 'iconName',
+            description: 'Icon name',
+            control: { type: 'text'}
+        }
 	},
 };
 
