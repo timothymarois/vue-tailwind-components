@@ -103,25 +103,16 @@
                 :style="`${this.maxHeight ? `max-height: ${this.maxHeight}px` : ''}`"
                 :id="`dropdown-${this.id}`"
             >
-                <li
-                    v-if="loading"
-                    class="flex items-center rounded m-4 font-medium"
-                >
+                <li v-if="loading && !computedOptions.length" class="flex items-center rounded m-4 font-medium">
                     Searching...
                 </li>
-                <li
-                    v-else-if="!loading && searchable && !searchableOptions.length && !localsearch"
-                    class="flex items-center justify-between rounded m-4 font-medium"
-                >
+                <li v-else-if="searchable && !searchableOptions.length && !localsearch" class="flex items-center justify-between rounded m-4 font-medium">
                     {{ searchText }}
                 </li>
-                <li
-                    v-else-if="!loading && !searchableOptions.length"
-                    class="flex items-center justify-between rounded m-4 font-medium"
-                >
+                <li v-else-if="!searchableOptions.length" class="flex items-center justify-between rounded m-4 font-medium">
                     {{ nodata }}
                 </li>
-                <div v-else-if="!loading && computedOptions.length && !grouped">
+                <div v-else-if="computedOptions.length && !grouped">
                     <li
                         v-for="(item, i) of searchableOptions"
                         :key="i"
@@ -139,7 +130,7 @@
                             :color="color"
                             :value="isChecked(item)"
                             :check="true"
-                            :disabled="item.disabled"
+                            :disabled="item.disabled || loading"
                             size="4"
                             class="ml-2"
                         />
@@ -151,7 +142,7 @@
                         />
                     </li>
                 </div>
-                <div v-else-if="!loading && computedOptions.length && grouped">
+                <div v-else-if="computedOptions.length && grouped">
                     <div v-if="!groupSelectable" v-for="(group, j) of options" :key="group.groupName">
                         <div
                             v-if="groupedItems(group.items).length"
@@ -176,7 +167,7 @@
                                 :color="color"
                                 :value="isChecked(item)"
                                 :check="true"
-                                :disabled="item.disabled"
+                                :disabled="item.disabled || loading"
                                 size="4"
                                 class="ml-2"
                             />
@@ -189,9 +180,9 @@
 
                   <div v-if="groupSelectable" v-for="group of options" :key="group.groupName">
                     <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 " @click.stop="selectItem(group)">
-                        <t-checkbox :color="color" z-index="0" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" size="4" class="ml-2" />
+                        <t-checkbox :color="color" z-index="0" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" :disabled="loading" size="4" class="ml-2" />
                         <div class="font-normal m-2 w-full">{{group.groupName}}</div>
-                        <div v-if="groupedItems(group.items).length > 1" @click.stop="toggleGroup(group)" class="cursor-pointer p-2 flex items-center h-full" >
+                        <div v-if="groupedItems(group.items).length > 1 || group.expandIfSingleItem" @click.stop="toggleGroup(group)" class="cursor-pointer p-2 flex items-center h-full" >
                             <t-icon :value="isGroupVisible(group) ? 'chevron-up' : 'chevron-down'" size="5" />
                         </div>
                     </div>
@@ -208,7 +199,7 @@
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
                         @click.stop="item.disabled ? '' : selectItem(item)"
                     >
-                        <t-checkbox v-if="multiple" :color="color" :value="isChecked(item)" :check="true" :disabled="item.disabled" size="4" class="ml-2" />
+                        <t-checkbox v-if="multiple" :color="color" :value="isChecked(item)" :check="true" :disabled="item.disabled || loading" size="4" class="ml-2" />
                         <div class="font-normal m-2" v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]" />
                     </li>
                   </div>
@@ -534,12 +525,13 @@ export default {
             return found;
         },
         isGroupPartiallyChecked(group) {
-            return group.items?.some( obj => this.selected.some(s => s[this.groupValue] === obj[this.groupValue]) );
+            return group.items?.some( obj => this.selected.some(s => s[this.itemLabel] === obj[this.itemLabel]) );
         },
         isGroupFullyChecked(group) {
-            return group.items?.every( obj => this.selected.some(s => s[this.itemValue] === obj[this.itemValue]) );
+            return group.items?.every( obj => this.selected.some(s => s[this.itemLabel] === obj[this.itemLabel]) );
         },
         selectItem(item) {
+            if (this.loading) return;
             // remove possible underline from search select
             item[this.itemLabel] = String(item[this.itemLabel]).replace(/(<([^>]+)>)/ig, '');
 

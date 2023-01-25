@@ -4,7 +4,7 @@
             :class="{
                 'pb-4': overflowing,
                 'justify-between': grow,
-                'gap-4 mb-4': !dense,
+                'gap-3 mb-4': !dense,
                 'gap-2 mb-2': dense,
                 'sticky top-0 bg-white pb-2 z-10': sticky
             }"
