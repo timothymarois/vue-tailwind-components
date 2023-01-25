@@ -188,8 +188,8 @@
                     </div>
 
                   <div v-if="groupSelectable" v-for="group of options" :key="group.groupName">
-                    <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900" @click.stop="selectItem(group)">
-                        <t-checkbox :color="color" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" size="4" class="ml-2" />
+                    <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 " @click.stop="selectItem(group)">
+                        <t-checkbox :color="color" z-index="0" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" size="4" class="ml-2" />
                         <div class="font-normal m-2 w-full">{{group.groupName}}</div>
                         <div v-if="groupedItems(group.items).length > 1" @click.stop="toggleGroup(group)" class="cursor-pointer p-2 flex items-center h-full" >
                             <t-icon :value="isGroupVisible(group) ? 'chevron-up' : 'chevron-down'" size="5" />
@@ -534,10 +534,10 @@ export default {
             return found;
         },
         isGroupPartiallyChecked(group) {
-            return group.items?.some( obj => this.selected.some(s => s.label === obj.label) );
+            return group.items?.some( obj => this.selected.some(s => s[this.groupValue] === obj[this.groupValue]) );
         },
         isGroupFullyChecked(group) {
-            return group.items?.every( obj => this.selected.some(s => s.label === obj.label) );
+            return group.items?.every( obj => this.selected.some(s => s[this.itemValue] === obj[this.itemValue]) );
         },
         selectItem(item) {
             // remove possible underline from search select
@@ -563,15 +563,15 @@ export default {
             else {
                 if (this.groupSelectable && item.groupName && item.items) {
                     // if user checked/unchecked an entire group
-                    if (!this.selected.some( (obj) => obj.label === item.groupName) ) {
+                    if (!this.selected.some( (obj) => obj[this.itemValue] === item.groupName) ) {
                         // if all the child items of the group were already checked, uncheck them all
-                        if (item.items.every(i => this.selected.some(s => s.label === i.label) )) {
+                        if (item.items.every(i => this.selected.some(s => s[this.itemValue] === i[this.itemValue]) )) {
                             for (const i of item.items) {
-                                this.selected = this.selected.filter(s => s.label !== i.label)
+                                this.selected = this.selected.filter(s => s[this.itemValue] !== i[this.itemValue])
                             }
                         // if none or only some child items in a group are checked, then check them all
                         } else {
-                            const uncheckedItems = item.items.filter(i => !this.selected.some( s => s.label === i.label) )
+                            const uncheckedItems = item.items.filter(i => !this.selected.some( s => s[this.itemValue] === i[this.itemValue]) )
                             this.selected.push(...uncheckedItems)
                         }
                     // if user checked/unchecked a child item of a group
