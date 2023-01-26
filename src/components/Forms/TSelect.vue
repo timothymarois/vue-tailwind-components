@@ -179,7 +179,7 @@
                     </div>
 
                   <div v-if="groupSelectable" v-for="group of options" :key="group.groupName">
-                    <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer bg-gray-200 hover:bg-indigo-100 hover:text-indigo-900 " @click.stop="selectItem(group)">
+                    <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 " @click.stop="selectItem(group)" :class="{'bg-gray-200':(groupedItems(group.items).length > 1 || group.expandIfSingleItem)}">
                         <t-checkbox :color="color" z-index="0" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" :disabled="loading" size="4" class="ml-2" />
                         <div class="font-normal p-2 w-full" @click="($event) => { if (groupedItems(group.items).length > 1 || group.expandIfSingleItem) { $event.stopPropagation(); toggleGroup(group);};}">
                             {{group.groupName}}
