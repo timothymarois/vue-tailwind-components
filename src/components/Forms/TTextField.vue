@@ -35,6 +35,7 @@
                     :class="fieldClasses"
                     :style="(width ? `width: ${width}px` : '')"
                     :ref="id"
+                    :disabled="disabled"
                 />
                 <div 
                     v-if="clearable && internalValue && !readonly"
@@ -160,6 +161,10 @@ export default {
         autofill: {
             type: Boolean,
             default: true
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
