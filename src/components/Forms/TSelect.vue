@@ -179,7 +179,7 @@
                     </div>
 
                   <div v-if="groupSelectable" v-for="group of options" :key="group.groupName">
-                    <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 " @click.stop="selectItem(group)" :class="{'bg-gray-200':(isGroupVisible(group))}">
+                    <div v-if="groupedItems(group.items).length" class="relative my-2 flex items-center cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 groupSelectable" @click.stop="selectItem(group, group.groupName)" :class="{'bg-gray-200':(isGroupVisible(group))}">
                         <t-checkbox :color="color" z-index="0" :value="isGroupPartiallyChecked(group)" :check="isGroupFullyChecked(group)" :disabled="loading" size="4" class="ml-2" />
                         <div class="font-normal p-2 w-full" @click="($event) => { if (groupedItems(group.items).length > 1 || group.expandIfSingleItem) { $event.stopPropagation(); toggleGroup(group);};}">
                             {{group.groupName}}
@@ -192,14 +192,14 @@
                     <li v-if="isGroupVisible(group)"
                         v-for="(item, i) of groupedItems(group.items)"
                         :key="i"
-                        class="relative flex items-center rounded m-2 ml-4 transition duration-150"
+                        class="relative flex items-center rounded m-2 ml-4 transition duration-150 groupSelectable__li"
                         :class="[
                             { 'text-white bg-indigo-800': (!multiple && selected[itemValue] === item[itemValue]) },
                             { 'focused': equalsSearch(item[itemValue]) },
                             item.disabled ? 'text-gray-300' : 'cursor-pointer hover:bg-indigo-100 hover:text-indigo-900'
                         ]"
                         :id="equalsSearch(item[itemValue]) ? `focus-${id}` : ''"
-                        @click.stop="item.disabled ? '' : selectItem(item)"
+                        @click.stop="item.disabled ? '' : selectItem(item, group.groupName)"
                     >
                         <t-checkbox v-if="multiple" :color="color" :value="isChecked(item)" :check="true" :disabled="item.disabled || loading" size="4" class="ml-2" />
                         <div class="font-normal m-2" v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]" />
@@ -514,25 +514,33 @@ export default {
 
             if(multiple) {
                 for(const item of values) {
-                    this.computedOptions.find((obj) => {
-                        if(obj[this.itemValue] === (this.returnObject ? item[this.itemValue] : item)) return found.push(obj);
+                    this.computedOptions.find( option => {
+                        if( option[this.itemValue] === (this.returnObject ? item[this.itemValue] : item)) return found.push(item);
                     });
                 }
             } else {
-                this.computedOptions.find((obj) => {
-                    if(obj[this.itemValue] === (typeof values === 'object' ? values[this.itemValue] : values)) return found = obj;
+                this.computedOptions.find( (option) => {
+                    if( option[this.itemValue] === (typeof values === 'object' ? values[this.itemValue] : values)) return found = option;
                 });
             }
             
             return found;
         },
         isGroupPartiallyChecked(group) {
-            return group.items?.some( obj => this.selected.some(s => s[this.itemLabel] === obj[this.itemLabel]) );
+            // return group.items?.some( obj => this.selected.some(s => s[this.itemLabel] === obj[this.itemLabel]) );
+
+            return group.items?.some( item => 
+                this.selected.some( selectedItem => {
+                    return (selectedItem[this.itemLabel] === item[this.itemLabel]) && 
+                           (group.groupName === selectedItem.groupName);
+                    
+                })
+            );
         },
         isGroupFullyChecked(group) {
-            return group.items?.every( obj => this.selected.some(s => s[this.itemLabel] === obj[this.itemLabel]) );
+            return group.items?.every( item => this.selected.some( selectedItem => selectedItem[this.itemLabel] === item[this.itemLabel]) );
         },
-        selectItem(item) {
+        selectItem(item, groupName) {
             if (this.loading) return;
             // remove possible underline from search select
             item[this.itemLabel] = String(item[this.itemLabel]).replace(/(<([^>]+)>)/ig, '');
@@ -555,6 +563,7 @@ export default {
                 if(!item.select || !item.select.length) this.localsearch = null;
             } 
             else {
+                
                 if (this.groupSelectable && item.groupName && item.items) {
                     // if user checked/unchecked an entire group
                     if (!this.selected.some( (obj) => obj[this.itemValue] === item.groupName) ) {
@@ -565,19 +574,22 @@ export default {
                             }
                         // if none or only some child items in a group are checked, then check them all
                         } else {
-                            const uncheckedItems = item.items.filter(i => !this.selected.some( s => s[this.itemValue] === i[this.itemValue]) )
+                            let uncheckedItems = item.items.filter(i => !this.selected.some( s => s[this.itemValue] === i[this.itemValue]) )
+                            uncheckedItems = uncheckedItems.map(item => ({...item, groupName: groupName}))
                             this.selected.push(...uncheckedItems)
                         }
                     // if user checked/unchecked a child item of a group
                     } else {
                         item.items.forEach((groupItem) => {
-                            const i = this.selected.findIndex( (obj) => obj[this.itemValue] === groupItem[this.itemValue] );
+                            const i = this.selected.findIndex( obj => {
+                                return obj[this.itemValue] === groupItem[this.itemValue] 
+                            })
                             if (i !== -1) this.selected.splice(i, 1);
                         })
                     }
                 } else {
                     if (!this.selected.some( (obj) => obj[this.itemValue] === item[this.itemValue]) ) {
-                        this.selected.push(item);
+                        this.selected.push({...item, groupName: groupName});
                     } else {
                         let i = this.selected.findIndex( (obj) => obj[this.itemValue] === item[this.itemValue] );
                         this.selected.splice(i, 1);
