@@ -99,7 +99,7 @@ export default {
             this.$emit('change', item.id);
         },
         onResize() {
-            if (this.$refs.scrollableElement.clientWidth < this.$refs.scrollableElement.scrollWidth) {
+            if (this.$refs.scrollableElement && (this.$refs.scrollableElement.clientWidth < this.$refs.scrollableElement.scrollWidth)) {
                 this.overflowing = true
             } else {
                 this.overflowing = false
