@@ -466,7 +466,13 @@ export default {
             }
         },
         computedOptions() {
-            if(this.options.length && (!this.options[0][this.itemValue] && this.options[0][this.itemValue] !== false) && !this.grouped) {
+            if (
+                this.options.length && 
+                ( 
+                    ( this.options[0][this.itemValue] == null || this.options[0][this.itemValue] === false ) && 
+                    this.options[0][this.itemValue] !== false
+                ) && !this.grouped) 
+            {
                 return this.options.map((key) => {
                     return {
                         label: key,
