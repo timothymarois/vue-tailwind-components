@@ -37,7 +37,7 @@ export default {
 	},
 	props: {
 		value: {
-			type: [String, Boolean],
+			type: [String, Boolean, Number],
 			default: false
 		},
 		color: {
@@ -65,11 +65,11 @@ export default {
 			default: false
 		},
 		trueValue: {
-			type: [String, Boolean],
+			type: [String, Boolean, Number],
 			default: true
 		},
 		falseValue: {
-			type: [String, Boolean],
+			type: [String, Boolean, Number],
 			default: false
 		},
 		radio: {
