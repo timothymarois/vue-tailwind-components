@@ -21,7 +21,7 @@
                     :readonly="readonly"
                     :required="required"
                     :maxlength="maxlength"
-                    :autocomplete="autofill ? `new-${id}` : 'do-not-autofill'"
+                    :autocomplete="autofill ? `new-${id}` : 'off'"
                     :pattern="pattern"
                     :value="internalValue"
                     @input="input($event)"

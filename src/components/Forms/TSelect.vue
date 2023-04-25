@@ -55,7 +55,7 @@
                             :disabled="disabled"
                             @click="menuToggle('input')"
                             type="text"
-                            :autocomplete="`new-search-${id}`"
+                            :autocomplete="autofill ? `new-search-${id}` : 'off'"
                             :id="`search-${id}`"
                             :name="`n[${id}]`"
                             :placeholder="selectPlaceholder"
@@ -365,6 +365,10 @@ export default {
         iconName: {
             type: String,
             default: null
+        },
+        autofill: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
