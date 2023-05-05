@@ -17,7 +17,7 @@
                :editable="!readonly" 
                :format="format"
                :input-class="fieldClasses"
-               :disabled-date="disableDates"
+               :disabled-date="disabledDates"
                :style="(width ? `width: ${width}` : '')">
                   <template #icon-calendar>
                      <t-icon value="calendar" :class="{'text-gray-500': !errorState, 'text-red-500': errorState}" size="5" />
