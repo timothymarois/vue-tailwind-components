@@ -17,7 +17,7 @@
                :editable="!readonly" 
                :format="format"
                :input-class="fieldClasses"
-               :disabled-date="disabledDates"
+               :disabled-date="disableDays"
                :style="(width ? `width: ${width}` : '')">
                   <template #icon-calendar>
                      <t-icon value="calendar" :class="{'text-gray-500': !errorState, 'text-red-500': errorState}" size="5" />
@@ -39,6 +39,7 @@
 <script>
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import { DateTime, Settings } from "luxon";
 
 import uniqid from "../../utils/uniqid.js";
 import TIcon from "../Elements/TIcon.vue";
@@ -111,10 +112,6 @@ export default {
          type: Array,
          default: null
       },
-      disabledDates: {
-         type: Array,
-         default: null
-      },
       disableBefore: {
          type: String,
          default: null // yyyy-MM-dd
@@ -123,10 +120,14 @@ export default {
          type: String,
          default: null // yyyy-MM-dd
       },
+      timezone: {
+         type: String,
+         default: '' 
+      },
       disableOn: {
          type: Array,
          default: null 
-      }
+      },
    },
    computed: {
       id() {
@@ -155,6 +156,9 @@ export default {
          } 
       }
    },
+   created() {
+        if (this.timezone) Settings.defaultZone = this.timezone;
+   },
    methods: {
       padTo2Digits(num) {
          return num.toString().padStart(2, '0');
@@ -170,46 +174,18 @@ export default {
          this.$emit('input', val);
       },
       disableDays(date) {
-         const today = new Date();
-         today.setHours(0, 0, 0, 0);
          if (this.disabledDays) {
-            const day = new Date(date).getDay();
-            let disabledDays = this.disabledDays.map(day => {
-               switch (day) {
-                  case 'Sunday':
-                     return 0
-                     break;
-                  case 'Monday':
-                     return 1
-                     break;
-                  case 'Tuesday':
-                     return 2
-                     break;
-                  case 'Wednesday':
-                     return 3
-                     break;
-                  case 'Thursday':
-                     return 4
-                     break;
-                  case 'Friday':
-                     return 5
-                     break;
-                  case 'Saturday':
-                     return 6
-                     break;
-               }
-            })
-            return disabledDays.includes(day) || 
-                   date < new Date(today.getTime() + 24 * 3600 * 1000) || 
-                   date < new Date(this.disableBefore) || 
-                   date > new Date(this.disableAfter) || 
-                   this.disableOn.includes() || 
-                   ( this.disableOn && this.disableOn.includes(this.formatDate(date)) ) ;
+            const day = DateTime.fromJSDate(date).toLocaleString({ weekday: 'long' });
+            return this.disabledDays.includes(day) ||
+                   DateTime.fromJSDate(date) < DateTime.now() || 
+                  (this.disableBefore && DateTime.fromJSDate(date).endOf('day') < DateTime.fromFormat(this.disableBefore, 'yyyy-MM-dd').endOf('day')) || 
+                  (this.disableAfter && DateTime.fromJSDate(date).endOf('day') > DateTime.fromFormat(this.disableAfter, 'yyyy-MM-dd').endOf('day')) || 
+                  (this.disableOn && this.disableOn.includes(DateTime.fromJSDate(date).toFormat('yyyy-MM-dd')) ) ;
          } else {
-            return date < new Date(today.getTime() + 24 * 3600 * 1000) || 
-                   date < new Date(this.disableBefore) || 
-                   date > new Date(this.disableAfter) || 
-                   ( this.disableOn && this.disableOn.includes(this.formatDate(date)) );
+            return DateTime.fromJSDate(date) < DateTime.now() || 
+                   (this.disableBefore && DateTime.fromJSDate(date).endOf('day') < DateTime.fromFormat(this.disableBefore, 'yyyy-MM-dd').endOf('day')) || 
+                   (this.disableAfter && DateTime.fromJSDate(date).endOf('day') > DateTime.fromFormat(this.disableAfter, 'yyyy-MM-dd').endOf('day')) || 
+                   (this.disableOn && this.disableOn.includes(DateTime.fromJSDate(date).toFormat('yyyy-MM-dd')) );
          }
       },
       handleInput (event, update) {
