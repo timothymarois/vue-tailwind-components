@@ -17,7 +17,7 @@
                :editable="!readonly" 
                :format="format"
                :input-class="fieldClasses"
-               :disabled-date="disableDays"
+               :disabled-date="disableDates"
                :style="(width ? `width: ${width}` : '')">
                   <template #icon-calendar>
                      <t-icon value="calendar" :class="{'text-gray-500': !errorState, 'text-red-500': errorState}" size="5" />
@@ -111,6 +111,10 @@ export default {
          type: Array,
          default: null
       },
+      disabledDates: {
+         type: Array,
+         default: null
+      },
       disableBefore: {
          type: String,
          default: null // yyyy-MM-dd
@@ -195,9 +199,17 @@ export default {
                      break;
                }
             })
-            return disabledDays.includes(day) || date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || this.disableOn.includes() || ( this.disableOn && this.disableOn.includes(this.formatDate(date)) ) ;
+            return disabledDays.includes(day) || 
+                   date < new Date(today.getTime() + 24 * 3600 * 1000) || 
+                   date < new Date(this.disableBefore) || 
+                   date > new Date(this.disableAfter) || 
+                   this.disableOn.includes() || 
+                   ( this.disableOn && this.disableOn.includes(this.formatDate(date)) ) ;
          } else {
-            return date < new Date(today.getTime() + 24 * 3600 * 1000) || date < new Date(this.disableBefore) || date > new Date(this.disableAfter) || ( this.disableOn && this.disableOn.includes(this.formatDate(date)) );
+            return date < new Date(today.getTime() + 24 * 3600 * 1000) || 
+                   date < new Date(this.disableBefore) || 
+                   date > new Date(this.disableAfter) || 
+                   ( this.disableOn && this.disableOn.includes(this.formatDate(date)) );
          }
       },
       handleInput (event, update) {
