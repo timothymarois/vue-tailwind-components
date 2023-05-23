@@ -175,7 +175,7 @@ export default {
       },
       disableDays(date) {
          if (this.disabledDays) {
-            const day = DateTime.fromJSDate(date).toLocaleString({ weekday: 'long' });
+            const day = DateTime.fromJSDate(date).setLocale('en').toLocaleString({ weekday: 'long' });
             return this.disabledDays.includes(day) ||
                    DateTime.fromJSDate(date) < DateTime.now() || 
                   (this.disableBefore && DateTime.fromJSDate(date).endOf('day') < DateTime.fromFormat(this.disableBefore, 'yyyy-MM-dd').endOf('day')) || 
