@@ -25,6 +25,7 @@
     "src/"
   ],
   "dependencies": {
+    "luxon": "^3.3.0",
     "tailwind-scrollbar": "^2.1.0",
     "vue": "^2.6.14",
     "vue2-datepicker": "^3.11.0"
