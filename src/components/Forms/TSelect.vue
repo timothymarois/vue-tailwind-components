@@ -466,7 +466,20 @@ export default {
             }
         },
         computedOptions() {
-            if (this.grouped) {
+          if (
+              this.options.length &&
+              (
+                  ( this.options[0][this.itemValue] == null || this.options[0][this.itemValue] === false ) &&
+                  this.options[0][this.itemValue] !== false
+              ) && !this.grouped && !this.options[0][this.itemLabel])
+          {
+            return this.options.map((key) => {
+              return {
+                label: key,
+                value: key
+              }
+            })
+          } else if(this.grouped) {
                 let returnItems = [];
                 for(const group of this.options) {
                     returnItems.push(...group.items);
