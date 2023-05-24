@@ -173,7 +173,7 @@
                             <div
                                 class="font-normal m-2"
                                 v-html="item.optionListLabel ? item.optionListLabel : item[itemLabel]"
-                            />    
+                            />   
                         </li>
                     </div>
 
@@ -466,26 +466,24 @@ export default {
             }
         },
         computedOptions() {
-            if (
-                this.options.length && 
-                ( 
-                    ( this.options[0][this.itemValue] == null || this.options[0][this.itemValue] === false ) && 
-                    this.options[0][this.itemValue] !== false
-                ) && !this.grouped) 
-            {
-                return this.options.map((key) => {
-                    return {
-                        label: key,
-                        value: key
-                    }
-                })
-            } else if(this.grouped) {
+          if (
+              this.options.length &&
+              (
+                  ( this.options[0][this.itemValue] == null || this.options[0][this.itemValue] === false ) &&
+                  this.options[0][this.itemValue] !== false
+              ) && !this.grouped && !this.options[0][this.itemLabel])
+          {
+            return this.options.map((key) => {
+              return {
+                label: key,
+                value: key
+              }
+            })
+          } else if(this.grouped) {
                 let returnItems = [];
-
                 for(const group of this.options) {
                     returnItems.push(...group.items);
                 }
-
                 return returnItems;
             }
             else return this.options.filter((x) => !x.hide);
