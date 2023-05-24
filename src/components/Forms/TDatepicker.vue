@@ -173,19 +173,19 @@ export default {
     changeValue(val) {
       this.$emit('input', val);
     },
-    disableDays(_date) {
+    disableDays(date) {
       if (this.disabledDays) {
-        const day = DateTime.fromJSDate(_date, {zone: this.timezone}).setLocale('en').toLocaleString({ weekday: 'long' });
+        const day = DateTime.fromJSDate(date).setZone('local').setLocale('en').toLocaleString({weekday: 'long'});
         return this.disabledDays.includes(day) ||
-            DateTime.fromJSDate(_date) < DateTime.now() ||
-            (this.disableBefore && DateTime.fromJSDate(_date).endOf('day') < DateTime.fromFormat(this.disableBefore, 'yyyy-MM-dd').endOf('day')) ||
-            (this.disableAfter && DateTime.fromJSDate(_date).endOf('day') > DateTime.fromFormat(this.disableAfter, 'yyyy-MM-dd').endOf('day')) ||
-            (this.disableOn && this.disableOn.includes(DateTime.fromJSDate(_date).toFormat('yyyy-MM-dd')) ) ;
+            DateTime.fromJSDate(date) < DateTime.now() ||
+            (this.disableBefore && DateTime.fromJSDate(date).endOf('day') < DateTime.fromFormat(this.disableBefore, 'yyyy-MM-dd').endOf('day')) ||
+            (this.disableAfter && DateTime.fromJSDate(date).endOf('day') > DateTime.fromFormat(this.disableAfter, 'yyyy-MM-dd').endOf('day')) ||
+            (this.disableOn && this.disableOn.includes(DateTime.fromJSDate(date).toFormat('yyyy-MM-dd')) ) ;
       } else {
-        return DateTime.fromJSDate(_date) < DateTime.now() ||
-            (this.disableBefore && DateTime.fromJSDate(_date).endOf('day') < DateTime.fromFormat(this.disableBefore, 'yyyy-MM-dd').endOf('day')) ||
-            (this.disableAfter && DateTime.fromJSDate(_date).endOf('day') > DateTime.fromFormat(this.disableAfter, 'yyyy-MM-dd').endOf('day')) ||
-            (this.disableOn && this.disableOn.includes(DateTime.fromJSDate(_date).toFormat('yyyy-MM-dd')) );
+        return DateTime.fromJSDate(date) < DateTime.now() ||
+            (this.disableBefore && DateTime.fromJSDate(date).endOf('day') < DateTime.fromFormat(this.disableBefore, 'yyyy-MM-dd').endOf('day')) ||
+            (this.disableAfter && DateTime.fromJSDate(date).endOf('day') > DateTime.fromFormat(this.disableAfter, 'yyyy-MM-dd').endOf('day')) ||
+            (this.disableOn && this.disableOn.includes(DateTime.fromJSDate(date).toFormat('yyyy-MM-dd')) );
       }
     },
     handleInput (event, update) {
@@ -237,3 +237,4 @@ export default {
   @apply rounded bg-indigo-800 text-white !important;
 }
 </style>
+
