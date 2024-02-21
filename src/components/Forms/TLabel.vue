@@ -8,15 +8,30 @@
             <span v-if="label" class="inline-block">{{ label }}</span>
         </slot>
         <span class="inline-block text-red-500" v-if="required">*</span>
+        <slot>
+            <t-tooltip
+                v-if="tooltip"
+                position="top"
+                :content="tooltip"
+                class="inline-flex align-middle"
+            >
+                <span class="inline-flex text-gray-600 cursor-help">
+                    <t-icon size="4" value="information-circle" solid />
+                </span>
+            </t-tooltip>
+        </slot>
     </label>
 </template>
 
 <script>
 import TIcon from "../Elements/TIcon.vue";
+import TTooltip from "../Elements/TTooltip.vue";
+
 export default { 
     name: 'TLabel',
     components: {
-        TIcon
+        TIcon,
+        TTooltip
     }, 
     props: {
         required: {
@@ -36,6 +51,10 @@ export default {
             default: 'gray-800'
         },
         icon: {
+            type: String,
+            default: null
+        },
+        tooltip: {
             type: String,
             default: null
         },

@@ -5,6 +5,7 @@
             :id="`search-${id}`"
             :label="label"
             :required="required"
+            :tooltip="tooltip"
             class="mb-1"
         />
 
@@ -276,6 +277,10 @@ export default {
             default: 'Start typing to search for results'
         },
         label: {
+            type: String,
+            default: null
+        },
+        tooltip: {
             type: String,
             default: null
         },
